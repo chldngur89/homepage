@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Target, Lightbulb, Users, TrendingUp, Globe, Award } from "lucide-react";
 
@@ -20,7 +21,7 @@ export default function About() {
             <span className="text-cyan-400">글로벌 브랜드</span>를 가지는 세상
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            제로셀러는 1인 셀러와 소상공인의 성공을 위해 최첨단 AI 기술로 마케팅 장벽을 허물고 있습니다
+            AutoCMO는 창업가와 판매자의 편리함을 위해 최첨단 AI 기술로 마케팅 장벽을 허물고 있습니다
           </p>
         </motion.div>
       </section>
@@ -40,7 +41,7 @@ export default function About() {
             <h2 className="text-3xl font-bold text-white mb-4">Mission</h2>
             <p className="text-lg text-slate-300 leading-relaxed">
               전문 지식과 막대한 비용이 필요했던 마케팅을 누구나 쉽게 활용할 수 있도록 민주화합니다.
-              AI의 힘으로 1인 창업가도 대기업과 동등하게 경쟁할 수 있는 환경을 만듭니다.
+              AI의 힘으로 창업가·판매자도 대기업과 동등하게 경쟁할 수 있는 환경을 만들고, 일상의 편리함을 드립니다.
             </p>
           </motion.div>
 
@@ -66,7 +67,7 @@ export default function About() {
       <section className="max-w-5xl mx-auto px-6 mb-32">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-pink-400">제로셀러</span>의 시작
+            <span className="text-pink-400">AutoCMO</span>의 시작
           </h2>
         </div>
 
@@ -78,18 +79,51 @@ export default function About() {
         >
           <div className="prose prose-invert max-w-none">
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              제로셀러는 실제 1인 셀러였던 창업자의 절박한 경험에서 시작되었습니다. 좋은 제품 아이디어는 있었지만,
+              AutoCMO는 창업가·판매자의 불편함을 덜어주고자 하는 경험에서 시작되었습니다. 좋은 제품 아이디어는 있었지만,
               마케팅 전문 지식이 없어 ChatGPT로 카피를 쓰고, Midjourney로 이미지를 만들고, 다시 포토샵으로 편집하고,
               각 마켓마다 수동으로 업로드하는 과정에서 <strong className="text-white">하루 종일 시간을 낭비</strong>했습니다.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              "이 모든 과정을 자동화할 수는 없을까?" 라는 단순한 질문에서 출발한 제로셀러는, 이제 수천 명의 1인 셀러들이
-              시간과 비용을 절약하고 매출을 늘릴 수 있도록 돕고 있습니다.
+              "이 모든 과정을 자동화할 수는 없을까?" 라는 단순한 질문에서 출발한 AutoCMO는, 이제 창업가와 판매자들이
+              시간과 비용을 절약하고 매출을 늘릴 수 있도록 편리함을 제공하고 있습니다.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed">
               우리는 기술이 소수의 전문가만을 위한 것이 아니라, <strong className="text-cyan-400">모두를 위한 것</strong>이라고 믿습니다.
-              그래서 가장 복잡한 AI 기술을 가장 쉬운 채팅 인터페이스로 만들었습니다.
+              그래서 가장 복잡한 AI 기술을 대시보드 하나로—찾아보지 않아도, 배우지 않아도 되게 만들었습니다.
             </p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Agent2Agent: CMO → CFO·CEO 확장 */}
+      <section className="max-w-7xl mx-auto px-6 mb-32">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-cyan-400">Agent2Agent</span> 기술로 AI를 계속 붙입니다
+          </h2>
+          <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            지금은 CMO AI Agent가 주력이지만, 우리만의 Agent2Agent 기술로 새로운 AI가 나올 때마다 쉽게 붙여 쓸 수 있습니다.
+          </p>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-br from-cyan-900/20 to-indigo-900/20 border border-cyan-500/30 rounded-2xl p-8 md:p-10"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-white mb-4">지금: CMO AI Agent</h3>
+              <p className="text-slate-400 mb-4">
+                마케팅·판매를 대시보드 하나로. 창업가·판매자에게 Zero-Click 편리함을 제공합니다.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-4">앞으로: CFO·CEO AI까지</h3>
+              <p className="text-slate-400 mb-4">
+                우리가 만든 <strong className="text-cyan-400">CFO Tool AI</strong>, <strong className="text-cyan-400">CEO Reader AI</strong> 등 다른 에이전트를 Agent2Agent로 쉽게 연결합니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 그리고 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
+              </p>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -116,7 +150,7 @@ export default function About() {
                 title: "예비창업패키지 (~2천만 원)",
                 period: "2025 Q2-Q3",
                 description:
-                  "초기 자금 확보 및 MVP 개발 완료. 강원 지역 등 로컬 소상공인 대상 클로즈드 베타 테스트를 진행하여 초기 PMF(Product-Market Fit)를 검증하고 성공 레퍼런스를 확보합니다.",
+                  "초기 자금 확보 및 MVP 개발 완료. 창업가·판매자 대상 클로즈드 베타 테스트를 진행하여 초기 PMF(Product-Market Fit)를 검증하고 성공 레퍼런스를 확보합니다.",
                 color: "yellow",
                 status: "진행중",
               },
@@ -125,7 +159,7 @@ export default function About() {
                 title: "청년창업사관학교 (~7천만 원)",
                 period: "2025 Q4 - 2026 Q2",
                 description:
-                  "하이브리드 AI 서버 인프라를 구축하고 글로벌 표준 UI/UX로 고도화합니다. 특히 Chat-to-Action 원천 기술에 대한 해외 특허(PCT) 출원을 통해 독점적 진입장벽을 형성합니다.",
+                  "하이브리드 AI 서버 인프라를 구축하고 글로벌 표준 UI/UX로 고도화합니다. 특히 Zero-Click Intelligence·Self-Reflecting Strategy Loop 원천 기술에 대한 해외 특허(PCT) 출원을 통해 독점적 진입장벽을 형성합니다.",
                 color: "pink",
                 status: "예정",
               },
@@ -202,9 +236,9 @@ export default function About() {
               {
                 icon: <TrendingUp className="w-10 h-10" />,
                 title: "SAM",
-                subtitle: "국내 온라인 소상공인",
+                subtitle: "국내 온라인 창업가·판매자",
                 value: "120만 명",
-                description: "다채널 운영 1인 셀러 시장",
+                description: "다채널 운영 창업가·판매자 시장",
                 color: "pink",
               },
               {
@@ -212,7 +246,7 @@ export default function About() {
                 title: "SOM",
                 subtitle: "초기 타겟 시장",
                 value: "15만 명",
-                description: "신규 진입 로컬 1인 창업가",
+                description: "신규 진입 창업가·판매자",
                 color: "cyan",
               },
             ].map((market, index) => (
@@ -340,7 +374,7 @@ export default function About() {
             {
               name: "김혁신",
               role: "CEO & Co-founder",
-              bio: "전 커머스 1인 셀러, AI 기술로 마케팅 민주화를 꿈꿉니다",
+              bio: "전 커머스 창업가, AI 기술로 창업가·판매자에게 편리함을 전하는 것을 꿈꿉니다",
               image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
             },
             {
@@ -376,12 +410,12 @@ export default function About() {
 
         <div className="mt-12 text-center">
           <p className="text-slate-400 mb-6">우리와 함께 혁신을 만들어갈 인재를 찾습니다</p>
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="inline-block px-8 py-3 bg-pink-600 hover:bg-pink-500 rounded-xl font-semibold transition-colors"
           >
             채용 문의하기
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -401,18 +435,18 @@ export default function About() {
             투자자, 파트너, 인재 모두 환영합니다
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
               IR 미팅 요청하기
-            </a>
-            <a
-              href="/demo"
+            </Link>
+            <Link
+              to="/demo"
               className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
             >
               무료 체험하기
-            </a>
+            </Link>
           </div>
         </motion.div>
       </section>

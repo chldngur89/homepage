@@ -38,8 +38,8 @@ export default function Technology() {
             {
               phase: "01",
               title: "프론트엔드",
-              subtitle: "User App",
-              description: "Flutter 기반의 직관적인 모바일/웹 크로스 플랫폼 채팅 인터페이스",
+              subtitle: "Flutter 대시보드",
+              description: "Flutter 기반 실시간 대시보드. AI 전략 리포트, 인사이트 요약 카드, 승인 대기 전략 리스트가 한 화면에",
               color: "cyan",
               icon: <Globe className="w-8 h-8" />,
             },
@@ -47,7 +47,7 @@ export default function Technology() {
               phase: "02",
               title: "백엔드 / 오케스트레이션",
               subtitle: "FastAPI & LangGraph",
-              description: "GCP Cloud Run 서버리스 환경. 사용자의 의도를 분석하고 AI 에이전트들에게 작업을 분배 및 취합",
+              description: "LangGraph는 단순 루프 제어를 넘어 Self-Reflecting Strategy Loop. 실행 결과(판매량·클릭률)를 AI가 스스로 분석하고 다음 전략을 대시보드에 업데이트하는 자율 학습형 피드백 루프. Kafka로 실시간 데이터 처리",
               color: "indigo",
               icon: <Cpu className="w-8 h-8" />,
               highlight: true,
@@ -201,7 +201,7 @@ export default function Technology() {
               {
                 icon: <Zap className="w-10 h-10" />,
                 title: "99.9% 가동률",
-                description: "24/7 모니터링과 자동 장애 복구 시스템으로 언제나 안정적인 서비스를 제공합니다.",
+                description: "AI 전략 리포트와 실시간 대시보드 업데이트를 24/7 안정적으로 제공하며, 자동 장애 복구로 무중단 서비스를 보장합니다.",
                 color: "yellow",
               },
               {
@@ -280,7 +280,7 @@ export default function Technology() {
               백엔드
             </h3>
             <ul className="space-y-3">
-              {["Python FastAPI", "LangGraph (AI 오케스트레이션)", "PostgreSQL + Redis", "GCP Cloud Run"].map((tech, i) => (
+              {["Python FastAPI", "LangGraph (Self-Reflecting Strategy Loop)", "Kafka (실시간 데이터)", "PostgreSQL + Redis", "GCP Cloud Run"].map((tech, i) => (
                 <li key={i} className="flex items-center gap-3 text-slate-300">
                   <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
                   {tech}
@@ -348,17 +348,20 @@ export default function Technology() {
             독점적 기술 방어막
           </h3>
           <p className="text-lg text-slate-300 mb-6">
-            Chat-to-Action 원천 기술에 대한 <strong className="text-cyan-400">PCT 국제 특허</strong> 출원 준비 중
+            Zero-Click Intelligence·능동형 에이전트 원천 기술에 대한 <strong className="text-cyan-400">PCT 국제 특허</strong> 출원 준비 중
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm">
             <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
-              LangGraph 복합 오케스트레이션
+              LangGraph Self-Reflecting Strategy Loop
             </div>
             <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
               멀티 AI 통합 파이프라인
             </div>
             <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
               RPA 자동 배포 시스템
+            </div>
+            <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
+              Agent2Agent 확장
             </div>
           </div>
         </motion.div>

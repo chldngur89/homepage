@@ -90,7 +90,7 @@ export default function Pricing() {
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-white">프로</h3>
-                <p className="text-sm text-cyan-400">1인 셀러를 위한</p>
+                <p className="text-sm text-cyan-400">창업가·판매자를 위한</p>
               </div>
             </div>
 
@@ -106,7 +106,7 @@ export default function Pricing() {
                 "프리미엄 이미지 생성",
                 "숏폼 영상 제작 (월 30개)",
                 "전체 마켓 업로드 (10+)",
-                "실시간 분석 대시보드",
+                "AI 전략 리포트 대시보드",
                 "우선 이메일/채팅 지원",
               ].map((feature, i) => (
                 <li key={i} className="flex items-start gap-3 text-slate-300">
@@ -256,7 +256,7 @@ export default function Pricing() {
             <div>
               <h3 className="text-2xl font-bold text-white mb-4">💚 수익 쉐어 플랜</h3>
               <p className="text-slate-300 mb-6">
-                제로셀러를 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
+                AutoCMO를 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
               </p>
               <ul className="space-y-3 text-slate-300">
                 <li className="flex items-center gap-2">
@@ -269,7 +269,7 @@ export default function Pricing() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-400" />
-                  투명한 판매 집계 대시보드
+                  AI 전략 리포트·투명한 판매 집계 대시보드
                 </li>
               </ul>
             </div>

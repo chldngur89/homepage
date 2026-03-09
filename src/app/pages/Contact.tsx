@@ -1,33 +1,46 @@
+import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Mail, Phone, MapPin, Send, MessageSquare, Calendar } from "lucide-react";
 import { useState } from "react";
 
 export default function Contact() {
+  const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
-    phone: "",
-    type: "general",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 실제 환경에서는 API 호출
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        type: "general",
-        message: "",
-      });
-    }, 3000);
+    setSubmitError(null);
+    if (FORMSPREE_FORM_ID) {
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        if (res.ok) {
+          setSubmitted(true);
+          setFormData({ name: "", email: "", message: "" });
+          setTimeout(() => setSubmitted(false), 3000);
+        } else {
+          setSubmitError("전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+        }
+      } catch {
+        setSubmitError("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+      }
+    } else {
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: "", email: "", message: "" });
+      }, 3000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -65,8 +78,8 @@ export default function Contact() {
             {
               icon: <Mail className="w-8 h-8" />,
               title: "이메일",
-              content: "contact@zeroseller.ai",
-              link: "mailto:contact@zeroseller.ai",
+              content: "contact@autocmo.ai",
+              link: "mailto:contact@autocmo.ai",
               color: "cyan",
             },
             {
@@ -101,6 +114,9 @@ export default function Contact() {
             </motion.a>
           ))}
         </div>
+        <p className="text-center text-slate-500 text-sm mt-4">
+          상세 연락처·오피스 주소는 문의 폼 제출 후 담당자가 안내해 드립니다.
+        </p>
       </section>
 
       {/* Main Content Grid */}
@@ -129,82 +145,34 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-300 mb-2">
-                      이름 <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                      placeholder="홍길동"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-300 mb-2">
-                      이메일 <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                      placeholder="hong@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-300 mb-2">회사명</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                      placeholder="(선택사항)"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-300 mb-2">전화번호</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                      placeholder="010-1234-5678"
-                    />
-                  </div>
-                </div>
-
                 <div>
                   <label className="block text-sm font-semibold text-slate-300 mb-2">
-                    문의 유형 <span className="text-red-400">*</span>
+                    이름 <span className="text-red-400">*</span>
                   </label>
-                  <select
-                    name="type"
-                    value={formData.type}
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
-                  >
-                    <option value="general">일반 문의</option>
-                    <option value="sales">제품 구매 상담</option>
-                    <option value="ir">IR 미팅 요청</option>
-                    <option value="partnership">파트너십 제안</option>
-                    <option value="career">채용 문의</option>
-                    <option value="technical">기술 지원</option>
-                  </select>
+                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                    placeholder="홍길동"
+                  />
                 </div>
-
+                <div>
+                  <label className="block text-sm font-semibold text-slate-300 mb-2">
+                    이메일 <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                    placeholder="hong@example.com"
+                  />
+                </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-300 mb-2">
                     메시지 <span className="text-red-400">*</span>
@@ -214,12 +182,15 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={6}
+                    rows={5}
                     className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors resize-none"
-                    placeholder="문의 내용을 자세히 적어주세요..."
+                    placeholder="문의 내용을 적어주세요. (일반 문의, IR 미팅, 파트너십 등)"
                   />
                 </div>
 
+                {submitError && (
+                  <p className="text-red-400 text-sm mb-4">{submitError}</p>
+                )}
                 <button
                   type="submit"
                   className="w-full py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all flex items-center justify-center gap-2"
@@ -311,12 +282,12 @@ export default function Contact() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="/pricing"
+              <Link
+                to="/pricing"
                 className="block w-full py-3 mt-6 border border-slate-600 hover:border-cyan-500 hover:text-cyan-400 rounded-xl font-semibold transition-all text-center"
               >
                 FAQ 전체 보기
-              </a>
+              </Link>
             </div>
 
             {/* Social Links */}

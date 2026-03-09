@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Upload, Send, Loader, Check, Download, Smartphone } from "lucide-react";
@@ -44,8 +45,11 @@ export default function Demo() {
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="text-cyan-400">1분</span>이면 충분합니다
           </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            제품 사진과 간단한 메시지로 전문가 수준의 마케팅 콘텐츠를 만들어보세요
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-4">
+            창업가·판매자를 위해 제품 사진과 간단한 메시지로 전문가 수준의 마케팅 콘텐츠를 만들어보세요
+          </p>
+          <p className="text-slate-500 text-sm max-w-2xl mx-auto">
+            아래는 체험용 시뮬레이션입니다. 실제 AutoCMO 가입 후에는 <strong className="text-slate-400">대시보드에서 AI 전략 리포트</strong>와 <strong className="text-slate-400">원클릭 승인</strong>으로 실시간 운영을 경험하실 수 있습니다.
           </p>
         </motion.div>
       </section>
@@ -366,18 +370,18 @@ export default function Demo() {
             지금 바로 무료로 시작하거나 더 많은 기능을 확인해보세요
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/pricing"
+            <Link
+              to="/pricing"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
               요금제 보기
-            </a>
-            <a
-              href="/contact"
+            </Link>
+            <Link
+              to="/contact"
               className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
             >
               문의하기
-            </a>
+            </Link>
           </div>
         </motion.div>
       </section>

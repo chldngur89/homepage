@@ -1,10 +1,19 @@
 import { Outlet, Link, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import siteContent from "@/content/site.json";
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
 export function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    scrollToTop();
+  }, [location.pathname]);
 
   const navigation = [
     { name: "홈", href: "/" },
@@ -28,12 +37,12 @@ export function Layout() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" onClick={scrollToTop} className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center font-bold text-white">
-                Z
+                A
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 via-pink-400 to-indigo-500 bg-clip-text text-transparent">
-                ZeroSeller
+                {siteContent.siteName}
               </span>
             </Link>
 
@@ -43,6 +52,7 @@ export function Layout() {
                 <Link
                   key={item.name}
                   to={item.href}
+                  onClick={scrollToTop}
                   className={`text-sm font-medium transition-colors ${
                     isActive(item.href)
                       ? "text-cyan-400"
@@ -54,7 +64,8 @@ export function Layout() {
               ))}
               <Link
                 to="/demo"
-                className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-sm font-semibold hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all"
+                onClick={scrollToTop}
+                className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-5 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-sm font-semibold hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all"
               >
                 무료 체험
               </Link>
@@ -63,7 +74,8 @@ export function Layout() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-slate-400 hover:text-white"
+              className="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-2 text-slate-400 hover:text-white"
+              aria-label="메뉴 열기"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -76,7 +88,7 @@ export function Layout() {
                 <Link
                   key={item.name}
                   to={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => { setMobileMenuOpen(false); scrollToTop(); }}
                   className={`block py-2 text-sm font-medium transition-colors ${
                     isActive(item.href)
                       ? "text-cyan-400"
@@ -88,8 +100,8 @@ export function Layout() {
               ))}
               <Link
                 to="/demo"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-center px-5 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-sm font-semibold"
+                onClick={() => { setMobileMenuOpen(false); scrollToTop(); }}
+                className="block text-center min-h-[48px] flex items-center justify-center px-5 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-sm font-semibold"
               >
                 무료 체험
               </Link>
@@ -111,14 +123,14 @@ export function Layout() {
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center font-bold text-white">
-                  Z
+                  A
                 </div>
                 <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 via-pink-400 to-indigo-500 bg-clip-text text-transparent">
-                  ZeroSeller
+                  {siteContent.siteName}
                 </span>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed max-w-md">
-                사진 한 장과 채팅 한 줄로 1분 만에 판매를 시작하는 Chat-to-Action 마케팅 에이전트
+                {siteContent.tagline}. {siteContent.taglineShort}
               </p>
               <div className="mt-6 flex gap-4">
                 <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors">
@@ -164,11 +176,11 @@ export function Layout() {
 
           <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-slate-500">
-              &copy; 2026 ZeroSeller Actionable AI. All rights reserved.
+              {siteContent.footer.copyright}
             </p>
             <div className="flex gap-6 text-sm text-slate-500">
-              <a href="#" className="hover:text-slate-300 transition-colors">개인정보처리방침</a>
-              <a href="#" className="hover:text-slate-300 transition-colors">이용약관</a>
+              <Link to="/privacy" className="hover:text-slate-300 transition-colors">{siteContent.footer.privacy}</Link>
+              <Link to="/terms" className="hover:text-slate-300 transition-colors">{siteContent.footer.terms}</Link>
             </div>
           </div>
         </div>

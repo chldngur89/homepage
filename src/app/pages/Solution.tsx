@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { motion } from "motion/react";
 import { ArrowRight, MessageSquare, Image, Video, Upload, Check } from "lucide-react";
 
@@ -15,12 +16,12 @@ export default function Solution() {
             솔루션
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-cyan-400">Chat-to-Action</span>으로
+            <span className="text-cyan-400">Zero-Click Intelligence</span>로
             <br />
-            모든 것이 자동화됩니다
+            대시보드만 보면 됩니다
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            복잡했던 마케팅 프로세스를 단 하나의 채팅창으로 완벽히 통합했습니다
+            창업가·판매자를 위한 CMO AI Agent. 상품 사진과 마켓만 선택하면, AI가 실행·분석을 보고하고 최적의 다음 행동(Next Action)을 제안합니다.
           </p>
         </motion.div>
       </section>
@@ -30,7 +31,7 @@ export default function Solution() {
         <div className="bg-indigo-900/20 rounded-3xl p-8 md:p-12 border border-indigo-500/20">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              기존 방식 vs <span className="text-cyan-400">제로셀러</span>
+              기존 방식 vs <span className="text-cyan-400">AutoCMO</span>
             </h2>
             <p className="text-lg text-slate-400">
               파편화된 작업 흐름을 원스톱으로 통합
@@ -95,39 +96,43 @@ export default function Solution() {
               className="bg-gradient-to-br from-slate-900 to-indigo-900/30 rounded-2xl p-8 border border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]"
             >
               <div className="text-cyan-400 font-bold mb-6 flex items-center gap-2 text-xl">
-                <span>✨</span> 제로셀러 방식 (After)
+                <span>✨</span> AutoCMO 방식 (After)
               </div>
               <div className="space-y-6 flex flex-col justify-center h-full">
-                <div className="bg-indigo-600 p-6 rounded-xl text-center font-bold shadow-lg">
-                  <div className="text-3xl mb-3">📱</div>
-                  <div className="text-lg mb-2">채팅 + 사진 입력</div>
-                  <div className="text-sm text-indigo-200">"여름 프로모션 해줘"</div>
+                <div className="bg-slate-800/80 border border-cyan-500/30 p-6 rounded-xl text-left">
+                  <div className="text-cyan-400 font-semibold mb-2">📊 AI 전략 리포트</div>
+                  <div className="text-sm text-slate-300 italic">
+                    "현재 B 마켓의 전환율이 낮습니다. 경쟁사 C의 신규 프로모션 때문으로 파악되니, 즉시 반값 할인을 실행할까요?"
+                  </div>
+                  <button className="mt-4 px-4 py-2 bg-cyan-500 hover:bg-cyan-400 rounded-lg text-sm font-semibold text-white transition-colors">
+                    ✓ 원클릭 승인
+                  </button>
                 </div>
 
                 <div className="text-center">
                   <div className="text-cyan-400 text-2xl font-bold animate-pulse py-4">
-                    ⬇️ AI 원클릭 자동화 ⬇️
+                    ⬇️ 결정(Decision)에 집중 ⬇️
                   </div>
                   <div className="grid grid-cols-3 gap-2 mt-4 text-xs">
                     <div className="bg-slate-800/50 p-2 rounded border border-cyan-500/30">
                       <MessageSquare className="w-4 h-4 mx-auto mb-1 text-cyan-400" />
-                      카피
+                      인사이트
                     </div>
                     <div className="bg-slate-800/50 p-2 rounded border border-cyan-500/30">
                       <Image className="w-4 h-4 mx-auto mb-1 text-cyan-400" />
-                      이미지
+                      승인 대기
                     </div>
                     <div className="bg-slate-800/50 p-2 rounded border border-cyan-500/30">
                       <Video className="w-4 h-4 mx-auto mb-1 text-cyan-400" />
-                      영상
+                      실행
                     </div>
                   </div>
                 </div>
 
                 <div className="bg-gradient-to-r from-cyan-600 to-indigo-600 p-6 rounded-xl text-center font-bold shadow-lg">
                   <div className="text-3xl mb-3">🚀</div>
-                  <div className="text-lg mb-2">다채널 마켓 동시 업로드 완료</div>
-                  <div className="text-sm text-cyan-100">쿠팡, 네이버, 11번가...</div>
+                  <div className="text-lg mb-2">실행 → 분석 → 다음 최적 행동 제안 (선순환)</div>
+                  <div className="text-sm text-cyan-100">대시보드만 보시면 됩니다</div>
                 </div>
 
                 <div className="text-center pt-4 border-t border-cyan-500/30">
@@ -163,8 +168,8 @@ export default function Solution() {
             {
               step: "02",
               icon: <MessageSquare className="w-10 h-10" />,
-              title: "채팅으로 요청",
-              description: "간단한 자연어로 원하는 마케팅 방향을 알려주세요",
+              title: "마켓 선택",
+              description: "판매할 마켓(쿠팡, 네이버 등)만 선택하면 AI가 나머지를 제안합니다",
               color: "indigo",
             },
             {
@@ -199,6 +204,75 @@ export default function Solution() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* AI 전략 리포트 (대시보드) */}
+      <section className="max-w-7xl mx-auto px-6 mb-32">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            대시보드: <span className="text-cyan-400">AI 전략 리포트</span>
+          </h2>
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            단순 판매량 그래프가 아닌, AI 분석 코멘트와 원클릭 승인 버튼이 있는 결정(Decision) 중심 화면
+          </p>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-slate-800/30 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-8 md:p-10"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-2xl">💬</span> AI 분석 코멘트
+              </h3>
+              <p className="text-slate-400 mb-4">
+                예: "현재 B 마켓의 전환율이 낮습니다. 경쟁사 C의 신규 프로모션 때문으로 파악되니, 즉시 반값 할인을 실행할까요?"
+              </p>
+              <p className="text-sm text-slate-500">
+                대시보드에서 실시간 상황과 권장 Next Action을 한눈에 확인하세요.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-2xl">✅</span> 원클릭 승인 버튼
+              </h3>
+              <p className="text-slate-400 mb-4">
+                AI가 제안한 전략을 그대로 실행할지, 대시보드에서 한 번에 승인하세요. 다크 모드·미니멀 디자인 톤을 유지한 채 '결정'에만 집중하는 UX입니다.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* AI 마켓 가디언 */}
+      <section className="max-w-7xl mx-auto px-6 mb-32">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-pink-400">AI 마켓 가디언</span> (Market Guardian)
+          </h2>
+          <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            우리 데이터만 보는 게 아니라, 경쟁사 활동을 실시간으로 크롤링해 대표님께 브리핑합니다
+          </p>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-br from-pink-900/20 to-indigo-900/20 border border-pink-500/30 rounded-2xl p-8 md:p-10"
+        >
+          <ul className="space-y-2 text-slate-400 mb-6">
+            <li>· 외부 경쟁사 가격 변동, 리뷰 키워드 변화, 신규 광고 소재를 실시간 수집</li>
+            <li>· AI가 분석한 인사이트를 대화형 보고로 전달</li>
+          </ul>
+          <div className="bg-slate-900/60 rounded-xl p-6 border border-pink-500/20">
+            <div className="text-pink-400 font-semibold mb-2">AI 페르소나 대화형 보고 예시</div>
+            <p className="text-slate-300 italic">
+              "대표님, 지금 경쟁사들이 쓰는 카피보다 우리 AI가 생성한 'XX' 키워드 반응이 더 좋습니다. 이대로 유지하시죠."
+            </p>
+          </div>
+        </motion.div>
       </section>
 
       {/* Key Features */}
@@ -262,7 +336,7 @@ export default function Solution() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              왜 <span className="text-cyan-400">제로셀러</span>인가요?
+              왜 <span className="text-cyan-400">AutoCMO</span>인가요?
             </h2>
           </div>
 
@@ -330,13 +404,13 @@ export default function Solution() {
             신용카드 등록 없이 무료로 시작할 수 있습니다
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/demo"
+            <Link
+              to="/demo"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all inline-flex items-center justify-center gap-2"
             >
               무료 체험 시작하기
               <ArrowRight size={20} />
-            </a>
+            </Link>
           </div>
         </motion.div>
       </section>
