@@ -359,67 +359,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            열정적인 <span className="text-pink-400">팀</span>
-          </h2>
-          <p className="text-lg text-slate-400">
-            AI, 커머스, 마케팅 전문가들이 모여 혁신을 만들어갑니다
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              name: "김혁신",
-              role: "CEO & Co-founder",
-              bio: "전 커머스 창업가, AI 기술로 창업가·판매자에게 편리함을 전하는 것을 꿈꿉니다",
-              image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
-            },
-            {
-              name: "박기술",
-              role: "CTO & Co-founder",
-              bio: "전 네이버 AI Lab, 10년+ 백엔드 & ML 경험",
-              image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
-            },
-            {
-              name: "이성장",
-              role: "Head of Growth",
-              bio: "전 쿠팡 마케팅, 퍼포먼스 마케팅 전문가",
-              image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400",
-            },
-          ].map((member, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-6 hover:border-pink-500/50 transition-all"
-            >
-              <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-pink-500/30">
-                <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-              </div>
-              <h3 className="text-xl font-bold text-white text-center mb-2">{member.name}</h3>
-              <div className="text-cyan-400 text-center font-semibold mb-3">{member.role}</div>
-              <p className="text-sm text-slate-400 text-center leading-relaxed">{member.bio}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-slate-400 mb-6">우리와 함께 혁신을 만들어갈 인재를 찾습니다</p>
-          <Link
-            to="/contact"
-            className="inline-block px-8 py-3 bg-pink-600 hover:bg-pink-500 rounded-xl font-semibold transition-colors"
-          >
-            채용 문의하기
-          </Link>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-6 text-center">
         <motion.div
@@ -448,7 +387,7 @@ export default function About() {
               rel="noopener noreferrer"
               className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
             >
-              무료 체험하기
+              AI 마케팅 총괄(CMO) 임명하기
             </a>
           </div>
         </motion.div>

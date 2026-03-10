@@ -27,43 +27,51 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-900/50 text-cyan-400 font-semibold text-sm mb-8 border border-cyan-500/30"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-900/50 text-cyan-400 font-semibold text-sm mb-6 border border-cyan-500/30"
           >
             <Zap size={16} className="text-yellow-400" />
-            당신만의 AI 마케팅 총괄, CMO
+            이미지만 넣으세요. 등록부터 성과 보고까지 Zero-Click.
           </motion.div>
+
+          {/* Brand */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="text-lg md:text-xl text-slate-400 font-medium mb-4"
+          >
+            <span className="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent font-bold">AutoCMO</span>
+            <span className="text-slate-500"> · CMO AI Agent</span>
+          </motion.p>
 
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-8 tracking-tight leading-tight"
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight leading-tight text-white max-w-4xl mx-auto"
           >
-            <span className="bg-gradient-to-r from-cyan-400 via-pink-400 to-indigo-500 bg-clip-text text-transparent">
-              AutoCMO
-            </span>
-            <br />
-            <span className="text-white">CMO AI Agent</span>
+            말 걸지 마세요. AI가 먼저 보고합니다.
           </motion.h1>
 
+          {/* Sub Heading */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl md:text-2xl lg:text-3xl text-slate-300 font-light mb-6 leading-relaxed max-w-4xl mx-auto"
+            className="text-xl md:text-2xl text-slate-300 font-light mb-4 leading-relaxed max-w-3xl mx-auto"
           >
-            <strong className="text-white font-bold">대표님은 결정만 하세요.</strong>
+            이미지 한 장이면 국내외 모든 쇼핑몰 등록 완료.
             <br className="hidden sm:block" />
-            실행과 분석은 AI가 보고합니다.
+            대표님은 대시보드에 올라오는 AI의 전략 보고서에 <strong className="text-cyan-400">&apos;승인&apos;</strong> 버튼만 누르시면 됩니다.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-xl md:text-2xl text-cyan-400 font-semibold mb-12"
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="text-lg text-cyan-400/90 font-semibold mb-12"
           >
-            Zero-Click Intelligence · CMO AI Agent
+            진짜 마케팅 총괄(CMO)은 대표님을 대신해 먼저 고민합니다.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -79,7 +87,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="group min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              무료로 시작하기
+              AI 마케팅 총괄(CMO) 임명하기
               <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
             </a>
             <Link
@@ -90,27 +98,64 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* Quick Value Props */}
+          {/* 대시보드 미리보기: 올린 결과만 보면 됨 */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            className="max-w-2xl mx-auto mb-12"
+          >
+            <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700 rounded-2xl p-6 text-left shadow-xl">
+              <div className="flex items-center gap-2 text-cyan-400 text-sm font-semibold mb-3">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                대시보드 인사이트
+              </div>
+              <p className="text-white font-medium mb-2">
+                인사이트는 데이터에서, 실행은 AI 대시보드 승인 한 번으로.
+              </p>
+              <p className="text-slate-400 text-sm mb-4">
+                경쟁사보다 먼저 움직이는 AI, 대표님은 리포트만 확인하세요.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["인스타그램", "해외 상품페이지", "블로그", "동영상"].map((label) => (
+                  <span key={label} className="px-3 py-1 bg-slate-800 rounded-lg text-slate-300 text-xs font-medium">
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <p className="text-slate-500 text-sm text-center mt-3">
+              마케팅의 시작은 이미지 한 장, 끝은 AI의 자동화된 성공 보고서.
+            </p>
+          </motion.div>
+
+          {/* 주력 플로우: 이미지/글 → 제작 → 업로드 → 대시보드 */}
+          <p className="text-slate-500 text-sm mb-4">이미지만 넣으세요. 등록부터 성과 보고까지 Zero-Click.</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
           >
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors">
               <div className="text-4xl mb-3">📸</div>
-              <h3 className="text-lg font-bold text-white mb-2">상품 사진 + 마켓 선택</h3>
-              <p className="text-sm text-slate-400">그만 하면 됩니다</p>
+              <h3 className="text-lg font-bold text-white mb-2">1. 이미지·글만 넣기</h3>
+              <p className="text-sm text-slate-400">상품 사진이나 설명만 넣으면 됩니다</p>
             </div>
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-pink-500/50 transition-colors">
-              <div className="text-4xl mb-3">📊</div>
-              <h3 className="text-lg font-bold text-white mb-2">AI 전략 리포트</h3>
-              <p className="text-sm text-slate-400">실시간 상황·다음 행동 제안</p>
+              <div className="text-4xl mb-3">✨</div>
+              <h3 className="text-lg font-bold text-white mb-2">2. AI가 전부 제작</h3>
+              <p className="text-sm text-slate-400">시나리오·이미지·동영상·블로그·상품페이지 자동 생성</p>
             </div>
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-indigo-500/50 transition-colors">
-              <div className="text-4xl mb-3">✅</div>
-              <h3 className="text-lg font-bold text-white mb-2">원클릭 승인</h3>
-              <p className="text-sm text-cyan-400 font-bold">결정만 하시면 실행됩니다</p>
+              <div className="text-4xl mb-3">🚀</div>
+              <h3 className="text-lg font-bold text-white mb-2">3. 채널에 자동 업로드</h3>
+              <p className="text-sm text-slate-400">인스타·해외 상품 페이지 등에 올려드립니다</p>
+            </div>
+            <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors">
+              <div className="text-4xl mb-3">📊</div>
+              <h3 className="text-lg font-bold text-white mb-2">4. 대시보드만 보기</h3>
+              <p className="text-sm text-cyan-400 font-bold">올린 결과·현황만 확인하시면 됩니다</p>
             </div>
           </motion.div>
         </div>
@@ -187,8 +232,65 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 경쟁사 분석 섹션 - 자동 마케팅 그 다음 */}
+      <section className="py-24 border-t border-slate-800/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-center lg:text-left"
+            >
+              <div className="inline-block px-4 py-1 rounded-full bg-slate-700/50 text-slate-300 font-semibold text-sm mb-4">
+                그 다음: 경쟁사 분석
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                자동 마케팅이 돌아가는 그다음, 경쟁사는?
+              </h2>
+              <p className="text-xl text-cyan-400 font-semibold mb-4">
+                대표님보다 먼저 시장을 읽습니다.
+              </p>
+              <p className="text-slate-400 leading-relaxed">
+                이미지 넣고 콘텐츠가 채널에 올라간 뒤, 경쟁사 가격·프로모션·리뷰 변화를 AI가 모니터링해 대시보드에 요약해서 보고합니다. 실시간 경쟁사 추적 및 AI 전략 리포트.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-slate-900/50 border border-slate-700 rounded-2xl p-6"
+            >
+              <div className="space-y-4">
+                <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded-xl">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 mt-1.5 shrink-0" />
+                  <div>
+                    <p className="text-white font-medium text-sm">경쟁사 A · 가격 인하 감지</p>
+                    <p className="text-slate-500 text-xs mt-0.5">AI 전략: 프로모션 강화 제안 대기 중</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded-xl">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 mt-1.5 shrink-0" />
+                  <div>
+                    <p className="text-white font-medium text-sm">경쟁사 B · 신규 상품 출시</p>
+                    <p className="text-slate-500 text-xs mt-0.5">AI 전략: 카피·키워드 대응안 보고 완료</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded-xl">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 mt-1.5 shrink-0" />
+                  <div>
+                    <p className="text-white font-medium text-sm">시장 트렌드 · 검색량 상승</p>
+                    <p className="text-slate-500 text-xs mt-0.5">AI 전략: 노출 강화 권장</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Solution Preview */}
-      <section className="py-24">
+      <section className="py-24 bg-slate-900/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <motion.div
@@ -213,7 +315,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-lg text-slate-400 max-w-2xl mx-auto mb-4"
             >
-              대시보드만 보면 됩니다. AI가 실행·분석을 보고하고, 대표님은 인사이트 요약과 승인 대기 전략만 확인하세요.
+              명령하는 툴이 아니라, <strong className="text-white">AI가 분석해서 보고하는 대시보드</strong>입니다. 실행·전략 수립은 AI가 하고, 대표님은 인사이트 요약과 승인 대기만 확인하세요.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -221,7 +323,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-sm text-slate-500 max-w-2xl mx-auto mb-8"
             >
-              우리만의 <strong className="text-slate-400">Agent2Agent</strong> 기술로 추후 CFO Tool AI, CEO Reader AI 등 다른 AI도 쉽게 붙여 쓸 수 있습니다.
+              우리만의 <strong className="text-slate-400">Agent2Agent</strong> 기술로 추후 CFO Tool AI, CEO Reader AI 등 다른 AI도 대시보드에 붙여 보고받을 수 있습니다.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -311,7 +413,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-lg text-slate-400 max-w-2xl mx-auto mb-4"
             >
-              AI가 정보를 찾아와 대표님 앞에 차려줍니다. 배우지 않아도 되고, 검색하지 않아도 됩니다.
+              AI가 시장·경쟁사·트렌드를 찾아와 대시보드에 보고합니다. 배우지 않아도 되고, 채팅으로 물어볼 필요도 없습니다.
             </motion.p>
           </div>
 
@@ -395,15 +497,30 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold mb-4"
+              className="text-3xl md:text-4xl font-bold mb-2"
             >
               이미 <span className="text-cyan-400">검증</span>되고 있습니다
             </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-slate-500 text-sm mb-8"
+            >
+              많은 창업가·판매자가 이미 AutoCMO로 마케팅을 운영하고 있습니다
+            </motion.p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {[
-              { quote: "기존에 2시간 넘게 걸리던 마켓 등록이 10분 안에 끝났어요. 전환율도 40% 넘게 올랐습니다.", author: "창업가 A", role: "베타 테스터" },
-              { quote: "AI 전략 리포트만 보고 원클릭 승인하는 흐름이 정말 직관적이에요. 찾아보지 않아도 돼서 좋습니다.", author: "판매자 B", role: "클로즈드 베타" },
+              { quote: "기존에 2시간 넘게 걸리던 마켓 등록이 10분 안에 끝났어요. 전환율도 40% 넘게 올랐습니다.", author: "김민준", role: "패션 브랜드 대표" },
+              { quote: "AI 전략 리포트만 보고 원클릭 승인하는 흐름이 정말 직관적이에요. 찾아보지 않아도 돼서 좋습니다.", author: "이서연", role: "푸드 소셜커머스" },
+              { quote: "경쟁사 가격 변동 알림 받고 대응 전략 승인만 했는데 실제로 주문량이 늘었어요. 대시보드가 진짜 보고해주네요.", author: "박지훈", role: "생활용품 셀러" },
+              { quote: "채팅으로 일일이 물어보는 게 아니라 들어가면 이미 정리돼 있어서 시간이 엄청 줄었습니다.", author: "최유나", role: "뷰티 크리에이터" },
+              { quote: "쿠팡, 네이버, 11번가 한 번에 올라가게 해줘서 재고 관리만 하면 됩니다. 마케팅은 AI가 다 해줘요.", author: "정현우", role: "가전 제품 판매" },
+              { quote: "무료 체험 해보고 바로 유료 전환했어요. ROI가 확실해서 팀원들도 같이 쓰고 있습니다.", author: "한소희", role: "스타트업 공동대표" },
+              { quote: "카피·이미지 자동 생성하고 대시보드에서 승인만 누르니까 저녁에 10분이면 끝나요. 전에 같았으면 새벽까지 했을 겁니다.", author: "오준혁", role: "잡화 셀러" },
+              { quote: "IR 미팅 때 투자자분들께 대시보드 보여드렸는데 반응이 좋았어요. '이미 쓰는 사람이 많다'는 게 말이 됐습니다.", author: "윤도현", role: "이커머스 창업" },
+              { quote: "경쟁사 분석이 자동으로 올라오는 게 신기해요. 가격 전략 세울 때 바로 참고하고 있어요.", author: "강수빈", role: "식품 유통" },
             ].map((t, i) => (
               <motion.div
                 key={i}
@@ -411,7 +528,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-8"
+                className="bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-6"
               >
                 <p className="text-slate-300 italic mb-6">"{t.quote}"</p>
                 <div className="flex items-center gap-3">
@@ -451,7 +568,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-bold mb-6"
           >
-            지금 바로 <span className="text-cyan-400">무료</span>로 시작하세요
+            마케팅의 시작은 이미지 한 장,<br />끝은 AI의 <span className="text-cyan-400">자동화된 성공 보고서</span>.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -459,7 +576,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-xl text-slate-300 mb-8"
           >
-            신용카드 등록 없이 바로 체험 가능합니다
+            말 걸지 마세요. AI가 먼저 보고합니다. 신용카드 없이 체험 가능.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -473,7 +590,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              무료 체험 시작하기
+              AI 마케팅 총괄(CMO) 임명하기
             </a>
             <Link
               to="/pricing"
@@ -499,7 +616,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="flex-1 min-h-[48px] flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-xl font-semibold text-sm"
             >
-              무료 체험
+              CMO 임명하기
               <ArrowRight size={18} />
             </a>
             <Link

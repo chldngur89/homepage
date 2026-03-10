@@ -2,6 +2,9 @@ import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Mail, Phone, MapPin, Send, MessageSquare, Calendar } from "lucide-react";
 import { useState } from "react";
+import siteContent from "@/content/site.json";
+
+const contactEmail = (siteContent as { contactEmail?: string }).contactEmail ?? "chldngur89@gmail.com";
 
 export default function Contact() {
   const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "";
@@ -35,11 +38,15 @@ export default function Contact() {
         setSubmitError("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
       }
     } else {
+      // Formspree 없을 때: mailto로 사용자 메일 앱 열기 → chldngur89@naver.com으로 보내는 효과
+      const subject = encodeURIComponent(`[AutoCMO 문의] ${formData.name}님 문의`);
+      const body = encodeURIComponent(
+        `이름: ${formData.name}\n이메일: ${formData.email}\n\n메시지:\n${formData.message}`
+      );
+      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
       setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({ name: "", email: "", message: "" });
-      }, 3000);
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitted(false), 5000);
     }
   };
 
@@ -78,21 +85,21 @@ export default function Contact() {
             {
               icon: <Mail className="w-8 h-8" />,
               title: "이메일",
-              content: "contact@autocmo.ai",
-              link: "mailto:contact@autocmo.ai",
+              content: contactEmail,
+              link: `mailto:${contactEmail}`,
               color: "cyan",
             },
             {
               icon: <Phone className="w-8 h-8" />,
               title: "전화",
-              content: "+82 10-1234-5678",
-              link: "tel:+821012345678",
+              content: "+82 10-7771-8296",
+              link: "tel:+821077718296",
               color: "indigo",
             },
             {
               icon: <MapPin className="w-8 h-8" />,
               title: "오피스",
-              content: "서울특별시 강남구 테헤란로 123",
+              content: "미정",
               link: "#",
               color: "pink",
             },
@@ -138,10 +145,15 @@ export default function Contact() {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">문의가 전송되었습니다!</h3>
                 <p className="text-slate-400">
-                  빠른 시일 내에 담당자가 연락드리겠습니다.
+                  {FORMSPREE_FORM_ID
+                    ? "빠른 시일 내에 담당자가 연락드리겠습니다."
+                    : "메일 앱에서 전송 버튼을 눌러 주시면 문의가 접수됩니다."}
                   <br />
                   감사합니다.
                 </p>
+                {!FORMSPREE_FORM_ID && (
+                  <p className="text-sm text-slate-500 mt-4">수신: {contactEmail}</p>
+                )}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -213,29 +225,35 @@ export default function Contact() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            {/* IR Deck Download */}
+            {/* IR / 미팅 문의 */}
             <div className="bg-gradient-to-br from-indigo-900/30 to-slate-900/50 border border-indigo-500/30 rounded-2xl p-8">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0">
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">IR 미팅 예약</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">IR 미팅 · 자료 요청</h3>
                   <p className="text-slate-400">
-                    투자자 및 파트너를 위한 상세한 IR 프레젠테이션을 준비했습니다
+                    투자자·파트너 IR 자료나 미팅이 필요하시면 문의해 주세요. 담당자가 안내드립니다.
                   </p>
                 </div>
               </div>
               <div className="space-y-3">
-                <button className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition-colors text-left px-4 flex items-center justify-between">
-                  <span>IR 덱 다운로드 (PDF)</span>
+                <a
+                  href={`mailto:${contactEmail}?subject=${encodeURIComponent("[AutoCMO] IR 자료 요청")}`}
+                  className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition-colors px-4 flex items-center justify-center gap-2"
+                >
+                  IR 자료 요청하기
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                </button>
-                <button className="w-full py-3 border-2 border-indigo-500 hover:bg-indigo-500/10 rounded-xl font-semibold transition-colors">
+                </a>
+                <Link
+                  to="/contact"
+                  className="w-full py-3 border-2 border-indigo-500 hover:bg-indigo-500/10 rounded-xl font-semibold transition-colors block text-center"
+                >
                   온라인 미팅 예약하기
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -318,13 +336,13 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Office Location Map Placeholder */}
+      {/* Office Location */}
       <section className="max-w-7xl mx-auto px-6 mb-32">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             오피스 <span className="text-cyan-400">위치</span>
           </h2>
-          <p className="text-lg text-slate-400">방문 전 미리 연락 주시면 감사하겠습니다</p>
+          <p className="text-lg text-slate-400">확정 시 안내드립니다</p>
         </div>
 
         <motion.div
@@ -333,25 +351,11 @@ export default function Contact() {
           viewport={{ once: true }}
           className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl overflow-hidden"
         >
-          <div className="aspect-video bg-slate-900 flex items-center justify-center">
+          <div className="aspect-video bg-slate-900 flex items-center justify-center min-h-[200px]">
             <div className="text-center">
               <MapPin className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-500 text-lg">서울특별시 강남구 테헤란로 123</p>
-              <p className="text-slate-600 text-sm mt-2">(지도는 실제 서비스에서 표시됩니다)</p>
-            </div>
-          </div>
-          <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <h4 className="font-semibold text-white mb-2">🚇 지하철</h4>
-              <p className="text-sm text-slate-400">2호선 강남역 3번 출구 도보 5분</p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-2">🚌 버스</h4>
-              <p className="text-sm text-slate-400">강남역 정류장 하차 (간선 340, 360번)</p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-2">🚗 주차</h4>
-              <p className="text-sm text-slate-400">건물 내 유료 주차장 이용 가능</p>
+              <p className="text-slate-500 text-lg">미정</p>
+              <p className="text-slate-600 text-sm mt-2">오피스 위치 확정 시 연락드리겠습니다</p>
             </div>
           </div>
         </motion.div>

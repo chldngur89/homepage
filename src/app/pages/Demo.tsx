@@ -41,7 +41,7 @@ export default function Demo() {
           className="text-center"
         >
           <div className="inline-block px-4 py-1 rounded-full bg-cyan-900/30 text-cyan-400 font-semibold text-sm mb-6">
-            무료 체험
+            CMO 임명
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="text-cyan-400">1분</span>이면 충분합니다

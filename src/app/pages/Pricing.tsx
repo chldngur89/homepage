@@ -71,7 +71,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="block w-full py-3 px-6 text-center bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold transition-colors"
             >
-              무료로 시작하기
+              AI 마케팅 총괄(CMO) 임명하기
             </a>
           </motion.div>
 
@@ -125,7 +125,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="block w-full py-3 px-6 text-center bg-gradient-to-r from-cyan-500 to-indigo-600 hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] rounded-xl font-semibold transition-all"
             >
-              지금 시작하기
+              CMO 임명하기
             </a>
           </motion.div>
 
@@ -373,7 +373,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              무료 체험 시작하기
+              AI 마케팅 총괄(CMO) 임명하기
             </a>
             <Link
               to="/contact"

@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Apps from "./pages/Apps";
+import NotFound from "./pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { path: "contact", Component: Contact },
       { path: "privacy", Component: Privacy },
       { path: "terms", Component: Terms },
+      { path: "*", Component: NotFound },
     ],
   },
 ]);

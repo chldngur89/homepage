@@ -411,7 +411,7 @@ export default function Solution() {
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all inline-flex items-center justify-center gap-2"
             >
-              무료 체험 시작하기
+              AI 마케팅 총괄(CMO) 임명하기
               <ArrowRight size={20} />
             </a>
           </div>
