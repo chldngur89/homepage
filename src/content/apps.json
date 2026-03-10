@@ -1,0 +1,25 @@
+{
+  "apps": [
+    {
+      "id": "cmo",
+      "name": "CMO AI Agent",
+      "shortName": "AutoCMO",
+      "url": "https://web-neon-nu-89.vercel.app/",
+      "description": "대표님은 결정만 하세요. 실행과 분석은 AI가 보고합니다. Zero-Click Intelligence · CMO AI Agent."
+    },
+    {
+      "id": "ceo-rader",
+      "name": "CEO Rader",
+      "shortName": "CEO Rader",
+      "url": "https://ceo-rader.vercel.app/",
+      "description": "CEO를 위한 AI 시장·뉴스 인사이트 대시보드."
+    },
+    {
+      "id": "cfo-tool",
+      "name": "CFO Tool",
+      "shortName": "CFO Tool",
+      "url": "https://cfo-tool-pied.vercel.app/",
+      "description": "재무·경영 지표를 AI로 한눈에. CFO AI 도구."
+    }
+  ]
+}

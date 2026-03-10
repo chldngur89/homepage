@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Apps from "./pages/Apps";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "technology", Component: Technology },
       { path: "pricing", Component: Pricing },
       { path: "demo", Component: Demo },
+      { path: "apps", Component: Apps },
       { path: "about", Component: About },
       { path: "contact", Component: Contact },
       { path: "privacy", Component: Privacy },

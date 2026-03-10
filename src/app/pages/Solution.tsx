@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { APP_URLS } from "@/app/config/apps";
 import { motion } from "motion/react";
 import { ArrowRight, MessageSquare, Image, Video, Upload, Check } from "lucide-react";
 
@@ -404,13 +405,15 @@ export default function Solution() {
             신용카드 등록 없이 무료로 시작할 수 있습니다
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all inline-flex items-center justify-center gap-2"
             >
               무료 체험 시작하기
               <ArrowRight size={20} />
-            </Link>
+            </a>
           </div>
         </motion.div>
       </section>

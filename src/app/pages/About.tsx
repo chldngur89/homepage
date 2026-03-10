@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { APP_URLS } from "@/app/config/apps";
 import { motion } from "motion/react";
 import { Target, Lightbulb, Users, TrendingUp, Globe, Award } from "lucide-react";
 
@@ -441,12 +442,14 @@ export default function About() {
             >
               IR 미팅 요청하기
             </Link>
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
             >
               무료 체험하기
-            </Link>
+            </a>
           </div>
         </motion.div>
       </section>

@@ -2,6 +2,7 @@ import { Outlet, Link, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import siteContent from "@/content/site.json";
+import { APP_URLS } from "@/app/config/apps";
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -21,6 +22,7 @@ export function Layout() {
     { name: "기술", href: "/technology" },
     { name: "요금제", href: "/pricing" },
     { name: "데모", href: "/demo" },
+    { name: "앱", href: "/apps" },
     { name: "회사소개", href: "/about" },
     { name: "문의", href: "/contact" },
   ];
@@ -62,13 +64,14 @@ export function Layout() {
                   {item.name}
                 </Link>
               ))}
-              <Link
-                to="/demo"
-                onClick={scrollToTop}
+              <a
+                href={APP_URLS.cmo}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-5 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-sm font-semibold hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all"
               >
                 무료 체험
-              </Link>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -98,13 +101,15 @@ export function Layout() {
                   {item.name}
                 </Link>
               ))}
-              <Link
-                to="/demo"
-                onClick={() => { setMobileMenuOpen(false); scrollToTop(); }}
+              <a
+                href={APP_URLS.cmo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
                 className="block text-center min-h-[48px] flex items-center justify-center px-5 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-sm font-semibold"
               >
                 무료 체험
-              </Link>
+              </a>
             </div>
           )}
         </div>
@@ -158,7 +163,8 @@ export function Layout() {
                 <li><Link to="/solution" className="hover:text-cyan-400 transition-colors">솔루션</Link></li>
                 <li><Link to="/technology" className="hover:text-cyan-400 transition-colors">기술</Link></li>
                 <li><Link to="/pricing" className="hover:text-cyan-400 transition-colors">요금제</Link></li>
-                <li><Link to="/demo" className="hover:text-cyan-400 transition-colors">무료 체험</Link></li>
+                <li><a href={APP_URLS.cmo} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">무료 체험</a></li>
+                <li><Link to="/apps" className="hover:text-cyan-400 transition-colors">앱</Link></li>
               </ul>
             </div>
 

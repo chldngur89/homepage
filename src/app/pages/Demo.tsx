@@ -1,7 +1,8 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import { useState } from "react";
-import { Upload, Send, Loader, Check, Download, Smartphone } from "lucide-react";
+import { Upload, Send, Loader, Check, Download, Smartphone, ExternalLink } from "lucide-react";
+import { APP_URLS } from "@/app/config/apps";
 
 export default function Demo() {
   const [step, setStep] = useState<"upload" | "chat" | "processing" | "result">("upload");
@@ -45,11 +46,20 @@ export default function Demo() {
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="text-cyan-400">1분</span>이면 충분합니다
           </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-4">
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-8">
             창업가·판매자를 위해 제품 사진과 간단한 메시지로 전문가 수준의 마케팅 콘텐츠를 만들어보세요
           </p>
+          <a
+            href={APP_URLS.cmo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all mb-6"
+          >
+            지금 AutoCMO 앱에서 사용하기
+            <ExternalLink className="w-5 h-5" />
+          </a>
           <p className="text-slate-500 text-sm max-w-2xl mx-auto">
-            아래는 체험용 시뮬레이션입니다. 실제 AutoCMO 가입 후에는 <strong className="text-slate-400">대시보드에서 AI 전략 리포트</strong>와 <strong className="text-slate-400">원클릭 승인</strong>으로 실시간 운영을 경험하실 수 있습니다.
+            아래는 체험용 시뮬레이션입니다. 실제 앱에서는 <strong className="text-slate-400">대시보드 AI 전략 리포트</strong>와 <strong className="text-slate-400">원클릭 승인</strong>으로 실시간 운영을 경험하실 수 있습니다.
           </p>
         </motion.div>
       </section>

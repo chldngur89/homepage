@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { ArrowRight, Zap, Target, TrendingUp, CheckCircle, Star } from "lucide-react";
+import { APP_URLS } from "@/app/config/apps";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
 
@@ -72,13 +73,15 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
               무료로 시작하기
               <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-            </Link>
+            </a>
             <Link
               to="/contact"
               className="min-h-[48px] inline-flex items-center justify-center px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
@@ -464,12 +467,14 @@ export default function Home() {
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
               무료 체험 시작하기
-            </Link>
+            </a>
             <Link
               to="/pricing"
               className="px-10 py-5 border-2 border-slate-600 rounded-full text-xl font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
@@ -488,13 +493,15 @@ export default function Home() {
           className="fixed bottom-0 left-0 right-0 z-40 p-4 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800 md:hidden"
         >
           <div className="flex gap-3 max-w-lg mx-auto">
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 min-h-[48px] flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-xl font-semibold text-sm"
             >
               무료 체험
               <ArrowRight size={18} />
-            </Link>
+            </a>
             <Link
               to="/contact"
               className="flex-1 min-h-[48px] flex items-center justify-center py-3 px-4 border-2 border-slate-600 rounded-xl font-semibold text-sm hover:border-cyan-400 hover:text-cyan-400"

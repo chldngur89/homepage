@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Check, Zap, Crown, Rocket } from "lucide-react";
 import { Link } from "react-router";
+import { APP_URLS } from "@/app/config/apps";
 
 export default function Pricing() {
   return (
@@ -64,12 +65,14 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full py-3 px-6 text-center bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold transition-colors"
             >
               무료로 시작하기
-            </Link>
+            </a>
           </motion.div>
 
           {/* Pro Plan - Most Popular */}
@@ -116,12 +119,14 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full py-3 px-6 text-center bg-gradient-to-r from-cyan-500 to-indigo-600 hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] rounded-xl font-semibold transition-all"
             >
               지금 시작하기
-            </Link>
+            </a>
           </motion.div>
 
           {/* Business Plan */}
@@ -225,12 +230,14 @@ export default function Pricing() {
           </div>
 
           <div className="text-center">
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block px-8 py-3 bg-pink-600 hover:bg-pink-500 rounded-xl font-semibold transition-colors"
             >
               건별 구매 시작하기
-            </Link>
+            </a>
           </div>
         </motion.div>
       </section>
@@ -360,12 +367,14 @@ export default function Pricing() {
             무료로 먼저 체험해보세요. 카드 등록 불필요
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/demo"
+            <a
+              href={APP_URLS.cmo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
               무료 체험 시작하기
-            </Link>
+            </a>
             <Link
               to="/contact"
               className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
