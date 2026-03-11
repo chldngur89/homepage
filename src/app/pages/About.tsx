@@ -125,7 +125,7 @@ export default function About() {
             <div>
               <h3 className="text-xl font-bold text-white mb-4">앞으로: CFO·CEO AI까지</h3>
               <p className="text-slate-400 mb-4">
-                우리가 만든 <strong className="text-cyan-400">CFO Tool</strong>, <strong className="text-cyan-400">CEO Rader</strong>, <strong className="text-cyan-400">LowestAlert</strong>(최저가 알림), <strong className="text-cyan-400">PMS</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
+                우리가 만든 <strong className="text-cyan-400">CFO Tool on AI</strong>, <strong className="text-cyan-400">CEO Rader AI</strong>, <strong className="text-cyan-400">LowestAlert AI</strong>(최저가 알림), <strong className="text-cyan-400">PMS on AI</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
               </p>
             </div>
           </div>

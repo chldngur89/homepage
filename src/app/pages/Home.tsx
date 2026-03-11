@@ -330,7 +330,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-sm text-slate-500 max-w-2xl mx-auto mb-8"
             >
-              우리만의 <strong className="text-slate-400">AI2AI</strong> 기술로 CFO·CEO·최저가 알림·PMS 등 <strong className="text-cyan-400">너한테 필요한 모든 걸</strong> 이어 드립니다.
+              우리만의 <strong className="text-slate-400">AI2AI</strong> 기술로 CFO Tool on AI·CEO Rader AI·LowestAlert AI·PMS on AI 등 <strong className="text-cyan-400">너한테 필요한 모든 걸</strong> 이어 드립니다.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

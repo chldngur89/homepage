@@ -7,5 +7,11 @@
     "copyright": "© 2026 AutoCMO. All rights reserved.",
     "privacy": "개인정보처리방침",
     "terms": "이용약관"
+  },
+  "appsPage": {
+    "badge": "웹/앱 서비스",
+    "title": "너한테 필요한 모든 걸 다 이어 줍니다",
+    "titleHighlight": "너한테 필요한 모든 걸",
+    "description": "CMO AI AGENT(마케팅 AI), CEO Rader AI(CEO에 레이더를 도와주는 AI), CFO Tool on AI(CFO의 AI), LowestAlert AI(최저가 알림 AI), PMS on AI(프로젝트 관리)까지 웹에서 바로 사용하거나 새 탭에서 열어보세요."
   }
 }

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, Zap, BarChart3, BookOpen, Activity, Bell, Calendar } from "lucide-react";
 import { APPS } from "@/app/config/apps";
+import siteContent from "@/content/site.json";
 
 /** mebody는 항상 맨 뒤로 */
 const sortedApps = [...APPS].sort((a, b) => ((a.id === "mebody" ? 1 : 0) - (b.id === "mebody" ? 1 : 0)));
@@ -24,13 +25,13 @@ export default function Apps() {
           className="text-center mb-12"
         >
           <div className="inline-block px-4 py-1 rounded-full bg-cyan-900/30 text-cyan-400 font-semibold text-sm mb-6">
-            내가 만든 앱
+            {siteContent.appsPage?.badge ?? "웹/앱 서비스"}
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-cyan-400">너한테 필요한 모든 걸</span> 다 이어 줍니다
+            <span className="text-cyan-400">{siteContent.appsPage?.titleHighlight ?? "너한테 필요한 모든 걸"}</span> 다 이어 줍니다
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            CMO·CFO·CEO AI, 최저가 알림, PMS(프로젝트 관리)부터 체형 진단까지. 웹에서 바로 사용하거나 새 탭에서 열어보세요.
+            {siteContent.appsPage?.description ?? "CMO AI AGENT(마케팅 AI), CEO Rader AI(CEO에 레이더를 도와주는 AI), CFO Tool on AI(CFO의 AI), LowestAlert AI(최저가 알림 AI), PMS on AI(프로젝트 관리)까지 웹에서 바로 사용하거나 새 탭에서 열어보세요."}
           </p>
         </motion.div>
       </section>
@@ -50,8 +51,8 @@ export default function Apps() {
               <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${isMebody ? "bg-gradient-to-br from-emerald-500 to-green-600" : "bg-gradient-to-br from-cyan-500 to-indigo-600"}`}>
                 {iconByAppId[app.id] ?? <Zap className="w-8 h-8 text-white" />}
               </div>
-              <div className="flex items-center gap-2 mb-2">
-                <h2 className="text-2xl font-bold text-white">{app.name}</h2>
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
+                <h2 className="text-xl font-bold text-white break-words">{app.name}</h2>
                 {isMebody && (
                   <span className="px-2 py-0.5 rounded-md bg-emerald-900/40 text-emerald-300 text-xs font-medium">CTO 활동</span>
                 )}

@@ -358,7 +358,7 @@ export default function Solution() {
             우리는 이 연결 기술을 R&D와 딥테크의 핵심으로 연구하고 있습니다. A의 객체와 B의 객체를 AI가 연결하고, 궁극적으로는 <strong className="text-cyan-400">AI와 AI를 AI가 연결하는</strong> 구조를 지향합니다.
           </p>
           <p className="text-slate-400 leading-relaxed">
-            AutoCMO(CMO AI Agent)는 그 첫 번째 적용 사례이며, CFO·CEO AI 등 더 많은 에이전트를 AI2AI로 이어 나가고 있습니다.
+            AutoCMO(CMO AI Agent)는 그 첫 번째 적용 사례이며, CFO Tool on AI·CEO Rader AI 등 더 많은 에이전트를 AI2AI로 이어 나가고 있습니다.
           </p>
         </motion.div>
       </section>
