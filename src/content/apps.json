@@ -22,6 +22,20 @@
       "description": "재무·경영 지표를 AI로 한눈에. CFO AI 도구."
     },
     {
+      "id": "lowest-alert",
+      "name": "LowestAlert",
+      "shortName": "LowestAlert",
+      "url": "https://lowest-alert.vercel.app/home",
+      "description": "제품 최저가 찾아주는 AI. 최저가 알림 서비스."
+    },
+    {
+      "id": "pms",
+      "name": "PMS",
+      "shortName": "PMS",
+      "url": "https://pms-psi-two.vercel.app/",
+      "description": "프로젝트 매니지먼트 시스템에 AI. 간트 차트 기반 프로젝트 관리."
+    },
+    {
       "id": "mebody",
       "name": "mebody",
       "shortName": "mebody",

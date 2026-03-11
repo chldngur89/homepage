@@ -1,11 +1,16 @@
 import { motion } from "motion/react";
-import { ArrowRight, Zap, BarChart3, BookOpen, Activity } from "lucide-react";
+import { ArrowRight, Zap, BarChart3, BookOpen, Activity, Bell, Calendar } from "lucide-react";
 import { APPS } from "@/app/config/apps";
+
+/** mebody는 항상 맨 뒤로 */
+const sortedApps = [...APPS].sort((a, b) => ((a.id === "mebody" ? 1 : 0) - (b.id === "mebody" ? 1 : 0)));
 
 const iconByAppId: Record<string, React.ReactNode> = {
   cmo: <Zap className="w-8 h-8 text-white" />,
   "cfo-tool": <BarChart3 className="w-8 h-8 text-white" />,
   "ceo-rader": <BookOpen className="w-8 h-8 text-white" />,
+  "lowest-alert": <Bell className="w-8 h-8 text-white" />,
+  pms: <Calendar className="w-8 h-8 text-white" />,
   mebody: <Activity className="w-8 h-8 text-white" />,
 };
 
@@ -22,17 +27,17 @@ export default function Apps() {
             내가 만든 앱
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-cyan-400">AutoCMO</span>와 함께 쓰는 AI 도구
+            <span className="text-cyan-400">너한테 필요한 모든 걸</span> 다 이어 줍니다
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            CMO AI Agent, CFO Tool, CEO Rader, mebody를 웹에서 바로 사용하거나 새 탭에서 열어보세요.
+            CMO·CFO·CEO AI, 최저가 알림, PMS(프로젝트 관리)부터 체형 진단까지. 웹에서 바로 사용하거나 새 탭에서 열어보세요.
           </p>
         </motion.div>
       </section>
 
       <section className="max-w-5xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {APPS.map((app, index) => {
+          {sortedApps.map((app, index) => {
             const isMebody = app.id === "mebody";
             return (
             <motion.div

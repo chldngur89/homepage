@@ -125,7 +125,7 @@ export default function About() {
             <div>
               <h3 className="text-xl font-bold text-white mb-4">앞으로: CFO·CEO AI까지</h3>
               <p className="text-slate-400 mb-4">
-                우리가 만든 <strong className="text-cyan-400">CFO Tool AI</strong>, <strong className="text-cyan-400">CEO Reader AI</strong> 등 다른 에이전트를 AI2AI로 쉽게 연결합니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 그리고 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
+                우리가 만든 <strong className="text-cyan-400">CFO Tool</strong>, <strong className="text-cyan-400">CEO Rader</strong>, <strong className="text-cyan-400">LowestAlert</strong>(최저가 알림), <strong className="text-cyan-400">PMS</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
               </p>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function About() {
                 title: "청년창업사관학교 (~1억 원)",
                 period: "2025 Q4 - 2026 Q2",
                 description:
-                  "하이브리드 AI 서버 인프라를 구축하고 글로벌 표준 UI/UX로 고도화합니다. 특히 Zero-Click Intelligence·Self-Reflecting Strategy Loop 원천 기술에 대한 해외 특허(PCT) 출원을 통해 독점적 진입장벽을 형성합니다.",
+                  "하이브리드 AI 서버 인프라를 구축하고 글로벌 표준 UI/UX로 고도화합니다. 광고용 이미지 자동 생성·통합 마케팅 콘텐츠 자동 생성 등 원천 기술에 대한 국내 특허 2건(2026.01.13 출원)을 통해 독점적 진입장벽을 형성합니다.",
                 color: "pink",
                 status: "예정",
               },

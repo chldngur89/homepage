@@ -335,33 +335,95 @@ export default function Technology() {
         </div>
       </section>
 
-      {/* Patents & IP */}
+      {/* Patents & IP - 국내 특허 출원 2건 */}
       <section className="max-w-5xl mx-auto px-6 mb-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-br from-indigo-900/30 to-pink-900/20 border border-indigo-500/30 rounded-2xl p-10 text-center"
+          className="bg-gradient-to-br from-indigo-900/30 to-pink-900/20 border border-indigo-500/30 rounded-2xl p-10"
         >
-          <div className="text-5xl mb-6">🛡️</div>
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            독점적 기술 방어막
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 text-center">
+            특허 출원
           </h3>
-          <p className="text-lg text-slate-300 mb-6">
-            Zero-Click Intelligence·능동형 에이전트 원천 기술에 대한 <strong className="text-cyan-400">PCT 국제 특허</strong> 출원 준비 중
+          <p className="text-slate-400 text-sm text-center mb-8">
+            출원일 2026.01.13 · 대한민국
           </p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
+          <div className="space-y-6">
+            <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 text-left">
+              <div className="text-cyan-400 font-mono text-sm mb-1">10-2026-0006574</div>
+              <h4 className="text-lg font-bold text-white mb-2">
+                AI기반 그래픽 템플릿 추천을 이용한 광고용 이미지 자동 생성 방법, 장치 및 시스템
+              </h4>
+              <p className="text-slate-400 text-sm">
+                Method, Device, and System for Automatically Generating Advertisement Images Using AI-based Graphic Template Recommendation
+              </p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 text-left">
+              <div className="text-cyan-400 font-mono text-sm mb-1">10-2026-0006580</div>
+              <h4 className="text-lg font-bold text-white mb-2">
+                AI 기반 통합 마케팅 콘텐츠 자동 생성 방법, 장치 및 시스템
+              </h4>
+              <p className="text-slate-400 text-sm">
+                AI-based Integrated Marketing Content Automatic Generation Method, Device, and System
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4 text-sm mt-8 pt-6 border-t border-slate-700">
+            <span className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
               LangGraph Self-Reflecting Strategy Loop
-            </div>
-            <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
+            </span>
+            <span className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
               멀티 AI 통합 파이프라인
-            </div>
-            <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
+            </span>
+            <span className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
               RPA 자동 배포 시스템
-            </div>
-            <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
+            </span>
+            <span className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
               AI2AI 확장
+            </span>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* 연구: 이기종 보안 로그 자동 스키마 매핑 */}
+      <section className="max-w-5xl mx-auto px-6 mb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-br from-slate-800/50 to-indigo-900/20 border border-slate-600 rounded-2xl p-8 md:p-10"
+        >
+          <div className="inline-block px-3 py-1 rounded-full bg-slate-700/50 text-slate-300 text-xs font-semibold mb-4">
+            Project Update
+          </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+            이기종 보안 로그의 자동 스키마 매핑 연구
+          </h3>
+          <div className="space-y-6 text-left">
+            <div>
+              <h4 className="text-cyan-400 font-semibold mb-2">연구 배경</h4>
+              <p className="text-slate-300 leading-relaxed">
+                다양한 보안 솔루션에서 쏟아지는 로그들은 벤더마다 형식이 달라 통합 분석이 어렵습니다.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-cyan-400 font-semibold mb-2">우리의 솔루션</h4>
+              <p className="text-slate-300 leading-relaxed">
+                <strong className="text-white">NMO-MDV 프레임워크</strong>를 통해 복잡한 로그 필드를 통합 타겟 스키마에 자동으로 매핑합니다.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-cyan-400 font-semibold mb-2">최근 성과</h4>
+              <p className="text-slate-300 leading-relaxed">
+                유럽 최고의 보안 컨퍼런스인 <strong className="text-white">ESORICS 2026</strong>에서 연구의 실효성과 시맨틱 추출 방식의 우수성을 인정받아 현재 심화 연구를 진행 중입니다.
+              </p>
+            </div>
+            <div className="pt-4 border-t border-slate-600">
+              <h4 className="text-pink-400 font-semibold mb-2">Next Step</h4>
+              <p className="text-slate-300 leading-relaxed">
+                한국 공공분야 데이터를 넘어 글로벌 보안 로그 환경에서도 동일한 성능을 낼 수 있도록 <strong className="text-white">일반화(Generalization)</strong> 및 <strong className="text-white">추론 최적화</strong> 작업을 4월까지 완료할 예정입니다.
+              </p>
             </div>
           </div>
         </motion.div>

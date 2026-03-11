@@ -159,6 +159,9 @@ export default function Home() {
               <p className="text-sm text-cyan-400 font-bold">올린 결과·현황만 확인하시면 됩니다</p>
             </div>
           </motion.div>
+          <p className="text-slate-400 text-center mt-8 max-w-2xl mx-auto text-sm md:text-base">
+            예: <strong className="text-white">수박</strong>만 넣으면 AI가 시나리오를 만들고, 그에 맞는 이미지·동영상을 만들어 쿠팡·네이버 등 여러 플랫폼에 올려드립니다. <span className="text-cyan-400 font-medium">대표님·판매자는 대시보드만 보시면 됩니다.</span>
+          </p>
         </div>
       </section>
 
@@ -327,7 +330,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-sm text-slate-500 max-w-2xl mx-auto mb-8"
             >
-              우리만의 <strong className="text-slate-400">AI2AI</strong> 기술로 추후 CFO Tool AI, CEO Reader AI 등 다른 AI도 대시보드에 붙여 보고받을 수 있습니다.
+              우리만의 <strong className="text-slate-400">AI2AI</strong> 기술로 CFO·CEO·최저가 알림·PMS 등 <strong className="text-cyan-400">너한테 필요한 모든 걸</strong> 이어 드립니다.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

@@ -146,14 +146,17 @@ export default function Solution() {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* How It Works - CMO Agent 플로우 */}
       <section className="max-w-7xl mx-auto px-6 mb-32">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             어떻게 <span className="text-cyan-400">작동</span>하나요?
           </h2>
-          <p className="text-lg text-slate-400">
+          <p className="text-lg text-slate-400 mb-4">
             4단계로 완성되는 마케팅 자동화
+          </p>
+          <p className="text-slate-300 max-w-2xl mx-auto">
+            상품(예: <strong className="text-white">수박</strong>)만 넣으면 AI가 시나리오를 만들고, 그에 맞는 이미지·동영상을 만들어 여러 플랫폼에 올려드립니다. <span className="text-cyan-400 font-medium">대표님·판매자는 대시보드만 보시면 됩니다.</span>
           </p>
         </div>
 
@@ -333,6 +336,31 @@ export default function Solution() {
             );
           })}
         </div>
+      </section>
+
+      {/* R&D 비전 · AI2AI · Web5 딥테크 */}
+      <section className="max-w-7xl mx-auto px-6 mb-32">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="text-cyan-400">AI2AI</span>: Web5 시대, 각 AI를 연결하는 기술
+          </h2>
+          <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            Web2.0과 Web3.0이 합쳐지는 Web5의 생태계로 넘어갈 때, 각각의 AI가 효과적으로 연결되는 AI 기술입니다.
+          </p>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-slate-800/30 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-8 md:p-10"
+        >
+          <p className="text-slate-300 leading-relaxed mb-4">
+            우리는 이 연결 기술을 R&D와 딥테크의 핵심으로 연구하고 있습니다. A의 객체와 B의 객체를 AI가 연결하고, 궁극적으로는 <strong className="text-cyan-400">AI와 AI를 AI가 연결하는</strong> 구조를 지향합니다.
+          </p>
+          <p className="text-slate-400 leading-relaxed">
+            AutoCMO(CMO AI Agent)는 그 첫 번째 적용 사례이며, CFO·CEO AI 등 더 많은 에이전트를 AI2AI로 이어 나가고 있습니다.
+          </p>
+        </motion.div>
       </section>
 
       {/* Benefits */}
