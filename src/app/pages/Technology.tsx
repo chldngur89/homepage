@@ -95,7 +95,7 @@ export default function Technology() {
         <div className="mt-8 text-center">
           <div className="inline-flex items-center gap-2 text-slate-500 text-sm">
             <ArrowRightIcon className="hidden md:inline" />
-            <span className="md:hidden">⬇️</span>
+            <span className="md:hidden">↓</span>
             데이터 흐름이 매끄럽게 연결되어 전체 프로세스가 1분 내 완료됩니다
           </div>
         </div>
@@ -361,7 +361,7 @@ export default function Technology() {
               RPA 자동 배포 시스템
             </div>
             <div className="px-4 py-2 bg-slate-800/50 rounded-full text-slate-300 border border-slate-700">
-              Agent2Agent 확장
+              AI2AI 확장
             </div>
           </div>
         </motion.div>

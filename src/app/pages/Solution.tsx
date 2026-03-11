@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { APP_URLS } from "@/app/config/apps";
 import { motion } from "motion/react";
-import { ArrowRight, MessageSquare, Image, Video, Upload, Check } from "lucide-react";
+import { ArrowRight, MessageSquare, Image, Video, Upload, Check, Sparkles, BarChart2, Zap, PenLine, Camera, Film, ShoppingCart, DollarSign, Target, TrendingUp, Moon, Brain } from "lucide-react";
 
 export default function Solution() {
   return (
@@ -55,7 +55,7 @@ export default function Solution() {
                   <div className="font-semibold mb-2">1단계: 아이디어 구상</div>
                   <div className="text-sm text-slate-400">수동 기획 및 브레인스토밍</div>
                 </div>
-                <div className="flex justify-center text-slate-500 text-2xl">⬇️</div>
+                <div className="flex justify-center text-slate-500 text-2xl">↓</div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-slate-800 p-4 rounded border border-slate-700 text-sm">
                     <strong>ChatGPT</strong>
@@ -66,12 +66,12 @@ export default function Solution() {
                     <div className="text-slate-400 text-xs mt-1">이미지 생성</div>
                   </div>
                 </div>
-                <div className="flex justify-center text-slate-500 text-2xl">⬇️</div>
+                <div className="flex justify-center text-slate-500 text-2xl">↓</div>
                 <div className="bg-slate-800 p-4 rounded border border-yellow-500 text-center">
                   <div className="font-semibold text-yellow-500 mb-1">수동 편집 및 조합</div>
                   <div className="text-sm text-slate-400">포토샵/프리미어 작업 필요</div>
                 </div>
-                <div className="flex justify-center text-slate-500 text-2xl">⬇️</div>
+                <div className="flex justify-center text-slate-500 text-2xl">↓</div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-slate-800 p-4 rounded border border-slate-700 text-sm text-center">
                     쿠팡
@@ -97,11 +97,11 @@ export default function Solution() {
               className="bg-gradient-to-br from-slate-900 to-indigo-900/30 rounded-2xl p-8 border border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]"
             >
               <div className="text-cyan-400 font-bold mb-6 flex items-center gap-2 text-xl">
-                <span>✨</span> AutoCMO 방식 (After)
+                <Sparkles className="w-5 h-5" strokeWidth={1.5} /> AutoCMO 방식 (After)
               </div>
               <div className="space-y-6 flex flex-col justify-center h-full">
                 <div className="bg-slate-800/80 border border-cyan-500/30 p-6 rounded-xl text-left">
-                  <div className="text-cyan-400 font-semibold mb-2">📊 AI 전략 리포트</div>
+                  <div className="text-cyan-400 font-semibold mb-2 flex items-center gap-2"><BarChart2 className="w-4 h-4" strokeWidth={1.5} /> AI 전략 리포트</div>
                   <div className="text-sm text-slate-300 italic">
                     "현재 B 마켓의 전환율이 낮습니다. 경쟁사 C의 신규 프로모션 때문으로 파악되니, 즉시 반값 할인을 실행할까요?"
                   </div>
@@ -111,8 +111,8 @@ export default function Solution() {
                 </div>
 
                 <div className="text-center">
-                  <div className="text-cyan-400 text-2xl font-bold animate-pulse py-4">
-                    ⬇️ 결정(Decision)에 집중 ⬇️
+                  <div className="text-cyan-400 text-2xl font-bold animate-pulse py-4 flex items-center justify-center gap-2">
+                    결정(Decision)에 집중
                   </div>
                   <div className="grid grid-cols-3 gap-2 mt-4 text-xs">
                     <div className="bg-slate-800/50 p-2 rounded border border-cyan-500/30">
@@ -131,14 +131,14 @@ export default function Solution() {
                 </div>
 
                 <div className="bg-gradient-to-r from-cyan-600 to-indigo-600 p-6 rounded-xl text-center font-bold shadow-lg">
-                  <div className="text-3xl mb-3">🚀</div>
+                  <div className="mb-3 flex justify-center text-white"><Zap className="w-10 h-10" strokeWidth={1.5} /></div>
                   <div className="text-lg mb-2">실행 → 분석 → 다음 최적 행동 제안 (선순환)</div>
                   <div className="text-sm text-cyan-100">대시보드만 보시면 됩니다</div>
                 </div>
 
                 <div className="text-center pt-4 border-t border-cyan-500/30">
                   <div className="text-cyan-400 font-bold text-2xl">소요 시간: 1분</div>
-                  <div className="text-sm text-slate-300 mt-1">전문 기술 불필요 ✨</div>
+                  <div className="text-sm text-slate-300 mt-1 flex items-center justify-center gap-1">전문 기술 불필요 <Sparkles className="w-4 h-4 text-cyan-400" strokeWidth={1.5} /></div>
                 </div>
               </div>
             </motion.div>
@@ -289,28 +289,30 @@ export default function Solution() {
             {
               title: "지능형 카피라이팅",
               description: "제품 특성을 분석해 타겟 고객을 사로잡는 매력적인 마케팅 문구를 자동 생성합니다. SEO 최적화는 물론 각 플랫폼의 가이드라인에 완벽히 부합합니다.",
-              icon: "✍️",
+              Icon: PenLine,
               gradient: "from-cyan-500 to-blue-600",
             },
             {
               title: "프로급 제품샷 생성",
               description: "평범한 제품 사진을 전문가가 촬영한 것 같은 고퀄리티 이미지로 변환합니다. 배경 제거, 조명 보정, 스타일링까지 자동으로 처리됩니다.",
-              icon: "📸",
+              Icon: Camera,
               gradient: "from-pink-500 to-purple-600",
             },
             {
               title: "바이럴 숏폼 영상",
               description: "SNS 트렌드를 반영한 15초~30초 숏폼 영상을 자동 제작합니다. 인스타그램 릴스, 유튜브 쇼츠, 틱톡 등에 바로 활용 가능합니다.",
-              icon: "🎬",
+              Icon: Film,
               gradient: "from-indigo-500 to-cyan-600",
             },
             {
               title: "다채널 자동 업로드",
               description: "쿠팡, 네이버 스마트스토어, 11번가, 옥션, G마켓 등 국내 주요 커머스 플랫폼에 한 번에 등록됩니다. 각 플랫폼의 규격에 맞게 자동 최적화됩니다.",
-              icon: "🛒",
+              Icon: ShoppingCart,
               gradient: "from-yellow-500 to-orange-600",
             },
-          ].map((feature, index) => (
+          ].map((feature, index) => {
+            const FeatureIcon = feature.Icon;
+            return (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
@@ -319,8 +321,8 @@ export default function Solution() {
               className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 hover:border-slate-600 transition-all"
             >
               <div className="flex items-start gap-6">
-                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center text-3xl flex-shrink-0 shadow-lg`}>
-                  {feature.icon}
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg text-white`}>
+                  <FeatureIcon className="w-8 h-8" strokeWidth={1.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
@@ -328,7 +330,8 @@ export default function Solution() {
                 </div>
               </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -343,37 +346,15 @@ export default function Solution() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                title: "95% 시간 절약",
-                description: "2-3시간 걸리던 작업을 1분으로 단축",
-                icon: "⚡",
-              },
-              {
-                title: "월 30만원 비용 절감",
-                description: "개별 AI 툴 구독료 + 디자이너 비용 절약",
-                icon: "💰",
-              },
-              {
-                title: "전문성 불필요",
-                description: "디자인/마케팅 지식 없이도 프로급 결과물",
-                icon: "🎯",
-              },
-              {
-                title: "매출 3배 증가",
-                description: "다채널 동시 판매로 노출과 전환율 향상",
-                icon: "📈",
-              },
-              {
-                title: "24/7 자동화",
-                description: "시간과 장소 제약 없이 언제든 작업 가능",
-                icon: "🌙",
-              },
-              {
-                title: "지속적인 개선",
-                description: "AI가 판매 데이터를 학습해 성과 최적화",
-                icon: "🧠",
-              },
-            ].map((benefit, index) => (
+              { title: "95% 시간 절약", description: "2-3시간 걸리던 작업을 1분으로 단축", Icon: Zap },
+              { title: "월 30만원 비용 절감", description: "개별 AI 툴 구독료 + 디자이너 비용 절약", Icon: DollarSign },
+              { title: "전문성 불필요", description: "디자인/마케팅 지식 없이도 프로급 결과물", Icon: Target },
+              { title: "매출 3배 증가", description: "다채널 동시 판매로 노출과 전환율 향상", Icon: TrendingUp },
+              { title: "24/7 자동화", description: "시간과 장소 제약 없이 언제든 작업 가능", Icon: Moon },
+              { title: "지속적인 개선", description: "AI가 판매 데이터를 학습해 성과 최적화", Icon: Brain },
+            ].map((benefit, index) => {
+              const BenefitIcon = benefit.Icon;
+              return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -382,11 +363,12 @@ export default function Solution() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-xl p-6 text-center hover:border-cyan-500/50 transition-all"
               >
-                <div className="text-5xl mb-4">{benefit.icon}</div>
+                <div className="mb-4 flex justify-center text-cyan-400"><BenefitIcon className="w-12 h-12" strokeWidth={1.5} /></div>
                 <h3 className="text-xl font-bold text-white mb-2">{benefit.title}</h3>
                 <p className="text-slate-400">{benefit.description}</p>
               </motion.div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>

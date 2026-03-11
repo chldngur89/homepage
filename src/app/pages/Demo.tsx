@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import { useState } from "react";
-import { Upload, Send, Loader, Check, Download, Smartphone, ExternalLink } from "lucide-react";
+import { Upload, Send, Loader, Check, Download, Smartphone, ExternalLink, Camera, Lightbulb, PenLine, Image as ImageIcon, Zap } from "lucide-react";
 import { APP_URLS } from "@/app/config/apps";
 
 export default function Demo() {
@@ -88,7 +88,7 @@ export default function Demo() {
                   className="hidden"
                 />
                 <div className="cursor-pointer border-2 border-dashed border-slate-600 hover:border-cyan-500 rounded-2xl p-12 transition-all">
-                  <div className="text-6xl mb-4">📸</div>
+                  <div className="mb-4 flex justify-center text-cyan-400"><Camera className="w-16 h-16" strokeWidth={1.5} /></div>
                   <div className="text-lg text-slate-300 font-semibold mb-2">
                     클릭하거나 드래그하여 업로드
                   </div>
@@ -179,9 +179,9 @@ export default function Demo() {
                   <button
                     key={i}
                     onClick={() => setMessage(example)}
-                    className="py-2 px-4 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors text-left"
+                    className="py-2 px-4 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors text-left flex items-center gap-2"
                   >
-                    💡 {example}
+                    <Lightbulb className="w-4 h-4 text-cyan-400 shrink-0" strokeWidth={1.5} /> {example}
                   </button>
                 ))}
               </div>
@@ -226,7 +226,7 @@ export default function Demo() {
                 <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Check className="w-10 h-10 text-white" />
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-4">완성되었습니다! 🎉</h2>
+                <h2 className="text-3xl font-bold text-white mb-4">완성되었습니다!</h2>
                 <p className="text-slate-400">소요 시간: <strong className="text-cyan-400">47초</strong></p>
               </div>
 
@@ -234,12 +234,12 @@ export default function Demo() {
                 {/* Generated Copy */}
                 <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-white">✍️ 생성된 마케팅 카피</h3>
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2"><PenLine className="w-5 h-5 text-cyan-400" strokeWidth={1.5} /> 생성된 마케팅 카피</h3>
                     <button className="text-sm text-cyan-400 hover:text-cyan-300">복사</button>
                   </div>
                   <div className="bg-slate-900 rounded-xl p-4 text-slate-300 leading-relaxed">
                     <p className="mb-3">
-                      <strong className="text-white">🌞 여름 대특가! 지금이 기회입니다</strong>
+                      <strong className="text-white">여름 대특가! 지금이 기회입니다</strong>
                     </p>
                     <p>
                       무더운 여름, 시원한 가격으로 만나보세요! 프리미엄 품질은 그대로, 가격은 20% 할인된 특별한 기회.
@@ -251,7 +251,7 @@ export default function Demo() {
                 {/* Generated Images */}
                 <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-white">🎨 최적화된 제품 이미지</h3>
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2"><ImageIcon className="w-5 h-5 text-cyan-400" strokeWidth={1.5} /> 최적화된 제품 이미지</h3>
                     <button className="text-sm text-cyan-400 hover:text-cyan-300">다운로드</button>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -270,7 +270,7 @@ export default function Demo() {
 
                 {/* Upload Status */}
                 <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
-                  <h3 className="text-xl font-bold text-white mb-4">🚀 마켓 업로드 현황</h3>
+                  <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Zap className="w-5 h-5 text-cyan-400" strokeWidth={1.5} /> 마켓 업로드 현황</h3>
                   <div className="space-y-3">
                     {[
                       { name: "쿠팡", status: "완료" },

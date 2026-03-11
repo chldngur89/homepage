@@ -1,6 +1,6 @@
 # AutoCMO Homepage
 
-CMO AI Agent · Zero-Click Intelligence 랜딩/홈페이지 (React + Vite + TypeScript). 창업가·판매자를 위한 편리함, Agent2Agent로 CFO·CEO AI 확장.
+CMO AI Agent · Zero-Click Intelligence 랜딩/홈페이지 (React + Vite + TypeScript). 창업가·판매자를 위한 편리함, AI2AI로 CFO·CEO AI 확장.
 
 - **로컬 개발**: 이 저장소는 **로컬에서 잘 돌아가는 것**을 기준으로 개발합니다.
 - **배포**: Vercel에 배포됨 → [https://homepage-roan-kappa.vercel.app/](https://homepage-roan-kappa.vercel.app/)

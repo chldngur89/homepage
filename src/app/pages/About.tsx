@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { APP_URLS } from "@/app/config/apps";
 import { motion } from "motion/react";
-import { Target, Lightbulb, Users, TrendingUp, Globe, Award } from "lucide-react";
+import { Target, Lightbulb, Users, TrendingUp, Globe, Award, Rocket, Zap, Handshake } from "lucide-react";
 
 export default function About() {
   return (
@@ -96,14 +96,17 @@ export default function About() {
         </motion.div>
       </section>
 
-      {/* Agent2Agent: CMO → CFO·CEO 확장 */}
+      {/* AI2AI: CMO → CFO·CEO 확장 + R&D 비전 */}
       <section className="max-w-7xl mx-auto px-6 mb-32">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-cyan-400">Agent2Agent</span> 기술로 AI를 계속 붙입니다
+            <span className="text-cyan-400">AI2AI</span> 기술로 AI를 계속 붙입니다
           </h2>
-          <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-            지금은 CMO AI Agent가 주력이지만, 우리만의 Agent2Agent 기술로 새로운 AI가 나올 때마다 쉽게 붙여 쓸 수 있습니다.
+          <p className="text-lg text-slate-400 max-w-3xl mx-auto mb-4">
+            지금은 CMO AI Agent가 주력이지만, 우리만의 AI2AI 기술로 새로운 AI가 나올 때마다 쉽게 붙여 쓸 수 있습니다.
+          </p>
+          <p className="text-base text-slate-500 max-w-2xl mx-auto">
+            연구에서 나온 방향: A의 객체와 B의 객체를 AI가 연결하고, 궁극적으로는 <strong className="text-slate-400">AI와 AI를 AI가 연결하는</strong> 구조를 지향합니다.
           </p>
         </div>
         <motion.div
@@ -122,7 +125,7 @@ export default function About() {
             <div>
               <h3 className="text-xl font-bold text-white mb-4">앞으로: CFO·CEO AI까지</h3>
               <p className="text-slate-400 mb-4">
-                우리가 만든 <strong className="text-cyan-400">CFO Tool AI</strong>, <strong className="text-cyan-400">CEO Reader AI</strong> 등 다른 에이전트를 Agent2Agent로 쉽게 연결합니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 그리고 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
+                우리가 만든 <strong className="text-cyan-400">CFO Tool AI</strong>, <strong className="text-cyan-400">CEO Reader AI</strong> 등 다른 에이전트를 AI2AI로 쉽게 연결합니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 그리고 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
               </p>
             </div>
           </div>
@@ -148,7 +151,7 @@ export default function About() {
             {[
               {
                 phase: "Phase 1",
-                title: "예비창업패키지 (~2천만 원)",
+                title: "예비창업패키지 (~2,500만 원)",
                 period: "2025 Q2-Q3",
                 description:
                   "초기 자금 확보 및 MVP 개발 완료. 창업가·판매자 대상 클로즈드 베타 테스트를 진행하여 초기 PMF(Product-Market Fit)를 검증하고 성공 레퍼런스를 확보합니다.",
@@ -157,7 +160,7 @@ export default function About() {
               },
               {
                 phase: "Phase 2",
-                title: "청년창업사관학교 (~7천만 원)",
+                title: "청년창업사관학교 (~1억 원)",
                 period: "2025 Q4 - 2026 Q2",
                 description:
                   "하이브리드 AI 서버 인프라를 구축하고 글로벌 표준 UI/UX로 고도화합니다. 특히 Zero-Click Intelligence·Self-Reflecting Strategy Loop 원천 기술에 대한 해외 특허(PCT) 출원을 통해 독점적 진입장벽을 형성합니다.",
@@ -280,27 +283,13 @@ export default function About() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            {
-              icon: "🚀",
-              title: "고객 성공 우선",
-              description: "우리의 성공은 고객의 매출 증가로 증명됩니다",
-            },
-            {
-              icon: "⚡",
-              title: "빠른 실행",
-              description: "완벽함보다 빠른 출시와 지속적인 개선을 추구합니다",
-            },
-            {
-              icon: "🤝",
-              title: "투명한 소통",
-              description: "고객, 투자자, 팀과의 솔직하고 열린 대화를 중시합니다",
-            },
-            {
-              icon: "🎯",
-              title: "데이터 기반 의사결정",
-              description: "직관보다 데이터와 사용자 피드백을 우선합니다",
-            },
-          ].map((value, index) => (
+            { Icon: Rocket, title: "고객 성공 우선", description: "우리의 성공은 고객의 매출 증가로 증명됩니다" },
+            { Icon: Zap, title: "빠른 실행", description: "완벽함보다 빠른 출시와 지속적인 개선을 추구합니다" },
+            { Icon: Handshake, title: "투명한 소통", description: "고객, 투자자, 팀과의 솔직하고 열린 대화를 중시합니다" },
+            { Icon: Target, title: "데이터 기반 의사결정", description: "직관보다 데이터와 사용자 피드백을 우선합니다" },
+          ].map((value, index) => {
+            const ValueIcon = value.Icon;
+            return (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -309,11 +298,12 @@ export default function About() {
               transition={{ delay: index * 0.1 }}
               className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all"
             >
-              <div className="text-5xl mb-4">{value.icon}</div>
+              <div className="mb-4 flex text-cyan-400"><ValueIcon className="w-12 h-12" strokeWidth={1.5} /></div>
               <h3 className="text-xl font-bold text-white mb-3">{value.title}</h3>
               <p className="text-slate-400">{value.description}</p>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

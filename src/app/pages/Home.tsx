@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ArrowRight, Zap, Target, TrendingUp, CheckCircle, Star } from "lucide-react";
+import { ArrowRight, Zap, Target, TrendingUp, CheckCircle, Star, Camera, Sparkles, BarChart3, Clock, Puzzle, Globe, ClipboardList, ArrowDown } from "lucide-react";
 import { APP_URLS } from "@/app/config/apps";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
@@ -49,9 +49,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight leading-tight text-white max-w-4xl mx-auto"
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight text-white max-w-4xl mx-auto"
           >
-            말 걸지 마세요. AI가 먼저 보고합니다.
+            <span className="block leading-[1.15]">말 걸지 마세요 .</span>
+            <span className="block mt-2 md:mt-3 leading-[1.15] text-white/95">AI가 알아서 보고 합니다.</span>
           </motion.h1>
 
           {/* Sub Heading */}
@@ -138,22 +139,22 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
           >
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors">
-              <div className="text-4xl mb-3">📸</div>
+              <div className="mb-3 flex text-cyan-400"><Camera className="w-10 h-10" strokeWidth={1.5} /></div>
               <h3 className="text-lg font-bold text-white mb-2">1. 이미지·글만 넣기</h3>
               <p className="text-sm text-slate-400">상품 사진이나 설명만 넣으면 됩니다</p>
             </div>
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-pink-500/50 transition-colors">
-              <div className="text-4xl mb-3">✨</div>
+              <div className="mb-3 flex text-pink-400"><Sparkles className="w-10 h-10" strokeWidth={1.5} /></div>
               <h3 className="text-lg font-bold text-white mb-2">2. AI가 전부 제작</h3>
               <p className="text-sm text-slate-400">시나리오·이미지·동영상·블로그·상품페이지 자동 생성</p>
             </div>
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-indigo-500/50 transition-colors">
-              <div className="text-4xl mb-3">🚀</div>
+              <div className="mb-3 flex text-indigo-400"><Zap className="w-10 h-10" strokeWidth={1.5} /></div>
               <h3 className="text-lg font-bold text-white mb-2">3. 채널에 자동 업로드</h3>
               <p className="text-sm text-slate-400">인스타·해외 상품 페이지 등에 올려드립니다</p>
             </div>
             <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors">
-              <div className="text-4xl mb-3">📊</div>
+              <div className="mb-3 flex text-cyan-400"><BarChart3 className="w-10 h-10" strokeWidth={1.5} /></div>
               <h3 className="text-lg font-bold text-white mb-2">4. 대시보드만 보기</h3>
               <p className="text-sm text-cyan-400 font-bold">올린 결과·현황만 확인하시면 됩니다</p>
             </div>
@@ -194,27 +195,29 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: "⏳",
+                Icon: Clock,
                 title: "시간 및 전문성 부재",
                 description:
                   "창업가·판매자는 제품 소싱만으로도 벅찹니다. 디자인, 카피라이팅 등 마케팅 전문 기술을 학습하고 실행할 절대적인 시간이 부족해 편리하게 운영하기 어렵습니다.",
                 color: "cyan",
               },
               {
-                icon: "🧩",
+                Icon: Puzzle,
                 title: "툴 파편화 및 고비용",
                 description:
                   "ChatGPT, Midjourney 등 수많은 AI 툴을 개별 구독하고, 결과물을 수동으로 옮겨가며 작업해야 하는 심각한 실행의 단절이 발생합니다.",
                 color: "pink",
               },
               {
-                icon: "🕸️",
+                Icon: Globe,
                 title: "다채널 운영 복잡성",
                 description:
                   "쿠팡, 네이버 스마트스토어, 11번가 등 마켓마다 다른 규격과 정책에 맞춰 등록하고 관리하는 과정에서 극심한 피로도가 유발됩니다.",
                 color: "indigo",
               },
-            ].map((item, index) => (
+            ].map((item, index) => {
+              const Icon = item.Icon;
+              return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -223,11 +226,12 @@ export default function Home() {
                 transition={{ delay: index * 0.1 }}
                 className={`bg-slate-800/30 backdrop-blur-xl border-t-4 border-${item.color}-500 rounded-2xl p-8 hover:bg-slate-800/50 transition-colors`}
               >
-                <div className="text-5xl mb-4">{item.icon}</div>
+                <div className="mb-4 flex text-slate-300"><Icon className="w-12 h-12" strokeWidth={1.5} /></div>
                 <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
                 <p className="text-slate-400 leading-relaxed">{item.description}</p>
               </motion.div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>
@@ -323,7 +327,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-sm text-slate-500 max-w-2xl mx-auto mb-8"
             >
-              우리만의 <strong className="text-slate-400">Agent2Agent</strong> 기술로 추후 CFO Tool AI, CEO Reader AI 등 다른 AI도 대시보드에 붙여 보고받을 수 있습니다.
+              우리만의 <strong className="text-slate-400">AI2AI</strong> 기술로 추후 CFO Tool AI, CEO Reader AI 등 다른 AI도 대시보드에 붙여 보고받을 수 있습니다.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -347,19 +351,24 @@ export default function Home() {
           >
             <div className="max-w-3xl mx-auto space-y-8">
               <div className="flex items-center justify-center gap-4 flex-wrap">
-                <div className="px-6 py-4 bg-slate-800/80 rounded-xl font-bold text-lg border border-cyan-500/30">
-                  📊 AI 분석 코멘트
+                <div className="px-6 py-4 bg-slate-800/80 rounded-xl font-bold text-lg border border-cyan-500/30 flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-cyan-400 shrink-0" strokeWidth={1.5} />
+                  AI 분석 코멘트
                 </div>
-                <div className="px-6 py-4 bg-indigo-600/80 rounded-xl font-bold text-lg">
-                  📋 승인 대기 중인 전략
+                <div className="px-6 py-4 bg-indigo-600/80 rounded-xl font-bold text-lg flex items-center gap-2">
+                  <ClipboardList className="w-5 h-5 text-indigo-200 shrink-0" strokeWidth={1.5} />
+                  승인 대기 중인 전략
                 </div>
               </div>
-              <div className="text-cyan-400 text-2xl font-bold animate-pulse">
-                ⬇️ 원클릭 승인 ⬇️
+              <div className="text-cyan-400 text-2xl font-bold animate-pulse flex items-center justify-center gap-2">
+                <ArrowDown className="w-6 h-6" strokeWidth={1.5} />
+                원클릭 승인
+                <ArrowDown className="w-6 h-6" strokeWidth={1.5} />
               </div>
               <div className="flex items-center justify-center gap-4">
-                <div className="px-6 py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 rounded-xl font-bold text-lg shadow-lg">
-                  🚀 실행 → 분석 → 다음 최적 행동 제안 (선순환)
+                <div className="px-6 py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 rounded-xl font-bold text-lg shadow-lg flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-white shrink-0" strokeWidth={1.5} />
+                  실행 → 분석 → 다음 최적 행동 제안 (선순환)
                 </div>
               </div>
             </div>
@@ -549,7 +558,7 @@ export default function Home() {
           >
             <p className="text-slate-500 text-sm mb-6">정부지원사업 · 파트너</p>
             <div className="flex flex-wrap justify-center gap-8 items-center">
-              {["예비창업패키지", "청년창업사관학교", "TIPS 예정"].map((label, i) => (
+              {["예창패", "청창사", "VC", "엔젤투자자", "TIPS"].map((label, i) => (
                 <div key={i} className="px-6 py-3 bg-slate-800/50 rounded-xl border border-slate-700 text-slate-400 font-medium text-sm">
                   {label}
                 </div>
@@ -576,7 +585,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-xl text-slate-300 mb-8"
           >
-            말 걸지 마세요. AI가 먼저 보고합니다. 신용카드 없이 체험 가능.
+            말 걸지 마세요. AI가 알아서 보고 합니다. 신용카드 없이 체험 가능.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

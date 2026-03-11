@@ -20,6 +20,13 @@
       "shortName": "CFO Tool",
       "url": "https://cfo-tool-pied.vercel.app/",
       "description": "재무·경영 지표를 AI로 한눈에. CFO AI 도구."
+    },
+    {
+      "id": "mebody",
+      "name": "mebody",
+      "shortName": "mebody",
+      "url": "https://mebody-jjh.vercel.app/",
+      "description": "체형 코드 진단 서비스. CTO로 참여한 프로젝트."
     }
   ]
 }
