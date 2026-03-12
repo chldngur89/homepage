@@ -28,7 +28,7 @@ export default function Privacy() {
         >
           <section>
             <h2 className="text-xl font-bold text-white mt-8 mb-4">1. 수집하는 개인정보</h2>
-            <p>AutoCMO는 서비스 이용·문의·IR 요청 시 아래 정보를 수집할 수 있습니다.</p>
+            <p>Auto C-Level AI는 서비스 이용·문의·IR 요청 시 아래 정보를 수집할 수 있습니다.</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>필수: 이름, 이메일, 문의 내용</li>
               <li>선택: 전화번호, 회사명 (문의 유형에 따라)</li>

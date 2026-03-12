@@ -22,7 +22,7 @@ export default function About() {
             <span className="text-cyan-400">글로벌 브랜드</span>를 가지는 세상
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            AutoCMO는 창업가와 판매자의 편리함을 위해 최첨단 AI 기술로 마케팅 장벽을 허물고 있습니다
+            Auto C-Level AI는 창업가와 판매자의 편리함을 위해 최첨단 AI 기술로 마케팅 장벽을 허물고 있습니다
           </p>
         </motion.div>
       </section>
@@ -68,7 +68,7 @@ export default function About() {
       <section className="max-w-5xl mx-auto px-6 mb-32">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-pink-400">AutoCMO</span>의 시작
+            <span className="text-pink-400">Auto C-Level AI</span>의 시작
           </h2>
         </div>
 
@@ -80,12 +80,12 @@ export default function About() {
         >
           <div className="prose prose-invert max-w-none">
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              AutoCMO는 창업가·판매자의 불편함을 덜어주고자 하는 경험에서 시작되었습니다. 좋은 제품 아이디어는 있었지만,
+              Auto C-Level AI는 창업가·판매자의 불편함을 덜어주고자 하는 경험에서 시작되었습니다. 좋은 제품 아이디어는 있었지만,
               마케팅 전문 지식이 없어 ChatGPT로 카피를 쓰고, Midjourney로 이미지를 만들고, 다시 포토샵으로 편집하고,
               각 마켓마다 수동으로 업로드하는 과정에서 <strong className="text-white">하루 종일 시간을 낭비</strong>했습니다.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              "이 모든 과정을 자동화할 수는 없을까?" 라는 단순한 질문에서 출발한 AutoCMO는, 이제 창업가와 판매자들이
+              "이 모든 과정을 자동화할 수는 없을까?" 라는 단순한 질문에서 출발한 Auto C-Level AI는, 이제 창업가와 판매자들이
               시간과 비용을 절약하고 매출을 늘릴 수 있도록 편리함을 제공하고 있습니다.
             </p>
             <p className="text-lg text-slate-300 leading-relaxed">
@@ -125,7 +125,7 @@ export default function About() {
             <div>
               <h3 className="text-xl font-bold text-white mb-4">앞으로: CFO·CEO AI까지</h3>
               <p className="text-slate-400 mb-4">
-                우리가 만든 <strong className="text-cyan-400">CFO Tool on AI</strong>, <strong className="text-cyan-400">CEO Rader AI</strong>, <strong className="text-cyan-400">LowestAlert AI</strong>(최저가 알림), <strong className="text-cyan-400">PMS on AI</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
+                우리가 만든 <strong className="text-cyan-400">CFO Tool on AI</strong>, <strong className="text-cyan-400">CEO Rader AI</strong>, <strong className="text-cyan-400">LowestAlert AI</strong>(최저가 알림), <strong className="text-cyan-400">PMS on AI</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. CMO AI Agent를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
               </p>
             </div>
           </div>

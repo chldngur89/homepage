@@ -40,7 +40,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="text-lg md:text-xl text-slate-400 font-medium mb-4"
           >
-            <span className="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent font-bold">AutoCMO</span>
+            <span className="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent font-bold">Auto C-Level AI</span>
             <span className="text-slate-500"> · CMO AI Agent</span>
           </motion.p>
 
@@ -51,8 +51,9 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight text-white max-w-4xl mx-auto"
           >
-            <span className="block leading-[1.15]">말 걸지 마세요 .</span>
-            <span className="block mt-2 md:mt-3 leading-[1.15] text-white/95">AI가 알아서 보고 합니다.</span>
+            <span className="block leading-[1.15]">말 걸 필요 없는 능동 AI,</span>
+            <span className="block mt-2 md:mt-3 leading-[1.15] text-white/95">창업가의 자율주행 AI 파트너.</span>
+            <span className="block mt-2 md:mt-3 text-xl md:text-2xl text-cyan-400/90 font-bold">Auto C-Level AI</span>
           </motion.h1>
 
           {/* Sub Heading */}
@@ -519,7 +520,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-slate-500 text-sm mb-8"
             >
-              많은 창업가·판매자가 이미 AutoCMO로 마케팅을 운영하고 있습니다
+              많은 창업가·판매자가 이미 CMO AI Agent로 마케팅을 운영하고 있습니다
             </motion.p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">

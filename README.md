@@ -1,4 +1,4 @@
-# AutoCMO Homepage
+# Auto C-Level AI Homepage
 
 CMO AI Agent · Zero-Click Intelligence 랜딩/홈페이지 (React + Vite + TypeScript). 창업가·판매자를 위한 편리함, AI2AI로 CFO·CEO AI 확장.
 

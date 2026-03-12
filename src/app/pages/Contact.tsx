@@ -39,7 +39,7 @@ export default function Contact() {
       }
     } else {
       // Formspree 없을 때: mailto로 사용자 메일 앱 열기 → chldngur89@naver.com으로 보내는 효과
-      const subject = encodeURIComponent(`[AutoCMO 문의] ${formData.name}님 문의`);
+      const subject = encodeURIComponent(`[Auto C-Level AI 문의] ${formData.name}님 문의`);
       const body = encodeURIComponent(
         `이름: ${formData.name}\n이메일: ${formData.email}\n\n메시지:\n${formData.message}`
       );
@@ -240,7 +240,7 @@ export default function Contact() {
               </div>
               <div className="space-y-3">
                 <a
-                  href={`mailto:${contactEmail}?subject=${encodeURIComponent("[AutoCMO] IR 자료 요청")}`}
+                  href={`mailto:${contactEmail}?subject=${encodeURIComponent("[Auto C-Level AI] IR 자료 요청")}`}
                   className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition-colors px-4 flex items-center justify-center gap-2"
                 >
                   IR 자료 요청하기

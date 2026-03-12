@@ -33,16 +33,14 @@ export function Layout() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" onClick={scrollToTop} className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center font-bold text-white">
-                A
-              </div>
+              <img src="/favicon.png" alt="" className="w-10 h-10 rounded-xl object-contain bg-slate-900/50" />
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 via-pink-400 to-indigo-500 bg-clip-text text-transparent">
                 {siteContent.siteName}
               </span>
@@ -127,9 +125,7 @@ export function Layout() {
             {/* Company Info */}
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center font-bold text-white">
-                  A
-                </div>
+                <img src="/favicon.png" alt="" className="w-10 h-10 rounded-xl object-contain bg-slate-900/50" />
                 <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 via-pink-400 to-indigo-500 bg-clip-text text-transparent">
                   {siteContent.siteName}
                 </span>
