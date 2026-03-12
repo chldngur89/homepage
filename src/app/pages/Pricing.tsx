@@ -40,19 +40,19 @@ export default function Pricing() {
                 <Zap className="w-6 h-6 text-slate-300" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">무료 체험</h3>
-                <p className="text-sm text-slate-400">시작하기 좋은</p>
+                <h3 className="text-2xl font-bold text-white">무료</h3>
+                <p className="text-sm text-slate-400">한 번 체험</p>
               </div>
             </div>
 
             <div className="mb-6">
               <div className="text-4xl font-bold text-white mb-2">₩0</div>
-              <div className="text-slate-400">첫 3회 무료</div>
+              <div className="text-slate-400">1회 무료 체험</div>
             </div>
 
             <ul className="space-y-4 mb-8">
               {[
-                "3회 무료 마케팅 패키지 생성",
+                "1회 무료 마케팅 패키지 생성",
                 "기본 AI 카피라이팅",
                 "기본 이미지 생성",
                 "2개 마켓 업로드",
@@ -71,7 +71,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="block w-full py-3 px-6 text-center bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold transition-colors"
             >
-              AI 마케팅 총괄(CMO) 임명하기
+              CMO 임명하기
             </a>
           </motion.div>
 
@@ -98,7 +98,7 @@ export default function Pricing() {
             </div>
 
             <div className="mb-6">
-              <div className="text-4xl font-bold text-white mb-2">₩49,000</div>
+              <div className="text-4xl font-bold text-white mb-2">₩99,000</div>
               <div className="text-slate-400">월 / 무제한 사용</div>
             </div>
 
@@ -107,7 +107,7 @@ export default function Pricing() {
                 "무제한 마케팅 패키지 생성",
                 "고급 AI 카피라이팅 (GPT-4o)",
                 "프리미엄 이미지 생성",
-                "숏폼 영상 제작 (월 30개)",
+                "숏폼 영상 제작",
                 "전체 마켓 업로드 (10+)",
                 "AI 전략 리포트 대시보드",
                 "우선 이메일/채팅 지원",
@@ -129,7 +129,7 @@ export default function Pricing() {
             </a>
           </motion.div>
 
-          {/* Business Plan */}
+          {/* 슈퍼 팀 Plan */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -142,14 +142,14 @@ export default function Pricing() {
                 <Rocket className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">비즈니스</h3>
+                <h3 className="text-2xl font-bold text-white">슈퍼 팀</h3>
                 <p className="text-sm text-slate-400">팀/브랜드를 위한</p>
               </div>
             </div>
 
             <div className="mb-6">
-              <div className="text-4xl font-bold text-white mb-2">₩149,000</div>
-              <div className="text-slate-400">월 / 팀 5명까지</div>
+              <div className="text-4xl font-bold text-white mb-2">₩199,000</div>
+              <div className="text-slate-400">월 / 팀 무제한</div>
             </div>
 
             <ul className="space-y-4 mb-8">
@@ -263,7 +263,7 @@ export default function Pricing() {
             <div>
               <h3 className="text-2xl font-bold text-white mb-4">💚 수익 쉐어 플랜</h3>
               <p className="text-slate-300 mb-6">
-                CMO AI Agent를 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
+                AutoCMO를 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
               </p>
               <ul className="space-y-3 text-slate-300">
                 <li className="flex items-center gap-2">
@@ -335,7 +335,7 @@ export default function Pricing() {
             },
             {
               q: "지원하는 결제 수단은 무엇인가요?",
-              a: "신용카드(Visa, MasterCard, AMEX), 체크카드, 계좌이체, 카카오페이, 네이버페이를 지원합니다. 비즈니스 플랜은 세금계산서 발행도 가능합니다.",
+              a: "신용카드(Visa, MasterCard, AMEX), 체크카드, 계좌이체, 카카오페이, 네이버페이를 지원합니다. 슈퍼 팀 플랜은 세금계산서 발행도 가능합니다.",
             },
           ].map((faq, i) => (
             <motion.div
@@ -373,7 +373,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              AI 마케팅 총괄(CMO) 임명하기
+              CMO 임명하기
             </a>
             <Link
               to="/contact"

@@ -41,7 +41,7 @@ export default function Home() {
             className="text-lg md:text-xl text-slate-400 font-medium mb-4"
           >
             <span className="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent font-bold">Auto C-Level AI</span>
-            <span className="text-slate-500"> · CMO AI Agent</span>
+            <span className="text-slate-500"> · AutoCMO</span>
           </motion.p>
 
           {/* Main Heading */}
@@ -89,7 +89,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="group min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              AI 마케팅 총괄(CMO) 임명하기
+              CMO 임명하기
               <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
             </a>
             <Link
@@ -160,9 +160,58 @@ export default function Home() {
               <p className="text-sm text-cyan-400 font-bold">올린 결과·현황만 확인하시면 됩니다</p>
             </div>
           </motion.div>
-          <p className="text-slate-400 text-center mt-8 max-w-2xl mx-auto text-sm md:text-base">
-            예: <strong className="text-white">수박</strong>만 넣으면 AI가 시나리오를 만들고, 그에 맞는 이미지·동영상을 만들어 쿠팡·네이버 등 여러 플랫폼에 올려드립니다. <span className="text-cyan-400 font-medium">대표님·판매자는 대시보드만 보시면 됩니다.</span>
+          <p className="text-slate-300 text-center mt-8 max-w-2xl mx-auto text-sm md:text-base">
+            <strong className="text-white">수박을 넣거나 글을 치면</strong> 이미지가 만들어지고, 우리 템플릿으로 올리면 <span className="text-cyan-400 font-medium">대시보드만 보면 됩니다.</span> 그 이후에는 AI가 알아서 해줍니다.
           </p>
+
+          {/* 실제 화면으로 보는 플로우 (수박 예시) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+          >
+            <div className="bg-slate-900/50 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-800 flex items-center justify-center p-2">
+                <img src="/flow/flow-scenario.png" alt="이미지를 넣거나 글을 입력" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <span className="text-cyan-400 font-bold text-sm">1</span>
+                <p className="text-white font-medium mt-1">이미지를 넣거나 글을 입력</p>
+                <p className="text-slate-500 text-xs mt-1">상품 사진·이름만 넣으면 됩니다</p>
+              </div>
+            </div>
+            <div className="bg-slate-900/50 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-800 flex items-center justify-center p-2">
+                <img src="/flow/flow-watermelon.png" alt="시나리오 및 광고 계획 만들기" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <span className="text-pink-400 font-bold text-sm">2</span>
+                <p className="text-white font-medium mt-1">시나리오 및 광고 계획 만들기</p>
+                <p className="text-slate-500 text-xs mt-1">AI가 마케팅 시나리오·광고 계획을 제안합니다</p>
+              </div>
+            </div>
+            <div className="bg-slate-900/50 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-800 flex items-center justify-center p-2">
+                <img src="/flow/flow-form.png" alt="이미지 생성 결과" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <span className="text-indigo-400 font-bold text-sm">3</span>
+                <p className="text-white font-medium mt-1">광고 동영상 및 광고 이미지 생성 · 템플릿 생성</p>
+                <p className="text-slate-500 text-xs mt-1">시나리오에 맞는 광고 이미지·동영상·템플릿 자동 생성</p>
+              </div>
+            </div>
+            <div className="bg-slate-900/50 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-800 flex items-center justify-center p-2">
+                <img src="/flow/flow-dashboard.png" alt="플랫폼 연결 대시보드" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <span className="text-cyan-400 font-bold text-sm">4</span>
+                <p className="text-white font-medium mt-1">대시보드만 보면 됨</p>
+                <p className="text-slate-500 text-xs mt-1">그 이후에는 AI가 알아서 해줍니다</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -250,8 +299,19 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center lg:text-left"
             >
-              <div className="inline-block px-4 py-1 rounded-full bg-slate-700/50 text-slate-300 font-semibold text-sm mb-4">
-                그 다음: 경쟁사 분석
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <span className="inline-block px-4 py-1 rounded-full bg-slate-700/50 text-slate-300 font-semibold text-sm">
+                  그 다음: 경쟁사 분석
+                </span>
+                <a
+                  href={APP_URLS.ceoRader}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 text-xs font-medium transition-colors"
+                >
+                  CEO Rader 앱
+                  <ArrowRight className="w-3 h-3" />
+                </a>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 자동 마케팅이 돌아가는 그다음, 경쟁사는?
@@ -520,7 +580,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-slate-500 text-sm mb-8"
             >
-              많은 창업가·판매자가 이미 CMO AI Agent로 마케팅을 운영하고 있습니다
+              많은 창업가·판매자가 이미 AutoCMO로 마케팅을 운영하고 있습니다
             </motion.p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
@@ -562,7 +622,7 @@ export default function Home() {
           >
             <p className="text-slate-500 text-sm mb-6">정부지원사업 · 파트너</p>
             <div className="flex flex-wrap justify-center gap-8 items-center">
-              {["예창패", "청창사", "VC", "엔젤투자자", "TIPS"].map((label, i) => (
+              {["예창패", "청창사", "VC", "AC", "TIPS"].map((label, i) => (
                 <div key={i} className="px-6 py-3 bg-slate-800/50 rounded-xl border border-slate-700 text-slate-400 font-medium text-sm">
                   {label}
                 </div>
@@ -603,7 +663,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              AI 마케팅 총괄(CMO) 임명하기
+              CMO 임명하기
             </a>
             <Link
               to="/pricing"

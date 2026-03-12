@@ -38,7 +38,7 @@ export default function Contact() {
         setSubmitError("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
       }
     } else {
-      // Formspree 없을 때: mailto로 사용자 메일 앱 열기 → chldngur89@naver.com으로 보내는 효과
+      // Formspree 없을 때: mailto로 사용자 메일 앱 열기 → chldngur89@gmail.com으로 보내는 효과
       const subject = encodeURIComponent(`[Auto C-Level AI 문의] ${formData.name}님 문의`);
       const body = encodeURIComponent(
         `이름: ${formData.name}\n이메일: ${formData.email}\n\n메시지:\n${formData.message}`
@@ -74,6 +74,9 @@ export default function Contact() {
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
             제품 문의, IR 미팅, 파트너십, 채용 등 무엇이든 환영합니다
+          </p>
+          <p className="text-slate-500 text-sm mt-2">
+            투자·IR 요약은 <Link to="/ir" className="text-cyan-400 hover:underline">IR 페이지</Link>에서 확인하실 수 있습니다.
           </p>
         </motion.div>
       </section>
@@ -239,15 +242,15 @@ export default function Contact() {
                 </div>
               </div>
               <div className="space-y-3">
-                <a
-                  href={`mailto:${contactEmail}?subject=${encodeURIComponent("[Auto C-Level AI] IR 자료 요청")}`}
+                <Link
+                  to="/ir"
                   className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition-colors px-4 flex items-center justify-center gap-2"
                 >
                   IR 자료 요청하기
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                </a>
+                </Link>
                 <Link
                   to="/contact"
                   className="w-full py-3 border-2 border-indigo-500 hover:bg-indigo-500/10 rounded-xl font-semibold transition-colors block text-center"

@@ -103,7 +103,7 @@ export default function About() {
             <span className="text-cyan-400">AI2AI</span> 기술로 AI를 계속 붙입니다
           </h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto mb-4">
-            지금은 CMO AI Agent가 주력이지만, 우리만의 AI2AI 기술로 새로운 AI가 나올 때마다 쉽게 붙여 쓸 수 있습니다.
+            지금은 AutoCMO가 주력이지만, 우리만의 AI2AI 기술로 새로운 AI가 나올 때마다 쉽게 붙여 쓸 수 있습니다.
           </p>
           <p className="text-base text-slate-500 max-w-2xl mx-auto">
             연구에서 나온 방향: A의 객체와 B의 객체를 AI가 연결하고, 궁극적으로는 <strong className="text-slate-400">AI와 AI를 AI가 연결하는</strong> 구조를 지향합니다.
@@ -117,7 +117,7 @@ export default function About() {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-bold text-white mb-4">지금: CMO AI Agent</h3>
+              <h3 className="text-xl font-bold text-white mb-4">지금: AutoCMO</h3>
               <p className="text-slate-400 mb-4">
                 마케팅·판매를 대시보드 하나로. 창업가·판매자에게 Zero-Click 편리함을 제공합니다.
               </p>
@@ -125,7 +125,7 @@ export default function About() {
             <div>
               <h3 className="text-xl font-bold text-white mb-4">앞으로: CFO·CEO AI까지</h3>
               <p className="text-slate-400 mb-4">
-                우리가 만든 <strong className="text-cyan-400">CFO Tool on AI</strong>, <strong className="text-cyan-400">CEO Rader AI</strong>, <strong className="text-cyan-400">LowestAlert AI</strong>(최저가 알림), <strong className="text-cyan-400">PMS on AI</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. CMO AI Agent를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
+                우리가 만든 <strong className="text-cyan-400">CFO Tool on AI</strong>, <strong className="text-cyan-400">CEO Rader AI</strong>, <strong className="text-cyan-400">LowestAlert AI</strong>(최저가 알림), <strong className="text-cyan-400">PMS on AI</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. AutoCMO를 쓰는 CEO와 쓰지 않는 CEO의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
               </p>
             </div>
           </div>
@@ -377,7 +377,7 @@ export default function About() {
               rel="noopener noreferrer"
               className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
             >
-              AI 마케팅 총괄(CMO) 임명하기
+              CMO 임명하기
             </a>
           </div>
         </motion.div>

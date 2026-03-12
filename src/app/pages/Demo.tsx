@@ -41,7 +41,7 @@ export default function Demo() {
           className="text-center"
         >
           <div className="inline-block px-4 py-1 rounded-full bg-cyan-900/30 text-cyan-400 font-semibold text-sm mb-6">
-            CMO 임명
+            CMO 임명하기
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="text-cyan-400">1분</span>이면 충분합니다
@@ -55,7 +55,7 @@ export default function Demo() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all mb-6"
           >
-            지금 CMO AI Agent 앱에서 사용하기
+            지금 AutoCMO 앱에서 사용하기
             <ExternalLink className="w-5 h-5" />
           </a>
           <p className="text-slate-500 text-sm max-w-2xl mx-auto">

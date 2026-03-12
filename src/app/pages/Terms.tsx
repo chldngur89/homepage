@@ -28,7 +28,7 @@ export default function Terms() {
         >
           <section>
             <h2 className="text-xl font-bold text-white mt-8 mb-4">제1조 (목적)</h2>
-            <p>본 약관은 Auto C-Level AI(이하 “서비스”)가 제공하는 CMO AI Agent 등 AI 마케팅 자동화 서비스의 이용 조건 및 절차, 이용자와의 권리·의무 관계를 규정함을 목적으로 합니다.</p>
+            <p>본 약관은 Auto C-Level AI(이하 “서비스”)가 제공하는 AutoCMO 등 AI 마케팅 자동화 서비스의 이용 조건 및 절차, 이용자와의 권리·의무 관계를 규정함을 목적으로 합니다.</p>
           </section>
 
           <section>

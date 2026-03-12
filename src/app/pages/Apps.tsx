@@ -31,7 +31,7 @@ export default function Apps() {
             <span className="text-cyan-400">{siteContent.appsPage?.titleHighlight ?? "너한테 필요한 모든 걸"}</span> 다 이어 줍니다
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            {siteContent.appsPage?.description ?? "CMO AI AGENT(마케팅 AI), CEO Rader AI(CEO에 레이더를 도와주는 AI), CFO Tool on AI(CFO의 AI), LowestAlert AI(최저가 알림 AI), PMS on AI(프로젝트 관리)까지 웹에서 바로 사용하거나 새 탭에서 열어보세요."}
+            {siteContent.appsPage?.description ?? "AutoCMO(마케팅 AI), CEO Rader AI(CEO에 레이더를 도와주는 AI), CFO Tool on AI(CFO의 AI), LowestAlert AI(최저가 알림 AI), PMS on AI(프로젝트 관리)까지 웹에서 바로 사용하거나 새 탭에서 열어보세요."}
           </p>
         </motion.div>
       </section>

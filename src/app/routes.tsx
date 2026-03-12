@@ -7,6 +7,7 @@ import Pricing from "./pages/Pricing";
 import Demo from "./pages/Demo";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import IR from "./pages/IR";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Apps from "./pages/Apps";
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
       { path: "apps", Component: Apps },
       { path: "about", Component: About },
       { path: "contact", Component: Contact },
+      { path: "ir", Component: IR },
       { path: "privacy", Component: Privacy },
       { path: "terms", Component: Terms },
       { path: "*", Component: NotFound },

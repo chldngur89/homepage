@@ -22,7 +22,7 @@ export default function Solution() {
             대시보드만 보면 됩니다
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            창업가·판매자를 위한 CMO AI Agent. 상품 사진과 마켓만 선택하면, AI가 실행·분석을 보고하고 최적의 다음 행동(Next Action)을 제안합니다.
+            창업가·판매자를 위한 AutoCMO. 상품 사진과 마켓만 선택하면, AI가 실행·분석을 보고하고 최적의 다음 행동(Next Action)을 제안합니다.
           </p>
         </motion.div>
       </section>
@@ -32,7 +32,7 @@ export default function Solution() {
         <div className="bg-indigo-900/20 rounded-3xl p-8 md:p-12 border border-indigo-500/20">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              기존 방식 vs <span className="text-cyan-400">CMO AI Agent</span>
+              기존 방식 vs <span className="text-cyan-400">AutoCMO</span>
             </h2>
             <p className="text-lg text-slate-400">
               파편화된 작업 흐름을 원스톱으로 통합
@@ -97,7 +97,7 @@ export default function Solution() {
               className="bg-gradient-to-br from-slate-900 to-indigo-900/30 rounded-2xl p-8 border border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]"
             >
               <div className="text-cyan-400 font-bold mb-6 flex items-center gap-2 text-xl">
-                <Sparkles className="w-5 h-5" strokeWidth={1.5} /> CMO AI Agent 방식 (After)
+                <Sparkles className="w-5 h-5" strokeWidth={1.5} /> AutoCMO 방식 (After)
               </div>
               <div className="space-y-6 flex flex-col justify-center h-full">
                 <div className="bg-slate-800/80 border border-cyan-500/30 p-6 rounded-xl text-left">
@@ -156,7 +156,7 @@ export default function Solution() {
             4단계로 완성되는 마케팅 자동화
           </p>
           <p className="text-slate-300 max-w-2xl mx-auto">
-            상품(예: <strong className="text-white">수박</strong>)만 넣으면 AI가 시나리오를 만들고, 그에 맞는 이미지·동영상을 만들어 여러 플랫폼에 올려드립니다. <span className="text-cyan-400 font-medium">대표님·판매자는 대시보드만 보시면 됩니다.</span>
+            <strong className="text-white">수박을 넣거나 글을 치면</strong> 이미지가 만들어지고, 우리 템플릿으로 올리면 <span className="text-cyan-400 font-medium">대시보드만 보면 됩니다.</span> 그 이후에는 AI가 알아서 해줍니다.
           </p>
         </div>
 
@@ -208,6 +208,50 @@ export default function Solution() {
             </motion.div>
           ))}
         </div>
+
+        {/* 실제 화면으로 보는 플로우 (수박 예시) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <p className="text-center text-slate-500 text-sm mb-8">실제 화면 예시 (수박 → 시나리오·이미지 → 대시보드)</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-slate-800/30 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-900 flex items-center justify-center p-2">
+                <img src="/flow/flow-scenario.png" alt="이미지를 넣거나 글을 입력" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <p className="text-white font-medium text-sm">이미지를 넣거나 글을 입력</p>
+              </div>
+            </div>
+            <div className="bg-slate-800/30 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-900 flex items-center justify-center p-2">
+                <img src="/flow/flow-watermelon.png" alt="시나리오 및 광고 계획 만들기" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <p className="text-white font-medium text-sm">시나리오 및 광고 계획 만들기</p>
+              </div>
+            </div>
+            <div className="bg-slate-800/30 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-900 flex items-center justify-center p-2">
+                <img src="/flow/flow-form.png" alt="광고 동영상 및 광고 이미지 생성 · 템플릿 생성" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <p className="text-white font-medium text-sm">광고 동영상 및 광고 이미지 생성 · 템플릿 생성</p>
+              </div>
+            </div>
+            <div className="bg-slate-800/30 border border-slate-700 rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-slate-900 flex items-center justify-center p-2">
+                <img src="/flow/flow-dashboard.png" alt="대시보드" className="w-full h-full object-contain rounded-lg" />
+              </div>
+              <div className="p-4">
+                <p className="text-white font-medium text-sm">대시보드만 보면 됨 · AI가 알아서</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* AI 전략 리포트 (대시보드) */}
@@ -358,7 +402,7 @@ export default function Solution() {
             우리는 이 연결 기술을 R&D와 딥테크의 핵심으로 연구하고 있습니다. A의 객체와 B의 객체를 AI가 연결하고, 궁극적으로는 <strong className="text-cyan-400">AI와 AI를 AI가 연결하는</strong> 구조를 지향합니다.
           </p>
           <p className="text-slate-400 leading-relaxed">
-            CMO AI Agent는 그 첫 번째 적용 사례이며, CFO Tool on AI·CEO Rader AI 등 더 많은 에이전트를 AI2AI로 이어 나가고 있습니다.
+            AutoCMO는 그 첫 번째 적용 사례이며, CFO Tool on AI·CEO Rader AI 등 더 많은 에이전트를 AI2AI로 이어 나가고 있습니다.
           </p>
         </motion.div>
       </section>
@@ -368,7 +412,7 @@ export default function Solution() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              왜 <span className="text-cyan-400">CMO AI Agent</span>인가요?
+              왜 <span className="text-cyan-400">AutoCMO</span>인가요?
             </h2>
           </div>
 
@@ -421,7 +465,7 @@ export default function Solution() {
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all inline-flex items-center justify-center gap-2"
             >
-              AI 마케팅 총괄(CMO) 임명하기
+              CMO 임명하기
               <ArrowRight size={20} />
             </a>
           </div>
