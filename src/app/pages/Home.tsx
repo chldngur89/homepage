@@ -895,7 +895,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-bold mb-6"
           >
-            오늘, <span className="text-cyan-400">매출 시스템</span>을 켜세요
+            오늘, <span className="text-cyan-400">Marketing OS</span>를 켜세요
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -917,7 +917,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-10 py-5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              오늘 매출 시스템 켜기
+              오늘 Marketing OS 켜기
             </a>
             <Link
               to="/pricing"
