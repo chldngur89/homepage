@@ -35,7 +35,10 @@ export function Layout() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800">
+      <nav
+        aria-label="주요 탐색"
+        className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800"
+      >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -114,7 +117,7 @@ export function Layout() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-20">
+      <main id="main-content" className="pt-20">
         <Outlet />
       </main>
 

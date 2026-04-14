@@ -15,13 +15,16 @@ export default function Home() {
   return (
     <div className="bg-slate-950">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section
+        aria-labelledby="home-hero-title"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/20 via-slate-950 to-slate-950"></div>
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"></div>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-32 text-center">
+        <header className="relative max-w-7xl mx-auto px-6 py-32 text-center">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -46,6 +49,7 @@ export default function Home() {
 
           {/* Main Heading */}
           <motion.h1
+            id="home-hero-title"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -242,17 +246,21 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
-        </div>
+        </header>
       </section>
 
       {/* Before / After */}
-      <section className="py-24 border-t border-slate-800/50" id="before-after">
+      <section
+        aria-labelledby="before-after-title"
+        className="py-24 border-t border-slate-800/50"
+        id="before-after"
+      >
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
             <div className="inline-block px-4 py-1 rounded-full bg-slate-800/60 text-slate-200 font-semibold text-sm mb-4">
               Before / After
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+            <h2 id="before-after-title" className="text-3xl md:text-5xl font-bold mb-4 text-white">
               “생성”에서 끝나는 AI vs <span className="text-cyan-400">실행까지 가는 시스템</span>
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
@@ -339,7 +347,7 @@ export default function Home() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-24 bg-slate-900/30">
+      <section aria-labelledby="problem-title" className="py-24 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <motion.div
@@ -351,6 +359,7 @@ export default function Home() {
               Problem
             </motion.div>
             <motion.h2
+              id="problem-title"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -446,13 +455,17 @@ export default function Home() {
       </section>
 
       {/* ROI */}
-      <section className="py-24 border-t border-slate-800/50" id="roi">
+      <section
+        aria-labelledby="roi-title"
+        className="py-24 border-t border-slate-800/50"
+        id="roi"
+      >
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
             <div className="inline-block px-4 py-1 rounded-full bg-cyan-900/30 text-cyan-400 font-semibold text-sm mb-4">
               ROI · 신뢰
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+            <h2 id="roi-title" className="text-3xl md:text-5xl font-bold mb-4 text-white">
               결과로 <span className="text-cyan-400">설득</span>합니다
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
@@ -723,10 +736,11 @@ export default function Home() {
       </section>
 
       {/* Features Preview */}
-      <section className="py-24">
+      <section aria-labelledby="features-title" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <motion.h2
+              id="features-title"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
