@@ -22,7 +22,7 @@ export default function Solution() {
             대시보드만 보면 됩니다
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            창업가·판매자를 위한 AutoCMO. 상품 사진과 마켓만 선택하면, AI가 실행·분석을 보고하고 최적의 다음 행동(Next Action)을 제안합니다.
+            창업가·판매자를 위한 Marketing OS. 상품 사진과 마켓만 선택하면, AI가 실행·분석을 보고하고 최적의 다음 행동(Next Action)을 제안합니다.
           </p>
         </motion.div>
       </section>
@@ -32,7 +32,7 @@ export default function Solution() {
         <div className="bg-indigo-900/20 rounded-3xl p-8 md:p-12 border border-indigo-500/20">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              기존 방식 vs <span className="text-cyan-400">AutoCMO</span>
+              기존 방식 vs <span className="text-cyan-400">Marketing OS</span>
             </h2>
             <p className="text-lg text-slate-400">
               파편화된 작업 흐름을 원스톱으로 통합
@@ -97,7 +97,7 @@ export default function Solution() {
               className="bg-gradient-to-br from-slate-900 to-indigo-900/30 rounded-2xl p-8 border border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]"
             >
               <div className="text-cyan-400 font-bold mb-6 flex items-center gap-2 text-xl">
-                <Sparkles className="w-5 h-5" strokeWidth={1.5} /> AutoCMO 방식 (After)
+                <Sparkles className="w-5 h-5" strokeWidth={1.5} /> Marketing OS 방식 (After)
               </div>
               <div className="space-y-6 flex flex-col justify-center h-full">
                 <div className="bg-slate-800/80 border border-cyan-500/30 p-6 rounded-xl text-left">
@@ -402,7 +402,7 @@ export default function Solution() {
             우리는 이 연결 기술을 R&D와 딥테크의 핵심으로 연구하고 있습니다. A의 객체와 B의 객체를 AI가 연결하고, 궁극적으로는 <strong className="text-cyan-400">AI와 AI를 AI가 연결하는</strong> 구조를 지향합니다.
           </p>
           <p className="text-slate-400 leading-relaxed">
-            AutoCMO는 그 첫 번째 적용 사례이며, CFO Tool on AI·CEO Rader AI 등 더 많은 에이전트를 AI2AI로 이어 나가고 있습니다.
+            Marketing OS 앱 AutoCMO는 그 첫 번째 적용 사례이며, CFO Tool on AI·CEO Rader AI 등 더 많은 에이전트를 AI2AI로 이어 나가고 있습니다.
           </p>
         </motion.div>
       </section>
@@ -412,7 +412,7 @@ export default function Solution() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              왜 <span className="text-cyan-400">AutoCMO</span>인가요?
+              왜 <span className="text-cyan-400">Marketing OS</span>인가요?
             </h2>
           </div>
 

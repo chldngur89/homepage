@@ -4,6 +4,7 @@ const OG_IMAGE_WIDTH = 1024;
 const OG_IMAGE_HEIGHT = 696;
 const DEFAULT_KEYWORDS = [
   "Auto C-Level AI",
+  "Marketing OS",
   "AutoCMO",
   "CMO AI",
   "마케팅 자동화",
@@ -23,14 +24,14 @@ type SeoConfig = {
 const routeSeo: Record<string, SeoConfig> = {
   "/": {
     title:
-      "Auto C-Level AI – 말 걸 필요 없는 능동 AI, 창업가의 자율주행 AI 파트너 | AutoCMO",
+      "Auto C-Level AI – 말 걸 필요 없는 능동 AI, 창업가의 자율주행 AI 파트너 | Marketing OS",
     description:
-      "말 걸 필요 없는 능동 AI, 창업가의 자율주행 AI 파트너. Auto C-Level AI. 이미지 한 장이면 시나리오·이미지·동영상·상품페이지 자동 제작 후 인스타·네이버·쿠팡 등 업로드. AutoCMO 무료 체험 가능.",
+      "말 걸 필요 없는 능동 AI, 창업가의 자율주행 AI 파트너. Auto C-Level AI. 이미지 한 장이면 시나리오·이미지·동영상·상품페이지 자동 제작 후 인스타·네이버·쿠팡 등 업로드. Marketing OS 앱 AutoCMO 무료 체험 가능.",
   },
   "/solution": {
     title: "솔루션 | Auto C-Level AI",
     description:
-      "이미지/글 입력부터 시나리오·제작·업로드·성과 보고까지 이어지는 AutoCMO Marketing OS 솔루션을 확인하세요.",
+      "이미지·글 입력부터 시나리오·제작·업로드·성과 보고까지 이어지는 Marketing OS 솔루션을 확인하세요.",
   },
   "/technology": {
     title: "기술 | Auto C-Level AI",
@@ -40,7 +41,7 @@ const routeSeo: Record<string, SeoConfig> = {
   "/pricing": {
     title: "요금제 | Auto C-Level AI",
     description:
-      "AutoCMO의 무료 체험, 프로, 슈퍼 팀 요금제와 자주 묻는 질문을 확인하세요.",
+      "Marketing OS의 무료 체험, 프로, 슈퍼 팀 요금제와 자주 묻는 질문을 확인하세요.",
   },
   "/demo": {
     title: "데모 | Auto C-Level AI",
@@ -50,7 +51,7 @@ const routeSeo: Record<string, SeoConfig> = {
   "/apps": {
     title: "앱 | Auto C-Level AI",
     description:
-      "AutoCMO, CEO Rader AI, CFO Tool on AI 등 Auto C-Level AI 앱 구성을 확인하세요.",
+      "Marketing OS 앱 AutoCMO, CEO Rader AI, CFO Tool on AI 등 Auto C-Level AI 앱 구성을 확인하세요.",
   },
   "/about": {
     title: "회사소개 | Auto C-Level AI",
@@ -63,9 +64,9 @@ const routeSeo: Record<string, SeoConfig> = {
       "서비스 문의, IR 미팅 요청, 파트너십 상담 등 Auto C-Level AI와의 연락 방법을 확인하세요.",
   },
   "/ir": {
-    title: "IR | Auto C-Level AI",
+    title: "Investor Overview | Auto C-Level AI",
     description:
-      "Auto C-Level AI의 IR 핵심 내용, 트랙션, 시장 기회, 로드맵을 확인하세요.",
+      "투자자 공유용 IR 핵심 요약. Execution Gap, 시장 기회, Marketing OS 구조, 내부 추정 및 목표 기반 운영 시나리오를 확인하세요.",
   },
   "/privacy": {
     title: "개인정보처리방침 | Auto C-Level AI",

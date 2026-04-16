@@ -44,7 +44,7 @@ export default function Home() {
             className="text-lg md:text-xl text-slate-400 font-medium mb-4"
           >
             <span className="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent font-bold">Auto C-Level AI</span>
-            <span className="text-slate-500"> · AutoCMO</span>
+            <span className="text-slate-500"> · Marketing OS</span>
           </motion.p>
 
           {/* Main Heading */}
@@ -264,7 +264,7 @@ export default function Home() {
               “생성”에서 끝나는 AI vs <span className="text-cyan-400">실행까지 가는 시스템</span>
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
-              AutoCMO는 콘텐츠를 만드는 것을 넘어, 업로드·운영·보고까지 이어서 “매출”로 연결합니다.
+              Marketing OS는 콘텐츠를 만드는 것을 넘어, 업로드·운영·보고까지 이어서 “매출”로 연결합니다.
             </p>
           </div>
 
@@ -307,7 +307,7 @@ export default function Home() {
             >
               <div className="flex items-center gap-2 text-cyan-300 font-bold mb-6">
                 <span className="w-2 h-2 rounded-full bg-cyan-400" />
-                After: AutoCMO Marketing OS
+                After: Marketing OS
               </div>
               <ul className="space-y-4 text-slate-200">
                 {[
@@ -469,7 +469,7 @@ export default function Home() {
               결과로 <span className="text-cyan-400">설득</span>합니다
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
-              AutoCMO는 “시간 절감”을 넘어, “실행 속도”를 올려 매출로 연결하는 시스템입니다.
+              Marketing OS는 “시간 절감”을 넘어, “실행 속도”를 올려 매출로 연결하는 시스템입니다.
             </p>
           </div>
 
@@ -754,7 +754,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-lg text-slate-400 max-w-2xl mx-auto mb-4"
             >
-              필요한 건 “더 많은 기능”이 아니라, 실행이 빠르게 반복되는 시스템입니다. AutoCMO는 운영에 필요한 필수 기능만 묶어 ‘파이프라인’으로 제공합니다.
+              필요한 건 “더 많은 기능”이 아니라, 실행이 빠르게 반복되는 시스템입니다. Marketing OS는 운영에 필요한 필수 기능만 묶어 ‘파이프라인’으로 제공합니다.
             </motion.p>
           </div>
 
@@ -888,9 +888,9 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center pt-8 border-t border-slate-700"
           >
-            <p className="text-slate-500 text-sm mb-6">검토 중인 지원사업 · 파트너</p>
+            <p className="text-slate-500 text-sm mb-6">지원사업 · 파트너 검토 현황</p>
             <div className="flex flex-wrap justify-center gap-8 items-center">
-              {["예창패 예정", "청창사 예정", "VC 검토", "AC 검토", "TIPS 검토"].map((label, i) => (
+              {["예창패 지원중", "청창사 지원중", "TIPS 검토 중", "민간 투자 검토 중", "민간 파트너 검토 중"].map((label, i) => (
                 <div key={i} className="px-6 py-3 bg-slate-800/50 rounded-xl border border-slate-700 text-slate-400 font-medium text-sm">
                   {label}
                 </div>

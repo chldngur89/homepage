@@ -1,5 +1,6 @@
 import type { RouteObject } from "react-router";
 import { Layout } from "./components/Layout";
+import { ScrollRoot } from "./components/ScrollRoot";
 import Home from "./pages/Home";
 import Solution from "./pages/Solution";
 import Technology from "./pages/Technology";
@@ -15,21 +16,32 @@ import NotFound from "./pages/NotFound";
 
 export const appRoutes: RouteObject[] = [
   {
-    path: "/",
-    Component: Layout,
+    Component: ScrollRoot,
     children: [
-      { index: true, Component: Home },
-      { path: "solution", Component: Solution },
-      { path: "technology", Component: Technology },
-      { path: "pricing", Component: Pricing },
-      { path: "demo", Component: Demo },
-      { path: "apps", Component: Apps },
-      { path: "about", Component: About },
-      { path: "contact", Component: Contact },
-      { path: "ir", Component: IR },
-      { path: "privacy", Component: Privacy },
-      { path: "terms", Component: Terms },
-      { path: "*", Component: NotFound },
+      {
+        path: "/",
+        Component: Layout,
+        children: [
+          { index: true, Component: Home },
+          { path: "solution", Component: Solution },
+          { path: "technology", Component: Technology },
+          { path: "pricing", Component: Pricing },
+          { path: "demo", Component: Demo },
+          { path: "apps", Component: Apps },
+          { path: "about", Component: About },
+          { path: "contact", Component: Contact },
+          { path: "privacy", Component: Privacy },
+          { path: "terms", Component: Terms },
+        ],
+      },
+      {
+        path: "/ir",
+        Component: IR,
+      },
+      {
+        path: "*",
+        Component: NotFound,
+      },
     ],
   },
 ];

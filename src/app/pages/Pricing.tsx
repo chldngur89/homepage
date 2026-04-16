@@ -263,7 +263,7 @@ export default function Pricing() {
             <div>
               <h3 className="text-2xl font-bold text-white mb-4">💚 수익 쉐어 플랜</h3>
               <p className="text-slate-300 mb-6">
-                AutoCMO를 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
+                Marketing OS를 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
               </p>
               <ul className="space-y-3 text-slate-300">
                 <li className="flex items-center gap-2">
