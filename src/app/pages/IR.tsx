@@ -91,14 +91,14 @@ export default function IR() {
           viewport={{ once: true }}
           className="text-2xl font-bold text-white mb-6 text-center"
         >
-          트랙션 · 지원 현황
+          지원 검토 현황
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: "예비창업패키지", value: "~2,500만 원", sub: "2025" },
-            { label: "청년창업사관학교", value: "~1억 원", sub: "2025–2026" },
-            { label: "국내 특허 출원", value: "2건", sub: "2026.01.13" },
-            { label: "정부·파트너", value: "예창패, 청창사, VC, TIPS 등", sub: "" },
+            { label: "예비창업패키지", value: "지원 예정", sub: "" },
+            { label: "청년창업사관학교", value: "지원 예정", sub: "" },
+            { label: "TIPS", value: "검토 예정", sub: "" },
+            { label: "정부·파트너", value: "논의 예정", sub: "" },
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -159,7 +159,7 @@ export default function IR() {
           viewport={{ once: true }}
           className="text-2xl font-bold text-white mb-6 text-center"
         >
-          수상 및 인증
+          지원 및 도전 예정
         </motion.h2>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -167,7 +167,7 @@ export default function IR() {
           viewport={{ once: true }}
           className="flex flex-wrap justify-center gap-4"
         >
-          {["예비창업패키지 선정 (2025)", "강원 스타트업 경진대회 우수상 (2025)", "AI 혁신 챌린지 TOP 10 (2025)"].map(
+          {["예비창업패키지 지원 예정", "강원 스타트업 경진대회 출전 예정", "AI 혁신 챌린지 도전 예정"].map(
             (award, i) => (
               <div
                 key={i}
@@ -199,9 +199,9 @@ export default function IR() {
           className="space-y-4"
         >
           {[
-            { phase: "Phase 1", title: "예비창업패키지 (~2,500만 원)", period: "2025 Q2–Q3", status: "진행중" },
-            { phase: "Phase 2", title: "청년창업사관학교 (~1억 원)", period: "2025 Q4–2026 Q2", status: "예정" },
-            { phase: "Phase 3", title: "Seed 투자 유치 & TIPS 진입", period: "2026 Q3–Q4", status: "목표" },
+            { phase: "Phase 1", title: "예비창업패키지 지원", period: "", status: "예정" },
+            { phase: "Phase 2", title: "청년창업사관학교 지원", period: "", status: "예정" },
+            { phase: "Phase 3", title: "Seed 투자 및 TIPS 검토", period: "", status: "예정" },
           ].map((item, i) => (
             <div
               key={i}
@@ -209,7 +209,7 @@ export default function IR() {
             >
               <span className="text-cyan-400 font-semibold">{item.phase}</span>
               <span className="text-white font-medium">{item.title}</span>
-              <span className="text-slate-500 text-sm">{item.period}</span>
+              {item.period && <span className="text-slate-500 text-sm">{item.period}</span>}
               <span className="px-3 py-1 bg-slate-700 rounded-lg text-slate-300 text-xs font-medium">{item.status}</span>
             </div>
           ))}

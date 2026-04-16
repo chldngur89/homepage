@@ -888,9 +888,9 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center pt-8 border-t border-slate-700"
           >
-            <p className="text-slate-500 text-sm mb-6">정부지원사업 · 파트너</p>
+            <p className="text-slate-500 text-sm mb-6">검토 중인 지원사업 · 파트너</p>
             <div className="flex flex-wrap justify-center gap-8 items-center">
-              {["예창패", "청창사", "VC", "AC", "TIPS"].map((label, i) => (
+              {["예창패 예정", "청창사 예정", "VC 검토", "AC 검토", "TIPS 검토"].map((label, i) => (
                 <div key={i} className="px-6 py-3 bg-slate-800/50 rounded-xl border border-slate-700 text-slate-400 font-medium text-sm">
                   {label}
                 </div>

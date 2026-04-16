@@ -151,30 +151,30 @@ export default function About() {
             {[
               {
                 phase: "Phase 1",
-                title: "예비창업패키지 (~2,500만 원)",
-                period: "2025 Q2-Q3",
+                title: "예비창업패키지 지원",
+                period: "",
                 description:
-                  "초기 자금 확보 및 MVP 개발 완료. 창업가·판매자 대상 클로즈드 베타 테스트를 진행하여 초기 PMF(Product-Market Fit)를 검증하고 성공 레퍼런스를 확보합니다.",
+                  "예비창업패키지 지원을 검토하며 초기 자금 확보와 MVP 고도화를 준비합니다. 창업가·판매자 대상 클로즈드 베타 테스트를 통해 초기 PMF(Product-Market Fit)를 검증할 예정입니다.",
                 color: "yellow",
-                status: "진행중",
+                status: "예정",
               },
               {
                 phase: "Phase 2",
-                title: "청년창업사관학교 (~1억 원)",
-                period: "2025 Q4 - 2026 Q2",
+                title: "청년창업사관학교 지원",
+                period: "",
                 description:
-                  "하이브리드 AI 서버 인프라를 구축하고 글로벌 표준 UI/UX로 고도화합니다. 광고용 이미지 자동 생성·통합 마케팅 콘텐츠 자동 생성 등 원천 기술에 대한 국내 특허 2건(2026.01.13 출원)을 통해 독점적 진입장벽을 형성합니다.",
+                  "하이브리드 AI 서버 인프라 구축과 글로벌 표준 UI/UX 고도화를 준비합니다. 광고용 이미지 자동 생성과 통합 마케팅 콘텐츠 자동화 등 핵심 기술을 단계적으로 정리할 예정입니다.",
                 color: "pink",
                 status: "예정",
               },
               {
                 phase: "Phase 3",
-                title: "Seed 투자 유치 & TIPS 진입",
-                period: "2026 Q3-Q4",
+                title: "Seed 투자 및 TIPS 검토",
+                period: "",
                 description:
-                  "3억 원 규모의 시드 투자 유치 완료 후 TIPS 프로그램에 진입. R&D를 극대화하여 일본, 대만, 미국 등 크로스보더 커머스 솔루션으로 본격적인 글로벌 확장을 시작합니다.",
+                  "시드 투자와 TIPS 프로그램 진입 가능성을 검토하며, 일본·대만·미국 등 크로스보더 커머스 확장을 준비할 예정입니다.",
                 color: "cyan",
-                status: "목표",
+                status: "예정",
               },
             ].map((item, index) => (
               <motion.div
@@ -200,7 +200,7 @@ export default function About() {
                       <span className={`px-3 py-1 bg-${item.color}-900/30 text-${item.color}-400 rounded-full text-sm font-bold`}>
                         {item.phase}
                       </span>
-                      <span className="text-sm text-slate-500">{item.period}</span>
+                      {item.period && <span className="text-sm text-slate-500">{item.period}</span>}
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
                     <p className="text-slate-400 leading-relaxed mb-4">{item.description}</p>
@@ -311,7 +311,7 @@ export default function About() {
       <section className="max-w-5xl mx-auto px-6 mb-32">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            수상 및 <span className="text-yellow-400">인증</span>
+            지원 및 <span className="text-yellow-400">도전 예정</span>
           </h2>
         </div>
 
@@ -319,18 +319,18 @@ export default function About() {
           {[
             {
               icon: <Award className="w-8 h-8" />,
-              title: "예비창업패키지 선정",
-              year: "2025",
+              title: "예비창업패키지 지원",
+              year: "예정",
             },
             {
               icon: <Award className="w-8 h-8" />,
-              title: "강원 스타트업 경진대회 우수상",
-              year: "2025",
+              title: "강원 스타트업 경진대회 출전",
+              year: "예정",
             },
             {
               icon: <Award className="w-8 h-8" />,
-              title: "AI 혁신 챌린지 TOP 10",
-              year: "2025",
+              title: "AI 혁신 챌린지 도전",
+              year: "예정",
             },
           ].map((award, index) => (
             <motion.div
