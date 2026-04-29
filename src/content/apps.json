@@ -41,6 +41,13 @@
       "shortName": "mebody",
       "url": "https://mebody-jjh.vercel.app/",
       "description": "체형 코드 진단 서비스. CTO로 참여한 프로젝트."
+    },
+    {
+      "id": "aircon-call",
+      "name": "에어컨콜",
+      "shortName": "에어컨콜",
+      "url": "https://airconecall.vercel.app/",
+      "description": "즉시 에어컨 출동 · 즉시 기사 매칭 플랫폼."
     }
   ]
 }
