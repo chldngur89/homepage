@@ -44,10 +44,10 @@
     },
     {
       "id": "aircon-call",
-      "name": "에어컨콜",
-      "shortName": "에어컨콜",
+      "name": "ACnow",
+      "shortName": "ACnow",
       "url": "https://airconecall.vercel.app/",
-      "description": "즉시 에어컨 출동 · 즉시 기사 매칭 플랫폼."
+      "description": "에어컨 당일 설치 및 기사 AI 매칭 플랫폼."
     }
   ]
 }

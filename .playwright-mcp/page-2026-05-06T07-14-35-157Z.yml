@@ -1,0 +1,156 @@
+- generic [ref=e3]:
+  - navigation "주요 탐색" [ref=e4]:
+    - generic [ref=e6]:
+      - link "Auto C-Level AI" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]: Auto C-Level AI
+      - generic [ref=e9]:
+        - link "홈" [ref=e10] [cursor=pointer]:
+          - /url: /
+        - link "솔루션" [ref=e11] [cursor=pointer]:
+          - /url: /solution
+        - link "기술" [ref=e12] [cursor=pointer]:
+          - /url: /technology
+        - link "요금제" [ref=e13] [cursor=pointer]:
+          - /url: /pricing
+        - link "데모" [ref=e14] [cursor=pointer]:
+          - /url: /demo
+        - link "앱" [ref=e15] [cursor=pointer]:
+          - /url: /apps
+        - link "회사소개" [ref=e16] [cursor=pointer]:
+          - /url: /about
+        - link "문의" [ref=e17] [cursor=pointer]:
+          - /url: /contact
+        - link "CMO 임명하기" [ref=e18] [cursor=pointer]:
+          - /url: https://web-neon-nu-89.vercel.app/
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - generic [ref=e23]: 웹/앱 서비스
+        - heading "너한테 필요한 모든 걸 다 이어 줍니다" [level=1] [ref=e24]
+        - paragraph [ref=e25]: Marketing OS 앱 AutoCMO, ACnow, CEO Rader AI, CFO Tool on AI, LowestAlert AI, PMS on AI까지 웹에서 바로 사용하거나 새 탭에서 열어보세요.
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic [ref=e28]:
+            - img [ref=e30]
+            - heading "AutoCMO" [level=2] [ref=e33]
+            - paragraph [ref=e34]: 대표님은 결정만 하세요. 실행과 분석은 AI가 보고합니다. Marketing OS 앱 AutoCMO.
+            - link "바로 사용하기" [ref=e35] [cursor=pointer]:
+              - /url: https://web-neon-nu-89.vercel.app/
+              - text: 바로 사용하기
+              - img [ref=e36]
+          - generic [ref=e38]:
+            - img [ref=e40]
+            - heading "CEO Rader AI" [level=2] [ref=e43]
+            - paragraph [ref=e44]: CEO를 위한 AI 시장·뉴스 인사이트 대시보드.
+            - link "바로 사용하기" [ref=e45] [cursor=pointer]:
+              - /url: https://ceo-rader.vercel.app/
+              - text: 바로 사용하기
+              - img [ref=e46]
+          - generic [ref=e48]:
+            - img [ref=e50]
+            - heading "CFO Tool on AI" [level=2] [ref=e53]
+            - paragraph [ref=e54]: 재무·경영 지표를 AI로 한눈에. CFO AI 도구.
+            - link "바로 사용하기" [ref=e55] [cursor=pointer]:
+              - /url: https://cfo-tool-pied.vercel.app/
+              - text: 바로 사용하기
+              - img [ref=e56]
+          - generic [ref=e58]:
+            - img [ref=e60]
+            - heading "LowestAlert AI" [level=2] [ref=e64]
+            - paragraph [ref=e65]: 제품 최저가 찾아주는 AI. 최저가 알림 서비스.
+            - link "바로 사용하기" [ref=e66] [cursor=pointer]:
+              - /url: https://lowest-alert.vercel.app/home
+              - text: 바로 사용하기
+              - img [ref=e67]
+          - generic [ref=e69]:
+            - img [ref=e71]
+            - heading "PMS on AI" [level=2] [ref=e74]
+            - paragraph [ref=e75]: 프로젝트 매니지먼트 시스템에 AI. 간트 차트 기반 프로젝트 관리.
+            - link "바로 사용하기" [ref=e76] [cursor=pointer]:
+              - /url: https://pms-psi-two.vercel.app/
+              - text: 바로 사용하기
+              - img [ref=e77]
+          - generic [ref=e79]:
+            - img [ref=e81]
+            - generic [ref=e83]:
+              - heading "mebody" [level=2] [ref=e84]
+              - generic [ref=e85]: CTO 활동
+            - paragraph [ref=e86]: 체형 코드 진단 서비스. CTO로 참여한 프로젝트.
+            - link "바로 사용하기" [ref=e87] [cursor=pointer]:
+              - /url: https://mebody-jjh.vercel.app/
+              - text: 바로 사용하기
+              - img [ref=e88]
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - img "ACnow 서비스 로고" [ref=e93]
+              - generic [ref=e94]:
+                - paragraph [ref=e95]: 운영사
+                - img "리빙브릿지 운영사 로고" [ref=e97]
+                - paragraph [ref=e98]: 서비스는 ACnow, 운영사는 리빙브릿지입니다.
+            - generic [ref=e99]:
+              - heading "ACnow" [level=2] [ref=e100]
+              - generic [ref=e101]: CTO 활동
+            - paragraph [ref=e102]: 운영사 리빙브릿지
+            - paragraph [ref=e103]: 즉시 에어컨 출동 · 기사 매칭 서비스.
+            - link "바로 사용하기" [ref=e104] [cursor=pointer]:
+              - /url: https://airconecall.vercel.app/
+              - text: 바로 사용하기
+              - img [ref=e105]
+        - paragraph [ref=e107]: 모든 앱은 브라우저에서 바로 사용 가능합니다. 클릭 시 새 탭에서 열립니다.
+  - contentinfo [ref=e108]:
+    - generic [ref=e109]:
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e113]: Auto C-Level AI
+          - paragraph [ref=e114]: 말 걸 필요 없는 능동 AI, 창업가의 자율주행 AI 파트너. Auto C-Level AI · Marketing OS
+          - generic [ref=e115]:
+            - link [ref=e116] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e117]
+            - link [ref=e119] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e120]
+            - link [ref=e122] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e123]
+        - generic [ref=e125]:
+          - heading "제품" [level=3] [ref=e126]
+          - list [ref=e127]:
+            - listitem [ref=e128]:
+              - link "솔루션" [ref=e129] [cursor=pointer]:
+                - /url: /solution
+            - listitem [ref=e130]:
+              - link "기술" [ref=e131] [cursor=pointer]:
+                - /url: /technology
+            - listitem [ref=e132]:
+              - link "요금제" [ref=e133] [cursor=pointer]:
+                - /url: /pricing
+            - listitem [ref=e134]:
+              - link "CMO 임명하기" [ref=e135] [cursor=pointer]:
+                - /url: https://web-neon-nu-89.vercel.app/
+            - listitem [ref=e136]:
+              - link "앱" [ref=e137] [cursor=pointer]:
+                - /url: /apps
+        - generic [ref=e138]:
+          - heading "회사" [level=3] [ref=e139]
+          - list [ref=e140]:
+            - listitem [ref=e141]:
+              - link "회사소개" [ref=e142] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e143]:
+              - link "문의하기" [ref=e144] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e145]:
+              - link "채용" [ref=e146] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e147]:
+              - link "언론보도" [ref=e148] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e149]:
+        - paragraph [ref=e150]: © 2026 Auto C-Level AI. All rights reserved.
+        - generic [ref=e151]:
+          - link "개인정보처리방침" [ref=e152] [cursor=pointer]:
+            - /url: /privacy
+          - link "이용약관" [ref=e153] [cursor=pointer]:
+            - /url: /terms
