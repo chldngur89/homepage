@@ -1,386 +1,117 @@
 import { Link } from "react-router";
 import { APP_URLS } from "@/app/config/apps";
 import { motion } from "motion/react";
-import { Target, Lightbulb, Users, TrendingUp, Globe, Award, Rocket, Zap, Handshake } from "lucide-react";
+import { Target, Lightbulb, ArrowRight, Users } from "lucide-react";
+
+const PRIMARY_CTA = "우리팀과 같이 성장하기";
 
 export default function About() {
   return (
     <div className="bg-slate-950 min-h-screen py-24">
-      {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 mb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <div className="inline-block px-4 py-1 rounded-full bg-indigo-900/30 text-indigo-400 font-semibold text-sm mb-6">
+      <section className="max-w-4xl mx-auto px-6 mb-20 text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="inline-block px-4 py-1 rounded-full bg-indigo-900/30 text-indigo-300 font-semibold text-sm mb-6">
             회사소개
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            누구나 아이디어만으로
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            초기 창업팀에
             <br />
-            <span className="text-cyan-400">글로벌 브랜드</span>를 가지는 세상
+            <span className="text-cyan-400">첫 번째 팀원</span>을
           </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            Auto C-Level AI는 창업가와 판매자의 편리함을 위해 최첨단 AI 기술로 마케팅 장벽을 허물고 있습니다
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            WooriTeam은 전담 마케터 없는 1~10인 대표가
+            혼자 성장 과제를 붙잡지 않도록 돕습니다.
           </p>
         </motion.div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="max-w-5xl mx-auto px-6 mb-24">
+        <div className="grid md:grid-cols-2 gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-cyan-900/20 to-slate-900/50 border border-cyan-500/30 rounded-2xl p-10"
+            className="rounded-2xl border border-cyan-500/30 bg-cyan-950/20 p-8"
           >
-            <div className="w-16 h-16 bg-cyan-500 rounded-2xl flex items-center justify-center mb-6">
-              <Target className="w-8 h-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold text-white mb-4">Mission</h2>
-            <p className="text-lg text-slate-300 leading-relaxed">
-              전문 지식과 막대한 비용이 필요했던 마케팅을 누구나 쉽게 활용할 수 있도록 민주화합니다.
-              AI의 힘으로 창업가·판매자도 대기업과 동등하게 경쟁할 수 있는 환경을 만들고, 일상의 편리함을 드립니다.
+            <Target className="w-8 h-8 text-cyan-400 mb-4" />
+            <h2 className="text-2xl font-bold text-white mb-3">Mission</h2>
+            <p className="text-slate-300 leading-relaxed">
+              전담 마케터를 채용하기 전인 팀에,
+              같이 성장하는 첫 번째 팀원을 제공합니다.
             </p>
           </motion.div>
-
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-indigo-900/20 to-slate-900/50 border border-indigo-500/30 rounded-2xl p-10"
+            className="rounded-2xl border border-indigo-500/30 bg-indigo-950/20 p-8"
           >
-            <div className="w-16 h-16 bg-indigo-500 rounded-2xl flex items-center justify-center mb-6">
-              <Lightbulb className="w-8 h-8 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold text-white mb-4">Vision</h2>
-            <p className="text-lg text-slate-300 leading-relaxed">
-              2030년까지 글로벌 1위 AI 마케팅 자동화 플랫폼이 되어, 전 세계 1억 명의 개인 브랜드 오너를 탄생시킵니다.
-              아이디어와 열정만 있다면 누구나 성공할 수 있는 세상을 만듭니다.
+            <Lightbulb className="w-8 h-8 text-indigo-300 mb-4" />
+            <h2 className="text-2xl font-bold text-white mb-3">Vision</h2>
+            <p className="text-slate-300 leading-relaxed">
+              대화형 도구를 넘어, 역할별로 붙일 수 있는 팀을 만듭니다.
+              대표님은 방향에 집중하고, 팀원은 제안·승인·실행·반복 성장을 맡습니다.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Our Story */}
-      <section className="max-w-5xl mx-auto px-6 mb-32">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-pink-400">Auto C-Level AI</span>의 시작
-          </h2>
+      <section className="max-w-3xl mx-auto px-6 mb-24">
+        <div className="text-center mb-8">
+          <Users className="w-8 h-8 text-cyan-400 mx-auto mb-3" />
+          <h2 className="text-3xl font-bold text-white">왜 만들었나</h2>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-10"
-        >
-          <div className="prose prose-invert max-w-none">
-            <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              Auto C-Level AI는 창업가·판매자의 불편함을 덜어주고자 하는 경험에서 시작되었습니다. 좋은 제품 아이디어는 있었지만,
-              마케팅 전문 지식이 없어 ChatGPT로 카피를 쓰고, Midjourney로 이미지를 만들고, 다시 포토샵으로 편집하고,
-              각 마켓마다 수동으로 업로드하는 과정에서 <strong className="text-white">하루 종일 시간을 낭비</strong>했습니다.
-            </p>
-            <p className="text-lg text-slate-300 leading-relaxed mb-6">
-              "이 모든 과정을 자동화할 수는 없을까?" 라는 단순한 질문에서 출발한 Auto C-Level AI는, 이제 창업가와 판매자들이
-              시간과 비용을 절약하고 매출을 늘릴 수 있도록 편리함을 제공하고 있습니다.
-            </p>
-            <p className="text-lg text-slate-300 leading-relaxed">
-              우리는 기술이 소수의 전문가만을 위한 것이 아니라, <strong className="text-cyan-400">모두를 위한 것</strong>이라고 믿습니다.
-              그래서 가장 복잡한 AI 기술을 대시보드 하나로—찾아보지 않아도, 배우지 않아도 되게 만들었습니다.
-            </p>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* AI2AI: CMO → CFO·CEO 확장 + R&D 비전 */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-cyan-400">AI2AI</span> 기술로 AI를 계속 붙입니다
-          </h2>
-          <p className="text-lg text-slate-400 max-w-3xl mx-auto mb-4">
-            지금은 Marketing OS 앱 AutoCMO가 주력이지만, 우리만의 AI2AI 기술로 새로운 AI가 나올 때마다 쉽게 붙여 쓸 수 있습니다.
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-8 md:p-10 space-y-5 text-slate-300 leading-relaxed">
+          <p>
+            초기 창업팀은 ChatGPT로 카피를 쓰고, 여러 툴로 이미지를 만든 뒤에도
+            “그래서 이번 주에 뭘 하지?”를 다시 혼자 결정합니다.
           </p>
-          <p className="text-base text-slate-500 max-w-2xl mx-auto">
-            연구에서 나온 방향: A의 객체와 B의 객체를 AI가 연결하고, 궁극적으로는 <strong className="text-slate-400">AI와 AI를 AI가 연결하는</strong> 구조를 지향합니다.
+          <p>
+            WooriTeam은 그 공백을 <strong className="text-white">같이 성장하기</strong>로 채웁니다.
+            이번 주 할 일부터 승인·실행·반복 성장까지 함께합니다.
+          </p>
+          <p className="text-sm text-slate-500">
+            채널 자동 게시·추가 역할은 준비·연결 중이며, 사실처럼 단정하지 않습니다.
           </p>
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-br from-cyan-900/20 to-indigo-900/20 border border-cyan-500/30 rounded-2xl p-8 md:p-10"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-xl font-bold text-white mb-4">지금: Marketing OS 앱 AutoCMO</h3>
-              <p className="text-slate-400 mb-4">
-                마케팅·판매를 대시보드 하나로. 창업가·판매자에게 Zero-Click 편리함을 제공합니다.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-white mb-4">앞으로: CFO·CEO AI까지</h3>
-              <p className="text-slate-400 mb-4">
-                우리가 만든 <strong className="text-cyan-400">CFO Tool on AI</strong>, <strong className="text-cyan-400">CEO Rader AI</strong>, <strong className="text-cyan-400">LowestAlert AI</strong>(최저가 알림), <strong className="text-cyan-400">PMS on AI</strong>(프로젝트 관리) 등 필요한 모든 것을 AI2AI로 이어 드립니다. Marketing OS를 쓰는 팀과 쓰지 않는 팀의 격차가 분명해지도록, 새 AI가 나올 때마다 바로 붙여 쓸 수 있도록 만듭니다.
-              </p>
-            </div>
-          </div>
-        </motion.div>
       </section>
 
-      {/* Roadmap */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            정부지원사업 기반 <span className="text-green-400">스케일업 로드맵</span>
-          </h2>
-          <p className="text-lg text-slate-400">
-            비희석 자금을 레버리지하여 리스크를 최소화하고 글로벌로 도약합니다
-          </p>
-        </div>
-
-        <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-yellow-500 via-pink-500 to-cyan-500"></div>
-
-          <div className="space-y-16">
-            {[
-              {
-                phase: "Phase 1",
-                title: "예비창업패키지 지원",
-                period: "",
-                description:
-                  "예비창업패키지 지원을 검토하며 초기 자금 확보와 MVP 고도화를 준비합니다. 창업가·판매자 대상 클로즈드 베타 테스트를 통해 초기 PMF(Product-Market Fit)를 검증할 예정입니다.",
-                color: "yellow",
-                status: "예정",
-              },
-              {
-                phase: "Phase 2",
-                title: "청년창업사관학교 지원",
-                period: "",
-                description:
-                  "하이브리드 AI 서버 인프라 구축과 글로벌 표준 UI/UX 고도화를 준비합니다. 광고용 이미지 자동 생성과 통합 마케팅 콘텐츠 자동화 등 핵심 기술을 단계적으로 정리할 예정입니다.",
-                color: "pink",
-                status: "예정",
-              },
-              {
-                phase: "Phase 3",
-                title: "Seed 투자 및 TIPS 검토",
-                period: "",
-                description:
-                  "시드 투자와 TIPS 프로그램 진입 가능성을 검토하며, 일본·대만·미국 등 크로스보더 커머스 확장을 준비할 예정입니다.",
-                color: "cyan",
-                status: "예정",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 ${
-                  index % 2 === 0 ? "md:pr-16" : "md:pl-16 md:flex-row-reverse"
-                }`}
-              >
-                {/* Timeline Dot */}
-                <div className="absolute left-4 md:left-1/2 top-0 -translate-x-1/2">
-                  <div className={`w-8 h-8 bg-${item.color}-500 rounded-full border-4 border-slate-950 shadow-lg`}></div>
-                </div>
-
-                {/* Content */}
-                <div className={`${index % 2 === 0 ? "md:col-start-1" : "md:col-start-2"} ml-12 md:ml-0`}>
-                  <div
-                    className={`bg-slate-800/30 backdrop-blur-xl border border-${item.color}-500/30 rounded-2xl p-8 hover:border-${item.color}-500/50 transition-all`}
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <span className={`px-3 py-1 bg-${item.color}-900/30 text-${item.color}-400 rounded-full text-sm font-bold`}>
-                        {item.phase}
-                      </span>
-                      {item.period && <span className="text-sm text-slate-500">{item.period}</span>}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
-                    <p className="text-slate-400 leading-relaxed mb-4">{item.description}</p>
-                    <div className={`inline-block px-3 py-1 bg-slate-900 text-${item.color}-400 rounded-lg text-xs font-semibold`}>
-                      {item.status}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Empty space for alternating layout */}
-                <div className="hidden md:block"></div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Market Opportunity */}
-      <section className="bg-gradient-to-br from-indigo-900/20 to-slate-950 py-24 mb-32">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              폭발적인 <span className="text-yellow-400">시장 기회</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Globe className="w-10 h-10" />,
-                title: "TAM",
-                subtitle: "글로벌 크로스보더 커머스",
-                value: "$2.5T",
-                description: "전세계 크리에이터 이코노미 시장",
-                color: "indigo",
-              },
-              {
-                icon: <TrendingUp className="w-10 h-10" />,
-                title: "SAM",
-                subtitle: "국내 온라인 창업가·판매자",
-                value: "120만 명",
-                description: "다채널 운영 창업가·판매자 시장",
-                color: "pink",
-              },
-              {
-                icon: <Target className="w-10 h-10" />,
-                title: "SOM",
-                subtitle: "초기 타겟 시장",
-                value: "15만 명",
-                description: "신규 진입 창업가·판매자",
-                color: "cyan",
-              },
-            ].map((market, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`bg-slate-800/30 backdrop-blur-xl border border-${market.color}-500/30 rounded-2xl p-8 text-center hover:border-${market.color}-500/50 transition-all`}
-              >
-                <div className={`text-${market.color}-400 flex justify-center mb-4`}>{market.icon}</div>
-                <div className={`text-${market.color}-400 font-bold text-lg mb-2`}>{market.title}</div>
-                <h3 className="text-xl font-bold text-white mb-3">{market.subtitle}</h3>
-                <div className="text-4xl font-bold text-white mb-3">{market.value}</div>
-                <p className="text-sm text-slate-400">{market.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            우리의 <span className="text-cyan-400">핵심 가치</span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="max-w-5xl mx-auto px-6 mb-24">
+        <h2 className="text-3xl font-bold text-white text-center mb-10">로드맵 (예정)</h2>
+        <div className="grid md:grid-cols-3 gap-5">
           {[
-            { Icon: Rocket, title: "고객 성공 우선", description: "우리의 성공은 고객의 매출 증가로 증명됩니다" },
-            { Icon: Zap, title: "빠른 실행", description: "완벽함보다 빠른 출시와 지속적인 개선을 추구합니다" },
-            { Icon: Handshake, title: "투명한 소통", description: "고객, 투자자, 팀과의 솔직하고 열린 대화를 중시합니다" },
-            { Icon: Target, title: "데이터 기반 의사결정", description: "직관보다 데이터와 사용자 피드백을 우선합니다" },
-          ].map((value, index) => {
-            const ValueIcon = value.Icon;
-            return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all"
-            >
-              <div className="mb-4 flex text-cyan-400"><ValueIcon className="w-12 h-12" strokeWidth={1.5} /></div>
-              <h3 className="text-xl font-bold text-white mb-3">{value.title}</h3>
-              <p className="text-slate-400">{value.description}</p>
-            </motion.div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Awards & Recognition */}
-      <section className="max-w-5xl mx-auto px-6 mb-32">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            지원 및 <span className="text-yellow-400">도전 예정</span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: <Award className="w-8 h-8" />,
-              title: "예비창업패키지 지원",
-              year: "예정",
-            },
-            {
-              icon: <Award className="w-8 h-8" />,
-              title: "강원 스타트업 경진대회 출전",
-              year: "예정",
-            },
-            {
-              icon: <Award className="w-8 h-8" />,
-              title: "AI 혁신 챌린지 도전",
-              year: "예정",
-            },
-          ].map((award, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-gradient-to-br from-yellow-900/20 to-slate-900/50 border border-yellow-500/30 rounded-xl p-6 text-center"
-            >
-              <div className="text-yellow-400 flex justify-center mb-4">{award.icon}</div>
-              <h3 className="text-lg font-bold text-white mb-2">{award.title}</h3>
-              <p className="text-sm text-slate-400">{award.year}</p>
-            </motion.div>
+            { phase: "Phase 1", title: "같이 성장하기 실증", body: "제안 → 승인 → 실행 → 반복 성장 루프를 초기 창업팀과 검증합니다." },
+            { phase: "Phase 2", title: "성장 루프 고도화", body: "대표가 빠르게 이번 주를 정리할 수 있게 다듬습니다." },
+            { phase: "Phase 3", title: "역할 확장", body: "CEO·CFO 등 필요한 역할을 팀처럼 이어 붙입니다." },
+          ].map((r) => (
+            <div key={r.phase} className="rounded-2xl border border-slate-800 bg-slate-950 p-6">
+              <p className="text-xs text-cyan-400 font-mono mb-2">{r.phase} · 예정</p>
+              <h3 className="text-white font-bold mb-2">{r.title}</h3>
+              <p className="text-sm text-slate-400">{r.body}</p>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="max-w-4xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-br from-indigo-900/30 to-pink-900/20 border border-indigo-500/30 rounded-2xl p-12"
-        >
-          <Users className="w-16 h-16 text-cyan-400 mx-auto mb-6" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            이 여정에 <span className="text-cyan-400">함께</span> 하시겠습니까?
-          </h2>
-          <p className="text-xl text-slate-300 mb-8">
-            투자자, 파트너, 인재 모두 환영합니다
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/contact"
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
-            >
-              IR 미팅 요청하기
-            </Link>
-            <a
-              href={APP_URLS.cmo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
-            >
-              CMO 임명하기
-            </a>
-          </div>
-        </motion.div>
+      <section className="max-w-3xl mx-auto px-6 text-center">
+        <h2 className="text-3xl font-bold text-white mb-6">함께 이야기해요</h2>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href={APP_URLS.cmo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full font-semibold"
+          >
+            {PRIMARY_CTA}
+            <ArrowRight size={18} />
+          </a>
+          <Link
+            to="/contact"
+            className="min-h-[48px] inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-slate-700 font-semibold text-slate-200"
+          >
+            문의·IR 요청
+          </Link>
+        </div>
       </section>
     </div>
   );

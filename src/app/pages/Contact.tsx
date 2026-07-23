@@ -39,7 +39,7 @@ export default function Contact() {
       }
     } else {
       // Formspree 없을 때: mailto로 사용자 메일 앱 열기 → chldngur89@gmail.com으로 보내는 효과
-      const subject = encodeURIComponent(`[Auto C-Level AI 문의] ${formData.name}님 문의`);
+      const subject = encodeURIComponent(`[WooriTeam 문의] ${formData.name}님 문의`);
       const body = encodeURIComponent(
         `이름: ${formData.name}\n이메일: ${formData.email}\n\n메시지:\n${formData.message}`
       );

@@ -86,7 +86,7 @@ export default function Demo() {
       <section className="max-w-3xl mx-auto px-6 mb-10 md:mb-12">
         <div className="rounded-2xl border border-cyan-500/25 bg-gradient-to-br from-cyan-950/40 to-slate-900/60 p-6 md:p-8 text-left">
           <p className="text-xs font-semibold uppercase tracking-wide text-cyan-400/90 mb-2">
-            Marketing OS
+            WooriTeam
           </p>
           <h2 className="text-lg md:text-xl font-bold text-white mb-3">{demo.bridgeTitle}</h2>
           <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-5">{demo.bridgeBody}</p>

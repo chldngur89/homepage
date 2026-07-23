@@ -30,18 +30,18 @@ import type {
 
 const executionChartConfig = {
   manual: {
-    label: "수동 등록·운영",
+    label: "혼자 붙잡는 실행",
     color: "#fb7185",
   },
   strategic: {
-    label: "전략·분석",
+    label: "전략·판단",
     color: "#38bdf8",
   },
 } satisfies ChartConfig;
 
 const advantageChartConfig = {
   autocmo: {
-    label: "Marketing OS",
+    label: "WooriTeam",
     color: "#38bdf8",
   },
   aiTool: {

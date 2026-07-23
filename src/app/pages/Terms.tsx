@@ -28,12 +28,12 @@ export default function Terms() {
         >
           <section>
             <h2 className="text-xl font-bold text-white mt-8 mb-4">제1조 (목적)</h2>
-            <p>본 약관은 Auto C-Level AI(이하 “서비스”)가 제공하는 AutoCMO 등 AI 마케팅 자동화 서비스의 이용 조건 및 절차, 이용자와의 권리·의무 관계를 규정함을 목적으로 합니다.</p>
+            <p>본 약관은 WooriTeam(이하 “서비스”)이 제공하는 같이 성장하기 등 팀 서비스의 이용 조건 및 절차, 이용자와의 권리·의무 관계를 규정함을 목적으로 합니다.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-white mt-8 mb-4">제2조 (서비스 내용)</h2>
-            <p>서비스는 상품 사진 및 마켓 선택 기반의 AI 전략 리포트, 다채널 마케팅 자동화, 대시보드 등 Zero-Click Intelligence 관련 기능을 제공합니다. 구체적인 기능은 서비스 내 안내에 따릅니다.</p>
+            <p>서비스는 성장 과제 제안, 승인, 실행, 반복 성장 등 같이 성장하기 관련 기능을 제공합니다. 구체적인 기능은 서비스 내 안내에 따릅니다.</p>
           </section>
 
           <section>

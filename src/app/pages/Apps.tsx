@@ -70,10 +70,11 @@ export default function Apps() {
             {siteContent.appsPage?.badge ?? "웹/앱 서비스"}
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="text-cyan-400">{siteContent.appsPage?.titleHighlight ?? "너한테 필요한 모든 걸"}</span> 다 이어 줍니다
+            <span className="text-cyan-400">{siteContent.appsPage?.titleHighlight ?? "첫 팀원부터"}</span>
+            , 필요한 역할까지
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            {siteContent.appsPage?.description ?? "Marketing OS 앱 AutoCMO, ACnow, CEO Rader AI, CFO Tool on AI, LowestAlert AI, PMS on AI까지 웹에서 바로 사용하거나 새 탭에서 열어보세요."}
+            {siteContent.appsPage?.description ?? "같이 성장하기가 첫 번째 팀원입니다. 다른 역할은 필요할 때 이어서 붙일 수 있습니다."}
           </p>
         </motion.div>
       </section>

@@ -17,10 +17,12 @@ export default function Pricing() {
             요금제
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            성장에 맞는 <span className="text-yellow-400">합리적인 가격</span>
+            우리팀과 같이
+            <br />
+            <span className="text-yellow-400">성장하는 가격</span>
           </h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            사용한 만큼만 지불하거나, 월정액으로 무제한 활용하세요
+            1~10인 초기 팀이 첫 번째 팀원을 붙일 수 있게, 가볍게 시작하세요
           </p>
         </motion.div>
       </section>
@@ -52,10 +54,10 @@ export default function Pricing() {
 
             <ul className="space-y-4 mb-8">
               {[
-                "1회 무료 마케팅 패키지 생성",
-                "기본 AI 카피라이팅",
-                "기본 이미지 생성",
-                "2개 마켓 업로드",
+                "같이 성장하기 1회 체험",
+                "주간 과제 제안 맛보기",
+                "승인으로 방향 결정",
+                "실행·반복 성장 체험",
                 "이메일 지원",
               ].map((feature, i) => (
                 <li key={i} className="flex items-start gap-3 text-slate-300">
@@ -71,7 +73,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="block w-full py-3 px-6 text-center bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold transition-colors"
             >
-              CMO 임명하기
+              우리팀과 같이 성장하기
             </a>
           </motion.div>
 
@@ -93,7 +95,7 @@ export default function Pricing() {
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-white">프로</h3>
-                <p className="text-sm text-cyan-400">창업가·판매자를 위한</p>
+                <p className="text-sm text-cyan-400">초기 창업 팀을 위한</p>
               </div>
             </div>
 
@@ -104,13 +106,12 @@ export default function Pricing() {
 
             <ul className="space-y-4 mb-8">
               {[
-                "무제한 마케팅 패키지 생성",
-                "고급 AI 카피라이팅 (GPT-4o)",
-                "프리미엄 이미지 생성",
-                "숏폼 영상 제작",
-                "전체 마켓 업로드 (10+)",
-                "AI 전략 리포트 대시보드",
-                "우선 이메일/채팅 지원",
+                "같이 성장하기 주간 루프",
+                "제안 · 승인 · 실행",
+                "반복 성장으로 이어가기",
+                "카피·콘텐츠 지원",
+                "채널 게시 연결 (준비 중)",
+                "우선 이메일 지원",
               ].map((feature, i) => (
                 <li key={i} className="flex items-start gap-3 text-slate-300">
                   <Check className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
@@ -125,7 +126,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="block w-full py-3 px-6 text-center bg-gradient-to-r from-cyan-500 to-indigo-600 hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] rounded-xl font-semibold transition-all"
             >
-              CMO 임명하기
+              우리팀과 같이 성장하기
             </a>
           </motion.div>
 
@@ -155,13 +156,11 @@ export default function Pricing() {
             <ul className="space-y-4 mb-8">
               {[
                 "프로 플랜의 모든 기능",
-                "무제한 숏폼 영상 제작",
-                "AI 트렌드 분석 & 추천",
-                "브랜드 커스터마이징",
-                "팀 협업 기능",
-                "API 접근 권한",
-                "전담 계정 매니저",
-                "24/7 전화 지원",
+                "팀 멤버 협업",
+                "브랜드 톤 가이드 반영",
+                "역할 AI 확장 상담",
+                "우선 온보딩 지원",
+                "전담 상담 채널",
               ].map((feature, i) => (
                 <li key={i} className="flex items-start gap-3 text-slate-300">
                   <Check className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
@@ -204,11 +203,11 @@ export default function Pricing() {
               <ul className="space-y-2 text-sm text-slate-300">
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-cyan-400" />
-                  AI 카피 + 이미지 생성
+                  과제 제안 + 승인
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-cyan-400" />
-                  5개 마켓 업로드
+                  실행 흐름 포함
                 </li>
               </ul>
             </div>
@@ -219,11 +218,11 @@ export default function Pricing() {
               <ul className="space-y-2 text-sm text-slate-300">
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-pink-400" />
-                  기본 패키지 + 숏폼 영상
+                  기본 패키지 + 실행 지원
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-pink-400" />
-                  10+ 마켓 업로드
+                  반복 성장 1사이클
                 </li>
               </ul>
             </div>
@@ -263,7 +262,7 @@ export default function Pricing() {
             <div>
               <h3 className="text-2xl font-bold text-white mb-4">💚 수익 쉐어 플랜</h3>
               <p className="text-slate-300 mb-6">
-                Marketing OS를 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
+                WooriTeam을 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
               </p>
               <ul className="space-y-3 text-slate-300">
                 <li className="flex items-center gap-2">
@@ -373,7 +372,7 @@ export default function Pricing() {
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
             >
-              CMO 임명하기
+              우리팀과 같이 성장하기
             </a>
             <Link
               to="/contact"

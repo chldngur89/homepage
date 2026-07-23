@@ -22,9 +22,9 @@ const siteData = siteContent as {
   siteName?: string;
 };
 
-const siteName = siteData.siteName ?? "Auto C-Level AI";
+const siteName = siteData.siteName ?? "WooriTeam";
 const contactEmail = siteData.contactEmail ?? "chldngur89@gmail.com";
-const copyright = siteData.footer?.copyright ?? "© 2026 Auto C-Level AI. All rights reserved.";
+const copyright = siteData.footer?.copyright ?? "© 2026 WooriTeam. All rights reserved.";
 
 const deckNav = [
   { href: "#problem", label: "Problem" },
@@ -35,9 +35,10 @@ const deckNav = [
 ] as const;
 
 const heroWorkflowLayout = [
-  "left-[5%] top-[10%] max-w-[12rem] text-left",
-  "right-[1%] top-[31%] max-w-[13rem] text-right",
-  "left-[12%] bottom-[34%] max-w-[13.5rem] text-left",
+  "left-[5%] top-[8%] max-w-[12rem] text-left",
+  "right-[1%] top-[18%] max-w-[12.5rem] text-right",
+  "left-[6%] bottom-[36%] max-w-[12.5rem] text-left",
+  "right-[2%] bottom-[38%] max-w-[12.5rem] text-right",
 ] as const;
 
 const toneStyles: Record<IrStatusTone, string> = {
@@ -208,7 +209,7 @@ export default function IR() {
                   {irContent.hero.badge}
                 </span>
                 <p className="mt-8 text-xs font-medium uppercase tracking-[0.38em] text-slate-500">
-                  Execution Gap to Marketing OS
+                  First AI teammate for founders
                 </p>
                 <h1 className="mt-5 max-w-[13ch] whitespace-pre-line break-keep text-[2.35rem] font-semibold tracking-[-0.04em] text-white leading-[1.08] sm:text-[2.7rem] md:max-w-[14ch] md:text-[3.45rem] xl:text-[3.95rem] xl:leading-[1.04]">
                   {irContent.hero.title}
@@ -270,16 +271,19 @@ export default function IR() {
                   <div className="absolute inset-x-0 top-[16%] flex justify-center">
                     <div className="text-center">
                       <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-cyan-200/70">
-                        Marketing OS
+                        같이 성장하기
                       </p>
                       <p className="mt-4 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
-                        Generate
+                        Propose
                       </p>
                       <p className="mt-2 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
-                        Deploy
+                        Approve
                       </p>
                       <p className="mt-2 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
-                        Report
+                        Execute
+                      </p>
+                      <p className="mt-2 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
+                        Grow
                       </p>
                     </div>
                   </div>
@@ -552,7 +556,7 @@ export default function IR() {
                             <p className="text-sm font-medium text-white">{point.subject}</p>
                             <div className="mt-3 space-y-2 text-xs text-slate-400">
                               <div className="flex items-center justify-between">
-                                <span>Marketing OS</span>
+                                <span>WooriTeam</span>
                                 <span>{point.autocmo}</span>
                               </div>
                               <div className="flex items-center justify-between">

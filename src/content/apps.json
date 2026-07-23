@@ -2,38 +2,38 @@
   "apps": [
     {
       "id": "cmo",
-      "name": "AutoCMO",
-      "shortName": "AutoCMO",
+      "name": "같이 성장하기",
+      "shortName": "같이 성장하기",
       "url": "https://web-neon-nu-89.vercel.app/",
-      "description": "대표님은 결정만 하세요. 실행과 분석은 AI가 보고합니다. Marketing OS 앱 AutoCMO."
+      "description": "이번 주 성장 과제를 제안하고, 승인·실행·반복 성장까지 이어 주는 첫 번째 팀원."
     },
     {
       "id": "ceo-rader",
       "name": "CEO Rader AI",
       "shortName": "CEO Rader AI",
       "url": "https://ceo-rader.vercel.app/",
-      "description": "CEO를 위한 AI 시장·뉴스 인사이트 대시보드."
+      "description": "시장·뉴스 인사이트를 모아 대표의 판단을 돕는 역할."
     },
     {
       "id": "cfo-tool",
       "name": "CFO Tool on AI",
       "shortName": "CFO Tool on AI",
       "url": "https://cfo-tool-pied.vercel.app/",
-      "description": "재무·경영 지표를 AI로 한눈에. CFO AI 도구."
+      "description": "재무·경영 지표를 한눈에 정리해 주는 역할."
     },
     {
       "id": "lowest-alert",
       "name": "LowestAlert AI",
       "shortName": "LowestAlert AI",
       "url": "https://lowest-alert.vercel.app/home",
-      "description": "제품 최저가 찾아주는 AI. 최저가 알림 서비스."
+      "description": "제품 최저가 알림을 도와주는 도구."
     },
     {
       "id": "pms",
       "name": "PMS on AI",
       "shortName": "PMS on AI",
       "url": "https://pms-psi-two.vercel.app/",
-      "description": "프로젝트 매니지먼트 시스템에 AI. 간트 차트 기반 프로젝트 관리."
+      "description": "간트 차트 기반 프로젝트 관리 도구."
     },
     {
       "id": "mebody",
@@ -47,7 +47,7 @@
       "name": "ACnow",
       "shortName": "ACnow",
       "url": "https://airconecall.vercel.app/",
-      "description": "에어컨 당일 설치 및 기사 AI 매칭 플랫폼."
+      "description": "에어컨 당일 설치 및 기사 매칭 플랫폼."
     }
   ]
 }

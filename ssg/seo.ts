@@ -3,16 +3,13 @@ const OG_IMAGE_PATH = "/flow/flow-form.png";
 const OG_IMAGE_WIDTH = 1024;
 const OG_IMAGE_HEIGHT = 696;
 const DEFAULT_KEYWORDS = [
-  "Auto C-Level AI",
-  "Marketing OS",
-  "AutoCMO",
-  "CMO AI",
-  "마케팅 자동화",
-  "AI 대시보드",
-  "창업 마케팅",
-  "Zero-Click",
-  "능동 AI",
-  "자율주행 AI",
+  "WooriTeam",
+  "우리팀",
+  "같이 성장하기",
+  "창업자의 첫 번째 팀",
+  "초기 창업 마케팅",
+  "스타트업 마케팅",
+  "1인 창업",
 ];
 
 type SeoConfig = {
@@ -23,63 +20,62 @@ type SeoConfig = {
 
 const routeSeo: Record<string, SeoConfig> = {
   "/": {
-    title:
-      "Auto C-Level AI – 말 걸 필요 없는 능동 AI, 창업가의 자율주행 AI 파트너 | Marketing OS",
+    title: "WooriTeam – 창업자의 첫 번째 팀 | 우리팀과 같이 성장하기",
     description:
-      "말 걸 필요 없는 능동 AI, 창업가의 자율주행 AI 파트너. Auto C-Level AI. 이미지 한 장이면 시나리오·이미지·동영상·상품페이지 자동 제작 후 인스타·네이버·쿠팡 등 업로드. Marketing OS 앱 AutoCMO 무료 체험 가능.",
+      "전담 마케터 없는 1~10인 초기 창업 대표를 위한 WooriTeam. 제안 → 승인 → 실행 → 반복 성장으로 우리팀과 같이 성장합니다.",
   },
   "/solution": {
-    title: "솔루션 | Auto C-Level AI",
+    title: "솔루션 | WooriTeam",
     description:
-      "이미지·글 입력부터 시나리오·제작·업로드·성과 보고까지 이어지는 Marketing OS 솔루션을 확인하세요.",
+      "같이 성장하기가 제안 → 승인 → 실행 → 반복 성장으로 일하는 방식과 ChatGPT와의 차이를 확인하세요.",
   },
   "/technology": {
-    title: "기술 | Auto C-Level AI",
+    title: "기술 | WooriTeam",
     description:
-      "AI2AI 기반 Auto C-Level AI의 기술 구조와 Marketing OS 아키텍처를 소개합니다.",
+      "제안부터 반복 성장까지 이어지는 WooriTeam의 성장 파이프라인을 소개합니다.",
   },
   "/pricing": {
-    title: "요금제 | Auto C-Level AI",
+    title: "요금제 | WooriTeam",
     description:
-      "Marketing OS의 무료 체험, 프로, 슈퍼 팀 요금제와 자주 묻는 질문을 확인하세요.",
+      "WooriTeam과 같이 성장하기 위한 무료 체험, 프로, 팀 요금제와 자주 묻는 질문을 확인하세요.",
   },
   "/demo": {
-    title: "데모 | Auto C-Level AI",
+    title: "데모 | WooriTeam",
     description:
-      "Marketing OS의 실행 파이프라인이 어떻게 동작하는지 데모로 확인하세요.",
+      "제안 → 승인 → 실행 → 반복 성장 한 사이클이 어떻게 도는지 데모로 확인하세요.",
   },
   "/apps": {
-    title: "앱 | Auto C-Level AI",
+    title: "앱 | WooriTeam",
     description:
-      "Marketing OS 앱 AutoCMO, CEO Rader AI, CFO Tool on AI 등 Auto C-Level AI 앱 구성을 확인하세요.",
+      "같이 성장하기를 시작으로 CEO Rader, CFO Tool 등 WooriTeam 구성을 확인하세요.",
   },
   "/about": {
-    title: "회사소개 | Auto C-Level AI",
+    title: "회사소개 | WooriTeam",
     description:
-      "Auto C-Level AI의 미션, 비전, 시장 배경, 핵심 가치와 팀의 방향을 소개합니다.",
+      "초기 창업팀에 첫 번째 팀원을 제공하는 WooriTeam의 미션과 방향을 소개합니다.",
   },
   "/contact": {
-    title: "문의하기 | Auto C-Level AI",
+    title: "문의하기 | WooriTeam",
     description:
-      "서비스 문의, IR 미팅 요청, 파트너십 상담 등 Auto C-Level AI와의 연락 방법을 확인하세요.",
+      "서비스 문의, IR 미팅 요청, 파트너십 상담 등 WooriTeam과의 연락 방법을 확인하세요.",
   },
   "/ir": {
-    title: "Investor Overview | Auto C-Level AI",
+    title: "Investor Overview | WooriTeam",
     description:
-      "투자자 공유용 IR 핵심 요약. Execution Gap, 시장 기회, Marketing OS 구조, 내부 추정 및 목표 기반 운영 시나리오를 확인하세요.",
+      "투자자 공유용 IR 요약. 초기 창업팀의 마케터 공백과 WooriTeam의 성장 루프, 목표 시나리오를 확인하세요.",
   },
   "/privacy": {
-    title: "개인정보처리방침 | Auto C-Level AI",
+    title: "개인정보처리방침 | WooriTeam",
     description:
-      "Auto C-Level AI의 개인정보 수집 항목, 이용 목적, 보관 기간, 문의 방법을 안내합니다.",
+      "WooriTeam의 개인정보 수집 항목, 이용 목적, 보관 기간, 문의 방법을 안내합니다.",
   },
   "/terms": {
-    title: "이용약관 | Auto C-Level AI",
+    title: "이용약관 | WooriTeam",
     description:
-      "Auto C-Level AI 서비스 이용 조건, 금지 행위, 면책과 약관 변경 기준을 안내합니다.",
+      "WooriTeam 서비스 이용 조건, 금지 행위, 면책과 약관 변경 기준을 안내합니다.",
   },
   "/404": {
-    title: "페이지를 찾을 수 없습니다 | Auto C-Level AI",
+    title: "페이지를 찾을 수 없습니다 | WooriTeam",
     description: "요청하신 페이지가 존재하지 않거나 이동되었습니다.",
     robots: "noindex, nofollow",
   },
@@ -122,7 +118,7 @@ function buildStructuredData(pathname: string, seo: SeoConfig) {
     {
       "@type": "Organization",
       "@id": `${SITE_URL}#organization`,
-      name: "Auto C-Level AI",
+      name: "WooriTeam",
       url: SITE_URL,
       logo: `${SITE_URL}/apple-touch-icon.png`,
       email: "mailto:chldngur89@gmail.com",
@@ -130,7 +126,7 @@ function buildStructuredData(pathname: string, seo: SeoConfig) {
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}#website`,
-      name: "Auto C-Level AI",
+      name: "WooriTeam",
       url: SITE_URL,
       inLanguage: "ko-KR",
       description: routeSeo["/"].description,
@@ -152,7 +148,7 @@ function buildStructuredData(pathname: string, seo: SeoConfig) {
               "@type": "Offer",
               price: "0",
               priceCurrency: "KRW",
-              description: "1회 무료 실행 가능",
+              description: "우리팀과 같이 성장하기",
             },
           }
         : {}),
@@ -190,7 +186,7 @@ export function renderSeoTags(pathname: string) {
     `<title>${escapeHtml(seo.title)}</title>`,
     `<meta name="description" content="${escapeHtml(seo.description)}" />`,
     `<meta name="keywords" content="${escapeHtml(seo.keywords.join(", "))}" />`,
-    `<meta name="author" content="Auto C-Level AI" />`,
+    `<meta name="author" content="WooriTeam" />`,
     `<meta name="robots" content="${seo.robots}" />`,
     ...(seo.canonicalUrl
       ? [`<link rel="canonical" href="${seo.canonicalUrl}" />`]
@@ -201,12 +197,12 @@ export function renderSeoTags(pathname: string) {
     `<meta property="og:image" content="${seo.ogImageUrl}" />`,
     `<meta property="og:image:width" content="${seo.ogImageWidth}" />`,
     `<meta property="og:image:height" content="${seo.ogImageHeight}" />`,
-    `<meta property="og:image:alt" content="Auto C-Level AI 서비스 미리보기" />`,
+    `<meta property="og:image:alt" content="WooriTeam 미리보기" />`,
     ...(seo.canonicalUrl
       ? [`<meta property="og:url" content="${seo.canonicalUrl}" />`]
       : []),
     `<meta property="og:locale" content="ko_KR" />`,
-    `<meta property="og:site_name" content="Auto C-Level AI" />`,
+    `<meta property="og:site_name" content="WooriTeam" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(seo.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(seo.description)}" />`,
