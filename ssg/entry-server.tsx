@@ -4,6 +4,7 @@ import { appRoutes, notFoundRoute, prerenderRoutes } from "../src/app/route-conf
 import { renderSeoTags } from "./seo";
 
 export { notFoundRoute, prerenderRoutes };
+export { SITE_URL } from "./site";
 
 export async function render(url: string) {
   const pathname = url === "/" ? url : url.replace(/\/+$/, "");

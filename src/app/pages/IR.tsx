@@ -557,7 +557,7 @@ export default function IR() {
                             <div className="mt-3 space-y-2 text-xs text-slate-400">
                               <div className="flex items-center justify-between">
                                 <span>WooriTeam</span>
-                                <span>{point.autocmo}</span>
+                                <span>{point.wooriteam}</span>
                               </div>
                               <div className="flex items-center justify-between">
                                 <span>단일 AI 툴</span>

@@ -1,4 +1,4 @@
-const SITE_URL = "https://autocmo.com";
+import { SITE_URL } from "./site";
 const OG_IMAGE_PATH = "/flow/flow-form.png";
 const OG_IMAGE_WIDTH = 1024;
 const OG_IMAGE_HEIGHT = 696;

@@ -40,7 +40,7 @@ const executionChartConfig = {
 } satisfies ChartConfig;
 
 const advantageChartConfig = {
-  autocmo: {
+  wooriteam: {
     label: "WooriTeam",
     color: "#38bdf8",
   },
@@ -126,10 +126,10 @@ export function AdvantageRadarChart({ data }: { data: IrRadarPoint[] }) {
         <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} axisLine={false} />
         <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
         <Radar
-          dataKey="autocmo"
-          fill="var(--color-autocmo)"
+          dataKey="wooriteam"
+          fill="var(--color-wooriteam)"
           fillOpacity={0.24}
-          stroke="var(--color-autocmo)"
+          stroke="var(--color-wooriteam)"
           strokeWidth={2}
           isAnimationActive={false}
         />
