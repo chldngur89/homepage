@@ -39,3 +39,6 @@ ssg-build/
 .playwright-mcp/
 playwright-report/
 test-results/
+
+# subagent-driven-development 작업 공간 (스크래치)
+.superpowers/
