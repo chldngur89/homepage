@@ -31,6 +31,10 @@ const specialCardStyles = {
     cardClass: "bg-slate-800/30 border-slate-700",
     hoverBorder: "hover:border-emerald-500/50",
     iconClass: "w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600",
+    // titleClass/descriptionClass는 이전에도 정의되지 않아 defaultCardStyles 값으로
+    // 폴백되었다. 타입 검사를 통과시키려고 그 폴백 값을 그대로 명시해 동작은 그대로 둔다.
+    titleClass: "text-white",
+    descriptionClass: "text-slate-400",
     buttonClass: "bg-gradient-to-r from-emerald-500 to-green-600 text-white hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]",
     badgeClass: "bg-emerald-900/40 text-emerald-300",
     badgeLabel: "CTO 활동",
@@ -39,6 +43,10 @@ const specialCardStyles = {
     cardClass:
       "bg-gradient-to-br from-white/[0.10] via-slate-900/95 to-blue-950/80 border-slate-200/15 shadow-[0_18px_70px_rgba(59,130,246,0.12)]",
     hoverBorder: "hover:border-sky-200/50",
+    // iconClass는 isAirconCall 분기에서 아이콘 대신 브랜드 로고를 렌더링하므로 실제로
+    // 쓰이지 않는다. 이전에도 정의되지 않아 defaultCardStyles 값으로 폴백되었으므로
+    // 그 폴백 값을 그대로 명시해 동작은 그대로 둔다.
+    iconClass: "w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600",
     titleClass: "text-slate-50",
     descriptionClass: "text-slate-300",
     buttonClass:

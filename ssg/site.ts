@@ -8,14 +8,10 @@ const FALLBACK_SITE_URL = "https://autocmo.com";
 function readSiteUrl() {
   // Vite 는 빌드 시 import.meta.env.VITE_SITE_URL 을 리터럴로 치환한다.
   // vitest 와 node 실행 경로에서는 값이 없으므로 process.env 로 떨어진다.
-  // `as` 캐스팅 없이 쓰면 tsconfig 에 vite/client 타입이 없을 때 에러가 난다.
-  // process 도 마찬가지: @types/node 가 없는 상태에서 bare `process` 를 참조하면
-  // tsc 가 TS2304(Cannot find name 'process')로 실패하므로 globalThis 를 통해 접근한다.
-  const fromVite = (import.meta as { env?: Record<string, string | undefined> }).env
-    ?.VITE_SITE_URL;
-  const fromNode = (
-    globalThis as { process?: { env?: Record<string, string | undefined> } }
-  ).process?.env?.VITE_SITE_URL;
+  // tsconfig 의 types: ["vite/client", "node"] 가 정식 타입을 제공하므로
+  // 캐스팅 없이 접근한다.
+  const fromVite = import.meta.env.VITE_SITE_URL;
+  const fromNode = typeof process !== "undefined" ? process.env.VITE_SITE_URL : undefined;
 
   return (fromVite ?? fromNode ?? FALLBACK_SITE_URL).replace(/\/+$/, "");
 }

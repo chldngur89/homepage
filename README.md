@@ -83,6 +83,15 @@ npm run dev
 
 - 개발: [http://localhost:5173](http://localhost:5173)
 
+## 타입 검사
+
+```bash
+npm run typecheck
+```
+
+이 저장소는 Vite 로 빌드되는데, Vite 는 타입을 검사하지 않고 제거합니다.
+타입 오류는 이 명령으로만 드러납니다. `npm run build` 에도 포함되어 있습니다.
+
 ## 배포 전 확인
 
 ```bash
