@@ -3391,3 +3391,185 @@ EOF
 
 - **계획 2:** 나머지 10개 페이지 전환 (`Solution` `Pricing` `Technology` `About` `Contact` `IR` `Demo` `Apps` `Privacy` `Terms`)
 - **계획 3:** 브랜드 자산과 GEO 마무리 (파비콘, OG 카드, 구조화 데이터 확장, `llms.txt`, `robots.txt` AI 크롤러 허용)
+
+---
+
+### Task 3B: TypeScript 타입 검사 도입
+
+> 이 태스크는 계획 작성 후 실행 중에 추가되었다. Task 3 실행 중 `npx tsc --noEmit` 이
+> 동작하지 않는 것이 드러났고, 확인 결과 이 저장소에는 `tsconfig.json` 도,
+> `typescript` 의존성도, 타입 검사 스크립트도 없다. Vite 는 esbuild 로 타입을
+> **검사하지 않고 제거**하므로, `.tsx` 코드가 한 번도 타입 검사를 받은 적이 없다.
+>
+> Task 4 의 설계 전체가 "영문 사전에 항목이 빠지면 컴파일 에러로 잡힌다"에 의존한다.
+> 타입을 검사하는 지점이 없으면 그 보장은 존재하지 않는다. Task 4 이전에 세워야 한다.
+
+**Files:**
+- Create: `tsconfig.json`
+- Modify: `package.json`
+- Modify: `README.md`
+
+**Interfaces:**
+- Consumes: 없음
+- Produces: `npm run typecheck` 명령. Task 4·9·11 이 번역 누락 검증에 사용한다.
+  `tsconfig.json` 의 `paths` 가 `@/*` → `./src/*` 를 해석하므로 이후 모든 태스크의
+  `@/` import 가 타입 검사를 통과한다.
+
+- [ ] **Step 1: 의존성 설치**
+
+```bash
+npm install -D typescript@5.9.2 @types/react@18.3.12 @types/react-dom@18.3.1 @types/node@24.3.0
+```
+
+- [ ] **Step 2: tsconfig.json 작성**
+
+`vite.config.ts` 의 `resolve.alias` 가 `@` → `./src` 를 매핑하므로 `paths` 를 같은 값으로 맞춘다.
+`types` 에 `vite/client` 를 넣으면 `import.meta.env` 가 타입을 얻는다 — Task 3 의
+`ssg/site.ts` 가 이 타입을 필요로 한다.
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vite/client", "node"],
+    "baseUrl": ".",
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["src", "ssg", "scripts", "vite.config.ts", "vitest.config.ts"]
+}
+```
+
+- [ ] **Step 3: 스크립트 등록**
+
+`package.json` 의 `scripts` 에 추가한다:
+
+```json
+"typecheck": "tsc --noEmit"
+```
+
+`build` 는 이 단계에서 **아직 바꾸지 않는다.** 먼저 기존 오류 규모를 재고 나서 결정한다.
+
+- [ ] **Step 4: 기존 오류 규모 측정**
+
+Run: `npm run typecheck 2>&1 | tee /tmp/tsc-baseline.txt; echo "---"; grep -c "error TS" /tmp/tsc-baseline.txt`
+
+이 저장소는 타입 검사를 받은 적이 없으므로 오류가 나오는 것이 정상이다. **놀라지 말 것.**
+다음을 기록한다:
+
+- 총 오류 개수
+- 파일별 오류 개수 (`grep -oE "^[^(]+" /tmp/tsc-baseline.txt | sort | uniq -c | sort -rn`)
+- 오류 코드별 빈도 (`grep -oE "error TS[0-9]+" /tmp/tsc-baseline.txt | sort | uniq -c | sort -rn`)
+
+- [ ] **Step 5: 이 계획이 만든 코드의 오류를 고친다**
+
+우선순위는 **이 브랜치가 만들었거나 수정한 파일**이다:
+`ssg/site.ts`, `ssg/site.test.ts`, `ssg/seo.ts`, `ssg/entry-server.tsx`,
+`src/styles/tokens.ts`, `src/styles/tokens.test.ts`, `vitest.config.ts`.
+
+이 파일들의 오류는 **전부 고친다.** 특히 `ssg/site.ts` 의 `import.meta.env` 접근은
+`types: ["vite/client"]` 로 정식 타입을 얻으므로, Task 3 이 넣어둔 인라인 캐스팅
+(`(import.meta as { env?: ... })`)이 불필요해졌다면 정식 타입으로 단순화한다.
+단순화가 타입 검사를 통과하지 못하면 캐스팅을 유지하고 이유를 주석으로 남긴다.
+
+- [ ] **Step 6: 기존 코드의 오류를 처리한다**
+
+이 브랜치가 손대지 않은 legacy 파일(`src/app/pages/*`, `src/app/components/ui/*` 등)의
+오류는 이 태스크의 범위가 아니다. 다만 `npm run typecheck` 가 항상 실패하면 이후
+태스크가 이 명령을 신호로 쓸 수 없다. 오류 규모에 따라 다음 중 하나를 택한다:
+
+- **오류 0개:** 그대로 둔다. Step 7 로 간다.
+- **오류가 적고(20개 이하) 기계적이면:** 고친다. 무엇을 왜 고쳤는지 보고서에 남긴다.
+- **오류가 많거나 판단이 필요하면:** 고치지 않는다. 대신 `tsconfig.json` 의 `include`
+  는 그대로 두고, 별도로 `tsconfig.strict.json` 을 만들어 이 계획이 만드는 경로만
+  검사하게 한다:
+
+  ```json
+  {
+    "extends": "./tsconfig.json",
+    "include": ["src/content", "src/app/i18n", "src/styles/tokens.ts", "src/styles/tokens.test.ts", "ssg"]
+  }
+  ```
+
+  그리고 스크립트를 둘로 나눈다:
+
+  ```json
+  "typecheck": "tsc --noEmit -p tsconfig.strict.json",
+  "typecheck:all": "tsc --noEmit"
+  ```
+
+  이렇게 하면 `npm run typecheck` 는 **초록으로 유지되어 이후 태스크의 신호로 쓸 수 있고**,
+  `typecheck:all` 은 legacy 부채의 현재 규모를 언제든 볼 수 있게 남는다.
+  어느 쪽을 택했는지와 그 이유를 보고서에 반드시 적는다.
+
+- [ ] **Step 7: 번역 누락이 실제로 잡히는지 확인**
+
+이 태스크의 존재 이유를 직접 검증한다. `ssg/site.ts` 에 의도적으로 타입 오류를 넣는다:
+
+```ts
+export const SITE_URL: number = readSiteUrl();
+```
+
+Run: `npm run typecheck`
+Expected: FAIL — `Type 'string' is not assignable to type 'number'`
+
+되돌린 뒤 다시 실행해 통과하는 것을 확인한다. **이 확인을 건너뛰지 말 것** — 설정만
+해두고 실제로 아무것도 검사하지 않는 상태가 이 태스크가 막으려는 바로 그 상황이다.
+
+- [ ] **Step 8: build 에 연결**
+
+Step 6 에서 `typecheck` 가 초록으로 유지되는 것을 확인했다면 `build` 앞에 붙인다:
+
+```json
+"build": "npm run typecheck && node ./scripts/verify-assets.mjs && node ./scripts/prerender.mjs"
+```
+
+초록이 아니면 붙이지 않고, 그 사실을 보고서에 적는다.
+
+- [ ] **Step 9: README 갱신**
+
+`README.md` 의 "로컬 실행" 절 뒤에 추가한다:
+
+```markdown
+## 타입 검사
+
+```bash
+npm run typecheck
+```
+
+이 저장소는 Vite 로 빌드되는데, Vite 는 타입을 검사하지 않고 제거합니다.
+타입 오류는 이 명령으로만 드러납니다.
+```
+
+Step 6 에서 스크립트를 둘로 나눴다면 `typecheck:all` 도 함께 문서화한다.
+
+- [ ] **Step 10: 커밋**
+
+```bash
+git add tsconfig.json package.json package-lock.json README.md
+git commit -m "$(cat <<'EOF'
+build: TypeScript 타입 검사 도입
+
+이 저장소는 .tsx 코드인데 tsconfig 도 typescript 의존성도 없어
+타입 검사가 한 번도 돌아간 적이 없었다. Vite 는 esbuild 로 타입을
+검사하지 않고 제거하므로 오류가 드러날 지점이 없었다.
+
+이후 태스크의 영문 사전은 한국어 사전의 타입을 구현하도록 설계돼
+번역 누락이 컴파일 에러로 잡히는데, 그 보장이 성립하려면 타입을
+검사하는 지점이 먼저 있어야 한다.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+EOF
+)"
+```
