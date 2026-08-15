@@ -30,6 +30,7 @@
 | 파일 | 책임 |
 |------|------|
 | `src/content/locales.ts` | `Locale` 타입, 지원 목록, 기본 로케일, 영문 지원 경로 목록 |
+| `src/content/widen.ts` | 사전 타입을 리터럴에서 넓히는 `DeepWiden` |
 | `src/content/ko/common.ts` | 한국어 공통 카피 (브랜드·네비·푸터·CTA) — 타입 원본 |
 | `src/content/ko/home.ts` | 한국어 홈 카피 — 타입 원본 |
 | `src/content/en/common.ts` | 영어 공통 카피 |
@@ -612,6 +613,7 @@ EOF
 
 **Files:**
 - Create: `src/content/locales.ts`
+- Create: `src/content/widen.ts`
 - Create: `src/content/ko/common.ts`
 - Create: `src/content/en/common.ts`
 - Create: `src/content/index.ts`
@@ -806,22 +808,39 @@ export const common = {
 export type CommonCopy = typeof common;
 ```
 
+- [ ] **Step 6b: DeepWiden 타입 작성**
+
+세 개의 영어 사전(`common`, `mockups`, `home`)이 공유한다. 한 곳에서만 정의한다.
+
+`src/content/widen.ts`:
+
+```ts
+/**
+ * 한국어 사전은 as const 라 값이 리터럴 타입으로 굳는다("우리팀" 타입).
+ * 영어 사전이 같은 타입을 그대로 구현하면 영어 문자열을 넣을 수 없으므로,
+ * 구조는 유지하되 리프의 리터럴만 넓힌다.
+ * 항목이 빠지면 여전히 컴파일 에러가 나므로 번역 누락은 계속 잡힌다.
+ */
+export type DeepWiden<T> = T extends string
+  ? string
+  : T extends number
+    ? number
+    : T extends boolean
+      ? boolean
+      : T extends readonly (infer U)[]
+        ? DeepWiden<U>[]
+        : { [K in keyof T]: DeepWiden<T[K]> };
+```
+
 - [ ] **Step 7: 영어 공통 사전 작성**
 
 `src/content/en/common.ts`:
 
 ```ts
 import type { CommonCopy } from "../ko/common";
+import type { DeepWiden } from "../widen";
 
-/**
- * 한국어 사전이 타입의 원본이다. 항목이 빠지면 이 파일이 컴파일되지 않는다.
- * DeepMutable 로 감싸는 이유는 한국어 쪽 as const 의 리터럴 타입까지
- * 강제하면 영어 문자열을 넣을 수 없기 때문이다.
- */
-type DeepWiden<T> = T extends string
-  ? string
-  : { [K in keyof T]: DeepWiden<T[K]> };
-
+/** 한국어 사전이 타입의 원본이다. 항목이 빠지면 이 파일이 컴파일되지 않는다. */
 export const common: DeepWiden<CommonCopy> = {
   brand: {
     nameKo: "WooriTeam",
@@ -1948,12 +1967,7 @@ export type MockupsCopy = typeof mockups;
 
 ```ts
 import type { MockupsCopy } from "../ko/mockups";
-
-type DeepWiden<T> = T extends string
-  ? string
-  : T extends readonly (infer U)[]
-    ? DeepWiden<U>[]
-    : { [K in keyof T]: DeepWiden<T[K]> };
+import type { DeepWiden } from "../widen";
 
 export const mockups: DeepWiden<MockupsCopy> = {
   proposal: {
@@ -2622,14 +2636,7 @@ export type HomeCopy = typeof home;
 
 ```ts
 import type { HomeCopy } from "../ko/home";
-
-type DeepWiden<T> = T extends string
-  ? string
-  : T extends boolean
-    ? boolean
-    : T extends readonly (infer U)[]
-      ? DeepWiden<U>[]
-      : { [K in keyof T]: DeepWiden<T[K]> };
+import type { DeepWiden } from "../widen";
 
 export const home: DeepWiden<HomeCopy> = {
   hero: {
