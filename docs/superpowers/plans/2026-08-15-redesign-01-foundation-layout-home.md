@@ -581,7 +581,9 @@ Run: `npm run build`
 Expected: 성공. `dist/sitemap.xml`과 `dist/robots.txt`에 도메인이 정상 출력되는지 확인한다.
 
 Run: `grep -c "autocmo" dist/sitemap.xml`
-Expected: `1` — 아직 기본 도메인이 autocmo.com 이므로 URL 에는 남는다. 브랜드 문자열로서의 노출이 아니라 도메인이며, `VITE_SITE_URL` 설정 시 사라진다.
+Expected: prerender 되는 라우트 수와 같은 값 (이 시점에는 `11`). sitemap 은 라우트마다
+`<loc>` 한 줄을 내므로 도메인이 그만큼 반복된다. 브랜드 문자열로서의 노출이 아니라
+도메인이며, `VITE_SITE_URL` 설정 시 함께 바뀐다.
 
 - [ ] **Step 12: 커밋**
 
