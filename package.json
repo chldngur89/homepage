@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "check:assets": "node ./scripts/verify-assets.mjs",
-    "gen:samples": "node ./scripts/make-sample-images.mjs",
     "build": "npm run typecheck && node ./scripts/verify-assets.mjs && node ./scripts/prerender.mjs",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",

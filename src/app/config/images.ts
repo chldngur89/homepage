@@ -10,6 +10,13 @@ export type ImageSlotSpec = {
   sample: boolean;
 };
 
+/**
+ * 실제 사진으로 교체하는 절차:
+ * 1. 사진 파일을 이 슬롯의 `src` 경로(예: `public/img/persona.png`)에 덮어쓴다.
+ * 2. 그 슬롯의 `sample` 을 `false` 로 바꾼다.
+ * `sample` 을 바꾸지 않으면 `ImageSlot` 이 여전히 플레이스홀더 카드를 그리고,
+ * verify-assets 경고에도 계속 남는다 — 파일만 바꿔서는 교체되지 않는다.
+ */
 export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlotSpec> = {
   persona: {
     src: "/img/persona.png",

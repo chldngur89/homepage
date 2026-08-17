@@ -3,14 +3,7 @@ import path from "node:path";
 
 const projectRoot = process.cwd();
 
-const requiredAssets = [
-  "public/favicon.png",
-  "public/apple-touch-icon.png",
-  "public/img/persona.png",
-  "public/img/voice-1.png",
-  "public/img/voice-2.png",
-  "public/img/footer-wide.png",
-];
+const requiredAssets = ["public/favicon.png", "public/apple-touch-icon.png"];
 
 function detectFormat(buffer) {
   if (
