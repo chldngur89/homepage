@@ -188,6 +188,22 @@
   }
 }
 
+/* 목업 프레임(MockFrame)의 가로세로비.
+   640px(Tailwind sm) 미만에서는 고정 비율을 버리고 내용에 맞춰 높이를 정한다 —
+   좁은 화면에서 16:9 같은 낮은 비율은 채널 바·안내문 같은 하단 내용을
+   조용히 잘라낸다(overflow-hidden). 그 이상에서는 디자인이 의도한 비율을
+   그대로 고정한다. 인라인 style 의 aspect-ratio 는 미디어쿼리로 조건을 걸 수
+   없어, 비율 값은 커스텀 프로퍼티로 넘기고 조건은 이 클래스에서 건다. */
+.mock-frame {
+  aspect-ratio: auto;
+}
+
+@media (min-width: 640px) {
+  .mock-frame {
+    aspect-ratio: var(--mock-ratio);
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
