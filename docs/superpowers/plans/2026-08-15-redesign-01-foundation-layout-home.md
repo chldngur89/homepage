@@ -989,8 +989,18 @@ EOF
 - Create: `src/app/route-config.test.ts`
 
 **Interfaces:**
-- Consumes: Task 4의 `LOCALES`, `EN_ROUTES`, `localePath`, `LocaleProvider`
+- Consumes: Task 4의 `LOCALES`, `EN_ROUTES`, `localePath`, `hasEnglish`, `LocaleProvider`
 - Produces: `appRoutes: RouteObject[]` (양쪽 로케일 포함), `prerenderRoutes: string[]` (18개), `notFoundRoute: string`
+
+> **실행 중 정정 (리뷰 지적 2건).** 아래 Step 3 의 초안 코드에는 두 가지 결함이 있었고 수정했다.
+>
+> 1. **경로 규칙이 두 곳에 존재했다.** 초안의 `available()` 은 Task 4 의 `hasEnglish()` 를,
+>    `enRoutes` 매핑은 `localePath(path, "en")` 를 각각 다시 구현하고 있었다. Interfaces 에
+>    `localePath` 를 소비한다고 적어놓고 정작 쓰지 않았다. 두 함수를 import 해서 쓴다.
+> 2. **테스트가 `prerenderRoutes` 배열만 검증했다.** 이 배열은 `appRoutes` 와 별개로 만들어지므로,
+>    중첩 깊이나 접두사가 틀려도 배열은 그대로 통과한다. `matchRoutes` 로 실제 URL 이 의도한
+>    컴포넌트로 해석되는지 검증하는 테스트를 추가한다 (`/en/pricing` → `Pricing`,
+>    `/en/ir` 가 `Layout` 밖, `/en/demo` 미해석, `/enterprise` 가 영어로 오인되지 않을 것).
 
 - [ ] **Step 1: 실패하는 테스트 작성**
 
