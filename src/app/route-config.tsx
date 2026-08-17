@@ -3,6 +3,7 @@ import type { RouteObject } from "react-router";
 import { Layout } from "./components/Layout";
 import { ScrollRoot } from "./components/ScrollRoot";
 import { LocaleProvider } from "./i18n/LocaleContext";
+import { hasEnglish, localePath } from "./i18n/localePath";
 import { EN_ROUTES, type Locale } from "@/content/locales";
 import Home from "./pages/Home";
 import Solution from "./pages/Solution";
@@ -42,8 +43,7 @@ function localeWrapper(locale: Locale) {
 
 function buildLocaleRoutes(locale: Locale): RouteObject[] {
   const prefix = locale === "en" ? "/en" : "";
-  const available = (path: string) =>
-    locale === "ko" || (EN_ROUTES as readonly string[]).includes(path);
+  const available = (path: string) => locale === "ko" || hasEnglish(path);
 
   const Wrapper = localeWrapper(locale);
 
@@ -99,7 +99,7 @@ const koRoutes = [
   ...standalonePages.map((page) => page.path),
 ];
 
-const enRoutes = EN_ROUTES.map((path) => (path === "/" ? "/en" : `/en${path}`));
+const enRoutes = EN_ROUTES.map((path) => localePath(path, "en"));
 
 export const prerenderRoutes: string[] = [...koRoutes, ...enRoutes];
 
