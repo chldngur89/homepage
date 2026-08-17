@@ -6,10 +6,10 @@ const projectRoot = process.cwd();
 const requiredAssets = [
   "public/favicon.png",
   "public/apple-touch-icon.png",
-  "public/flow/flow-scenario.png",
-  "public/flow/flow-watermelon.png",
-  "public/flow/flow-form.png",
-  "public/flow/flow-dashboard.png",
+  "public/img/persona.png",
+  "public/img/voice-1.png",
+  "public/img/voice-2.png",
+  "public/img/footer-wide.png",
 ];
 
 function detectFormat(buffer) {
@@ -104,3 +104,21 @@ if (failures.length > 0) {
 }
 
 console.log(`[verify-assets] ${requiredAssets.length} assets verified`);
+
+// 아직 실제 사진으로 교체되지 않은 이미지 슬롯을 알린다.
+const imagesConfig = await readFile(
+  path.join(projectRoot, "src/app/config/images.ts"),
+  "utf8",
+);
+const pendingSamples = [...imagesConfig.matchAll(/src:\s*"([^"]+)"[\s\S]*?sample:\s*true/g)].map(
+  (match) => match[1],
+);
+
+if (pendingSamples.length > 0) {
+  console.warn(
+    `[verify-assets] 아직 샘플인 이미지 ${pendingSamples.length}개 — 실제 사진으로 교체 필요`,
+  );
+  for (const src of pendingSamples) {
+    console.warn(`  - public${src}`);
+  }
+}
