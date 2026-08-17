@@ -24,8 +24,9 @@ function toOutputPath(routePath) {
   return path.join(distDir, routePath.replace(/^\//, ""), "index.html");
 }
 
-function injectHtml(template, { appHtml, headTags }) {
+function injectHtml(template, { appHtml, headTags, htmlLang }) {
   return template
+    .replace(/<html lang="[^"]*">/, `<html lang="${htmlLang}">`)
     .replace(
       /<!--app-head:start-->[\s\S]*?<!--app-head:end-->/,
       `<!--app-head:start-->\n  ${headTags}\n  <!--app-head:end-->`,
