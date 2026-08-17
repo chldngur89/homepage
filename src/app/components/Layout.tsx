@@ -5,7 +5,7 @@ import { useLocale } from "@/app/i18n/LocaleContext";
 import { hasEnglish, localePath, stripLocale } from "@/app/i18n/localePath";
 import type { Locale } from "@/content/locales";
 
-const NAV_PATHS = [
+export const NAV_PATHS = [
   ["solution", "/solution"],
   ["technology", "/technology"],
   ["pricing", "/pricing"],
@@ -15,6 +15,9 @@ const NAV_PATHS = [
   ["ir", "/ir"],
   ["contact", "/contact"],
 ] as const;
+
+/** LEGAL 푸터 그룹처럼 nav 에는 없지만 영문판이 없는 경로. */
+export const FOOTER_ONLY_PATHS = ["/privacy", "/terms"] as const;
 
 /**
  * 언어 전환 버튼이 향할 경로를 계산한다. 현재 경로의 반대 로케일로
@@ -26,6 +29,21 @@ export function getLangSwitchTarget(pathname: string, locale: Locale): string {
   const other: Locale = locale === "ko" ? "en" : "ko";
   const { path: basePath } = stripLocale(pathname);
   return hasEnglish(basePath) ? localePath(basePath, other) : localePath("/", other);
+}
+
+/**
+ * 링크가 향하는 한국어 기준 경로에 영문판이 없으면, 영문 화면에서 그
+ * 링크에 붙여야 할 lang 값("ko")을 돌려준다. 한국어 화면이거나 영문판이
+ * 있는 경로면 undefined — HTML lang 속성을 아예 안 붙인다.
+ *
+ * nav·footer·CTA 링크가 전부 이 함수 하나로 lang 을 결정하게 만든 이유는,
+ * 링크마다 손으로 조건을 적다 생기는 누락(리뷰 Finding: 푸터 PRODUCT
+ * 그룹의 /demo, /apps 에 lang 표시가 빠졌던 문제)을 구조적으로 막기
+ * 위해서다. 새 Korean-only 경로가 생겨도 hasEnglish 만 갱신하면 이 함수를
+ * 쓰는 모든 링크가 자동으로 따라온다.
+ */
+export function foreignLang(path: string, locale: Locale): "ko" | undefined {
+  return locale === "en" && !hasEnglish(path) ? "ko" : undefined;
 }
 
 export function Layout() {
@@ -46,8 +64,7 @@ export function Layout() {
     key,
     path,
     label: copy.nav[key],
-    /** 영문 화면에서 영문판이 없는 경로로 가는 링크임을 명시한다 */
-    foreignLang: locale === "en" && !hasEnglish(path) ? "ko" : undefined,
+    lang: foreignLang(path, locale),
   }));
 
   return (
@@ -66,7 +83,7 @@ export function Layout() {
               <Link
                 key={item.key}
                 to={to(item.path)}
-                lang={item.foreignLang}
+                lang={item.lang}
                 className="text-[14.5px] font-medium text-ink-2 transition-colors hover:text-brand"
               >
                 {item.label}
@@ -84,6 +101,7 @@ export function Layout() {
             </Link>
             <Link
               to={to("/demo")}
+              lang={foreignLang("/demo", locale)}
               className="hidden h-10 items-center whitespace-nowrap rounded-[10px] bg-invert px-4 text-[14px] font-semibold text-white lg:flex"
             >
               {copy.cta.primary}
@@ -109,7 +127,7 @@ export function Layout() {
                 <Link
                   key={item.key}
                   to={to(item.path)}
-                  lang={item.foreignLang}
+                  lang={item.lang}
                   className="border-b border-line-2 px-1 py-3.5 text-[16px] font-semibold"
                 >
                   {item.label}
@@ -117,6 +135,7 @@ export function Layout() {
               ))}
               <Link
                 to={to("/demo")}
+                lang={foreignLang("/demo", locale)}
                 className="mt-3.5 flex h-[50px] items-center justify-center rounded-[10px] bg-invert text-[15px] font-semibold text-white"
               >
                 {copy.cta.primary}
@@ -145,24 +164,20 @@ export function Layout() {
 
             <div className="grid gap-7 sm:grid-cols-3">
               <FooterGroup title={copy.footer.groups.product}>
-                <FooterLink to={to("/solution")}>{copy.nav.solution}</FooterLink>
-                <FooterLink to={to("/technology")}>{copy.nav.technology}</FooterLink>
-                <FooterLink to={to("/pricing")}>{copy.nav.pricing}</FooterLink>
-                <FooterLink to={to("/demo")}>{copy.nav.demo}</FooterLink>
-                <FooterLink to={to("/apps")}>{copy.nav.apps}</FooterLink>
+                <FooterLink path="/solution" locale={locale}>{copy.nav.solution}</FooterLink>
+                <FooterLink path="/technology" locale={locale}>{copy.nav.technology}</FooterLink>
+                <FooterLink path="/pricing" locale={locale}>{copy.nav.pricing}</FooterLink>
+                <FooterLink path="/demo" locale={locale}>{copy.nav.demo}</FooterLink>
+                <FooterLink path="/apps" locale={locale}>{copy.nav.apps}</FooterLink>
               </FooterGroup>
               <FooterGroup title={copy.footer.groups.company}>
-                <FooterLink to={to("/about")}>{copy.footer.links.about}</FooterLink>
-                <FooterLink to={to("/ir")}>{copy.nav.ir}</FooterLink>
-                <FooterLink to={to("/contact")}>{copy.footer.links.contact}</FooterLink>
+                <FooterLink path="/about" locale={locale}>{copy.footer.links.about}</FooterLink>
+                <FooterLink path="/ir" locale={locale}>{copy.nav.ir}</FooterLink>
+                <FooterLink path="/contact" locale={locale}>{copy.footer.links.contact}</FooterLink>
               </FooterGroup>
               <FooterGroup title={copy.footer.groups.legal}>
-                <FooterLink to="/privacy" lang={locale === "en" ? "ko" : undefined}>
-                  {copy.footer.links.privacy}
-                </FooterLink>
-                <FooterLink to="/terms" lang={locale === "en" ? "ko" : undefined}>
-                  {copy.footer.links.terms}
-                </FooterLink>
+                <FooterLink path="/privacy" locale={locale}>{copy.footer.links.privacy}</FooterLink>
+                <FooterLink path="/terms" locale={locale}>{copy.footer.links.terms}</FooterLink>
               </FooterGroup>
             </div>
           </div>
@@ -185,18 +200,29 @@ function FooterGroup({ title, children }: { title: string; children: ReactNode }
   );
 }
 
+/**
+ * 한국어 기준 경로(path)와 locale 만 받아 실제 이동 경로(to)와 lang 표시를
+ * 내부에서 계산한다. 호출부가 lang 을 직접 넘기지 않게 만든 이유는, 링크마다
+ * 손으로 lang 조건을 적다 보면 하나쯤 빠뜨리기 쉽기 때문이다(리뷰 Finding:
+ * 푸터 PRODUCT 그룹의 /demo, /apps 가 그렇게 빠졌었다). foreignLang 하나로
+ * 통일하면 이 컴포넌트를 쓰는 한 그런 누락이 날 수 없다.
+ */
 function FooterLink({
-  to,
-  lang,
+  path,
+  locale,
   children,
 }: {
-  to: string;
-  lang?: string;
+  path: string;
+  locale: Locale;
   children: ReactNode;
 }) {
   return (
     <li>
-      <Link to={to} lang={lang} className="text-ink transition-colors hover:text-brand">
+      <Link
+        to={localePath(path, locale)}
+        lang={foreignLang(path, locale)}
+        className="text-ink transition-colors hover:text-brand"
+      >
         {children}
       </Link>
     </li>
