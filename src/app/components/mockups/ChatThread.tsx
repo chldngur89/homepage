@@ -23,11 +23,11 @@ export function ChatThread() {
         {chat.messages.map((message, index) => (
           <div
             key={index}
-            className={message.from === "user" ? "flex justify-end" : "flex justify-start"}
+            className={message.fromUser ? "flex justify-end" : "flex justify-start"}
           >
             <p
               className={`max-w-[78%] whitespace-pre-line rounded-xl px-3 py-2 text-[12.5px] leading-[1.6] ${
-                message.from === "user"
+                message.fromUser
                   ? "bg-invert text-white"
                   : "bg-panel text-ink-2"
               }`}

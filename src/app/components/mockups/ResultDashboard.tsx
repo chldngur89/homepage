@@ -33,7 +33,7 @@ export function ResultDashboard() {
           ))}
         </div>
 
-        <div className="mt-3 min-h-0 flex-1 space-y-2 border-t border-line pt-3">
+        <div className="mt-3 min-h-0 flex-1 space-y-2 overflow-hidden border-t border-line pt-3">
           {dashboard.channels.map((channel) => (
             <div key={channel.name} className="flex items-center gap-3">
               <span className="w-24 shrink-0 truncate text-[11px] text-ink-2">
@@ -56,6 +56,8 @@ export function ResultDashboard() {
           <strong className="font-semibold text-ink">{dashboard.nextLabel} — </strong>
           {dashboard.next}
         </p>
+
+        <p className="mt-1.5 text-[10px] leading-[1.4] text-ink-3">{dashboard.disclaimer}</p>
       </div>
     </MockFrame>
   );

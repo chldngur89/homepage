@@ -21,17 +21,23 @@ export const mockups = {
       { label: "브랜드", value: "차가움" },
       { label: "컨셉", value: "시원함" },
     ],
+    // fromUser: 사용자 발화 여부. 문자열 리터럴 유니언("agent" | "user")이
+    // 아니라 boolean 인 이유는 DeepWiden 때문이다 — messages 처럼 원소마다
+    // 모양이 다른 튜플을 DeepWiden 이 훑을 때, 배열 원소 유니언에 naked
+    // type parameter 가 분배되면서 문자열 리터럴 판별자가 plain string 으로
+    // 뭉개진다("aggent" 같은 오타도 통과). boolean 은 이 경로에서도
+    // true/false 로만 넓혀지므로 판별자가 안전하게 유지된다.
     messages: [
       {
-        from: "agent" as const,
+        fromUser: false,
         text: "이번 주 제안입니다. 여름 성수기라 신선함을 앞세운 릴스가 반응이 좋습니다.",
       },
       {
-        from: "agent" as const,
+        fromUser: false,
         text: "타겟: 여름철 가족 단위 소비자\n핵심 메시지: 시원한 여름, 차가운 수박\n채널: 인스타그램 릴스 2편",
       },
-      { from: "user" as const, text: "이 방향으로 진행해주세요." },
-      { from: "agent" as const, text: "영상 2편과 문구를 만들어 올리겠습니다." },
+      { fromUser: true, text: "이 방향으로 진행해주세요." },
+      { fromUser: false, text: "영상 2편과 문구를 만들어 올리겠습니다." },
     ],
   },
   dashboard: {

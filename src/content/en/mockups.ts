@@ -26,15 +26,15 @@ export const mockups: DeepWiden<MockupsCopy> = {
     ],
     messages: [
       {
-        from: "agent",
+        fromUser: false,
         text: "Here is this week's proposal. Peak summer — Reels leading with freshness perform best.",
       },
       {
-        from: "agent",
+        fromUser: false,
         text: "Audience: families in summer\nKey message: a cool summer, a cold watermelon\nChannel: two Instagram Reels",
       },
-      { from: "user", text: "Go ahead with this one." },
-      { from: "agent", text: "I'll produce both videos and the copy." },
+      { fromUser: true, text: "Go ahead with this one." },
+      { fromUser: false, text: "I'll produce both videos and the copy." },
     ],
   },
   dashboard: {
