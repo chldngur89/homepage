@@ -1,5 +1,5 @@
 import { SITE_URL, absoluteUrl } from "./site";
-import { hasEnglish, stripLocale } from "../src/app/i18n/localePath";
+import { hasEnglish, localePath, stripLocale } from "../src/app/i18n/localePath";
 import type { Locale } from "../src/content/locales";
 
 type SeoConfig = {
@@ -251,7 +251,7 @@ export function renderSeoTags(pathname: string) {
       ? [
           `<link rel="alternate" hreflang="ko" href="${absoluteUrl(seo.basePath)}" />`,
           `<link rel="alternate" hreflang="en" href="${absoluteUrl(
-            seo.basePath === "/" ? "/en" : `/en${seo.basePath}`,
+            localePath(seo.basePath, "en"),
           )}" />`,
           `<link rel="alternate" hreflang="x-default" href="${absoluteUrl(seo.basePath)}" />`,
         ]
