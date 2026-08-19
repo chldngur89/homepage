@@ -8,15 +8,21 @@
 - 설계: [2026-08-15-homepage-redesign-design.md](specs/2026-08-15-homepage-redesign-design.md)
 - 계획: [2026-08-15-redesign-01-foundation-layout-home.md](plans/2026-08-15-redesign-01-foundation-layout-home.md)
 
-## ⚠️ 릴리스 게이트 — 계획 2 완료 전 배포 금지
+## ⚠️ 릴리스 게이트 — 계획 3·4 완료 전 배포 금지
 
-영문 6개 경로(`/en/solution`, `/en/technology`, `/en/pricing`, `/en/about`,
-`/en/contact`, `/en/ir`)가 **영어라고 선언하면서 한국어 본문을 냅니다.**
-각각 `<html lang="en">`, 영문 title·description, `robots: index, follow`,
-`hreflang="en"`, sitemap `<loc>` 를 갖고 있습니다.
+> 계획 2 완료(2026-08-20)로 갱신. `/en/solution`·`/en/pricing`·`/en/contact`
+> 가 영문 본문을 갖게 되어 남은 경로가 6개에서 **3개로 줄었습니다.**
+
+영문 3개 경로(`/en/technology`, `/en/about`, `/en/ir`)가 **영어라고
+선언하면서 한국어 본문을 냅니다.** 각각 `<html lang="en">`, 영문
+title·description, `robots: index, follow`, `hreflang="en"`, sitemap
+`<loc>` 를 갖고 있습니다.
 
 크롤러에게 지키지 못할 약속을 하는 상태이고, `/en` 트리를 만든 이유인
 해외 투자자가 정확히 그 경로로 들어옵니다.
+
+계획 3이 `/en/technology`·`/en/about` 을 채우면 게이트는 `/en/ir` 하나로
+줄고, 계획 4가 IR 영문판을 내면 풀립니다.
 
 **지금 배포해야 한다면** `src/content/locales.ts` 의 `EN_ROUTES` 를 `["/"]` 로
 줄이십시오. 라우트·prerender·sitemap·hreflang 이 한 줄로 같이 따라옵니다.

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { BRAND_TOKENS, contrastRatio } from "./tokens";
 
@@ -12,12 +14,21 @@ describe("contrastRatio", () => {
 });
 
 describe("브랜드 토큰 대비", () => {
-  const ground = BRAND_TOKENS.ground;
+  /**
+   * 밝은 면은 셋이다. 계획 1의 이 검사는 `ground` 하나만 봤고, 그래서
+   * `ground` 보다 어두운 `panel` 위에서 `--ink-3` 가 4.43:1 로 미달인 것을
+   * 놓쳤다 — `--ink-3` 는 `SectionLabel` 의 색이고 `tone="panel"` 섹션이
+   * 홈·솔루션·요금·데모·문의에 걸쳐 아홉 개 있으므로 사이트에 실제로 떠
+   * 있던 결함이다. 표면 하나만 보면 같은 종류를 계속 놓치므로 셋을 모두
+   * 짝지어 본다.
+   */
   // keyof 로 좁히지 않으면 BRAND_TOKENS[token] 이 string 인덱스라 타입 에러가 난다
-  const onGround: (keyof typeof BRAND_TOKENS)[] = ["ink", "ink2", "ink3", "brand"];
+  const surfaces: (keyof typeof BRAND_TOKENS)[] = ["ground", "panel", "surface"];
+  const inks: (keyof typeof BRAND_TOKENS)[] = ["ink", "ink2", "ink3", "brand"];
+  const pairs = surfaces.flatMap((surface) => inks.map((ink) => [ink, surface] as const));
 
-  it.each(onGround)("--%s 는 ground 위에서 4.5:1 이상", (token) => {
-    expect(contrastRatio(BRAND_TOKENS[token], ground)).toBeGreaterThanOrEqual(4.5);
+  it.each(pairs)("--%s 는 %s 위에서 4.5:1 이상", (ink, surface) => {
+    expect(contrastRatio(BRAND_TOKENS[ink], BRAND_TOKENS[surface])).toBeGreaterThanOrEqual(4.5);
   });
 
   it("반전 섹션의 본문은 invert 위에서 4.5:1 이상", () => {
@@ -35,5 +46,29 @@ describe("브랜드 토큰 대비", () => {
    */
   it("반전 면의 헤어라인은 그 면과 구분된다", () => {
     expect(contrastRatio(BRAND_TOKENS.invertLine, BRAND_TOKENS.invert)).toBeGreaterThan(1.2);
+  });
+});
+
+/**
+ * 값의 원본은 theme.css 이고 tokens.ts 는 사본이다. 두 파일이 어긋나면 위의
+ * 대비 검사는 화면에 쓰이지도 않는 색을 통과시킨다 — 검사가 있는데 아무것도
+ * 지키지 못하는 상태가 된다. 실제로 --ink-3 를 고칠 때 두 파일을 손으로
+ * 같이 고쳐야 했고, 그것을 지켜 주는 것이 아무것도 없었다. 여기서 묶는다.
+ */
+describe("theme.css 와 tokens.ts 의 브랜드 토큰 값이 같다", () => {
+  const themeCss = readFileSync(fileURLToPath(new URL("./theme.css", import.meta.url)), "utf-8");
+
+  /** ink2 → --ink-2, invertInk2 → --invert-ink-2 */
+  function cssName(token: string) {
+    return `--${token.replace(/([A-Z])/g, "-$1").replace(/(\d)/g, "-$1").toLowerCase()}`;
+  }
+
+  it.each(Object.entries(BRAND_TOKENS))("%s", (token, value) => {
+    const declared = themeCss.match(
+      new RegExp(`${cssName(token)}:\\s*(#[0-9a-fA-F]{3,8})\\s*;`),
+    )?.[1];
+
+    expect(declared, `theme.css 에 ${cssName(token)} 선언이 없다`).toBeDefined();
+    expect(declared?.toLowerCase()).toBe(value.toLowerCase());
   });
 });
