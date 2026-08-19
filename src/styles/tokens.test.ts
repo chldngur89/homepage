@@ -54,6 +54,15 @@ describe("브랜드 토큰 대비", () => {
  * 대비 검사는 화면에 쓰이지도 않는 색을 통과시킨다 — 검사가 있는데 아무것도
  * 지키지 못하는 상태가 된다. 실제로 --ink-3 를 고칠 때 두 파일을 손으로
  * 같이 고쳐야 했고, 그것을 지켜 주는 것이 아무것도 없었다. 여기서 묶는다.
+ *
+ * 한계 두 가지(현재는 둘 다 미발현 — theme.css 는 토큰당 선언 하나뿐이고
+ * `.dark` 오버라이드가 없다):
+ * - 한 방향뿐이다. `BRAND_TOKENS` 에 있는 토큰만 theme.css 와 대조한다.
+ *   theme.css 에 새 색을 선언하고 tokens.ts(따라서 BRAND_TOKENS)에는 추가하지
+ *   않으면, 그 색은 동기화 검사도 위 대비 검사도 받지 않고 화면에 나간다.
+ * - 정규식이 첫 매치를 집는다 — `:root` 안에 같은 커스텀 프로퍼티가 두 번
+ *   선언되면(예: 나중에 `.dark { --ink-3: ... }` 같은 오버라이드가 생기면)
+ *   `match` 가 첫 값만 보고 실제로 적용되는 값(마지막 선언)을 놓칠 수 있다.
  */
 describe("theme.css 와 tokens.ts 의 브랜드 토큰 값이 같다", () => {
   const themeCss = readFileSync(fileURLToPath(new URL("./theme.css", import.meta.url)), "utf-8");

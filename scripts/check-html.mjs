@@ -35,6 +35,12 @@ function report() {
  * locale     — `<html lang>` 기대값이자 본문 언어.
  * hasEnglish — `EN_ROUTES` 에 있어 hreflang 3줄(ko·en·x-default)이 나와야 하는가.
  *              `/demo` 처럼 영문판이 없는 경로는 hreflang 이 아예 없어야 한다.
+ *
+ * 일부러 빠진 것 — `/en/technology`, `/en/about`, `/en/ir` 은 프리렌더되고
+ * sitemap 에도 있지만 여기 없다. 본문이 아직 한국어라 지금 넣으면 위 로케일
+ * 혼입 검사가 즉시 실패한다. 눈감아 주는 게 아니라 추적 중인 결함이고,
+ * 배포 게이트가 걸려 있다 — `docs/superpowers/REDESIGN_PLAN1_HANDOFF.md`.
+ * 영문 본문이 채워지는 계획에서 이 세 줄을 여기 추가하면 된다.
  */
 const PAGES = [
   { route: "/", locale: "ko", hasEnglish: true },
@@ -91,9 +97,29 @@ function bodyTextLength(html) {
     .trim().length;
 }
 
-// 가장 짧은 페이지(/demo)가 547자다. 프리렌더가 빠져 셸만 나가는 회귀를 잡는
-// 것이 목적이므로 실제 최솟값보다 넉넉히 아래에 둔다 — 문구 한 줄 줄었다고
-// 빌드를 깨자는 검사가 아니다.
+/**
+ * `<main>` 안쪽 마크업만. 헤더 nav · 푸터는 로케일과 무관하게 항상
+ * 그 페이지의 로케일로 렌더되므로, "본문에 한국어가 있는가" 를 문서
+ * 전체에서 찾으면 라우트 본문이 통째로 다른 언어로 샜어도 크롬의
+ * 한글만으로 항상 통과한다 — 아무것도 가려내지 못하는 검사가 된다.
+ * 판별력을 주려면 본문(main) 안쪽만 봐야 한다.
+ */
+function mainHtml(html) {
+  return html.match(/<main\b[^>]*>([\s\S]*)<\/main>/)?.[1] ?? "";
+}
+
+// 위(천장): 가장 짧은 페이지(/demo)가 547자다. 프리렌더가 빠져 셸만 나가는
+// 회귀를 잡는 것이 목적이므로 실제 최솟값보다 넉넉히 아래에 둔다 — 문구
+// 한 줄 줄었다고 빌드를 깨자는 검사가 아니다.
+//
+// 아래(바닥) — 이쪽이 이 숫자의 존재 이유다: 헤더·nav·푸터만 있고 라우트
+// 본문이 통째로 비어도(레이아웃은 렌더됐지만 그 라우트만 빈 셸인 회귀)
+// 크롬만으로 한국어 경로는 188자, `/en` 경로는 254자가 잡힌다. 300은
+// "프리렌더 자체가 빠졌다"뿐 아니라 "레이아웃은 나갔는데 라우트 본문이
+// 비었다"도 같이 잡는 하한이다. `/en` 쪽 여유는 254 → 300, 46자뿐이다 —
+// 영문 푸터 링크 하나만 늘어도 크롬이 300을 넘어 `/en` 전체에서 이 검사가
+// 무력화될 수 있으니, 이 숫자를 올릴 때는 크롬만으로 다시 재보고 여유를
+// 확인할 것.
 const MIN_BODY_TEXT = 300;
 
 const pageHtml = new Map();
@@ -122,16 +148,24 @@ for (const { route, locale, hasEnglish } of PAGES) {
 
   check(`${route} 의 <html lang> 이 ${locale} 이 아니다`, html.includes(`<html lang="${locale}">`));
 
-  const hreflangCount = (html.match(/hreflang/g) ?? []).length;
+  // `hreflang` 부분 문자열을 문서 전체에서 세면 안 된다 — `LocaleLink` 가
+  // 찍는 앵커의 `hrefLang` 마커(camelCase)까지 같이 잡힌다. React 는 JSX
+  // 프로퍼티명 `hrefLang` 을 그대로 출력하므로 대소문자만으로 우연히
+  // 갈리는 것이다. 실제 <head> 의 `<link rel="alternate">` 만 `<link>`
+  // 요소 단위로 세되, `hreflang` 속성 자체는 대소문자를 구분하지 않는
+  // HTML 속성이므로(:191 의 앵커 검사와 동일하게) 대소문자 무시로 찾는다.
+  const alternateLinkCount = (html.match(/<link\b[^>]*>/gi) ?? []).filter(
+    (tag) => /\brel="alternate"/i.test(tag) && /\bhreflang="/i.test(tag),
+  ).length;
   if (hasEnglish) {
     check(
-      `${route} 에 hreflang 3줄이 없다 (실제 ${hreflangCount}줄)`,
-      hreflangCount === 3,
+      `${route} 에 hreflang 3줄이 없다 (실제 ${alternateLinkCount}줄)`,
+      alternateLinkCount === 3,
     );
   } else {
     check(
-      `${route} 는 영문판이 없는데 hreflang 이 있다 (${hreflangCount}줄)`,
-      hreflangCount === 0,
+      `${route} 는 영문판이 없는데 hreflang 이 있다 (${alternateLinkCount}줄)`,
+      alternateLinkCount === 0,
     );
   }
 
@@ -139,7 +173,14 @@ for (const { route, locale, hasEnglish } of PAGES) {
   if (locale === "en") {
     check(`${route} 에 한글이 섞여 있다`, !/[가-힣]/.test(stripped));
   } else {
-    check(`${route} 에 한국어 본문이 없다`, /[가-힣]/.test(stripped));
+    // 문서 전체(헤더 nav·푸터 포함)에서 한글을 찾으면 한국어 라우트는
+    // 항상 통과한다 — 그 크롬이 로케일과 무관하게 늘 한국어이기
+    // 때문이다. `<main>` 안쪽만 봐서, 라우트 본문 자체가 (예: 로케일
+    // 배선 결함으로) 한국어를 잃는 경우를 실제로 잡는다.
+    check(
+      `${route} 의 <main> 본문에 한국어가 없다`,
+      /[가-힣]/.test(stripForLocaleCheck(mainHtml(html))),
+    );
   }
 
   check(`${route} 에 이전 브랜드명 CMO AI Agent 가 남아 있다`, !html.includes("CMO AI Agent"));
@@ -240,7 +281,17 @@ const documents = (await htmlDocuments(distDir)).sort();
 // 이 검사가 조용히 0개를 훑고 통과하지 않도록, sitemap 에 실린 경로의 산출
 // 파일이 실제로 위 목록에 있는지 먼저 확인한다. sitemap 은 prerenderRoutes
 // 에서 생성되므로 경로가 늘면 여기도 저절로 늘어난다.
-const sitemap = await readFile(path.join(distDir, "sitemap.xml"), "utf8");
+//
+// 위 페이지 읽기(:100-113)와 같은 취급 — sitemap.xml 자체가 없으면 raw
+// ENOENT 스택 대신 조치 가능한 실패로 보고하고 바로 끊는다. 그 아래 모든
+// sitemap 대조 검사는 이 파일이 있다는 전제이므로 계속해도 의미가 없다.
+let sitemap;
+try {
+  sitemap = await readFile(path.join(distDir, "sitemap.xml"), "utf8");
+} catch {
+  failures.push("dist/sitemap.xml 이 없다 (사이트맵이 생성되지 않았다)");
+  report();
+}
 const sitemapPaths = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map((match) => {
   const pathname = new URL(match[1]).pathname.replace(/^\/|\/$/g, "");
   return pathname === "" ? path.join(distDir, "index.html") : path.join(distDir, pathname, "index.html");
