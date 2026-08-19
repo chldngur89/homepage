@@ -1,6 +1,7 @@
 import { SITE_URL, absoluteUrl } from "./site";
 import { hasEnglish, localePath, stripLocale } from "../src/app/i18n/localePath";
 import type { Locale } from "../src/content/locales";
+import { CONTACT_EMAIL } from "../src/content/ko/contact";
 
 type SeoConfig = {
   description: string;
@@ -176,7 +177,10 @@ function buildStructuredData(pathname: string, seo: SeoConfig, locale: Locale) {
       name: "WooriTeam",
       url: SITE_URL,
       logo: `${SITE_URL}/apple-touch-icon.png`,
-      email: "mailto:chldngur89@gmail.com",
+      // 주소는 src/content/ko/contact.ts 의 CONTACT_EMAIL 하나가 원본이다.
+      // 하드코딩해 두면 문의 페이지가 주소를 바꿔도 JSON-LD 는 옛 주소를 계속
+      // 광고한다 — 검색엔진 쪽만 조용히 갈라지는, 눈에 띄지 않는 종류의 결함이다.
+      email: `mailto:${CONTACT_EMAIL}`,
     },
     {
       "@type": "WebSite",

@@ -11,6 +11,8 @@ import { solution as enSolution } from "./en/solution";
 import { pricing as koPricing } from "./ko/pricing";
 import { pricing as enPricing } from "./en/pricing";
 import { demo as koDemo } from "./ko/demo";
+import { contact as koContact } from "./ko/contact";
+import { contact as enContact } from "./en/contact";
 
 /**
  * 한국어 사전이 구조의 원본이고, 리프의 리터럴만 넓힌 것이 사전 타입이다.
@@ -33,6 +35,7 @@ export type Dictionary = {
   solution: DeepWiden<typeof koSolution>;
   pricing: DeepWiden<typeof koPricing>;
   demo: DeepWiden<typeof koDemo>;
+  contact: DeepWiden<typeof koContact>;
 };
 
 export const dictionaries = {
@@ -43,6 +46,7 @@ export const dictionaries = {
     solution: koSolution,
     pricing: koPricing,
     demo: koDemo,
+    contact: koContact,
   },
   en: {
     common: enCommon,
@@ -66,5 +70,6 @@ export const dictionaries = {
      * `EN_ROUTES` 에 `/demo` 를 넣고, 이 줄을 `enDemo` 로 바꾼다.
      */
     demo: koDemo,
+    contact: enContact,
   },
 } satisfies Record<Locale, Dictionary>;
