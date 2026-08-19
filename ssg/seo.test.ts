@@ -87,4 +87,17 @@ describe("renderSeoTags", () => {
     expect(renderSeoTags("/en")).toContain("en-US");
     expect(renderSeoTags("/")).toContain("ko-KR");
   });
+
+  it("영어 페이지의 구조화 데이터(JSON-LD)에 한글이 없다", () => {
+    // inLanguage 값만 en-US 로 맞고 그 안의 description 텍스트는 한국어인
+    // 상태를 잡기 위한 테스트다. WebSite 노드의 description 이
+    // SEO_BY_LOCALE.ko["/"] 를 고정 참조하던 결함이 실제로 이랬다 —
+    // inLanguage 태그 자체를 확인하는 위 테스트만으로는 안 걸렸다.
+    const json = renderSeoTags("/en").match(
+      /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
+    )?.[1];
+    expect(json).toBeDefined();
+    expect(JSON.parse(json as string)).toBeTruthy();
+    expect(json).not.toMatch(/[가-힣]/);
+  });
 });

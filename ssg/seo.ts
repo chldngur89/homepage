@@ -184,7 +184,7 @@ function buildStructuredData(pathname: string, seo: SeoConfig, locale: Locale) {
       name: "WooriTeam",
       url: SITE_URL,
       inLanguage: IN_LANGUAGE[locale],
-      description: SEO_BY_LOCALE.ko["/"].description,
+      description: SEO_BY_LOCALE[locale]["/"].description,
     },
     {
       "@type": pathname === "/" ? "SoftwareApplication" : "WebPage",
