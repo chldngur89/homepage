@@ -153,7 +153,9 @@ for (const { route, locale, hasEnglish } of PAGES) {
   // 프로퍼티명 `hrefLang` 을 그대로 출력하므로 대소문자만으로 우연히
   // 갈리는 것이다. 실제 <head> 의 `<link rel="alternate">` 만 `<link>`
   // 요소 단위로 세되, `hreflang` 속성 자체는 대소문자를 구분하지 않는
-  // HTML 속성이므로(:191 의 앵커 검사와 동일하게) 대소문자 무시로 찾는다.
+  // HTML 속성이므로 대소문자 무시로 찾는다 — 아래 "영어 홈의 한국어 전용
+  // 링크에 hreflang 표시 없음" 검사가 앵커에 대해 같은 이유로 같은 일을 한다.
+  // (줄 번호로 가리키면 검사가 하나 늘 때마다 주석이 썩는다.)
   const alternateLinkCount = (html.match(/<link\b[^>]*>/gi) ?? []).filter(
     (tag) => /\brel="alternate"/i.test(tag) && /\bhreflang="/i.test(tag),
   ).length;
@@ -282,7 +284,7 @@ const documents = (await htmlDocuments(distDir)).sort();
 // 파일이 실제로 위 목록에 있는지 먼저 확인한다. sitemap 은 prerenderRoutes
 // 에서 생성되므로 경로가 늘면 여기도 저절로 늘어난다.
 //
-// 위 페이지 읽기(:100-113)와 같은 취급 — sitemap.xml 자체가 없으면 raw
+// 위 `pageHtml` 채우는 루프와 같은 취급 — sitemap.xml 자체가 없으면 raw
 // ENOENT 스택 대신 조치 가능한 실패로 보고하고 바로 끊는다. 그 아래 모든
 // sitemap 대조 검사는 이 파일이 있다는 전제이므로 계속해도 의미가 없다.
 let sitemap;
