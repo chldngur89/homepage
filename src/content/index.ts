@@ -8,6 +8,8 @@ import { home as koHome } from "./ko/home";
 import { home as enHome } from "./en/home";
 import { solution as koSolution } from "./ko/solution";
 import { solution as enSolution } from "./en/solution";
+import { pricing as koPricing } from "./ko/pricing";
+import { pricing as enPricing } from "./en/pricing";
 
 /**
  * 한국어 사전이 구조의 원본이고, 리프의 리터럴만 넓힌 것이 사전 타입이다.
@@ -28,9 +30,22 @@ export type Dictionary = {
   mockups: DeepWiden<typeof koMockups>;
   home: DeepWiden<typeof koHome>;
   solution: DeepWiden<typeof koSolution>;
+  pricing: DeepWiden<typeof koPricing>;
 };
 
 export const dictionaries = {
-  ko: { common: koCommon, mockups: koMockups, home: koHome, solution: koSolution },
-  en: { common: enCommon, mockups: enMockups, home: enHome, solution: enSolution },
+  ko: {
+    common: koCommon,
+    mockups: koMockups,
+    home: koHome,
+    solution: koSolution,
+    pricing: koPricing,
+  },
+  en: {
+    common: enCommon,
+    mockups: enMockups,
+    home: enHome,
+    solution: enSolution,
+    pricing: enPricing,
+  },
 } satisfies Record<Locale, Dictionary>;
