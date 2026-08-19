@@ -30,11 +30,26 @@ function Section({
   );
 }
 
-function SectionLabel({ index, children }: { index: string; children: ReactNode }) {
+/**
+ * 기본은 시각적 라벨(`<p>`)이지만, 06 파일럿 피드백처럼 섹션에 별도의
+ * `<h2>` 타이틀이 없는 경우 `as="h2"` 로 이 라벨 자체를 그 섹션의 제목으로
+ * 승격시킬 수 있다 — 클래스는 그대로라 외관은 바뀌지 않는다.
+ */
+function SectionLabel({
+  index,
+  as: Tag = "p",
+  id,
+  children,
+}: {
+  index: string;
+  as?: "p" | "h2";
+  id?: string;
+  children: ReactNode;
+}) {
   return (
-    <p className="mb-4 text-[12.5px] font-semibold tracking-[0.12em] text-ink-3">
+    <Tag id={id} className="mb-4 text-[12.5px] font-semibold tracking-[0.12em] text-ink-3">
       {index}&nbsp;&nbsp;{children}
-    </p>
+    </Tag>
   );
 }
 
@@ -260,10 +275,10 @@ export default function Home() {
         <ResultDashboard />
       </Section>
 
-      {/* 06 파일럿 피드백 */}
+      {/* 06 파일럿 피드백 — 디자인에 별도 타이틀이 없어, 이 라벨 자체가 섹션 제목이다 */}
       <Section id="voice-h" tone="panel">
-        <SectionLabel index="06">
-          <span id="voice-h">{t.voices.label}</span>
+        <SectionLabel index="06" as="h2" id="voice-h">
+          {t.voices.label}
         </SectionLabel>
         <div className="mt-10 grid gap-[clamp(32px,4vw,56px)] md:grid-cols-2">
           {t.voices.quotes.map((item, index) => (
