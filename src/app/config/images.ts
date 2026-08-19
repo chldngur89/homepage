@@ -4,7 +4,12 @@ export type ImageSlotSpec = {
   src: string;
   /** CSS aspect-ratio 값. 사진을 교체해도 레이아웃이 흔들리지 않게 고정한다. */
   ratio: string;
-  /** 최종적으로 이 자리에 들어갈 사진의 내용 */
+  /**
+   * 최종적으로 이 자리에 들어갈 사진의 내용. 화면에는 그리지 않는다 —
+   * 로케일과 무관한 내부 제작 메모라 영문 화면에도 한국어로 노출되기
+   * 때문이다(ImageSlot 은 언어 없는 점선 프레임만 그린다). 이 값은 사진을
+   * 준비하는 사람과 `verify-assets` 경고를 위한 것이다.
+   */
   subject: string;
   /** 아직 샘플이면 true. 빌드 시 경고 목록에 오른다. */
   sample: boolean;

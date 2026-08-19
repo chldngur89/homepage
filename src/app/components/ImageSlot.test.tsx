@@ -22,6 +22,22 @@ function findByType(node: any, type: string): any {
   return findByType(children, type);
 }
 
+/** 렌더 트리에 실제로 실린 문자열 자식을 전부 모은다. */
+function collectAllText(node: any, acc: string[] = []): string[] {
+  if (typeof node === "string") {
+    acc.push(node);
+    return acc;
+  }
+  if (!node || typeof node !== "object") return acc;
+  const children = node.props?.children;
+  if (Array.isArray(children)) {
+    for (const child of children) collectAllText(child, acc);
+  } else {
+    collectAllText(children, acc);
+  }
+  return acc;
+}
+
 function collectAllTypes(node: any, acc: string[] = []): string[] {
   if (!node || typeof node !== "object") return acc;
   if (typeof node.type === "string") acc.push(node.type);
@@ -58,12 +74,27 @@ describe("ImageSlot — sample:true 분기", () => {
     expect(collectAllTypes(el)).not.toContain("img");
   });
 
-  it("일반 크기 슬롯은 subject 라벨을 span 으로 그린다", () => {
+  it("일반 크기 슬롯은 언어 없는 표식(svg)을 그린다", () => {
     const el: any = ImageSlot({ slot: "persona", alt: "대표 업무 환경" });
-    const span = findByType(el, "span");
-    expect(span).not.toBeNull();
-    expect(span.props.children).toBe(IMAGE_SLOTS.persona.subject);
-    expect(span.props["aria-hidden"]).toBe("true");
+    const svg = findByType(el, "svg");
+    expect(svg).not.toBeNull();
+    expect(svg.props["aria-hidden"]).toBe("true");
+  });
+
+  // 회귀 가드: 예전에는 여기에 spec.subject 를 텍스트로 찍었다. subject 는
+  // 로케일과 무관한 내부 제작 메모라, 영문 화면(/en)에도 한국어 문장이
+  // 그대로 노출됐다(check-html 의 로케일 검사는 그것을 예외로 빼주고 있었다).
+  // 이제 어떤 슬롯도 subject 를 렌더 트리에 싣지 않는다.
+  it("subject 를 화면 텍스트로 싣지 않는다", () => {
+    for (const slot of Object.keys(IMAGE_SLOTS) as (keyof typeof IMAGE_SLOTS)[]) {
+      const el = ImageSlot({ slot, alt: "대체 텍스트" });
+      expect(collectAllText(el)).not.toContain(IMAGE_SLOTS[slot].subject);
+    }
+  });
+
+  it("어느 슬롯인지 data-image-slot 으로 알 수 있다 (ASCII 슬롯 id)", () => {
+    const el: any = ImageSlot({ slot: "persona", alt: "대표 업무 환경" });
+    expect(el.props["data-image-slot"]).toBe("persona");
   });
 
   it("바깥 요소가 role=img 와 alt 를 스크린 리더용으로 갖는다", () => {
@@ -72,9 +103,9 @@ describe("ImageSlot — sample:true 분기", () => {
     expect(el.props["aria-label"]).toBe("대표 업무 환경");
   });
 
-  it("정사각(44px 아바타) 슬롯은 라벨 span 없이 테두리만 그린다", () => {
+  it("정사각(44px 아바타) 슬롯은 표식 없이 테두리만 그린다", () => {
     const el: any = ImageSlot({ slot: "voice-1", alt: "피드백 남긴 사용자" });
-    expect(findByType(el, "span")).toBeNull();
+    expect(findByType(el, "svg")).toBeNull();
     // 필드/테두리 컨테이너 자체는 그대로 있어야 한다.
     expect(el.type).toBe("div");
     expect(el.props.className).toMatch(/border-line-2/);
@@ -82,9 +113,9 @@ describe("ImageSlot — sample:true 분기", () => {
     expect(el.props["aria-label"]).toBe("피드백 남긴 사용자");
   });
 
-  it("compact=false 를 명시하면 정사각 슬롯도 라벨을 그린다", () => {
+  it("compact=false 를 명시하면 정사각 슬롯도 표식을 그린다", () => {
     const el: any = ImageSlot({ slot: "voice-1", alt: "피드백 남긴 사용자", compact: false });
-    expect(findByType(el, "span")).not.toBeNull();
+    expect(findByType(el, "svg")).not.toBeNull();
   });
 
   it("aspect-ratio 는 레지스트리의 ratio 값을 그대로 쓴다 (사진 픽셀 크기와 무관)", () => {

@@ -36,9 +36,16 @@ check("영어 홈에 목업 문구 없음", en.includes("this week"));
 // 않는다 — WebSite 노드의 description 이 로케일과 무관하게 한국어 원문을
 // 공유하던 결함을 ssg/seo.ts 에서 고쳤으므로(SEO_BY_LOCALE.ko["/"] 고정 참조
 // → SEO_BY_LOCALE[locale]["/"]), 이제 JSON-LD 도 이 검사가 그대로 덮는다.
-// 아래 두 가지만 좁게 제외한다. 각각 정확히 무엇을 왜 빼는지 밝혀 둔다 —
-// 본문을 가릴 만큼 넓은 패턴을 쓰면 진짜 혼입도 같이 숨어버리므로, 특정
-// 요소·특정 속성값 하나만 지목하고 그 이상 넓히지 않는다.
+//
+// ImageSlot 의 플레이스홀더 캡션을 빼주던 예외도 없앴다. 그 예외는 원인을
+// 고치지 않고 가드를 넓힌 것이었다 — `/en` 이 "대표의 업무 환경 — 책상 /
+// 노트 / 화면 (권장 1200×960)" 같은 한국어 제작 메모를 본문 텍스트로 찍고
+// 있었고, 검사는 그것을 눈감아 주고 있었다. 이제 ImageSlot 이 언어 없는
+// 점선 프레임만 그리므로(src/app/components/ImageSlot.tsx) 예외가 필요 없다.
+//
+// 남은 예외는 하나뿐이다. 정확히 무엇을 왜 빼는지 밝혀 둔다 — 본문을 가릴
+// 만큼 넓은 패턴을 쓰면 진짜 혼입도 같이 숨어버리므로, 특정 요소·특정
+// 속성값 하나만 지목하고 그 이상 넓히지 않는다.
 function stripForLocaleCheck(html) {
   return (
     html
@@ -46,19 +53,6 @@ function stripForLocaleCheck(html) {
       // 똑같이 박혀 있는 개발자용 메모. 렌더된 페이지에 텍스트로 나타나지
       // 않고 크롤러도 본문으로 읽지 않는다 — 마케팅 카피가 아니다.
       .replace(/<!--[\s\S]*?-->/g, "")
-      // ImageSlot 플레이스홀더 캡션(src/app/config/images.ts 의 subject) 하나만
-      // 정확히 지목한다. 이 className("px-3 text-center text-xs leading-snug
-      // text-ink-3")은 저장소 전체에서 ImageSlot.tsx 한 곳에서만 쓰인다.
-      // 실제 사진이 들어오기 전까지만 사람 눈에 보이는 "이 자리에 어떤
-      // 사진이 들어갈지" 안내이고, ImageSlot.tsx 가 명시적으로
-      // aria-hidden="true" 로 스크린리더에서도 숨긴다 — 마케팅 카피가
-      // 아니라 로케일과 무관한 개발 중 placeholder 다. `sample` 이 모두
-      // false 로 바뀌면(실제 사진 교체 완료) 이 span 자체가 더 이상
-      // 렌더되지 않으므로 이 예외도 자연히 없어진다.
-      .replace(
-        /<span aria-hidden="true" class="px-3 text-center text-xs leading-snug text-ink-3">[^<]*<\/span>/g,
-        "",
-      )
       // 언어 전환 버튼의 aria-label 값 하나만 정확히 지목한다(모든
       // aria-label 을 지우는 게 아니다). 이 라벨은 src/content/en/common.ts ·
       // ko/common.ts 양쪽에서 의도적으로 두 언어를 함께 담는다
