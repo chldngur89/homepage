@@ -15,6 +15,8 @@ export const BRAND_TOKENS = {
   brand: "#4F6B5B",
   invert: "#111111",
   invertInk2: "#B9B9B3",
+  // 반전 CTA 면 위의 헤어라인. 본문이 아니라 장식용 경계선이라 4.5:1 대비 대상이 아니다
+  invertLine: "#3A3A38",
 } as const satisfies Record<string, string>;
 
 function channelToLinear(value: number) {

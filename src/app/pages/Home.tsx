@@ -321,7 +321,7 @@ export default function Home() {
             <Link
               to={to("/demo")}
               hrefLang={pathHreflang("/demo", locale)}
-              className="flex h-[52px] items-center rounded-[10px] border border-[#3A3A38] px-[22px] text-[16px] font-semibold text-white"
+              className="flex h-[52px] items-center rounded-[10px] border border-invert-line px-[22px] text-[16px] font-semibold text-white"
             >
               {common.cta.demo}
             </Link>

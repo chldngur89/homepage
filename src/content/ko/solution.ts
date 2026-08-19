@@ -31,7 +31,7 @@ export const solution = {
       ],
     },
     us: {
-      title: "WooriTeam",
+      title: "우리팀",
       items: [
         "이번 주 할 일을 먼저 제안합니다",
         "승인 후 실행까지 이어 줍니다",
