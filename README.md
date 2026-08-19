@@ -31,6 +31,10 @@ WooriTeam 랜딩·마케팅 사이트 저장소입니다.
 | `/ir` | 투자자 Overview |
 | `/privacy`, `/terms` | 약관 |
 
+영문판은 `/en/` 아래 7개 경로에 있습니다: `/en`, `/en/solution`, `/en/technology`,
+`/en/pricing`, `/en/about`, `/en/contact`, `/en/ir`.
+`/demo`, `/apps`, `/privacy`, `/terms` 는 한국어만 제공합니다.
+
 ## 기술 스택
 
 - `Vite 6`
@@ -121,6 +125,19 @@ cp .env.example .env
 ```
 
 ## 크롤러 / NotebookLM 검증
+
+### 자동 검증
+
+```bash
+npm run build
+```
+
+빌드 마지막에 `scripts/check-html.mjs`가 프리렌더 산출물을 검사합니다.
+
+- 초기 HTML 에 핵심 문구가 들어 있는지
+- 한국어·영어 페이지에 상대 언어가 섞이지 않았는지
+- `<html lang>` 과 `hreflang` 이 로케일에 맞는지
+- 이전 브랜드 흔적이 남지 않았는지
 
 ### View Source
 

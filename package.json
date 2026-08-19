@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "check:assets": "node ./scripts/verify-assets.mjs",
-    "build": "npm run typecheck && node ./scripts/verify-assets.mjs && node ./scripts/prerender.mjs",
+    "check:html": "node ./scripts/check-html.mjs",
+    "build": "npm run typecheck && node ./scripts/verify-assets.mjs && node ./scripts/prerender.mjs && node ./scripts/check-html.mjs",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest run",
