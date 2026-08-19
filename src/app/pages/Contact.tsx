@@ -3,6 +3,7 @@ import { useCopy } from "@/app/i18n/useCopy";
 import { LocaleLink } from "@/app/components/LocaleLink";
 import { SHELL, Section, SectionLabel } from "@/app/components/page";
 import { CONTACT_EMAIL, type ContactCopy } from "@/content/ko/contact";
+import type { SameShape } from "@/content/widen";
 
 /**
  * 아래 `handleSubmit` 이 이 이름으로 주소를 읽는다. 전환 이전에는
@@ -14,27 +15,16 @@ import { CONTACT_EMAIL, type ContactCopy } from "@/content/ko/contact";
 const contactEmail = CONTACT_EMAIL;
 
 /**
- * 튜플 `T` 와 길이가 같은 문자열 튜플.
- *
- * `T` 가 **타입 매개변수**여야 매핑이 homomorphic 이 되어 배열성과 길이가
- * 보존된다 — 구체 타입을 그 자리에 직접 쓰면 (`{[K in keyof Foo["items"]]: string}`)
- * TypeScript 가 `length`·`map` 같은 배열 멤버까지 string 으로 바꿔 버린다.
- * `src/content/widen.ts` 의 `DeepWiden` 이 배열 원소 누락을 잡아내는 것과 같은
- * 원리이며, 그 이유는 그 파일의 주석에 자세히 적혀 있다.
- */
-type SameLength<T> = { [K in keyof T]: string };
-
-/**
  * FAQ 항목의 목적지. 문구는 사전이, 목적지는 코드가 정한다 — 번역이 링크를
  * 옮길 수 없게 하려는 것이다 (요금 페이지의 `PLAN_CTA_TO_CONTACT` 와 같다).
  *
  * 타입을 `string[]` 이 아니라 사전 배열에서 **파생**시킨 것이 핵심이다.
  * `ContactCopy["faq"]["items"]` 는 `as const` 가 만든 길이 4의 튜플이고,
- * `SameLength` 가 그 길이를 그대로 물려주므로 사전의 FAQ 가 하나 늘거나 줄면
+ * `SameShape` 가 그 길이를 그대로 물려주므로 사전의 FAQ 가 하나 늘거나 줄면
  * 이 줄이 컴파일되지 않는다. 인덱스로 짝지은 두 배열이 조용히 어긋나는 경우가
  * 없다.
  */
-const FAQ_LINKS: SameLength<ContactCopy["faq"]["items"]> = [
+const FAQ_LINKS: SameShape<ContactCopy["faq"]["items"], string> = [
   "/pricing",
   "/solution",
   "/technology",

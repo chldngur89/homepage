@@ -4,16 +4,28 @@ import { foreignHreflang } from "@/app/i18n/localePath";
 import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
 import { LocaleLink } from "@/app/components/LocaleLink";
 import { SHELL, Section, SectionLabel } from "@/app/components/page";
+import type { PricingCopy } from "@/content/ko/pricing";
+import type { SameShape } from "@/content/widen";
 
 /**
  * 요금제 카드 버튼의 목적지. 문구는 사전이, 목적지는 코드가 정한다 — 번역이
- * 링크를 옮길 수 없게 하려는 것이다. `plans` 는 길이 3의 튜플이라(원소가
- * 빠지면 사전이 컴파일되지 않는다) 인덱스로 짝지어도 조용히 어긋나지 않는다.
+ * 링크를 옮길 수 없게 하려는 것이다.
  *
  * 앞의 둘은 사이트 공통 주 CTA 와 같은 제품 앱, 마지막 "슈퍼 팀" 만 문의로
  * 간다 — 전환 이전과 같다.
+ *
+ * 타입을 `boolean[]` 이나 `as const` 가 아니라 사전 배열에서 **파생**시킨
+ * 것이 핵심이다. `[false, false, true] as const` 는 요금제와 길이가 묶여
+ * 있지 않아서, 사전에 네 번째 요금제가 들어오면 `PLAN_CTA_TO_CONTACT[3]` 이
+ * `undefined` → falsy 가 되고 그 요금제의 CTA 가 문의가 아니라 제품 앱으로
+ * 조용히 간다 — 빌드는 초록이다. `SameShape` 가 길이를 물려주므로 이제는
+ * 그 상황이 컴파일 에러다 (문의 페이지의 `FAQ_LINKS` 와 같은 장치).
  */
-const PLAN_CTA_TO_CONTACT = [false, false, true] as const;
+const PLAN_CTA_TO_CONTACT: SameShape<PricingCopy["plans"]["items"], boolean> = [
+  false,
+  false,
+  true,
+];
 
 const BUTTON = "flex h-12 items-center justify-center rounded-[10px] text-[15.5px] font-semibold";
 
