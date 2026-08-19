@@ -2,7 +2,14 @@ import { Link, Outlet, useLocation } from "react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { useCopy } from "@/app/i18n/useCopy";
 import { useLocale } from "@/app/i18n/LocaleContext";
-import { hasEnglish, localePath, stripLocale } from "@/app/i18n/localePath";
+import {
+  foreignHreflang,
+  hasEnglish,
+  localePath,
+  pathHreflang,
+  stripLocale,
+} from "@/app/i18n/localePath";
+import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
 import type { Locale } from "@/content/locales";
 
 export const NAV_PATHS = [
@@ -31,21 +38,6 @@ export function getLangSwitchTarget(pathname: string, locale: Locale): string {
   return hasEnglish(basePath) ? localePath(basePath, other) : localePath("/", other);
 }
 
-/**
- * 링크가 향하는 한국어 기준 경로에 영문판이 없으면, 영문 화면에서 그
- * 링크에 붙여야 할 lang 값("ko")을 돌려준다. 한국어 화면이거나 영문판이
- * 있는 경로면 undefined — HTML lang 속성을 아예 안 붙인다.
- *
- * nav·footer·CTA 링크가 전부 이 함수 하나로 lang 을 결정하게 만든 이유는,
- * 링크마다 손으로 조건을 적다 생기는 누락(리뷰 Finding: 푸터 PRODUCT
- * 그룹의 /demo, /apps 에 lang 표시가 빠졌던 문제)을 구조적으로 막기
- * 위해서다. 새 Korean-only 경로가 생겨도 hasEnglish 만 갱신하면 이 함수를
- * 쓰는 모든 링크가 자동으로 따라온다.
- */
-export function foreignLang(path: string, locale: Locale): "ko" | undefined {
-  return locale === "en" && !hasEnglish(path) ? "ko" : undefined;
-}
-
 export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -64,8 +56,20 @@ export function Layout() {
     key,
     path,
     label: copy.nav[key],
-    lang: foreignLang(path, locale),
+    hrefLang: pathHreflang(path, locale),
   }));
+
+  /**
+   * 헤더 CTA 는 사이트 안이 아니라 제품 앱으로 간다 — 나머지 여덟 페이지의
+   * 같은 라벨("우리팀과 같이 성장하기")이 향하는 곳과 같다. 사이트에서 구매
+   * 의도가 가장 높은 요소가 제품에 닿지 않으면 안 된다.
+   */
+  const productCta = {
+    href: APP_URLS.cmo,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    hrefLang: foreignHreflang(APP_HAS_ENGLISH, locale),
+  } as const;
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-ground text-ink">
@@ -87,7 +91,7 @@ export function Layout() {
               <Link
                 key={item.key}
                 to={to(item.path)}
-                lang={item.lang}
+                hrefLang={item.hrefLang}
                 className="text-[14.5px] font-medium text-ink-2 transition-colors hover:text-brand"
               >
                 {item.label}
@@ -103,13 +107,12 @@ export function Layout() {
             >
               {copy.langLabel}
             </Link>
-            <Link
-              to={to("/demo")}
-              lang={foreignLang("/demo", locale)}
+            <a
+              {...productCta}
               className="hidden h-10 items-center whitespace-nowrap rounded-[10px] bg-invert px-4 text-[14px] font-semibold text-white lg:flex"
             >
               {copy.cta.primary}
-            </Link>
+            </a>
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
@@ -131,19 +134,18 @@ export function Layout() {
                 <Link
                   key={item.key}
                   to={to(item.path)}
-                  lang={item.lang}
+                  hrefLang={item.hrefLang}
                   className="border-b border-line-2 px-1 py-3.5 text-[16px] font-semibold"
                 >
                   {item.label}
                 </Link>
               ))}
-              <Link
-                to={to("/demo")}
-                lang={foreignLang("/demo", locale)}
+              <a
+                {...productCta}
                 className="mt-3.5 flex h-[50px] items-center justify-center rounded-[10px] bg-invert text-[15px] font-semibold text-white"
               >
                 {copy.cta.primary}
-              </Link>
+              </a>
             </nav>
           </div>
         )}
@@ -212,10 +214,10 @@ function FooterGroup({ title, children }: { title: string; children: ReactNode }
 }
 
 /**
- * 한국어 기준 경로(path)와 locale 만 받아 실제 이동 경로(to)와 lang 표시를
- * 내부에서 계산한다. 호출부가 lang 을 직접 넘기지 않게 만든 이유는, 링크마다
- * 손으로 lang 조건을 적다 보면 하나쯤 빠뜨리기 쉽기 때문이다(리뷰 Finding:
- * 푸터 PRODUCT 그룹의 /demo, /apps 가 그렇게 빠졌었다). foreignLang 하나로
+ * 한국어 기준 경로(path)와 locale 만 받아 실제 이동 경로(to)와 hreflang 표시를
+ * 내부에서 계산한다. 호출부가 표시를 직접 넘기지 않게 만든 이유는, 링크마다
+ * 손으로 조건을 적다 보면 하나쯤 빠뜨리기 쉽기 때문이다(리뷰 Finding:
+ * 푸터 PRODUCT 그룹의 /demo, /apps 가 그렇게 빠졌었다). pathHreflang 하나로
  * 통일하면 이 컴포넌트를 쓰는 한 그런 누락이 날 수 없다.
  */
 function FooterLink({
@@ -231,7 +233,7 @@ function FooterLink({
     <li>
       <Link
         to={localePath(path, locale)}
-        lang={foreignLang(path, locale)}
+        hrefLang={pathHreflang(path, locale)}
         className="text-ink transition-colors hover:text-brand"
       >
         {children}

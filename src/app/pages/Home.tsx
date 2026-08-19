@@ -1,7 +1,8 @@
 import { Link } from "react-router";
 import { useCopy } from "@/app/i18n/useCopy";
 import { useLocale } from "@/app/i18n/LocaleContext";
-import { localePath } from "@/app/i18n/localePath";
+import { foreignHreflang, localePath, pathHreflang } from "@/app/i18n/localePath";
+import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
 import { ImageSlot } from "@/app/components/ImageSlot";
 import { ProposalCard } from "@/app/components/mockups/ProposalCard";
 import { ChatThread } from "@/app/components/mockups/ChatThread";
@@ -74,6 +75,19 @@ export default function Home() {
   const common = copy.common;
   const to = (path: string) => localePath(path, locale);
 
+  /**
+   * 메인 CTA("우리팀과 같이 성장하기")는 제품 앱으로 간다 — 헤더와 나머지
+   * 여덟 페이지의 같은 라벨이 향하는 곳과 같다. 같은 문구가 페이지마다 다른
+   * 곳으로 가면 안 되고, 사이트에서 구매 의도가 가장 높은 요소가 제품에
+   * 닿지 않으면 더 안 된다.
+   */
+  const productCta = {
+    href: APP_URLS.cmo,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    hrefLang: foreignHreflang(APP_HAS_ENGLISH, locale),
+  } as const;
+
   return (
     <div className="bg-ground">
       {/* 히어로 */}
@@ -99,14 +113,15 @@ export default function Home() {
               </p>
 
               <div className="mt-[34px] flex flex-wrap gap-2.5">
-                <Link
-                  to={to("/demo")}
+                <a
+                  {...productCta}
                   className="flex h-12 items-center rounded-[10px] bg-invert px-[22px] text-[15.5px] font-semibold text-white"
                 >
                   {common.cta.primary}
-                </Link>
+                </a>
                 <Link
                   to={to("/solution")}
+                  hrefLang={pathHreflang("/solution", locale)}
                   className="flex h-12 items-center rounded-[10px] border border-line px-5 text-[15.5px] font-semibold text-ink"
                 >
                   {common.cta.secondary}
@@ -350,15 +365,21 @@ export default function Home() {
           <p className="mt-6 max-w-[28em] text-[18px] leading-[1.65] text-invert-ink-2">
             {t.cta.body}
           </p>
+          {/*
+            두 버튼은 라벨이 다르므로 목적지도 달라야 한다. 예전에는 둘 다
+            /demo 로 가서, 나란히 놓인 서로 다른 문구가 같은 화면으로
+            떨어졌다. 이제 주 버튼은 제품 앱으로, 보조 버튼은 데모로 간다.
+          */}
           <div className="mt-[38px] flex flex-wrap gap-2.5">
-            <Link
-              to={to("/demo")}
+            <a
+              {...productCta}
               className="flex h-[52px] items-center rounded-[10px] bg-white px-6 text-[16px] font-semibold text-ink"
             >
               {common.cta.primary}
-            </Link>
+            </a>
             <Link
               to={to("/demo")}
+              hrefLang={pathHreflang("/demo", locale)}
               className="flex h-[52px] items-center rounded-[10px] border border-[#3A3A38] px-[22px] text-[16px] font-semibold text-white"
             >
               {common.cta.demo}

@@ -19,12 +19,46 @@ const en = await read("/en");
 const pricing = await read("/pricing");
 const demo = await read("/demo");
 
+const apps = JSON.parse(await readFile(path.join(process.cwd(), "src/content/apps.json"), "utf8"));
+const productUrl = apps.apps.find((app) => app.id === "cmo").url;
+
 // 초기 HTML 에 본문이 들어 있는가 (크롤러 · NotebookLM 이 보는 내용)
 check("한국어 홈에 포지셔닝 문구 없음", ko.includes("첫 번째 팀"));
 check("한국어 홈에 성장 루프 없음", ko.includes("제안 → 승인 → 실행 → 반복 성장"));
 check("한국어 홈에 CTA 없음", ko.includes("우리팀과 같이 성장하기"));
 check("영어 홈에 포지셔닝 문구 없음", en.includes("first team"));
 check("영어 홈에 CTA 없음", en.includes("Grow with WooriTeam"));
+
+// 주 CTA 가 제품에 닿는가.
+//
+// 리뷰 Finding: 헤더와 히어로의 주 CTA 만 /demo 로 바뀌어 있었고, 나머지 여덟
+// 페이지의 똑같은 라벨은 제품 앱으로 가고 있었다. 같은 문구가 페이지마다 다른
+// 곳으로 가는 상태였고, 사이트에서 구매 의도가 가장 높은 요소가 제품에 닿지
+// 않았다. 목적지는 눈으로 보이지 않아 조용히 어긋나므로 여기서 고정한다.
+function ctaTargets(html, label) {
+  const anchors = html.match(new RegExp(`<a [^>]*>${label}</a>`, "g")) ?? [];
+  return anchors.map((anchor) => anchor.match(/href="([^"]*)"/)?.[1]);
+}
+
+for (const [name, html, label] of [
+  ["한국어 홈", ko, "우리팀과 같이 성장하기"],
+  ["영어 홈", en, "Grow with WooriTeam"],
+]) {
+  const targets = ctaTargets(html, label);
+  check(`${name}에 주 CTA 링크가 없음`, targets.length > 0);
+  check(
+    `${name}의 주 CTA 가 제품(${productUrl})으로 가지 않음`,
+    targets.every((href) => href === productUrl),
+  );
+}
+
+// 영문 화면에서 한국어 전용 링크가 언어 표시를 갖는가.
+//
+// 속성은 lang 이 아니라 hreflang 이다 — lang 은 요소 자신의 내용 언어를
+// 뜻하는데 /en 에서 링크 텍스트는 영어다. React 는 JSX 의 hrefLang 을 그대로
+// 출력하고 HTML 속성명은 대소문자를 구분하지 않으므로 대소문자 무시로 찾는다.
+check("영어 홈의 한국어 전용 링크에 hreflang 표시 없음", /<a [^>]*hreflang="ko"/i.test(en));
+check("한국어 홈에 불필요한 hreflang 표시", !/<a [^>]*hreflang=/i.test(ko));
 
 // 목업 안 문구가 텍스트로 남는가 (GEO)
 check("한국어 홈에 목업 문구 없음", ko.includes("이번 주 할 일"));
