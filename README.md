@@ -96,6 +96,28 @@ npm run typecheck
 이 저장소는 Vite 로 빌드되는데, Vite 는 타입을 검사하지 않고 제거합니다.
 타입 오류는 이 명령으로만 드러납니다. `npm run build` 에도 포함되어 있습니다.
 
+타입 검사는 번역 누락도 잡습니다. 한국어 사전(`src/content/ko/`)이 타입의
+원본이고 영어 사전은 같은 구조를 구현해야 하므로, 항목이 빠지면 —
+객체 키든 배열 원소든 — `tsc` 가 멈춥니다.
+
+## 테스트
+
+```bash
+npm run test        # 1회 실행
+npm run test:watch  # 감시 모드
+```
+
+## 배포 전 검사 (`npm run verify`)
+
+```bash
+npm run verify
+```
+
+`typecheck` → `test` → `verify-assets` 를 순서대로 돌립니다. `npm run build`
+가 프리렌더보다 **먼저** 이 명령을 부르므로, 타입 오류나 실패한 테스트는
+느린 렌더 단계에 들어가기 전에 빌드를 세웁니다. Vercel 배포는
+`npm run build` 를 실행하므로 배포 경로에도 그대로 걸립니다.
+
 ## 배포 전 확인
 
 ```bash
@@ -107,9 +129,11 @@ npm run preview
 
 `npm run build`에 포함되는 것:
 
+- `npm run verify` (타입 검사 · 테스트 · 자산 검사)
 - 주요 라우트 prerender
 - 초기 HTML · SEO 메타
 - `robots.txt` · `sitemap.xml`
+- `scripts/check-html.mjs` 프리렌더 산출물 검사
 
 ## 환경 변수
 
