@@ -2,17 +2,34 @@ import { DEFAULT_LOCALE, EN_ROUTES, type Locale } from "@/content/locales";
 
 const EN_PREFIX = "/en";
 
-export function hasEnglish(path: string) {
-  return (EN_ROUTES as readonly string[]).includes(path);
+/**
+ * 경로에서 `#앵커`·`?쿼리` 를 떼어낸다. `EN_ROUTES` 는 순수한 경로만 담고
+ * 있으므로, 조회는 앞쪽 조각으로만 해야 한다.
+ *
+ * 이 분리가 없으면 `/ir#ir-top` 같은 딥링크가 목록에 없는 문자열이 되어
+ * `hasEnglish` 가 false 가 되고, 영문 화면에서 (1) `/en` 접두사를 잃어
+ * 한국어 페이지로 떨어지며 (2) 영문판이 **있는** 대상에 `hreflang="ko"` 가
+ * 붙는다. 계획 3이 앵커로 이동하는 `IR.tsx` 를 전환하고 `/technology`·
+ * `/about` 영문판을 붙이므로 교차 페이지 딥링크가 다시 생긴다.
+ */
+function splitSuffix(path: string): [base: string, suffix: string] {
+  const at = path.search(/[#?]/);
+  return at === -1 ? [path, ""] : [path.slice(0, at), path.slice(at)];
 }
 
-/** 한국어 기준 경로를 해당 로케일의 실제 경로로 바꾼다. */
+export function hasEnglish(path: string) {
+  const [base] = splitSuffix(path);
+  return (EN_ROUTES as readonly string[]).includes(base);
+}
+
+/** 한국어 기준 경로를 해당 로케일의 실제 경로로 바꾼다. 앵커·쿼리는 보존된다. */
 export function localePath(path: string, locale: Locale) {
   if (locale === DEFAULT_LOCALE || !hasEnglish(path)) {
     return path;
   }
 
-  return path === "/" ? EN_PREFIX : `${EN_PREFIX}${path}`;
+  const [base, suffix] = splitSuffix(path);
+  return `${EN_PREFIX}${base === "/" ? "" : base}${suffix}`;
 }
 
 /**
