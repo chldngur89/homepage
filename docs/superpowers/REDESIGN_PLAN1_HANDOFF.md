@@ -21,6 +21,21 @@ title·description, `robots: index, follow`, `hreflang="en"`, sitemap
 크롤러에게 지키지 못할 약속을 하는 상태이고, `/en` 트리를 만든 이유인
 해외 투자자가 정확히 그 경로로 들어옵니다.
 
+**계획 2가 이 노출을 수동에서 능동으로 바꿨습니다.** 전에는 방문자가 URL 을
+직접 치거나 크롤러를 통해 들어와야 그 세 경로에 닿았습니다. 지금은
+`/en/contact` 가 영문 방문자를 **직접 몰아넣습니다** — 히어로의 "IR page"
+링크(`Contact.tsx:134`)와 IR 카드의 주 버튼(`:282`)이 `/en/ir` 로,
+`FAQ_LINKS[2]` 의 "What is the tech stack?" 이 `/en/technology` 로 갑니다.
+영문 문의 페이지에서 IR 자료를 찾는 투자자가 가장 밟기 쉬운 동선입니다.
+
+측정한 한글 분량(`dist/`, 계획 2 완료 시점):
+
+| 경로 | `<main>` 본문 | 문서 전체 |
+|---|---|---|
+| `/en/technology` | 258자 | 273자 |
+| `/en/about` | 358자 | 373자 |
+| `/en/ir` | 1,927자 | 1,948자 |
+
 계획 3이 `/en/technology`·`/en/about` 을 채우면 게이트는 `/en/ir` 하나로
 줄고, 계획 4가 IR 영문판을 내면 풀립니다.
 
