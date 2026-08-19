@@ -22,11 +22,16 @@ export const mockups = {
       { label: "컨셉", value: "시원함" },
     ],
     // fromUser: 사용자 발화 여부. 문자열 리터럴 유니언("agent" | "user")이
-    // 아니라 boolean 인 이유는 DeepWiden 때문이다 — messages 처럼 원소마다
-    // 모양이 다른 튜플을 DeepWiden 이 훑을 때, 배열 원소 유니언에 naked
-    // type parameter 가 분배되면서 문자열 리터럴 판별자가 plain string 으로
-    // 뭉개진다("aggent" 같은 오타도 통과). boolean 은 이 경로에서도
-    // true/false 로만 넓혀지므로 판별자가 안전하게 유지된다.
+    // 아니라 boolean 인 이유는 원래 DeepWiden 때문이었다 — 배열 분기가
+    // 튜플을 `DeepWiden<U>[]` 로 되돌리면서 원소 유니언에 naked type
+    // parameter 가 분배됐고, 그 과정에서 문자열 리터럴 판별자가 plain
+    // string 으로 뭉개졌다("aggent" 같은 오타도 통과).
+    //
+    // 그 배열 분기는 제거됐다(src/content/widen.ts 참고). 이제 DeepWiden 은
+    // 튜플을 원소별로 매핑하므로 유니언 분배 자체가 일어나지 않고, 문자열
+    // 리터럴 판별자를 써도 안전하다. boolean 을 유지하는 것은 렌더 코드가
+    // 이미 이 모양에 맞춰져 있고 바꿀 이유가 없어서일 뿐, 타입 제약 때문이
+    // 아니다.
     messages: [
       {
         fromUser: false,
