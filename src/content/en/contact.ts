@@ -41,6 +41,14 @@ export const contact: DeepWiden<ContactCopy> = {
     privacyNote: "Sending this form means you accept our privacy policy",
     errorSend: "Sending failed. Please try again in a moment.",
     errorNetwork: "A network error occurred. Please try again in a moment.",
+    /** 이름이 제목 끝에 오므로 `subjectAfter` 는 비어 있다. */
+    mail: {
+      subjectBefore: "[WooriTeam] Inquiry from ",
+      subjectAfter: "",
+      nameLabel: "Name:",
+      emailLabel: "Email:",
+      messageLabel: "Message:",
+    },
     success: {
       title: "Your message has been sent.",
       bodySent: "Someone from the team will be in touch shortly.",

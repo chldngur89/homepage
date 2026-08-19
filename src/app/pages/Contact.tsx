@@ -6,15 +6,6 @@ import { CONTACT_EMAIL, type ContactCopy } from "@/content/ko/contact";
 import type { SameShape } from "@/content/widen";
 
 /**
- * 아래 `handleSubmit` 이 이 이름으로 주소를 읽는다. 전환 이전에는
- * `const contactEmail = siteContent.contactEmail ?? "..."` 였고, 지금은 사전
- * 옆의 상수 하나가 원본이다. 이름과 참조 경로를 그대로 둔 덕에 전송 로직이
- * 한 글자도 바뀌지 않았다는 것이 diff 로 드러난다 (데모 페이지의 `const demo`
- * 와 같은 이유).
- */
-const contactEmail = CONTACT_EMAIL;
-
-/**
  * FAQ 항목의 목적지. 문구는 사전이, 목적지는 코드가 정한다 — 번역이 링크를
  * 옮길 수 없게 하려는 것이다 (요금 페이지의 `PLAN_CTA_TO_CONTACT` 와 같다).
  *
@@ -96,12 +87,17 @@ export default function Contact() {
         setSubmitError(t.form.errorNetwork);
       }
     } else {
-      // Formspree 없을 때: mailto로 사용자 메일 앱 열기 → chldngur89@gmail.com으로 보내는 효과
-      const subject = encodeURIComponent(`[WooriTeam 문의] ${formData.name}님 문의`);
-      const body = encodeURIComponent(
-        `이름: ${formData.name}\n이메일: ${formData.email}\n\n메시지:\n${formData.message}`
+      // Formspree 없을 때: mailto 로 사용자 메일 앱 열기 → `CONTACT_EMAIL` 로 보내는 효과.
+      // 제목·라벨은 사전에서 온다 — 여기 리터럴로 두면 /en 방문자가 영문 성공 카드를
+      // 읽은 뒤 한국어 초안을 받는다 (errorSend·errorNetwork 와 같은 이유).
+      const mail = t.form.mail;
+      const subject = encodeURIComponent(
+        `${mail.subjectBefore}${formData.name}${mail.subjectAfter}`
       );
-      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+      const body = encodeURIComponent(
+        `${mail.nameLabel} ${formData.name}\n${mail.emailLabel} ${formData.email}\n\n${mail.messageLabel}\n${formData.message}`
+      );
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setSubmitted(false), 5000);
@@ -192,7 +188,7 @@ export default function Contact() {
                 </p>
                 {!FORMSPREE_FORM_ID && (
                   <p className="mt-5 break-words text-[14px] text-ink-3">
-                    {t.form.success.recipient} {contactEmail}
+                    {t.form.success.recipient} {CONTACT_EMAIL}
                   </p>
                 )}
               </div>

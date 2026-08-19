@@ -70,6 +70,27 @@ export const contact = {
      */
     errorSend: "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.",
     errorNetwork: "네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+    /**
+     * Formspree 가 없을 때 `handleSubmit` 이 여는 mailto 초안의 제목과 본문
+     * 라벨이다. `errorSend`·`errorNetwork` 와 정확히 같은 결함이 여기에도
+     * 있었다 — 함수 안에 한국어 리터럴로 박혀 있어서, `/en/contact` 방문자가
+     * 영문 성공 카드를 읽은 직후 한국어 메일 초안을 받았다. 문자열이 JS 안에
+     * 살기 때문에 산출 HTML 의 한글을 보는 `/en` 검사에는 잡히지 않는다.
+     *
+     * `subjectBefore`/`subjectAfter` 로 나눈 것은 이름의 위치가 언어마다
+     * 다르기 때문이다(한국어는 "…님 문의" 로 뒤가 붙고 영어는 앞이 붙는다).
+     * `hero.irNote*` 와 같은 분할이다.
+     *
+     * 라벨과 값을 잇는 형식(`라벨 값`, 줄바꿈 배치)은 사전이 아니라 코드가
+     * 정한다 — 번역이 본문 구조를 바꿀 수 없게 한다.
+     */
+    mail: {
+      subjectBefore: "[WooriTeam 문의] ",
+      subjectAfter: "님 문의",
+      nameLabel: "이름:",
+      emailLabel: "이메일:",
+      messageLabel: "메시지:",
+    },
     success: {
       title: "문의가 전송되었습니다!",
       /** Formspree 가 설정된 환경 */
