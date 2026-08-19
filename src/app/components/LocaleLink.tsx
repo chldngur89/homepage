@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, type LinkProps } from "react-router";
 import type { ReactNode } from "react";
 import { localePath, pathHreflang } from "@/app/i18n/localePath";
 import { useLocale } from "@/app/i18n/LocaleContext";
@@ -16,21 +16,30 @@ export function resolveLocaleLink(to: string, locale: Locale) {
   return { to: localePath(to, locale), hrefLang: pathHreflang(to, locale) };
 }
 
-export function LocaleLink({
-  to,
-  className,
-  children,
-}: {
+/**
+ * `to`(한국어 기준 경로)와 `hrefLang` 은 컴포넌트가 계산하므로 호출부가
+ * 지정할 수 없다 — `LinkProps` 에서 이 둘을 제외해 타입 단계에서 막는다
+ * (호출부가 `hrefLang` 을 넘기면 컴파일 에러).
+ *
+ * 나머지는 React Router `Link` 의 prop 을 그대로 받는다 — `aria-label`,
+ * `id`, `title`, `onClick` 등. 리뷰에서 지적된 문제: `Layout.tsx` 의 로고
+ * 링크처럼 `aria-label` 이 필요한 내부 링크가 이미 이 저장소에 있는데
+ * `LocaleLink` 가 `to`/`className`/`children` 만 받으면, 그런 링크를 쓸
+ * 유일한 방법이 `localePath`/`pathHreflang` 을 손으로 다시 호출하는
+ * 것뿐이다 — 그게 계획 1에서 세 링크의 표기를 빠뜨렸던 바로 그 패턴이다.
+ */
+type LocaleLinkProps = Omit<LinkProps, "to" | "hrefLang" | "children"> & {
   /** 한국어 기준 경로. 예: "/pricing", "/demo" */
   to: string;
-  className?: string;
   children: ReactNode;
-}) {
+};
+
+export function LocaleLink({ to, children, ...rest }: LocaleLinkProps) {
   const locale = useLocale();
   const resolved = resolveLocaleLink(to, locale);
 
   return (
-    <Link to={resolved.to} hrefLang={resolved.hrefLang} className={className}>
+    <Link {...rest} to={resolved.to} hrefLang={resolved.hrefLang}>
       {children}
     </Link>
   );
