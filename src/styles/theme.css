@@ -1,30 +1,47 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* 브랜드 토큰 — 값의 원본. src/styles/tokens.ts 와 동기화할 것 */
+  --ground: #f7f7f4;
+  --surface: #ffffff;
+  --panel: #f0f0ec;
+  --ink: #161616;
+  --ink-2: #5e5e59;
+  --ink-3: #6f6f69;
+  --line: #deded8;
+  --line-2: #e4e4df;
+  --brand: #4f6b5b;
+  --invert: #111111;
+  --invert-ink-2: #b9b9b3;
+}
+
+/* shadcn 토큰을 브랜드 토큰 위에 재매핑한다.
+   src/app/components/ui/* 의 radix 컴포넌트가 이 이름들을 참조하므로 제거하지 않는다. */
+:root {
   --font-size: 16px;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
+  --background: var(--ground);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--invert);
+  --primary-foreground: #ffffff;
+  --secondary: var(--panel);
+  --secondary-foreground: var(--ink);
+  --muted: var(--panel);
+  --muted-foreground: var(--ink-3);
+  --accent: var(--panel);
+  --accent-foreground: var(--ink);
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: var(--line);
   --input: transparent;
-  --input-background: #f3f3f5;
+  --input-background: var(--surface);
   --switch-background: #cbced4;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: oklch(0.708 0 0);
+  --ring: var(--brand);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -39,43 +56,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
 }
 
 @theme inline {
@@ -117,6 +97,19 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* 브랜드 토큰 — Tailwind 유틸리티(bg-ground, text-ink 등)로 노출 */
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-brand: var(--brand);
+  --color-invert: var(--invert);
+  --color-invert-ink-2: var(--invert-ink-2);
 }
 
 @layer base {
@@ -126,6 +119,21 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  html,
+  body {
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: #e3e8e4;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
   }
 
   /**
@@ -177,5 +185,42 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+  }
+}
+
+/* 목업 프레임(MockFrame)의 가로세로비.
+   640px(Tailwind sm) 미만에서는 고정 비율을 버리고 내용에 맞춰 높이를 정한다 —
+   좁은 화면에서 16:9 같은 낮은 비율은 채널 바·안내문 같은 하단 내용을
+   조용히 잘라낸다(overflow-hidden). 그 이상에서는 디자인이 의도한 비율을
+   그대로 고정한다. 인라인 style 의 aspect-ratio 는 미디어쿼리로 조건을 걸 수
+   없어, 비율 값은 커스텀 프로퍼티로 넘기고 조건은 이 클래스에서 건다. */
+.mock-frame {
+  aspect-ratio: auto;
+}
+
+@media (min-width: 640px) {
+  .mock-frame {
+    aspect-ratio: var(--mock-ratio);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
   }
 }

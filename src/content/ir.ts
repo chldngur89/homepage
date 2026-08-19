@@ -43,7 +43,7 @@ export type IrPillar = {
 
 export type IrRadarPoint = {
   aiTool: number;
-  autocmo: number;
+  wooriteam: number;
   designTool: number;
   subject: string;
 };
@@ -304,31 +304,31 @@ export const irContent: IrContent = {
     chart: [
       {
         subject: "주간 과제 제안",
-        autocmo: 90,
+        wooriteam: 90,
         aiTool: 35,
         designTool: 15,
       },
       {
         subject: "승인·결정",
-        autocmo: 85,
+        wooriteam: 85,
         aiTool: 85,
         designTool: 70,
       },
       {
         subject: "실행 이어가기",
-        autocmo: 90,
+        wooriteam: 90,
         aiTool: 25,
         designTool: 15,
       },
       {
         subject: "초기팀 사용성",
-        autocmo: 90,
+        wooriteam: 90,
         aiTool: 55,
         designTool: 40,
       },
       {
         subject: "다음 주 환류",
-        autocmo: 88,
+        wooriteam: 88,
         aiTool: 25,
         designTool: 10,
       },

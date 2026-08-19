@@ -31,6 +31,10 @@ WooriTeam 랜딩·마케팅 사이트 저장소입니다.
 | `/ir` | 투자자 Overview |
 | `/privacy`, `/terms` | 약관 |
 
+영문판은 `/en/` 아래 7개 경로에 있습니다: `/en`, `/en/solution`, `/en/technology`,
+`/en/pricing`, `/en/about`, `/en/contact`, `/en/ir`.
+`/demo`, `/apps`, `/privacy`, `/terms` 는 한국어만 제공합니다.
+
 ## 기술 스택
 
 - `Vite 6`
@@ -83,6 +87,37 @@ npm run dev
 
 - 개발: [http://localhost:5173](http://localhost:5173)
 
+## 타입 검사
+
+```bash
+npm run typecheck
+```
+
+이 저장소는 Vite 로 빌드되는데, Vite 는 타입을 검사하지 않고 제거합니다.
+타입 오류는 이 명령으로만 드러납니다. `npm run build` 에도 포함되어 있습니다.
+
+타입 검사는 번역 누락도 잡습니다. 한국어 사전(`src/content/ko/`)이 타입의
+원본이고 영어 사전은 같은 구조를 구현해야 하므로, 항목이 빠지면 —
+객체 키든 배열 원소든 — `tsc` 가 멈춥니다.
+
+## 테스트
+
+```bash
+npm run test        # 1회 실행
+npm run test:watch  # 감시 모드
+```
+
+## 배포 전 검사 (`npm run verify`)
+
+```bash
+npm run verify
+```
+
+`typecheck` → `test` → `verify-assets` 를 순서대로 돌립니다. `npm run build`
+가 프리렌더보다 **먼저** 이 명령을 부르므로, 타입 오류나 실패한 테스트는
+느린 렌더 단계에 들어가기 전에 빌드를 세웁니다. Vercel 배포는
+`npm run build` 를 실행하므로 배포 경로에도 그대로 걸립니다.
+
 ## 배포 전 확인
 
 ```bash
@@ -94,9 +129,11 @@ npm run preview
 
 `npm run build`에 포함되는 것:
 
+- `npm run verify` (타입 검사 · 테스트 · 자산 검사)
 - 주요 라우트 prerender
 - 초기 HTML · SEO 메타
 - `robots.txt` · `sitemap.xml`
+- `scripts/check-html.mjs` 프리렌더 산출물 검사
 
 ## 환경 변수
 
@@ -112,6 +149,19 @@ cp .env.example .env
 ```
 
 ## 크롤러 / NotebookLM 검증
+
+### 자동 검증
+
+```bash
+npm run build
+```
+
+빌드 마지막에 `scripts/check-html.mjs`가 프리렌더 산출물을 검사합니다.
+
+- 초기 HTML 에 핵심 문구가 들어 있는지
+- 한국어·영어 페이지에 상대 언어가 섞이지 않았는지
+- `<html lang>` 과 `hreflang` 이 로케일에 맞는지
+- 이전 브랜드 흔적이 남지 않았는지
 
 ### View Source
 

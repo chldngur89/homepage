@@ -7,7 +7,6 @@ const currentFilePath = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(currentFilePath), "..");
 const distDir = path.join(rootDir, "dist");
 const ssrDir = path.join(rootDir, ".ssr");
-const siteUrl = "https://autocmo.com";
 
 function withTrailingSlash(url) {
   return url.endsWith("/") ? url : `${url}/`;
@@ -25,8 +24,9 @@ function toOutputPath(routePath) {
   return path.join(distDir, routePath.replace(/^\//, ""), "index.html");
 }
 
-function injectHtml(template, { appHtml, headTags }) {
+function injectHtml(template, { appHtml, headTags, htmlLang }) {
   return template
+    .replace(/<html lang="[^"]*">/, `<html lang="${htmlLang}">`)
     .replace(
       /<!--app-head:start-->[\s\S]*?<!--app-head:end-->/,
       `<!--app-head:start-->\n  ${headTags}\n  <!--app-head:end-->`,
@@ -48,7 +48,7 @@ async function writeFile(filePath, contents) {
   await fs.writeFile(filePath, contents, "utf8");
 }
 
-async function writeSitemap(routes) {
+async function writeSitemap(routes, siteUrl) {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${routes
@@ -64,7 +64,7 @@ ${routes
   await writeFile(path.join(distDir, "sitemap.xml"), xml);
 }
 
-async function writeRobots() {
+async function writeRobots(siteUrl) {
   const robots = `User-agent: *
 Allow: /
 
@@ -111,8 +111,8 @@ async function main() {
     await writeFile(toOutputPath(route), html);
   }
 
-  await writeSitemap(renderer.prerenderRoutes);
-  await writeRobots();
+  await writeSitemap(renderer.prerenderRoutes, renderer.SITE_URL);
+  await writeRobots(renderer.SITE_URL);
   await fs.rm(ssrDir, { recursive: true, force: true });
   console.log("[prerender] done");
 }
