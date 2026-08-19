@@ -1,7 +1,16 @@
 export const common = {
   brand: {
-    nameKo: "우리팀",
-    nameEn: "WOORITEAM",
+    /**
+     * 로고 락업의 주 표기. 필드 이름이 언어(nameKo/nameEn)가 아니라 역할인
+     * 이유는, 로케일마다 "한국어 이름 + 라틴 워드마크" 라는 구성이 그대로
+     * 성립하지 않기 때문이다. 영문판에는 주 표기 하나뿐이라 markLatin 이
+     * 빈 문자열이고, 그때 Layout 은 두 번째 조각을 아예 그리지 않는다.
+     * 언어로 이름 붙였을 때는 영문 사전이 nameKo 에도 "WooriTeam" 을 넣을
+     * 수밖에 없었고, 그 결과 헤더·푸터가 "WooriTeam WOORITEAM" 을 찍었다.
+     */
+    mark: "우리팀",
+    /** 주 표기 옆에 작게 붙는 라틴 워드마크. 없으면 빈 문자열. */
+    markLatin: "WOORITEAM",
     tagline: "창업자의 첫 번째 팀",
   },
   cta: {

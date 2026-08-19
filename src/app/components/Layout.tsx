@@ -72,10 +72,14 @@ export function Layout() {
       <header className="sticky top-0 z-50 border-b border-line bg-ground/[.92] backdrop-blur-[8px] backdrop-saturate-[1.2]">
         <div className="mx-auto flex h-[70px] max-w-[1180px] items-center justify-between gap-6 px-[clamp(20px,4vw,40px)]">
           <Link to={to("/")} aria-label={copy.a11y.home} className="flex items-baseline gap-2">
-            <span className="text-[19px] font-bold tracking-[-0.02em]">{copy.brand.nameKo}</span>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">
-              {copy.brand.nameEn}
-            </span>
+            <span className="text-[19px] font-bold tracking-[-0.02em]">{copy.brand.mark}</span>
+            {/* 라틴 워드마크가 비어 있는 로케일(영문)에서는 조각 자체를 그리지
+                않는다. 그리면 "WooriTeam WOORITEAM" 처럼 이름이 두 번 찍힌다. */}
+            {copy.brand.markLatin ? (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">
+                {copy.brand.markLatin}
+              </span>
+            ) : null}
           </Link>
 
           <nav aria-label={copy.a11y.mainNav} className="hidden items-center gap-[26px] lg:flex">
@@ -154,10 +158,17 @@ export function Layout() {
           <div className="grid gap-[clamp(36px,5vw,56px)] md:grid-cols-[40fr_60fr]">
             <div>
               <p className="text-[22px] font-bold tracking-[-0.02em]">
-                {copy.brand.nameKo}{" "}
-                <span className="align-middle text-[12px] font-semibold tracking-[0.14em] text-ink-3">
-                  {copy.brand.nameEn}
-                </span>
+                {copy.brand.mark}
+                {/* 헤더 락업과 같은 규칙 — 라틴 워드마크가 없으면 앞의 공백까지
+                    통째로 그리지 않는다. */}
+                {copy.brand.markLatin ? (
+                  <>
+                    {" "}
+                    <span className="align-middle text-[12px] font-semibold tracking-[0.14em] text-ink-3">
+                      {copy.brand.markLatin}
+                    </span>
+                  </>
+                ) : null}
               </p>
               <p className="mt-2.5 text-[16px] text-ink-2">{copy.brand.tagline}</p>
             </div>
