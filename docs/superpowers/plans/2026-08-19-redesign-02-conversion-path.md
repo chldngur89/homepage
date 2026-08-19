@@ -692,21 +692,36 @@ EOF
 
 새로 추가한 경로 중 하나의 `dist` HTML 을 일부러 훼손하고 `node ./scripts/check-html.mjs` 를 돌려 잡히는지 확인한다. 실패 출력을 보고서에 붙인다.
 
-- [ ] **Step 3: 빌드 확인**
+- [ ] **Step 3: heading 방어를 전환한 페이지 전체로 확대**
+
+계획 1에서 홈의 06 섹션이 `<h2>` 없이 나갔고, `aria-labelledby` 가 `<p>` 안의 `<span>` 을 가리켜 문서 개요에서 한 섹션이 통째로 빠졌다. 그때 `src/app/pages/Home.test.tsx` 에 방어를 넣었지만 **그 테스트는 `Home()` 만 검사한다.** 이번에 전환한 네 페이지에는 같은 방어가 없다.
+
+`Home.test.tsx` 의 heading 검사(모든 `aria-labelledby` 대상에 대응 heading 이 정확히 하나 존재)를 **재사용 가능한 헬퍼로 뽑아** `Solution`, `Pricing`, `Demo`, `Contact` 에도 적용한다.
+
+헬퍼는 페이지 컴포넌트의 엘리먼트 트리를 받아 다음을 검사한다:
+- 모든 `aria-labelledby` 값에 대해, 같은 `id` 를 가진 `h1`/`h2` 가 정확히 하나 존재한다
+- `id` 중복이 없다
+- 페이지에 `h1` 이 정확히 하나다
+
+페이지가 `useLocale`/`useCopy` 훅을 쓰므로 `environment: "node"` 에서 함수 호출로 렌더할 수 없다면, 계획 1에서 `Layout` 에 대해 한 것과 같이 검사 대상을 순수한 구조로 뽑아내 검사한다. 어느 쪽을 택했는지 보고서에 적는다.
+
+**되돌림 증명:** 전환한 페이지 중 하나에서 `<h2>` 의 `id` 를 일부러 지우고 새 테스트가 red 가 되는지 확인한 뒤 복구한다. 실제 출력을 보고서에 붙인다.
+
+- [ ] **Step 4: 빌드 확인**
 
 Run: `npm run build`
 Expected: `[check-html] 통과`
 
-- [ ] **Step 4: 문서 갱신**
+- [ ] **Step 5: 문서 갱신**
 
 `README.md` 의 자동 검증 절에 검사 경로가 9개로 늘었음을 반영한다.
 
 `docs/superpowers/REDESIGN_PLAN1_HANDOFF.md` 의 릴리스 게이트를 갱신한다 — 이번 계획으로 `/en/solution`, `/en/pricing`, `/en/contact` 가 영문 본문을 갖게 됐으므로, 아직 한국어 본문인 영문 경로는 `/en/technology`, `/en/about`, `/en/ir` **3개로 줄었다.** 배포 가능 여부는 여전히 그 3개에 달려 있다.
 
-- [ ] **Step 5: 커밋**
+- [ ] **Step 6: 커밋**
 
 ```bash
-git add scripts/check-html.mjs README.md docs/superpowers/REDESIGN_PLAN1_HANDOFF.md
+git add scripts/check-html.mjs README.md docs/superpowers/REDESIGN_PLAN1_HANDOFF.md src/app/pages/*.test.tsx
 git commit -m "$(cat <<'EOF'
 feat: 산출 HTML 검증 범위를 전환한 페이지까지 확대
 
