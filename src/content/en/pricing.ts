@@ -116,7 +116,7 @@ export const pricing: DeepWiden<PricingCopy> = {
   },
 
   faq: {
-    title: "Frequently asked questions",
+    label: "Frequently asked questions",
     items: [
       {
         q: "Will I be charged automatically after the free trial?",

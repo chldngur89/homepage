@@ -137,8 +137,10 @@ export const pricing = {
     cta: "수익 쉐어 문의하기",
   },
 
+  /** 04 섹션. 이 문자열은 SectionLabel 자리(작은 라벨)로 들어가 h2 로 승격된다 —
+   * perUse/revenueShare 의 `label` 과 같은 슬롯이라 이름을 맞춘다. */
   faq: {
-    title: "자주 묻는 질문",
+    label: "자주 묻는 질문",
     items: [
       {
         q: "무료 체험 후 자동으로 결제되나요?",

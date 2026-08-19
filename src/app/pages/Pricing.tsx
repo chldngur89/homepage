@@ -256,7 +256,7 @@ export default function Pricing() {
           dl/dt/dd 는 계획 5에서 FAQPage 구조화 데이터를 붙일 때의 근거다. */}
       <Section id="faq-h" tone="panel">
         <SectionLabel index="04" as="h2" id="faq-h">
-          {t.faq.title}
+          {t.faq.label}
         </SectionLabel>
 
         <dl className="mt-10 border-t-2 border-ink">
