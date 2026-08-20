@@ -108,9 +108,7 @@ describe("ClosingCta", () => {
   it("주 버튼은 제품 앱으로, 보조 버튼은 /demo 로 간다", () => {
     const html = renderClosingCta("ko");
 
-    expect(html).toMatch(
-      new RegExp(`<a href="${APP_URLS.cmo}" target="_blank" rel="noopener noreferrer"`),
-    );
+    expect(html).toContain(`<a href="${APP_URLS.cmo}" target="_blank" rel="noopener noreferrer"`);
     expect(html).toMatch(/<a [^>]*href="\/demo"/);
   });
 
