@@ -157,9 +157,14 @@ const productCta = useProductCta();
 
 클래스 문자열을 **한 글자도 바꾸지 않는다.** 이 태스크는 순수 이동이다.
 
-- [ ] **Step 3: 산출물이 바뀌지 않았음을 증명**
+- [ ] **Step 3: 승격만으로 산출물이 바뀌지 않았음을 증명**
 
 승격은 렌더 결과를 바꾸면 안 된다.
+
+> **이 대조는 Step 4(홈 링크 교체) 전에 수행한다.** `LocaleLink` 는 `{...rest}` 를 먼저
+> 펼치고 계산된 `to`/`hrefLang` 을 나중에 얹으므로, 손으로 쓴 `<Link>` 와 **렌더된 속성
+> 순서가 다를 수 있다.** 그건 결함이 아니지만 바이트 대조는 실패시킨다. 두 변경을 한
+> 대조에 섞으면 무엇이 원인인지 알 수 없다.
 
 ```bash
 npm run build
@@ -183,7 +188,24 @@ git stash pop
 
 `src/app/pages/Home.tsx` 에 `hrefLang={pathHreflang(...)}` 을 손으로 붙인 `<Link>` 가 두 곳 있다. 계획 2 리뷰가 지적했다 — `LocaleLink` 는 "페이지 전환 시 반드시 쓰라"고 선언해놓고 정작 기준 페이지인 홈이 수동이라, 이후 구현자가 홈을 읽고 수동 패턴을 베낀다.
 
-두 곳을 `<LocaleLink>` 로 교체한다. 렌더 결과는 같아야 하며, Step 3의 대조에 포함된다.
+두 곳을 `<LocaleLink>` 로 교체한다.
+
+**검증은 바이트 대조가 아니라 의미 대조로 한다.** 속성 순서가 바뀌는 것은 정상이므로,
+빌드 후 홈의 해당 두 링크에 대해 다음을 확인한다:
+
+```bash
+npm run build
+node -e '
+const fs=require("fs");
+for (const [name,f] of [["ko","dist/index.html"],["en","dist/en/index.html"]]) {
+  const html=fs.readFileSync(f,"utf8");
+  const links=[...html.matchAll(/<a [^>]*href="\/(demo|solution)[^"]*"[^>]*>/g)].map(m=>m[0]);
+  console.log(name, links);
+}'
+```
+
+`href` 값과 `hreflang` 유무가 교체 전과 같아야 한다. 교체 전 값은 Step 3에서 저장한
+`/tmp/before-home.html`, `/tmp/before-en.html` 에서 같은 방식으로 뽑아 비교한다.
 
 - [ ] **Step 5: `site.json` 죽은 키 제거**
 
