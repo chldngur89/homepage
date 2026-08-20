@@ -12,11 +12,13 @@ import { useProductCta } from "./useProductCta";
  * 디자인만 바꾸는 작업이 링크 목적지까지 `/demo` 로 바꿔 버렸다. 이제 둘을
  * 한 자리에서 같이 적는다.
  *
- * 기본값이 `/demo` 인 이유는 이 컴포넌트가 그런 페이지에서 승격됐고 지금도
- * 솔루션 페이지가 그렇게 쓰기 때문이다 — 기본값을 지우면 그 호출부가
- * 목적지를 다시 손으로 적어야 한다. 다른 곳으로 보내려면 `secondaryTo` 를
- * 넘긴다. 값은 **한국어 기준 경로**이고, `/en` 접두사와 `hreflang` 은
- * `LocaleLink` 가 알아서 붙인다.
+ * `secondaryTo` 에 기본값을 두지 않는다. 기본값이 있으면 라벨만 넘기고
+ * 목적지를 빠뜨리는 것이 여전히 **컴파일되는** 코드이고, 그 순간 버튼은
+ * 라벨과 무관한 화면으로 떨어진다 — 위에 적은 사고가 그대로 재현된다.
+ * 필수로 두면 새 호출부가 짝의 반쪽만 적을 수 없다.
+ *
+ * 값은 **한국어 기준 경로**이고(`/demo`, `/solution`), `/en` 접두사와
+ * `hreflang` 은 `LocaleLink` 가 알아서 붙인다.
  *
  * 요금(보조 버튼이 /contact, 본문 문단 있음), 데모(버튼 셋), 홈(제목이
  * `<Lines>` 이고 max-w 가 다름)은 이 형태와 달라 그대로 두었고, 문의에는
@@ -26,13 +28,13 @@ export function ClosingCta({
   title,
   primaryLabel,
   secondaryLabel,
-  secondaryTo = "/demo",
+  secondaryTo,
 }: {
   title: string;
   primaryLabel: string;
   secondaryLabel: string;
-  /** 보조 버튼이 갈 한국어 기준 경로. 예: "/demo", "/solution". */
-  secondaryTo?: string;
+  /** 보조 버튼이 갈 한국어 기준 경로. 예: "/demo", "/solution". 필수다. */
+  secondaryTo: string;
 }) {
   // 훅은 컴포넌트 본문 상단에서 호출한다. JSX 안에서 부르지 않는다.
   const productCta = useProductCta();

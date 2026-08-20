@@ -90,13 +90,18 @@ function renderInRouter(element: React.ReactElement, locale: Locale) {
 }
 
 /**
- * `props` 를 비워 두면 `secondaryTo` 를 **아예 넘기지 않는다** — 기본값이
- * 살아 있는지를 재려면 undefined 를 넘기는 것으로는 부족하고 prop 자체가
- * 없어야 한다.
+ * `secondaryTo` 의 기본값 `"/demo"` 는 **이 헬퍼의 편의값이지 컴포넌트의
+ * 기본값이 아니다.** 컴포넌트 쪽에서는 필수 prop 이며, 그 사실은 아래
+ * `typeOnly_secondaryToIsRequired` 가 컴파일 타임에 고정한다.
  */
-function renderClosingCta(locale: Locale, props: { secondaryTo?: string } = {}) {
+function renderClosingCta(locale: Locale, secondaryTo = "/demo") {
   return renderInRouter(
-    <ClosingCta title="마감 제목" primaryLabel="주 버튼" secondaryLabel="보조 버튼" {...props} />,
+    <ClosingCta
+      title="마감 제목"
+      primaryLabel="주 버튼"
+      secondaryLabel="보조 버튼"
+      secondaryTo={secondaryTo}
+    />,
     locale,
   );
 }
@@ -138,37 +143,52 @@ describe("ClosingCta", () => {
   });
 
   /**
-   * 아래 네 검사는 짝을 이룬다. 기본값은 **솔루션 페이지**를 지키고
-   * (그 호출부는 `secondaryTo` 를 넘기지 않는다), 덮어쓰기는 **기술 페이지**가
-   * 전환 전의 `/solution` 으로 돌아가게 한다. 목적지를 컴포넌트가 하드코딩하던
-   * 시절, 라벨만 바꿔 넘기는 호출부가 조용히 다른 화면으로 떨어졌다.
+   * 아래 세 검사는 호출부가 준 목적지가 실제로 쓰이는지를 잰다. 목적지를
+   * 컴포넌트가 하드코딩하던 시절, 라벨만 바꿔 넘기는 호출부가 조용히 다른
+   * 화면으로 떨어졌다 — 기술 페이지가 그랬다.
    */
-  it("secondaryTo 를 생략하면 보조 버튼은 /demo 로 간다", () => {
-    expect(secondaryAnchor(renderClosingCta("ko"))).toContain('href="/demo"');
+  it("호출부가 준 목적지로 보조 버튼이 간다", () => {
+    expect(secondaryAnchor(renderClosingCta("ko", "/demo"))).toContain('href="/demo"');
+    expect(secondaryAnchor(renderClosingCta("ko", "/solution"))).toContain('href="/solution"');
   });
 
-  it("secondaryTo 로 보조 버튼의 목적지를 바꾼다", () => {
-    expect(secondaryAnchor(renderClosingCta("ko", { secondaryTo: "/solution" }))).toContain(
-      'href="/solution"',
-    );
-  });
+  it("목적지가 달라도 보조 버튼의 클래스는 그대로다", () => {
+    const solution = secondaryAnchor(renderClosingCta("ko", "/solution"));
+    const demo = secondaryAnchor(renderClosingCta("ko", "/demo"));
 
-  it("목적지를 바꿔도 보조 버튼의 클래스는 그대로다", () => {
-    const overridden = secondaryAnchor(renderClosingCta("ko", { secondaryTo: "/solution" }));
-    const fallback = secondaryAnchor(renderClosingCta("ko"));
-
-    expect(classOf(overridden)).toBe(classOf(fallback));
-    expect(classOf(overridden)).toBeTruthy();
+    expect(classOf(solution)).toBe(classOf(demo));
+    expect(classOf(solution)).toBeTruthy();
   });
 
   it("영문판이 있는 목적지는 /en 으로 가고 hreflang 이 붙지 않는다", () => {
-    const anchor = secondaryAnchor(renderClosingCta("en", { secondaryTo: "/solution" }));
+    const anchor = secondaryAnchor(renderClosingCta("en", "/solution"));
 
     expect(anchor).toContain('href="/en/solution"');
     // 대소문자를 접어서 본다 — React 는 이 속성을 camelCase 로 낸다.
     expect(anchor.toLowerCase()).not.toContain("hreflang");
   });
 });
+
+/**
+ * 보조 버튼의 **라벨과 목적지는 짝이다.** 한쪽만 적을 수 있으면 둘이 어긋나고,
+ * 그것이 기술 페이지에서 실제로 벌어진 일이다(`/solution → 솔루션 보기` 가
+ * `/demo → 데모 보기` 로 바뀌었다).
+ *
+ * 이 보증은 런타임 검사로 표현할 수 없다 — "prop 을 빠뜨린 호출"이 애초에
+ * 컴파일되지 않아야 하는 것이 요구사항이기 때문이다. 그래서 `LocaleLink.test.tsx`
+ * 의 `typeOnly_hrefLangCannotBeOverridden` 과 같은 방식으로 컴파일 타임에
+ * 고정한다: `@ts-expect-error` 는 "다음 줄에 타입 에러가 **있어야** 통과"이므로,
+ * 누가 `secondaryTo` 를 다시 선택적으로 만들면 이 줄에 에러가 없어져
+ * `npm run typecheck` 가 실패한다. 즉 `tsc --noEmit` 이 이 검사의 실행기다.
+ */
+function typeOnly_secondaryToIsRequired() {
+  return (
+    // @ts-expect-error secondaryTo 는 필수다 — 라벨만 넘기고 목적지를 빠뜨릴 수 없다
+    <ClosingCta title="마감 제목" primaryLabel="주 버튼" secondaryLabel="보조 버튼" />
+  );
+}
+
+void typeOnly_secondaryToIsRequired;
 
 function readProductCta(locale: Locale) {
   let captured: ReturnType<typeof useProductCta> | undefined;

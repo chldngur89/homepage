@@ -147,6 +147,7 @@ export default function Solution() {
         title={t.cta.title}
         primaryLabel={common.cta.primary}
         secondaryLabel={common.cta.demo}
+        secondaryTo="/demo"
       />
     </div>
   );
