@@ -62,10 +62,13 @@ export default function Technology() {
         </ul>
       </Section>
 
+      {/* 보조 버튼은 전환 전과 같이 솔루션 페이지로 간다. 목적지와 라벨은
+          한 자리에서 같이 적는다 — 둘이 떨어져 있으면 조용히 어긋난다. */}
       <ClosingCta
         title={t.cta.title}
         primaryLabel={common.cta.primary}
-        secondaryLabel={common.cta.demo}
+        secondaryLabel={t.cta.secondary}
+        secondaryTo="/solution"
       />
     </div>
   );

@@ -72,6 +72,13 @@ export const technology = {
   },
   cta: {
     title: "구조보다 먼저, 첫 팀원의 일을 경험해 보세요.",
+    /**
+     * 전환 전 보조 버튼의 문구 그대로다(`<Link to="/solution">솔루션 보기</Link>`).
+     * 전환하면서 공용 `common.cta.demo`("데모 보기")로 대체돼 목적지까지 함께
+     * 바뀌었던 것을 되돌렸다. 이 페이지에서만 쓰는 문구라 공용 사전이 아니라
+     * 페이지 사전에 둔다 — 요금 페이지의 `cta.secondary` 와 같은 자리다.
+     */
+    secondary: "솔루션 보기",
   },
 } as const;
 

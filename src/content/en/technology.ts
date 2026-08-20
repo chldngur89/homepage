@@ -62,5 +62,6 @@ export const technology: DeepWiden<TechnologyCopy> = {
   },
   cta: {
     title: "Before the architecture, see what your first teammate does.",
+    secondary: "See the solution",
   },
 };

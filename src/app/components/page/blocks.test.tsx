@@ -89,11 +89,28 @@ function renderInRouter(element: React.ReactElement, locale: Locale) {
   return renderToStaticMarkup(<RouterProvider router={router} />);
 }
 
-function renderClosingCta(locale: Locale) {
+/**
+ * `props` 를 비워 두면 `secondaryTo` 를 **아예 넘기지 않는다** — 기본값이
+ * 살아 있는지를 재려면 undefined 를 넘기는 것으로는 부족하고 prop 자체가
+ * 없어야 한다.
+ */
+function renderClosingCta(locale: Locale, props: { secondaryTo?: string } = {}) {
   return renderInRouter(
-    <ClosingCta title="마감 제목" primaryLabel="주 버튼" secondaryLabel="보조 버튼" />,
+    <ClosingCta title="마감 제목" primaryLabel="주 버튼" secondaryLabel="보조 버튼" {...props} />,
     locale,
   );
+}
+
+/** 렌더된 HTML 에서 보조 버튼(두 번째 `<a>`)의 여는 태그를 꺼낸다. */
+function secondaryAnchor(html: string) {
+  const tags = html.match(/<a\b[^>]*>/g) ?? [];
+
+  expect(tags).toHaveLength(2);
+  return tags[1];
+}
+
+function classOf(tag: string) {
+  return /class="([^"]*)"/.exec(tag)?.[1];
 }
 
 describe("ClosingCta", () => {
@@ -118,6 +135,38 @@ describe("ClosingCta", () => {
 
     expect(ko).not.toContain("hrefLang");
     expect(en.match(/hrefLang="ko"/g)).toHaveLength(2);
+  });
+
+  /**
+   * 아래 네 검사는 짝을 이룬다. 기본값은 **솔루션 페이지**를 지키고
+   * (그 호출부는 `secondaryTo` 를 넘기지 않는다), 덮어쓰기는 **기술 페이지**가
+   * 전환 전의 `/solution` 으로 돌아가게 한다. 목적지를 컴포넌트가 하드코딩하던
+   * 시절, 라벨만 바꿔 넘기는 호출부가 조용히 다른 화면으로 떨어졌다.
+   */
+  it("secondaryTo 를 생략하면 보조 버튼은 /demo 로 간다", () => {
+    expect(secondaryAnchor(renderClosingCta("ko"))).toContain('href="/demo"');
+  });
+
+  it("secondaryTo 로 보조 버튼의 목적지를 바꾼다", () => {
+    expect(secondaryAnchor(renderClosingCta("ko", { secondaryTo: "/solution" }))).toContain(
+      'href="/solution"',
+    );
+  });
+
+  it("목적지를 바꿔도 보조 버튼의 클래스는 그대로다", () => {
+    const overridden = secondaryAnchor(renderClosingCta("ko", { secondaryTo: "/solution" }));
+    const fallback = secondaryAnchor(renderClosingCta("ko"));
+
+    expect(classOf(overridden)).toBe(classOf(fallback));
+    expect(classOf(overridden)).toBeTruthy();
+  });
+
+  it("영문판이 있는 목적지는 /en 으로 가고 hreflang 이 붙지 않는다", () => {
+    const anchor = secondaryAnchor(renderClosingCta("en", { secondaryTo: "/solution" }));
+
+    expect(anchor).toContain('href="/en/solution"');
+    // 대소문자를 접어서 본다 — React 는 이 속성을 camelCase 로 낸다.
+    expect(anchor.toLowerCase()).not.toContain("hreflang");
   });
 });
 
