@@ -12,6 +12,8 @@ import { technology as koTechnology } from "./ko/technology";
 import { technology as enTechnology } from "./en/technology";
 import { pricing as koPricing } from "./ko/pricing";
 import { pricing as enPricing } from "./en/pricing";
+import { about as koAbout } from "./ko/about";
+import { about as enAbout } from "./en/about";
 import { demo as koDemo } from "./ko/demo";
 import { contact as koContact } from "./ko/contact";
 import { contact as enContact } from "./en/contact";
@@ -37,6 +39,7 @@ export type Dictionary = {
   solution: DeepWiden<typeof koSolution>;
   technology: DeepWiden<typeof koTechnology>;
   pricing: DeepWiden<typeof koPricing>;
+  about: DeepWiden<typeof koAbout>;
   demo: DeepWiden<typeof koDemo>;
   contact: DeepWiden<typeof koContact>;
 };
@@ -49,6 +52,7 @@ export const dictionaries = {
     solution: koSolution,
     technology: koTechnology,
     pricing: koPricing,
+    about: koAbout,
     demo: koDemo,
     contact: koContact,
   },
@@ -59,6 +63,7 @@ export const dictionaries = {
     solution: enSolution,
     technology: enTechnology,
     pricing: enPricing,
+    about: enAbout,
     /**
      * 의도적으로 한국어 사전이다. 오타가 아니다.
      *
