@@ -1,118 +1,72 @@
-import { motion } from "motion/react";
-import { Link } from "react-router";
-import { Workflow, Layers, Sparkles, ArrowRight, ClipboardCheck } from "lucide-react";
-import { APP_URLS } from "@/app/config/apps";
-
-const layers = [
-  {
-    phase: "01",
-    title: "제안",
-    body: "제품·채널 맥락을 바탕으로 이번 주 성장 과제를 정리합니다.",
-    Icon: Sparkles,
-  },
-  {
-    phase: "02",
-    title: "승인",
-    body: "대표님이 확인하고 이번 주 방향을 결정합니다.",
-    Icon: ClipboardCheck,
-  },
-  {
-    phase: "03",
-    title: "실행",
-    body: "결정된 일을 실제 실행으로 이어 갑니다.",
-    Icon: Workflow,
-  },
-  {
-    phase: "04",
-    title: "반복 성장",
-    body: "결과를 다음 제안에 반영해 성장 루프를 이어 갑니다.",
-    Icon: Layers,
-  },
-];
+import { useCopy } from "@/app/i18n/useCopy";
+import { ClosingCta, PageHero, Section, SectionLabel } from "@/app/components/page";
 
 export default function Technology() {
+  const copy = useCopy();
+  const t = copy.technology;
+  const common = copy.common;
+
   return (
-    <div className="bg-slate-950 min-h-screen py-24">
-      <section className="max-w-4xl mx-auto px-6 mb-20 text-center">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="inline-block px-4 py-1 rounded-full bg-indigo-900/30 text-indigo-300 font-semibold text-sm mb-6">
-            기술
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            같이 성장하는
-            <br />
-            <span className="text-indigo-400">성장 파이프라인</span>
-          </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            WooriTeam은 ‘더 많은 모델’보다,
-            이번 주 할 일부터 반복 성장까지 이어지는 흐름을 우선합니다.
-          </p>
-        </motion.div>
-      </section>
+    <div className="bg-ground">
+      <PageHero
+        eyebrow={t.hero.eyebrow}
+        titleLine1={t.hero.titleLine1}
+        titleLine2={t.hero.titleLine2}
+        body={t.hero.body}
+      />
 
-      <section className="max-w-5xl mx-auto px-6 mb-24">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {layers.map((item, i) => {
-            const Icon = item.Icon;
-            return (
-              <motion.div
-                key={item.phase}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="rounded-2xl border border-slate-800 bg-slate-900/40 p-7"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono text-indigo-300">{item.phase}</span>
-                  <Icon size={18} className="text-indigo-300" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{item.body}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
+      {/* 01 성장 파이프라인 — 전환 전 이 섹션에는 제목이 없고 카드 네 장만
+          있었다. 섹션의 heading 이 하나 필요하므로 라벨을 h2 로 승격시킨다
+          (솔루션 03, 홈 06과 같은 처리). 네 단계는 솔루션의 '한 사이클'과
+          같은 내용이라 같은 격자를 쓴다 — 같은 것이 페이지마다 다르게
+          보이면 안 된다. */}
+      <Section id="pipeline-h">
+        <SectionLabel index="01" as="h2" id="pipeline-h">
+          {t.pipeline.label}
+        </SectionLabel>
 
-      <section className="max-w-3xl mx-auto px-6 mb-24 text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">설계 원칙</h2>
-        <ul className="text-left space-y-4 text-slate-300 max-w-xl mx-auto">
-          <li className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-            <strong className="text-white">주간 루프</strong>
-            <p className="text-sm text-slate-400 mt-1">제안 → 승인 → 실행 → 반복 성장을 한 사이클로 묶습니다.</p>
-          </li>
-          <li className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-            <strong className="text-white">역할 단위 확장</strong>
-            <p className="text-sm text-slate-400 mt-1">같이 성장하기를 시작으로 CEO·CFO 역할을 필요할 때 붙입니다.</p>
-          </li>
-          <li className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-            <strong className="text-white">과장하지 않는 연동</strong>
-            <p className="text-sm text-slate-400 mt-1">채널 자동 게시 등은 준비·연결 중인 영역으로 표시합니다.</p>
-          </li>
+        <ol className="mt-10 grid gap-px [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
+          {t.pipeline.steps.map((step) => (
+            <li
+              key={step.phase}
+              className="bg-surface px-6 pb-7 pt-[26px] shadow-[0_0_0_1px_var(--line-2)]"
+            >
+              <span className="block text-[12px] font-bold tracking-[0.1em] text-brand">
+                {step.phase}
+              </span>
+              <h3 className="mt-3 text-[23px] font-semibold tracking-[-0.02em]">{step.title}</h3>
+              <p className="mt-3.5 text-[15.5px] leading-[1.7] text-ink-2">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      {/* 02 설계 원칙 — 전환 전 이 섹션의 제목은 <h2>설계 원칙</h2> 이었다.
+          새 디자인에서 섹션 이름이 서는 자리가 라벨이라 같은 글자를 라벨로
+          옮기고 h2 로 승격시켰다. 이름은 그대로이고 자리만 옮긴 것이다. */}
+      <Section id="principles-h" tone="panel">
+        <SectionLabel index="02" as="h2" id="principles-h">
+          {t.principles.label}
+        </SectionLabel>
+
+        <ul className="mt-10 grid gap-5 md:grid-cols-3">
+          {t.principles.items.map((item) => (
+            <li
+              key={item.title}
+              className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]"
+            >
+              <h3 className="text-[19px] font-semibold tracking-[-0.02em]">{item.title}</h3>
+              <p className="mt-3 text-[15.5px] leading-[1.7] text-ink-2">{item.body}</p>
+            </li>
+          ))}
         </ul>
-      </section>
+      </Section>
 
-      <section className="max-w-3xl mx-auto px-6 text-center">
-        <p className="text-slate-400 mb-6">구조보다 먼저, 첫 팀원의 일을 경험해 보세요.</p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href={APP_URLS.cmo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full font-semibold"
-          >
-            우리팀과 같이 성장하기
-            <ArrowRight size={18} />
-          </a>
-          <Link
-            to="/solution"
-            className="min-h-[48px] inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-slate-700 font-semibold text-slate-200"
-          >
-            솔루션 보기
-          </Link>
-        </div>
-      </section>
+      <ClosingCta
+        title={t.cta.title}
+        primaryLabel={common.cta.primary}
+        secondaryLabel={common.cta.demo}
+      />
     </div>
   );
 }
