@@ -692,21 +692,59 @@ EOF
 
 새로 추가한 경로 중 하나의 `dist` HTML 을 일부러 훼손하고 `node ./scripts/check-html.mjs` 를 돌려 잡히는지 확인한다. 실패 출력을 보고서에 붙인다.
 
-- [ ] **Step 3: 빌드 확인**
+- [ ] **Step 3: heading 방어를 산출 HTML 검사로 넣는다**
+
+계획 1에서 홈의 06 섹션이 `<h2>` 없이 나갔고, `aria-labelledby` 가 `<p>` 안의 `<span>` 을 가리켜 문서 개요에서 한 섹션이 통째로 빠졌다. 그때 `src/app/pages/Home.test.tsx` 에 방어를 넣었지만 **그 테스트는 `Home()` 만 검사한다.**
+
+> **실행 중 정정.** 초안은 그 테스트를 헬퍼로 뽑아 페이지마다 적용하라고 했다. Task 3 구현자가 더 나은 방법을 제안했고 채택한다 — **`check-html.mjs` 에서 프리렌더된 모든 페이지의 HTML 을 검사한다.** 페이지마다 테스트를 복제하지 않아도 되고, 페이지 컴포넌트가 훅을 쓰는 탓에 `environment: "node"` 에서 렌더할 수 없는 문제를 우회할 필요도 없으며, **아직 전환하지 않은 여섯 페이지까지 자동으로 덮인다.**
+
+`scripts/check-html.mjs` 에 검사를 추가한다. 프리렌더된 **모든** 경로(18개)에 대해:
+
+- `aria-labelledby="X"` 가 있으면, 같은 문서에 `id="X"` 를 가진 `h1`~`h6` 가 정확히 하나 있다
+- 한 문서 안에서 `id` 가 중복되지 않는다
+- 문서에 `h1` 이 정확히 하나 있다
+
+정규식으로 HTML 을 훑는 방식이라 완벽한 파서는 아니다. 그 한계를 주석으로 남기고, **오탐이 아니라 미탐 쪽으로 기울게** 짠다 — 즉 확실히 위반인 경우만 실패시킨다.
+
+**되돌림 증명:** 전환한 페이지 중 하나의 `dist` HTML 에서 `<h2>` 의 `id` 를 일부러 지우고 `node ./scripts/check-html.mjs` 가 잡는지 확인한 뒤 복구한다. 실제 출력을 보고서에 붙인다.
+
+미전환 페이지 6개가 이 검사에서 실패한다면 그것은 **실제 결함을 발견한 것이다.** 그 경우 검사를 느슨하게 만들지 말고, 어느 페이지가 왜 실패하는지 보고하고 계획 3의 작업 목록에 올린다.
+
+- [ ] **Step 3B: 대비 검사를 모든 표면으로 확대하고 `--ink-3` 를 고친다**
+
+> **실행 중 추가.** Task 6 구현자가 발견했고 컨트롤러가 독립 계산으로 확인했다.
+
+계획 1의 `src/styles/tokens.test.ts` 는 잉크 색을 **`ground` 표면에서만** 검사한다. 실제 사이트에는 세 표면이 있고, `panel` 은 `ground` 보다 약간 어둡다. 그 차이로 `--ink-3` 가 기준 아래로 떨어진다:
+
+| 표면 | ink | ink2 | ink3 | brand |
+|---|---|---|---|---|
+| `ground` #f7f7f4 | 16.86 | 6.07 | 4.71 | 5.46 |
+| `panel` #f0f0ec | 15.84 | 5.71 | **4.43 ✗** | 5.12 |
+| `surface` #ffffff | 18.10 | 6.52 | 5.06 | 5.86 |
+
+`--ink-3` 는 `SectionLabel` 의 색이고, `tone="panel"` 섹션이 홈·솔루션·요금·데모·문의에 걸쳐 9개 있다. 계획 1부터 있던 결함이며, 계획 1이 `#8B8B85`(3.19:1)를 잡아놓고도 **다른 표면을 보지 않아** 같은 종류를 다시 놓친 것이다.
+
+1. **테스트를 먼저 고친다.** `tokens.test.ts` 가 `ground`·`panel`·`surface` **세 표면 모두**에 대해 `ink`·`ink2`·`ink3`·`brand` 를 검사하게 한다. 이 시점에 `ink3` × `panel` 이 실패해야 한다 — 실패를 확인하고 출력을 보고서에 붙인다.
+2. **`--ink-3` 를 세 표면 모두에서 4.5:1 이상이 되도록 어둡게 조정한다.** `theme.css` 와 `tokens.ts` 양쪽을 함께 고친다(두 파일이 같은 값을 들고 있다). 새 값과 세 표면에서의 실측 대비를 보고서에 적는다.
+3. 조정 후 빌드 산출물에서 라벨 색이 실제로 바뀌었는지 확인한다.
+
+`--line`·`--line-2`·`--invert-line` 은 이 검사 대상이 아니다 — 본문 텍스트가 아니라 구분선이며, 계획 1에서 같은 이유로 제외됐다.
+
+- [ ] **Step 4: 빌드 확인**
 
 Run: `npm run build`
 Expected: `[check-html] 통과`
 
-- [ ] **Step 4: 문서 갱신**
+- [ ] **Step 5: 문서 갱신**
 
 `README.md` 의 자동 검증 절에 검사 경로가 9개로 늘었음을 반영한다.
 
 `docs/superpowers/REDESIGN_PLAN1_HANDOFF.md` 의 릴리스 게이트를 갱신한다 — 이번 계획으로 `/en/solution`, `/en/pricing`, `/en/contact` 가 영문 본문을 갖게 됐으므로, 아직 한국어 본문인 영문 경로는 `/en/technology`, `/en/about`, `/en/ir` **3개로 줄었다.** 배포 가능 여부는 여전히 그 3개에 달려 있다.
 
-- [ ] **Step 5: 커밋**
+- [ ] **Step 6: 커밋**
 
 ```bash
-git add scripts/check-html.mjs README.md docs/superpowers/REDESIGN_PLAN1_HANDOFF.md
+git add scripts/check-html.mjs README.md docs/superpowers/REDESIGN_PLAN1_HANDOFF.md src/app/pages/*.test.tsx
 git commit -m "$(cat <<'EOF'
 feat: 산출 HTML 검증 범위를 전환한 페이지까지 확대
 

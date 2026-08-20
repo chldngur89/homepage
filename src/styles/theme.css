@@ -7,12 +7,13 @@
   --panel: #f0f0ec;
   --ink: #161616;
   --ink-2: #5e5e59;
-  --ink-3: #6f6f69;
+  --ink-3: #6c6c66;
   --line: #deded8;
   --line-2: #e4e4df;
   --brand: #4f6b5b;
   --invert: #111111;
   --invert-ink-2: #b9b9b3;
+  --invert-line: #3a3a38;
 }
 
 /* shadcn 토큰을 브랜드 토큰 위에 재매핑한다.
@@ -110,6 +111,7 @@
   --color-brand: var(--brand);
   --color-invert: var(--invert);
   --color-invert-ink-2: var(--invert-ink-2);
+  --color-invert-line: var(--invert-line);
 }
 
 @layer base {

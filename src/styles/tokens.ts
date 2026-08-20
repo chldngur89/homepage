@@ -8,13 +8,18 @@ export const BRAND_TOKENS = {
   panel: "#F0F0EC",
   ink: "#161616",
   ink2: "#5E5E59",
-  // 디자인 원본은 #8B8B85 였으나 ground 위 대비가 3.19:1 로 AA 미달이라 조정함
-  ink3: "#6F6F69",
+  // 디자인 원본은 #8B8B85 였으나 ground 위 대비가 3.19:1 로 AA 미달이라 조정함.
+  // 1차 조정값 #6F6F69 는 ground(4.71) 만 보고 고른 값이라 그보다 어두운
+  // panel 위에서 4.43 으로 다시 미달이었다 — 세 표면 모두 4.5 를 넘도록
+  // #6C6C66 으로 재조정(ground 4.92 / panel 4.63 / surface 5.28)
+  ink3: "#6C6C66",
   line: "#DEDED8",
   line2: "#E4E4DF",
   brand: "#4F6B5B",
   invert: "#111111",
   invertInk2: "#B9B9B3",
+  // 반전 CTA 면 위의 헤어라인. 본문이 아니라 장식용 경계선이라 4.5:1 대비 대상이 아니다
+  invertLine: "#3A3A38",
 } as const satisfies Record<string, string>;
 
 function channelToLinear(value: number) {

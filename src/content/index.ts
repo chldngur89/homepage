@@ -6,6 +6,13 @@ import { mockups as koMockups } from "./ko/mockups";
 import { mockups as enMockups } from "./en/mockups";
 import { home as koHome } from "./ko/home";
 import { home as enHome } from "./en/home";
+import { solution as koSolution } from "./ko/solution";
+import { solution as enSolution } from "./en/solution";
+import { pricing as koPricing } from "./ko/pricing";
+import { pricing as enPricing } from "./en/pricing";
+import { demo as koDemo } from "./ko/demo";
+import { contact as koContact } from "./ko/contact";
+import { contact as enContact } from "./en/contact";
 
 /**
  * 한국어 사전이 구조의 원본이고, 리프의 리터럴만 넓힌 것이 사전 타입이다.
@@ -25,9 +32,44 @@ export type Dictionary = {
   common: DeepWiden<typeof koCommon>;
   mockups: DeepWiden<typeof koMockups>;
   home: DeepWiden<typeof koHome>;
+  solution: DeepWiden<typeof koSolution>;
+  pricing: DeepWiden<typeof koPricing>;
+  demo: DeepWiden<typeof koDemo>;
+  contact: DeepWiden<typeof koContact>;
 };
 
 export const dictionaries = {
-  ko: { common: koCommon, mockups: koMockups, home: koHome },
-  en: { common: enCommon, mockups: enMockups, home: enHome },
+  ko: {
+    common: koCommon,
+    mockups: koMockups,
+    home: koHome,
+    solution: koSolution,
+    pricing: koPricing,
+    demo: koDemo,
+    contact: koContact,
+  },
+  en: {
+    common: enCommon,
+    mockups: enMockups,
+    home: enHome,
+    solution: enSolution,
+    pricing: enPricing,
+    /**
+     * 의도적으로 한국어 사전이다. 오타가 아니다.
+     *
+     * `/demo` 는 한국어 전용 페이지다 — `src/content/locales.ts` 의
+     * `EN_ROUTES` 에 없으므로 `/en/demo` 라우트 자체가 만들어지지 않고
+     * (`route-config.tsx` 가 걸러낸다), 프리렌더도 한국어 한 벌만 낸다.
+     * 즉 이 값은 실제 화면에서 쓰이지 않는다. 그래도 `Dictionary` 는 두
+     * 로케일에 같은 키를 요구하므로 자리를 채워야 하고, 빈 객체나 캐스팅
+     * 대신 한국어 사전을 그대로 넣어 타입 구멍을 만들지 않는다.
+     *
+     * 영문 화면에서 `/demo` 로 가는 링크는 한국어 페이지로 떨어지며
+     * (`LocaleLink` 가 `hreflang="ko"` 를 붙인다) 그것이 의도된 동작이다.
+     * `/demo` 의 영문판을 만들 때 할 일: `en/demo.ts` 를 추가하고,
+     * `EN_ROUTES` 에 `/demo` 를 넣고, 이 줄을 `enDemo` 로 바꾼다.
+     */
+    demo: koDemo,
+    contact: enContact,
+  },
 } satisfies Record<Locale, Dictionary>;

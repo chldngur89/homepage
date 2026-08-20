@@ -15,15 +15,21 @@ import {
   type IrStatusTone,
 } from "@/content/ir";
 import siteContent from "@/content/site.json";
+import { CONTACT_EMAIL } from "@/content/ko/contact";
 
 const siteData = siteContent as {
-  contactEmail?: string;
   footer?: { copyright?: string };
   siteName?: string;
 };
 
 const siteName = siteData.siteName ?? "WooriTeam";
-const contactEmail = siteData.contactEmail ?? "chldngur89@gmail.com";
+/**
+ * 이 페이지는 아직 다크 디자인이고 계획 3의 대상이다. 여기서 바꾼 것은 이
+ * 주소의 **출처** 하나뿐이다 — 계획 2 Task 6 이 `site.json` 의 `contactEmail`
+ * 을 없앴으므로, 그대로 두면 이 줄이 조용히 폴백 리터럴로 떨어져 문의 페이지와
+ * 갈라진다. 값은 동일하다.
+ */
+const contactEmail = CONTACT_EMAIL;
 const copyright = siteData.footer?.copyright ?? "© 2026 WooriTeam. All rights reserved.";
 
 const deckNav = [

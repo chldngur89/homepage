@@ -1,172 +1,204 @@
-import { Link } from "react-router";
-import { APP_URLS } from "@/app/config/apps";
-import { motion } from "motion/react";
-import {
-  ArrowRight,
-  CheckCircle,
-  MessageSquare,
-  Sparkles,
-  BarChart3,
-  Rocket,
-  ClipboardCheck,
-} from "lucide-react";
+import { useCopy } from "@/app/i18n/useCopy";
+import { useLocale } from "@/app/i18n/LocaleContext";
+import { foreignHreflang } from "@/app/i18n/localePath";
+import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
+import { LocaleLink } from "@/app/components/LocaleLink";
+import { SHELL, Section, SectionLabel } from "@/app/components/page";
 
-const PRIMARY_CTA = "우리팀과 같이 성장하기";
-
-const steps = [
-  {
-    title: "제안",
-    body: "제품·채널 맥락을 보고, 이번 주 손대면 좋은 일을 짧게 정리합니다.",
-    Icon: Sparkles,
-  },
-  {
-    title: "승인",
-    body: "대표님이 확인하고 이번 주 방향을 결정합니다.",
-    Icon: ClipboardCheck,
-  },
-  {
-    title: "실행",
-    body: "결정된 일을 실제 실행으로 이어 갑니다.",
-    Icon: Rocket,
-  },
-  {
-    title: "반복 성장",
-    body: "결과를 다음 제안에 반영해 성장 루프를 이어 갑니다.",
-    Icon: BarChart3,
-  },
-];
+/**
+ * 비교 섹션의 두 열. 같은 마크업을 강조만 바꿔 두 번 쓰므로 한 곳에 둔다.
+ * 강조 쪽만 흰 카드(surface)로 띄우고, 눌러 둘 쪽은 배경 없이 헤어라인
+ * 아웃라인만 남긴다 — 이전 디자인의 시안(cyan) 테두리·배경이 하던 구분을
+ * 그라데이션이나 글로우 없이 대신한다.
+ */
+function CompareCard({
+  emphasis,
+  items,
+  title,
+}: {
+  emphasis: boolean;
+  items: readonly string[];
+  title: string;
+}) {
+  return (
+    <div
+      className={`rounded-[14px] border border-line-2 p-[clamp(24px,3vw,34px)] ${
+        emphasis ? "bg-surface" : ""
+      }`}
+    >
+      <h3
+        className={`text-[19px] font-semibold tracking-[-0.02em] ${
+          emphasis ? "text-ink" : "text-ink-2"
+        }`}
+      >
+        {title}
+      </h3>
+      <ul className="mt-5 grid gap-3">
+        {items.map((item) => (
+          <li key={item} className="flex gap-2.5 text-[15.5px] leading-[1.7] text-ink-2">
+            <span aria-hidden="true" className={emphasis ? "text-brand" : "text-ink-3"}>
+              &mdash;
+            </span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default function Solution() {
+  const locale = useLocale();
+  const copy = useCopy();
+  const t = copy.solution;
+  const common = copy.common;
+
+  /**
+   * 주 CTA 는 사이트의 나머지 페이지와 같이 제품 앱으로 간다. 외부 링크라
+   * LocaleLink 가 아니라 <a target="_blank"> 이며, 제품 UI 가 한국어뿐이라
+   * 영문 화면에서는 hreflang="ko" 를 달아 준다.
+   */
+  const productCta = {
+    href: APP_URLS.cmo,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    hrefLang: foreignHreflang(APP_HAS_ENGLISH, locale),
+  } as const;
+
   return (
-    <div className="bg-slate-950 min-h-screen py-24">
-      <section className="max-w-4xl mx-auto px-6 mb-20 text-center">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="inline-block px-4 py-1 rounded-full bg-cyan-900/30 text-cyan-400 font-semibold text-sm mb-6">
-            솔루션
+    <div className="bg-ground">
+      {/* 히어로 — 홈과 같이 Section 의 기본 패딩 밖이라 직접 짠다 */}
+      <section aria-labelledby="hero-h" className="border-b border-line">
+        <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
+          <div className="rise">
+            <p className="mb-[22px] text-[13px] font-semibold uppercase tracking-[0.1em] text-brand">
+              {t.hero.eyebrow}
+            </p>
+            <h1
+              id="hero-h"
+              className="max-w-[14em] text-[clamp(38px,5.2vw,60px)] font-bold leading-[1.14] tracking-[-0.035em]"
+            >
+              {t.hero.titleLine1}
+              <br />
+              {t.hero.titleLine2}
+            </h1>
+            <p className="mt-[26px] max-w-[34em] text-[18px] leading-[1.65] text-ink-2">
+              {t.hero.body}
+            </p>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            같이 성장하는
-            <br />
-            <span className="text-cyan-400">일하는 방식</span>
-          </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            전담 마케터 없는 1~10인 팀을 위해,
-            제안 → 승인 → 실행 → 반복 성장 루프를 맡는 첫 번째 팀원입니다.
-          </p>
-        </motion.div>
+        </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 mb-28">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">
-            ChatGPT와 무엇이 다른가
+      {/* 01 ChatGPT 와의 차이 */}
+      <Section id="diff-h">
+        <SectionLabel index="01">{t.difference.label}</SectionLabel>
+        <h2
+          id="diff-h"
+          className="max-w-[22em] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.28] tracking-[-0.03em]"
+        >
+          {t.difference.title}
+        </h2>
+
+        <div className="mt-11 grid gap-5 md:grid-cols-2">
+          <CompareCard
+            emphasis={false}
+            title={t.difference.tool.title}
+            items={t.difference.tool.items}
+          />
+          <CompareCard emphasis title={t.difference.us.title} items={t.difference.us.items} />
+        </div>
+      </Section>
+
+      {/* 02 한 사이클 */}
+      <Section id="cycle-h" tone="panel">
+        <SectionLabel index="02">{t.cycle.label}</SectionLabel>
+        <h2
+          id="cycle-h"
+          className="max-w-[20em] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.28] tracking-[-0.03em]"
+        >
+          {t.cycle.title}
+        </h2>
+
+        <ol className="mt-14 grid gap-px [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
+          {t.cycle.steps.map((step) => (
+            <li
+              key={step.step}
+              className="bg-surface px-6 pb-7 pt-[26px] shadow-[0_0_0_1px_var(--line-2)]"
+            >
+              <span className="block text-[12px] font-bold tracking-[0.1em] text-brand">
+                {step.step}
+              </span>
+              <h3 className="mt-3 text-[23px] font-semibold tracking-[-0.02em]">{step.title}</h3>
+              <p className="mt-3.5 text-[15.5px] leading-[1.7] text-ink-2">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      {/* 03 지금과 이후 — 원래 이 섹션에는 제목이 없었다. 홈 06(파일럿 피드백)과
+          같이 라벨 자체를 h2 로 승격시켜 섹션의 heading 으로 쓴다. */}
+      <Section id="scope-h">
+        <SectionLabel index="03" as="h2" id="scope-h">
+          {t.scope.label}
+        </SectionLabel>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]">
+            <h3 className="text-[19px] font-semibold tracking-[-0.02em] text-brand">
+              {t.scope.now.title}
+            </h3>
+            <ul className="mt-5 grid gap-3">
+              {t.scope.now.items.map((item) => (
+                <li key={item} className="flex gap-2.5 text-[15.5px] leading-[1.7] text-ink-2">
+                  <span aria-hidden="true" className="text-brand">
+                    &mdash;
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-[14px] border border-line-2 p-[clamp(24px,3vw,34px)]">
+            <h3 className="text-[19px] font-semibold tracking-[-0.02em] text-ink-2">
+              {t.scope.next.title}
+            </h3>
+            <ul className="mt-5 grid gap-3">
+              {t.scope.next.items.map((item) => (
+                <li key={item} className="flex gap-2.5 text-[15.5px] leading-[1.7] text-ink-3">
+                  <span aria-hidden="true">&middot;</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Section>
+
+      {/* 마감 CTA — 홈과 같은 반전 블록 */}
+      <section aria-labelledby="cta-h" className="border-b border-line bg-invert text-white">
+        <div className={`${SHELL} py-[clamp(80px,9vw,132px)]`}>
+          <h2
+            id="cta-h"
+            className="max-w-[20em] text-[clamp(30px,4.4vw,52px)] font-bold leading-[1.18] tracking-[-0.035em]"
+          >
+            {t.cta.title}
           </h2>
-          <p className="text-slate-400">초안을 받는 도구가 아니라, 승인·실행·반복 성장까지 이어지는 팀원입니다.</p>
-        </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl border border-slate-800 bg-slate-900/40 p-8"
-          >
-            <div className="flex items-center gap-2 text-slate-400 font-semibold mb-5">
-              <MessageSquare size={18} />
-              대화형 도구
-            </div>
-            <ul className="space-y-3 text-sm text-slate-300">
-              <li>질문하면 초안을 줍니다</li>
-              <li>실행은 다시 대표님 몫입니다</li>
-              <li>다음에 뭘 할지 매번 처음부터 묻습니다</li>
-            </ul>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl border border-cyan-500/40 bg-cyan-950/20 p-8"
-          >
-            <div className="flex items-center gap-2 text-cyan-300 font-semibold mb-5">
-              <CheckCircle size={18} />
-              WooriTeam
-            </div>
-            <ul className="space-y-3 text-sm text-slate-200">
-              <li>이번 주 할 일을 먼저 제안합니다</li>
-              <li>승인 후 실행까지 이어 줍니다</li>
-              <li>반복 성장으로 다음 주를 이어갑니다</li>
-            </ul>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="max-w-5xl mx-auto px-6 mb-28">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">한 사이클</h2>
-          <p className="text-slate-400">매주 반복되는 성장 루프입니다.</p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {steps.map((s, i) => {
-            const Icon = s.Icon;
-            return (
-              <motion.div
-                key={s.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6"
-              >
-                <Icon size={18} className="text-cyan-400 mb-3" />
-                <h3 className="text-white font-bold mb-2">{s.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{s.body}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="max-w-5xl mx-auto px-6 mb-20">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="rounded-2xl border border-slate-800 p-7 bg-slate-900/40">
-            <h3 className="text-cyan-300 font-semibold mb-4">지금 다루는 일</h3>
-            <ul className="space-y-2 text-sm text-slate-300">
-              <li className="flex gap-2"><CheckCircle size={16} className="text-cyan-400 shrink-0 mt-0.5" />주간 성장 과제 제안</li>
-              <li className="flex gap-2"><CheckCircle size={16} className="text-cyan-400 shrink-0 mt-0.5" />승인으로 방향 결정</li>
-              <li className="flex gap-2"><CheckCircle size={16} className="text-cyan-400 shrink-0 mt-0.5" />실행으로 이어가기</li>
-              <li className="flex gap-2"><CheckCircle size={16} className="text-cyan-400 shrink-0 mt-0.5" />반복 성장</li>
-            </ul>
+          <div className="mt-[38px] flex flex-wrap gap-2.5">
+            <a
+              {...productCta}
+              className="flex h-[52px] items-center rounded-[10px] bg-white px-6 text-[16px] font-semibold text-ink"
+            >
+              {common.cta.primary}
+            </a>
+            <LocaleLink
+              to="/demo"
+              className="flex h-[52px] items-center rounded-[10px] border border-invert-line px-[22px] text-[16px] font-semibold text-white"
+            >
+              {common.cta.demo}
+            </LocaleLink>
           </div>
-          <div className="rounded-2xl border border-slate-800 p-7 bg-slate-950">
-            <h3 className="text-slate-400 font-semibold mb-4">이후 연결 (준비 중)</h3>
-            <ul className="space-y-2 text-sm text-slate-500">
-              <li>· 채널 자동 게시</li>
-              <li>· 경쟁·시장 모니터링</li>
-              <li>· CEO / CFO 역할 연동</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-3xl mx-auto px-6 text-center pb-8">
-        <h2 className="text-3xl font-bold text-white mb-6">첫 번째 팀원부터 시작해 보세요</h2>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href={APP_URLS.cmo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full font-semibold"
-          >
-            {PRIMARY_CTA}
-            <ArrowRight size={18} />
-          </a>
-          <Link
-            to="/demo"
-            className="min-h-[48px] inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-slate-700 font-semibold text-slate-200"
-          >
-            데모 보기
-          </Link>
         </div>
       </section>
     </div>

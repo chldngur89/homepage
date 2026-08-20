@@ -1,12 +1,61 @@
-import { Link } from "react-router";
-import { motion } from "motion/react";
-import { Mail, Phone, MapPin, Send, MessageSquare, Calendar } from "lucide-react";
 import { useState } from "react";
-import siteContent from "@/content/site.json";
+import { useCopy } from "@/app/i18n/useCopy";
+import { LocaleLink } from "@/app/components/LocaleLink";
+import { SHELL, Section, SectionLabel } from "@/app/components/page";
+import { CONTACT_EMAIL, type ContactCopy } from "@/content/ko/contact";
+import type { SameShape } from "@/content/widen";
 
-const contactEmail = (siteContent as { contactEmail?: string }).contactEmail ?? "chldngur89@gmail.com";
+/**
+ * FAQ 항목의 목적지. 문구는 사전이, 목적지는 코드가 정한다 — 번역이 링크를
+ * 옮길 수 없게 하려는 것이다 (요금 페이지의 `PLAN_CTA_TO_CONTACT` 와 같다).
+ *
+ * 타입을 `string[]` 이 아니라 사전 배열에서 **파생**시킨 것이 핵심이다.
+ * `ContactCopy["faq"]["items"]` 는 `as const` 가 만든 길이 4의 튜플이고,
+ * `SameShape` 가 그 길이를 그대로 물려주므로 사전의 FAQ 가 하나 늘거나 줄면
+ * 이 줄이 컴파일되지 않는다. 인덱스로 짝지은 두 배열이 조용히 어긋나는 경우가
+ * 없다.
+ */
+const FAQ_LINKS: SameShape<ContactCopy["faq"]["items"], string> = [
+  "/pricing",
+  "/solution",
+  "/technology",
+  "/pricing",
+];
+
+/** 고유명사라 번역 대상이 아니다. 전환 이전에는 글리프(𝕏, in, f, 📷)가 보이는
+ *  텍스트였고 이 이름은 `title` 속성에만 있었다. 새 디자인에는 아이콘 세트가
+ *  없으므로 글리프를 걷어내고, 원래 접근성 이름이던 이 문자열을 그대로 보이는
+ *  텍스트로 올렸다 (요금 페이지에서 💚 를 걷어낸 것과 같은 판단 — 스크린리더가
+ *  "camera" 로 읽던 자리다). */
+const SOCIAL_NAMES = ["Twitter", "LinkedIn", "Facebook", "Instagram"] as const;
+
+const PHONE_HREF = "tel:+821077718296";
+
+const CARD = "rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,30px)]";
+const CARD_TITLE = "text-[19px] font-semibold tracking-[-0.02em]";
+const BUTTON =
+  "flex h-12 w-full items-center justify-center rounded-[10px] px-5 text-[15.5px] font-semibold";
+/** 포커스 링은 theme.css 의 전역 `:focus-visible` 규칙이 그린다 — 여기서 따로 만들지 않는다. */
+const FIELD =
+  "mt-2 w-full rounded-[10px] border border-line-2 bg-surface px-4 py-3 text-[15.5px] leading-[1.6] text-ink placeholder:text-ink-3";
+const FIELD_LABEL = "block text-[13px] font-semibold tracking-[0.04em] text-ink-2";
+
+/** 연락 수단 카드. 세 장이 같은 모양이라 한 곳에 둔다. */
+function ChannelCard({ href, title, value }: { href: string; title: string; value: string }) {
+  return (
+    <a href={href} className="rounded-[14px] border border-line-2 bg-surface p-[clamp(22px,3vw,28px)]">
+      <h3 className="text-[12.5px] font-semibold tracking-[0.12em] text-ink-3">{title}</h3>
+      <p className="mt-3 break-words text-[17px] font-semibold leading-[1.5] tracking-[-0.01em] text-ink">
+        {value}
+      </p>
+    </a>
+  );
+}
 
 export default function Contact() {
+  const copy = useCopy();
+  const t = copy.contact;
+
   const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "";
 
   const [formData, setFormData] = useState({
@@ -32,18 +81,23 @@ export default function Contact() {
           setFormData({ name: "", email: "", message: "" });
           setTimeout(() => setSubmitted(false), 3000);
         } else {
-          setSubmitError("전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+          setSubmitError(t.form.errorSend);
         }
       } catch {
-        setSubmitError("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+        setSubmitError(t.form.errorNetwork);
       }
     } else {
-      // Formspree 없을 때: mailto로 사용자 메일 앱 열기 → chldngur89@gmail.com으로 보내는 효과
-      const subject = encodeURIComponent(`[WooriTeam 문의] ${formData.name}님 문의`);
-      const body = encodeURIComponent(
-        `이름: ${formData.name}\n이메일: ${formData.email}\n\n메시지:\n${formData.message}`
+      // Formspree 없을 때: mailto 로 사용자 메일 앱 열기 → `CONTACT_EMAIL` 로 보내는 효과.
+      // 제목·라벨은 사전에서 온다 — 여기 리터럴로 두면 /en 방문자가 영문 성공 카드를
+      // 읽은 뒤 한국어 초안을 받는다 (errorSend·errorNetwork 와 같은 이유).
+      const mail = t.form.mail;
+      const subject = encodeURIComponent(
+        `${mail.subjectBefore}${formData.name}${mail.subjectAfter}`
       );
-      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+      const body = encodeURIComponent(
+        `${mail.nameLabel} ${formData.name}\n${mail.emailLabel} ${formData.email}\n\n${mail.messageLabel}\n${formData.message}`
+      );
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setSubmitted(false), 5000);
@@ -58,337 +112,271 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen py-24">
-      {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 mb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <div className="inline-block px-4 py-1 rounded-full bg-pink-900/30 text-pink-400 font-semibold text-sm mb-6">
-            문의하기
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            언제든 <span className="text-cyan-400">연락</span>주세요
-          </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            제품 문의, IR 미팅, 파트너십, 채용 등 무엇이든 환영합니다
-          </p>
-          <p className="text-slate-500 text-sm mt-2">
-            투자·IR 요약은 <Link to="/ir#ir-top" className="text-cyan-400 hover:underline">IR 페이지</Link>에서 확인하실 수 있습니다.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* Contact Methods */}
-      <section className="max-w-7xl mx-auto px-6 mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: <Mail className="w-8 h-8" />,
-              title: "이메일",
-              content: contactEmail,
-              link: `mailto:${contactEmail}`,
-              color: "cyan",
-            },
-            {
-              icon: <Phone className="w-8 h-8" />,
-              title: "전화",
-              content: "+82 10-7771-8296",
-              link: "tel:+821077718296",
-              color: "indigo",
-            },
-            {
-              icon: <MapPin className="w-8 h-8" />,
-              title: "오피스",
-              content: "미정",
-              link: "#",
-              color: "pink",
-            },
-          ].map((method, index) => (
-            <motion.a
-              key={index}
-              href={method.link}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`bg-slate-800/30 backdrop-blur-xl border border-${method.color}-500/30 rounded-2xl p-8 hover:border-${method.color}-500/50 transition-all text-center group`}
+    <div className="bg-ground">
+      {/* 히어로 — 홈·솔루션·요금·데모와 같이 Section 의 기본 패딩 밖이라 직접 짠다 */}
+      <section aria-labelledby="hero-h" className="border-b border-line">
+        <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
+          <div className="rise">
+            <p className="mb-[22px] text-[13px] font-semibold uppercase tracking-[0.1em] text-brand">
+              {t.hero.eyebrow}
+            </p>
+            <h1
+              id="hero-h"
+              className="max-w-[14em] text-[clamp(38px,5.2vw,60px)] font-bold leading-[1.14] tracking-[-0.035em]"
             >
-              <div className={`text-${method.color}-400 flex justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                {method.icon}
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">{method.title}</h3>
-              <p className="text-slate-400">{method.content}</p>
-            </motion.a>
-          ))}
+              {t.hero.title}
+            </h1>
+            <p className="mt-[26px] max-w-[34em] text-[18px] leading-[1.65] text-ink-2">
+              {t.hero.body}
+            </p>
+            <p className="mt-4 max-w-[34em] text-[15px] leading-[1.7] text-ink-3">
+              {t.hero.irNoteBefore}
+              <LocaleLink to="/ir" className="font-semibold text-brand underline underline-offset-4">
+                {t.hero.irNoteLink}
+              </LocaleLink>
+              {t.hero.irNoteAfter}
+            </p>
+          </div>
         </div>
-        <p className="text-center text-slate-500 text-sm mt-4">
-          상세 연락처·오피스 주소는 문의 폼 제출 후 담당자가 안내해 드립니다.
-        </p>
       </section>
 
-      {/* Main Content Grid */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-8"
-          >
-            <h2 className="text-2xl font-bold text-white mb-6">문의 남기기</h2>
+      {/* 01 연락 수단 — 원래 이 섹션에는 제목이 없고 카드만 나열됐다. 홈 06·
+          솔루션 03·요금 01 과 같이 라벨을 h2 로 승격시켜 섹션의 heading 으로 쓴다. */}
+      <Section id="channels-h">
+        <SectionLabel index="01" as="h2" id="channels-h">
+          {t.channels.label}
+        </SectionLabel>
 
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          <ChannelCard
+            href={`mailto:${CONTACT_EMAIL}`}
+            title={t.channels.emailTitle}
+            value={CONTACT_EMAIL}
+          />
+          <ChannelCard
+            href={PHONE_HREF}
+            title={t.channels.phoneTitle}
+            value={t.channels.phoneValue}
+          />
+          <ChannelCard href="#" title={t.channels.officeTitle} value={t.channels.officeValue} />
+        </div>
+
+        <p className="mt-6 max-w-[40em] text-[14.5px] leading-[1.7] text-ink-3">
+          {t.channels.note}
+        </p>
+      </Section>
+
+      {/* 02 문의 남기기 — 폼과 보조 카드가 나란히 선다. 전환 이전의 2열 구성을
+          그대로 유지하되, 카드 제목은 섹션 heading 아래의 h3 가 된다. */}
+      <Section id="inquiry-h" tone="panel">
+        <SectionLabel index="02" as="h2" id="inquiry-h">
+          {t.form.label}
+        </SectionLabel>
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+          {/* 폼 카드 — 성공 화면과 폼이 같은 헤어라인 카드 안에서 교대한다 */}
+          <div className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]">
             {submitted ? (
-              <div className="text-center py-12">
-                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Send className="w-10 h-10 text-green-400" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-3">문의가 전송되었습니다!</h3>
-                <p className="text-slate-400">
-                  {FORMSPREE_FORM_ID
-                    ? "빠른 시일 내에 담당자가 연락드리겠습니다."
-                    : "메일 앱에서 전송 버튼을 눌러 주시면 문의가 접수됩니다."}
+              <div role="status" className="py-[clamp(32px,6vw,64px)] text-center">
+                <h3 className="text-[23px] font-semibold tracking-[-0.02em]">
+                  {t.form.success.title}
+                </h3>
+                <p className="mx-auto mt-4 max-w-[26em] text-[15.5px] leading-[1.7] text-ink-2">
+                  {FORMSPREE_FORM_ID ? t.form.success.bodySent : t.form.success.bodyMail}
                   <br />
-                  감사합니다.
+                  {t.form.success.thanks}
                 </p>
                 {!FORMSPREE_FORM_ID && (
-                  <p className="text-sm text-slate-500 mt-4">수신: {contactEmail}</p>
+                  <p className="mt-5 break-words text-[14px] text-ink-3">
+                    {t.form.success.recipient} {CONTACT_EMAIL}
+                  </p>
                 )}
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="grid gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-2">
-                    이름 <span className="text-red-400">*</span>
+                  <label htmlFor="contact-name" className={FIELD_LABEL}>
+                    {t.form.nameLabel}{" "}
+                    <span aria-hidden="true" className="text-brand">
+                      *
+                    </span>
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                    placeholder="홍길동"
+                    className={FIELD}
+                    placeholder={t.form.namePlaceholder}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-2">
-                    이메일 <span className="text-red-400">*</span>
+                  <label htmlFor="contact-email" className={FIELD_LABEL}>
+                    {t.form.emailLabel}{" "}
+                    <span aria-hidden="true" className="text-brand">
+                      *
+                    </span>
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                    placeholder="hong@example.com"
+                    className={FIELD}
+                    placeholder={t.form.emailPlaceholder}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-2">
-                    메시지 <span className="text-red-400">*</span>
+                  <label htmlFor="contact-message" className={FIELD_LABEL}>
+                    {t.form.messageLabel}{" "}
+                    <span aria-hidden="true" className="text-brand">
+                      *
+                    </span>
                   </label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors resize-none"
-                    placeholder="문의 내용을 적어주세요. (일반 문의, IR 미팅, 파트너십 등)"
+                    className={`${FIELD} resize-none`}
+                    placeholder={t.form.messagePlaceholder}
                   />
                 </div>
 
+                {/* 실패 상태 — 헤어라인 보더 카드. role="alert" 는 전환 이전에 없던
+                    것으로, 조용히 나타나던 문구를 스크린리더에도 알린다. */}
                 {submitError && (
-                  <p className="text-red-400 text-sm mb-4">{submitError}</p>
+                  <p
+                    role="alert"
+                    className="rounded-[10px] border border-line-2 bg-panel px-4 py-3.5 text-[14.5px] leading-[1.6] text-ink"
+                  >
+                    {submitError}
+                  </p>
                 )}
                 <button
                   type="submit"
-                  className="w-full py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-xl font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all flex items-center justify-center gap-2"
+                  className="flex h-[52px] w-full items-center justify-center rounded-[10px] bg-invert text-[16px] font-semibold text-white"
                 >
-                  <Send size={20} />
-                  문의 보내기
+                  {t.form.submit}
                 </button>
 
-                <p className="text-xs text-slate-500 text-center">
-                  제출하시면 개인정보 처리방침에 동의하는 것으로 간주됩니다
+                <p className="text-center text-[13px] leading-[1.6] text-ink-3">
+                  {t.form.privacyNote}
                 </p>
               </form>
             )}
-          </motion.div>
+          </div>
 
-          {/* Quick Actions */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            {/* IR / 미팅 문의 */}
-            <div className="bg-gradient-to-br from-indigo-900/30 to-slate-900/50 border border-indigo-500/30 rounded-2xl p-8">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Calendar className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">IR 미팅 · 자료 요청</h3>
-                  <p className="text-slate-400">
-                    투자자·파트너 IR 자료나 미팅이 필요하시면 문의해 주세요. 담당자가 안내드립니다.
-                  </p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <Link
-                  to="/ir#ir-top"
-                  className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition-colors px-4 flex items-center justify-center gap-2"
-                >
-                  IR 자료 요청하기
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-                <Link
-                  to="/contact"
-                  className="w-full py-3 border-2 border-indigo-500 hover:bg-indigo-500/10 rounded-xl font-semibold transition-colors block text-center"
-                >
-                  온라인 미팅 예약하기
-                </Link>
+          {/* 보조 카드 — IR / 채팅 / FAQ / 소셜 */}
+          <div className="grid content-start gap-5">
+            <div className={CARD}>
+              <h3 className={CARD_TITLE}>{t.ir.title}</h3>
+              <p className="mt-3 text-[15.5px] leading-[1.7] text-ink-2">{t.ir.body}</p>
+              <div className="mt-6 grid gap-2.5">
+                <LocaleLink to="/ir" className={`${BUTTON} bg-invert text-white`}>
+                  {t.ir.primary}
+                </LocaleLink>
+                <LocaleLink to="/contact" className={`${BUTTON} border border-line text-ink`}>
+                  {t.ir.secondary}
+                </LocaleLink>
               </div>
             </div>
 
-            {/* Live Chat */}
-            <div className="bg-gradient-to-br from-cyan-900/30 to-slate-900/50 border border-cyan-500/30 rounded-2xl p-8">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <MessageSquare className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">실시간 채팅 상담</h3>
-                  <p className="text-slate-400">
-                    빠른 답변이 필요하신가요? 지금 바로 채팅으로 문의하세요
-                  </p>
-                </div>
-              </div>
-              <button className="w-full py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2">
-                <MessageSquare size={20} />
-                채팅 시작하기
+            <div className={CARD}>
+              <h3 className={CARD_TITLE}>{t.chat.title}</h3>
+              <p className="mt-3 text-[15.5px] leading-[1.7] text-ink-2">{t.chat.body}</p>
+              <button type="button" className={`${BUTTON} mt-6 border border-line text-ink`}>
+                {t.chat.button}
               </button>
-              <p className="text-xs text-slate-500 mt-3 text-center">
-                운영 시간: 평일 09:00 - 18:00 (KST)
-              </p>
+              <p className="mt-3 text-center text-[13px] text-ink-3">{t.chat.hours}</p>
             </div>
 
-            {/* FAQ Link */}
-            <div className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">자주 묻는 질문</h3>
-              <ul className="space-y-3">
-                {[
-                  { q: "무료 체험 기간은 얼마나 되나요?", link: "/pricing" },
-                  { q: "어떤 마켓플레이스를 지원하나요?", link: "/solution" },
-                  { q: "기술 스택이 궁금해요", link: "/technology" },
-                  { q: "환불 정책은 어떻게 되나요?", link: "/pricing" },
-                ].map((faq, i) => (
-                  <li key={i}>
-                    <a
-                      href={faq.link}
-                      className="text-slate-400 hover:text-cyan-400 transition-colors text-sm flex items-center gap-2"
+            <div className={CARD}>
+              <h3 className={CARD_TITLE}>{t.faq.title}</h3>
+              <ul className="mt-5 border-t border-line">
+                {t.faq.items.map((question, index) => (
+                  <li key={question} className="border-b border-line">
+                    <LocaleLink
+                      to={FAQ_LINKS[index]}
+                      className="flex gap-2.5 py-3.5 text-[15px] leading-[1.6] text-ink-2"
                     >
-                      <span className="text-cyan-400">→</span>
-                      {faq.q}
+                      <span aria-hidden="true" className="text-brand">
+                        &rarr;
+                      </span>
+                      {question}
+                    </LocaleLink>
+                  </li>
+                ))}
+              </ul>
+              <LocaleLink to="/pricing" className={`${BUTTON} mt-6 border border-line text-ink`}>
+                {t.faq.cta}
+              </LocaleLink>
+            </div>
+
+            <div className={CARD}>
+              <h3 className={CARD_TITLE}>{t.social.title}</h3>
+              <p className="mt-3 text-[15.5px] leading-[1.7] text-ink-2">{t.social.body}</p>
+              <ul className="mt-5 grid grid-cols-2 gap-2.5">
+                {SOCIAL_NAMES.map((name) => (
+                  <li key={name}>
+                    <a
+                      href="#"
+                      className="flex h-11 items-center justify-center rounded-[10px] border border-line-2 text-[14.5px] font-semibold text-ink-2"
+                    >
+                      {name}
                     </a>
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/pricing"
-                className="block w-full py-3 mt-6 border border-slate-600 hover:border-cyan-500 hover:text-cyan-400 rounded-xl font-semibold transition-all text-center"
-              >
-                FAQ 전체 보기
-              </Link>
-            </div>
-
-            {/* Social Links */}
-            <div className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">소셜 미디어</h3>
-              <p className="text-slate-400 text-sm mb-6">
-                최신 소식과 업데이트를 팔로우하세요
-              </p>
-              <div className="grid grid-cols-4 gap-3">
-                {[
-                  { name: "Twitter", icon: "𝕏" },
-                  { name: "LinkedIn", icon: "in" },
-                  { name: "Facebook", icon: "f" },
-                  { name: "Instagram", icon: "📷" },
-                ].map((social, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="aspect-square bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500 rounded-xl flex items-center justify-center text-2xl transition-all"
-                    title={social.name}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Office Location */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            오피스 <span className="text-cyan-400">위치</span>
-          </h2>
-          <p className="text-lg text-slate-400">확정 시 안내드립니다</p>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl overflow-hidden"
-        >
-          <div className="aspect-video bg-slate-900 flex items-center justify-center min-h-[200px]">
-            <div className="text-center">
-              <MapPin className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-500 text-lg">미정</p>
-              <p className="text-slate-600 text-sm mt-2">오피스 위치 확정 시 연락드리겠습니다</p>
             </div>
           </div>
-        </motion.div>
-      </section>
+        </div>
+      </Section>
 
-      {/* Response Time */}
-      <section className="max-w-4xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-br from-pink-900/20 to-slate-900/50 border border-pink-500/30 rounded-2xl p-10"
-        >
-          <h3 className="text-2xl font-bold text-white mb-4">평균 응답 시간</h3>
-          <div className="flex items-center justify-center gap-8 mb-6">
-            <div>
-              <div className="text-4xl font-bold text-cyan-400 mb-2">2시간</div>
-              <div className="text-sm text-slate-400">영업일 기준</div>
-            </div>
-            <div className="w-px h-16 bg-slate-700"></div>
-            <div>
-              <div className="text-4xl font-bold text-pink-400 mb-2">24시간</div>
-              <div className="text-sm text-slate-400">주말/공휴일</div>
-            </div>
-          </div>
-          <p className="text-slate-400">
-            긴급한 문의는 전화로 연락주시면 더 빠르게 도와드릴 수 있습니다
+      {/* 03 오피스 위치 */}
+      <Section id="office-h">
+        <SectionLabel index="03" as="h2" id="office-h">
+          {t.office.label}
+        </SectionLabel>
+        <p className="max-w-[34em] text-[16.5px] leading-[1.7] text-ink-2">{t.office.body}</p>
+
+        <div className="mt-10 rounded-[14px] border border-line-2 bg-surface px-[clamp(24px,3vw,34px)] py-[clamp(48px,7vw,88px)] text-center">
+          <p className="text-[clamp(26px,3vw,32px)] font-bold leading-[1.1] tracking-[-0.035em] text-ink-2">
+            {t.office.status}
           </p>
-        </motion.div>
-      </section>
+          <p className="mt-3 text-[14.5px] leading-[1.7] text-ink-3">{t.office.note}</p>
+        </div>
+      </Section>
+
+      {/* 04 평균 응답 시간 */}
+      <Section id="response-h" tone="panel">
+        <SectionLabel index="04" as="h2" id="response-h">
+          {t.response.label}
+        </SectionLabel>
+
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          <div className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]">
+            <p className="text-[clamp(34px,4.2vw,46px)] font-bold leading-[1.05] tracking-[-0.035em]">
+              {t.response.weekdayValue}
+            </p>
+            <p className="mt-3 text-[14.5px] text-ink-3">{t.response.weekdayNote}</p>
+          </div>
+          <div className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]">
+            <p className="text-[clamp(34px,4.2vw,46px)] font-bold leading-[1.05] tracking-[-0.035em]">
+              {t.response.weekendValue}
+            </p>
+            <p className="mt-3 text-[14.5px] text-ink-3">{t.response.weekendNote}</p>
+          </div>
+        </div>
+
+        <p className="mt-8 max-w-[34em] text-[16px] leading-[1.7] text-ink-2">{t.response.body}</p>
+      </Section>
     </div>
   );
 }

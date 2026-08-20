@@ -23,3 +23,23 @@ export type DeepWiden<T> = T extends string
     : T extends boolean
       ? boolean
       : { [K in keyof T]: DeepWiden<T[K]> };
+
+/**
+ * 튜플 `T` 와 **모양이 같고**(배열성·길이·readonly 보존) 원소가 전부 `V` 인
+ * 타입. 사전 배열과 인덱스로 짝지어 쓰는 코드 쪽 배열의 타입을 사전에서
+ * **파생**시키기 위한 것이다 — 문구는 사전이, 목적지·동작은 코드가 정하되
+ * 둘의 길이는 컴파일러가 묶어 둔다.
+ *
+ * `Contact.tsx` 의 `FAQ_LINKS`(사전 FAQ 항목 → 링크 목적지)와 `Pricing.tsx` 의
+ * `PLAN_CTA_TO_CONTACT`(요금제 → CTA 목적지)가 이것을 쓴다. 사전에 항목이
+ * 하나 늘거나 줄면 짝지은 배열이 컴파일되지 않는다. 이 보증이 없으면
+ * `PLAN_CTA_TO_CONTACT[3]` 이 `undefined` → falsy 가 되어, 새 요금제의 CTA 가
+ * 조용히 제품 앱으로 가면서 빌드는 초록으로 끝난다.
+ *
+ * `T` 가 **타입 매개변수**여야 매핑이 homomorphic 이 되어 배열성과 길이가
+ * 보존된다 — 구체 타입을 그 자리에 직접 쓰면
+ * (`{ [K in keyof Foo["items"]]: string }`) TypeScript 가 `length`·`map` 같은
+ * 배열 멤버까지 `string` 으로 바꿔 버린다. 위 `DeepWiden` 이 배열 원소 누락을
+ * 잡아내는 것과 같은 원리다.
+ */
+export type SameShape<T, V> = { [K in keyof T]: V };

@@ -1,387 +1,316 @@
-import { motion } from "motion/react";
-import { Check, Zap, Crown, Rocket } from "lucide-react";
-import { Link } from "react-router";
-import { APP_URLS } from "@/app/config/apps";
+import { useCopy } from "@/app/i18n/useCopy";
+import { useLocale } from "@/app/i18n/LocaleContext";
+import { foreignHreflang } from "@/app/i18n/localePath";
+import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
+import { LocaleLink } from "@/app/components/LocaleLink";
+import { SHELL, Section, SectionLabel } from "@/app/components/page";
+import type { PricingCopy } from "@/content/ko/pricing";
+import type { SameShape } from "@/content/widen";
+
+/**
+ * 요금제 카드 버튼의 목적지. 문구는 사전이, 목적지는 코드가 정한다 — 번역이
+ * 링크를 옮길 수 없게 하려는 것이다.
+ *
+ * 앞의 둘은 사이트 공통 주 CTA 와 같은 제품 앱, 마지막 "슈퍼 팀" 만 문의로
+ * 간다 — 전환 이전과 같다.
+ *
+ * 타입을 `boolean[]` 이나 `as const` 가 아니라 사전 배열에서 **파생**시킨
+ * 것이 핵심이다. `[false, false, true] as const` 는 요금제와 길이가 묶여
+ * 있지 않아서, 사전에 네 번째 요금제가 들어오면 `PLAN_CTA_TO_CONTACT[3]` 이
+ * `undefined` → falsy 가 되고 그 요금제의 CTA 가 문의가 아니라 제품 앱으로
+ * 조용히 간다 — 빌드는 초록이다. `SameShape` 가 길이를 물려주므로 이제는
+ * 그 상황이 컴파일 에러다 (문의 페이지의 `FAQ_LINKS` 와 같은 장치).
+ */
+const PLAN_CTA_TO_CONTACT: SameShape<PricingCopy["plans"]["items"], boolean> = [
+  false,
+  false,
+  true,
+];
+
+const BUTTON = "flex h-12 items-center justify-center rounded-[10px] text-[15.5px] font-semibold";
 
 export default function Pricing() {
+  const locale = useLocale();
+  const copy = useCopy();
+  const t = copy.pricing;
+  const common = copy.common;
+
+  /**
+   * 주 CTA 는 사이트의 나머지 페이지와 같이 제품 앱으로 간다. 외부 링크라
+   * LocaleLink 가 아니라 <a target="_blank"> 이며, 제품 UI 가 한국어뿐이라
+   * 영문 화면에서는 hreflang="ko" 를 달아 준다.
+   */
+  const productCta = {
+    href: APP_URLS.cmo,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    hrefLang: foreignHreflang(APP_HAS_ENGLISH, locale),
+  } as const;
+
   return (
-    <div className="bg-slate-950 min-h-screen py-24">
-      {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 mb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <div className="inline-block px-4 py-1 rounded-full bg-yellow-900/30 text-yellow-400 font-semibold text-sm mb-6">
-            요금제
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            우리팀과 같이
-            <br />
-            <span className="text-yellow-400">성장하는 가격</span>
-          </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            1~10인 초기 팀이 첫 번째 팀원을 붙일 수 있게, 가볍게 시작하세요
-          </p>
-        </motion.div>
-      </section>
-
-      {/* Pricing Cards */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Free Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 hover:border-slate-600 transition-all"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center">
-                <Zap className="w-6 h-6 text-slate-300" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-white">무료</h3>
-                <p className="text-sm text-slate-400">한 번 체험</p>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <div className="text-4xl font-bold text-white mb-2">₩0</div>
-              <div className="text-slate-400">1회 무료 체험</div>
-            </div>
-
-            <ul className="space-y-4 mb-8">
-              {[
-                "같이 성장하기 1회 체험",
-                "주간 과제 제안 맛보기",
-                "승인으로 방향 결정",
-                "실행·반복 성장 체험",
-                "이메일 지원",
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-slate-300">
-                  <Check className="w-5 h-5 text-slate-500 flex-shrink-0 mt-0.5" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href={APP_URLS.cmo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full py-3 px-6 text-center bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold transition-colors"
+    <div className="bg-ground">
+      {/* 히어로 — 홈·솔루션과 같이 Section 의 기본 패딩 밖이라 직접 짠다 */}
+      <section aria-labelledby="hero-h" className="border-b border-line">
+        <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
+          <div className="rise">
+            <p className="mb-[22px] text-[13px] font-semibold uppercase tracking-[0.1em] text-brand">
+              {t.hero.eyebrow}
+            </p>
+            <h1
+              id="hero-h"
+              className="max-w-[14em] text-[clamp(38px,5.2vw,60px)] font-bold leading-[1.14] tracking-[-0.035em]"
             >
-              우리팀과 같이 성장하기
-            </a>
-          </motion.div>
-
-          {/* Pro Plan - Most Popular */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="relative bg-gradient-to-br from-cyan-900/30 to-indigo-900/30 backdrop-blur-xl border-2 border-cyan-500 rounded-2xl p-8 shadow-[0_0_50px_rgba(6,182,212,0.2)] scale-105"
-          >
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-sm font-bold">
-              가장 인기있는
-            </div>
-
-            <div className="flex items-center gap-3 mb-6 mt-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                <Crown className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-white">프로</h3>
-                <p className="text-sm text-cyan-400">초기 창업 팀을 위한</p>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <div className="text-4xl font-bold text-white mb-2">₩99,000</div>
-              <div className="text-slate-400">월 / 무제한 사용</div>
-            </div>
-
-            <ul className="space-y-4 mb-8">
-              {[
-                "같이 성장하기 주간 루프",
-                "제안 · 승인 · 실행",
-                "반복 성장으로 이어가기",
-                "카피·콘텐츠 지원",
-                "채널 게시 연결 (준비 중)",
-                "우선 이메일 지원",
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-slate-300">
-                  <Check className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href={APP_URLS.cmo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full py-3 px-6 text-center bg-gradient-to-r from-cyan-500 to-indigo-600 hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] rounded-xl font-semibold transition-all"
-            >
-              우리팀과 같이 성장하기
-            </a>
-          </motion.div>
-
-          {/* 슈퍼 팀 Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 hover:border-indigo-500/50 transition-all"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-pink-600 rounded-xl flex items-center justify-center">
-                <Rocket className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-white">슈퍼 팀</h3>
-                <p className="text-sm text-slate-400">팀/브랜드를 위한</p>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <div className="text-4xl font-bold text-white mb-2">₩199,000</div>
-              <div className="text-slate-400">월 / 팀 무제한</div>
-            </div>
-
-            <ul className="space-y-4 mb-8">
-              {[
-                "프로 플랜의 모든 기능",
-                "팀 멤버 협업",
-                "브랜드 톤 가이드 반영",
-                "역할 AI 확장 상담",
-                "우선 온보딩 지원",
-                "전담 상담 채널",
-              ].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-slate-300">
-                  <Check className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <Link
-              to="/contact"
-              className="block w-full py-3 px-6 text-center bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition-colors"
-            >
-              문의하기
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Pay-per-Use Option */}
-      <section className="max-w-5xl mx-auto px-6 mb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-br from-pink-900/20 to-slate-900/50 border border-pink-500/30 rounded-2xl p-10"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              건별 과금 옵션
-            </h3>
-            <p className="text-lg text-slate-400">
-              월정액이 부담스럽다면 사용한 만큼만 지불하세요
+              {t.hero.titleLine1}
+              <br />
+              {t.hero.titleLine2}
+            </h1>
+            <p className="mt-[26px] max-w-[34em] text-[18px] leading-[1.65] text-ink-2">
+              {t.hero.body}
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-              <div className="text-cyan-400 font-bold mb-2">기본 패키지</div>
-              <div className="text-3xl font-bold text-white mb-3">₩10,000</div>
-              <ul className="space-y-2 text-sm text-slate-300">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-cyan-400" />
-                  과제 제안 + 승인
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-cyan-400" />
-                  실행 흐름 포함
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-              <div className="text-pink-400 font-bold mb-2">프리미엄 패키지</div>
-              <div className="text-3xl font-bold text-white mb-3">₩15,000</div>
-              <ul className="space-y-2 text-sm text-slate-300">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-pink-400" />
-                  기본 패키지 + 실행 지원
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-pink-400" />
-                  반복 성장 1사이클
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <a
-              href={APP_URLS.cmo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-8 py-3 bg-pink-600 hover:bg-pink-500 rounded-xl font-semibold transition-colors"
-            >
-              건별 구매 시작하기
-            </a>
-          </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Revenue Share Model */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            성공 기반 <span className="text-green-400">수익 쉐어 모델</span>
-          </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-            당신의 성장이 우리의 성장입니다. Win-Win 파트너십
-          </p>
-        </div>
+      {/* 01 요금제 — 원래 이 섹션에는 제목이 없고 카드만 나열됐다. 홈 06·솔루션
+          03 과 같이 라벨을 h2 로 승격시켜 섹션의 heading 으로 쓴다. */}
+      <Section id="plans-h">
+        <SectionLabel index="01" as="h2" id="plans-h">
+          {t.plans.label}
+        </SectionLabel>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto bg-gradient-to-br from-green-900/20 to-slate-900/50 border border-green-500/30 rounded-2xl p-10"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-4">💚 수익 쉐어 플랜</h3>
-              <p className="text-slate-300 mb-6">
-                WooriTeam을 통해 발생한 판매 매출의 단 <strong className="text-green-400">0.5%</strong>만 공유
-              </p>
-              <ul className="space-y-3 text-slate-300">
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-green-400" />
-                  초기 비용 부담 없음
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-green-400" />
-                  매출이 없으면 수수료도 없음
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-green-400" />
-                  AI 전략 리포트·투명한 판매 집계 대시보드
-                </li>
-              </ul>
-            </div>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {t.plans.items.map((plan, index) => {
+            /* 강조는 색이 아니라 선 두께로 준다 — 이전 디자인의 시안 테두리와
+               글로우, 1.05배 확대를 대신한다. 배지가 있는 요금제가 그 하나다. */
+            const featured = plan.badge !== "";
 
-            <div className="bg-slate-800/50 rounded-xl p-6">
-              <div className="text-green-400 font-bold mb-3">계산 예시</div>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between border-b border-slate-700 pb-2">
-                  <span className="text-slate-400">월 판매액</span>
-                  <span className="text-white font-semibold">₩10,000,000</span>
+            return (
+              <div
+                key={plan.name}
+                className={`flex flex-col rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)] ${
+                  featured ? "border-t-2 border-t-ink" : ""
+                }`}
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="text-[23px] font-semibold tracking-[-0.02em]">{plan.name}</h3>
+                  {featured ? (
+                    <span className="shrink-0 text-[11.5px] font-semibold tracking-[0.08em] text-brand">
+                      {plan.badge}
+                    </span>
+                  ) : null}
                 </div>
-                <div className="flex justify-between border-b border-slate-700 pb-2">
-                  <span className="text-slate-400">수수료율</span>
-                  <span className="text-green-400 font-semibold">0.5%</span>
-                </div>
-                <div className="flex justify-between pt-2">
-                  <span className="text-white font-bold">수수료</span>
-                  <span className="text-green-400 font-bold text-lg">₩50,000</span>
+                <p className="mt-1.5 text-[14px] text-ink-3">{plan.tagline}</p>
+
+                <p className="mt-7 text-[clamp(30px,3.4vw,38px)] font-bold leading-[1.1] tracking-[-0.035em]">
+                  {plan.price}
+                </p>
+                <p className="mt-2 text-[14.5px] text-ink-2">{plan.period}</p>
+
+                <ul className="mt-7 grid gap-3 border-t border-line pt-7">
+                  {plan.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex gap-2.5 text-[15.5px] leading-[1.7] text-ink-2"
+                    >
+                      <span aria-hidden="true" className={featured ? "text-brand" : "text-ink-3"}>
+                        &mdash;
+                      </span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto pt-9">
+                  {PLAN_CTA_TO_CONTACT[index] ? (
+                    <LocaleLink
+                      to="/contact"
+                      className={`${BUTTON} border border-line px-5 text-ink`}
+                    >
+                      {plan.cta}
+                    </LocaleLink>
+                  ) : (
+                    <a
+                      {...productCta}
+                      className={
+                        featured
+                          ? `${BUTTON} bg-invert px-5 text-white`
+                          : `${BUTTON} border border-line px-5 text-ink`
+                      }
+                    >
+                      {plan.cta}
+                    </a>
+                  )}
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link
-              to="/contact"
-              className="inline-block px-8 py-3 bg-green-600 hover:bg-green-500 rounded-xl font-semibold transition-colors"
-            >
-              수익 쉐어 문의하기
-            </Link>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* FAQ */}
-      <section className="max-w-4xl mx-auto px-6 mb-24">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            자주 묻는 질문
-          </h2>
+            );
+          })}
         </div>
+      </Section>
 
-        <div className="space-y-4">
-          {[
-            {
-              q: "무료 체험 후 자동으로 결제되나요?",
-              a: "아니요. 무료 체험은 신용카드 등록 없이 이용 가능하며, 자동 결제는 발생하지 않습니다. 유료 플랜으로 전환하고 싶을 때만 결제 정보를 입력하시면 됩니다.",
-            },
-            {
-              q: "월 중간에 플랜을 변경할 수 있나요?",
-              a: "네, 언제든지 플랜을 업그레이드하거나 다운그레이드할 수 있습니다. 업그레이드 시 차액을 일할 계산하여 청구되며, 다운그레이드 시 남은 금액은 다음 결제에서 크레딧으로 적용됩니다.",
-            },
-            {
-              q: "환불 정책은 어떻게 되나요?",
-              a: "서비스에 만족하지 못하셨다면 첫 결제 후 14일 이내 전액 환불이 가능합니다. 단, 건별 과금의 경우 사용된 크레딧은 환불 대상에서 제외됩니다.",
-            },
-            {
-              q: "지원하는 결제 수단은 무엇인가요?",
-              a: "신용카드(Visa, MasterCard, AMEX), 체크카드, 계좌이체, 카카오페이, 네이버페이를 지원합니다. 슈퍼 팀 플랜은 세금계산서 발행도 가능합니다.",
-            },
-          ].map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-slate-800/30 backdrop-blur-xl border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all"
+      {/* 02 건별 과금 */}
+      <Section id="peruse-h" tone="panel">
+        <SectionLabel index="02">{t.perUse.label}</SectionLabel>
+        <h2
+          id="peruse-h"
+          className="max-w-[20em] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.28] tracking-[-0.03em]"
+        >
+          {t.perUse.title}
+        </h2>
+        <p className="mt-4 max-w-[34em] text-[16.5px] leading-[1.7] text-ink-2">{t.perUse.body}</p>
+
+        <div className="mt-11 grid gap-5 md:grid-cols-2">
+          {t.perUse.packages.map((pkg) => (
+            <div
+              key={pkg.name}
+              className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]"
             >
-              <h3 className="text-lg font-bold text-white mb-3">{faq.q}</h3>
-              <p className="text-slate-400 leading-relaxed">{faq.a}</p>
-            </motion.div>
+              <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-ink-2">{pkg.name}</h3>
+              <p className="mt-3 text-[clamp(26px,3vw,32px)] font-bold leading-[1.1] tracking-[-0.035em]">
+                {pkg.price}
+              </p>
+              <ul className="mt-5 grid gap-2.5">
+                {pkg.items.map((item) => (
+                  <li key={item} className="flex gap-2.5 text-[15px] leading-[1.7] text-ink-2">
+                    <span aria-hidden="true" className="text-ink-3">
+                      &mdash;
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="max-w-4xl mx-auto px-6 py-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <div className="mt-8 flex flex-wrap">
+          <a {...productCta} className={`${BUTTON} border border-line px-5 text-ink`}>
+            {t.perUse.cta}
+          </a>
+        </div>
+      </Section>
+
+      {/* 03 수익 쉐어 */}
+      <Section id="rev-h">
+        <SectionLabel index="03">{t.revenueShare.label}</SectionLabel>
+        <h2
+          id="rev-h"
+          className="max-w-[20em] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.28] tracking-[-0.03em]"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            아직 고민 중이신가요?
-          </h2>
-          <p className="text-xl text-slate-400 mb-8">
-            무료로 먼저 체험해보세요. 카드 등록 불필요
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={APP_URLS.cmo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-full text-lg font-semibold hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all"
-            >
-              우리팀과 같이 성장하기
-            </a>
-            <Link
-              to="/contact"
-              className="px-8 py-4 border-2 border-slate-600 rounded-full text-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all"
-            >
-              영업팀과 상담하기
-            </Link>
+          {t.revenueShare.title}
+        </h2>
+        <p className="mt-4 max-w-[34em] text-[16.5px] leading-[1.7] text-ink-2">
+          {t.revenueShare.body}
+        </p>
+
+        <div className="mt-11 grid gap-[clamp(28px,4vw,56px)] md:grid-cols-2">
+          <div>
+            <h3 className="text-[19px] font-semibold tracking-[-0.02em]">
+              {t.revenueShare.planTitle}
+            </h3>
+            <p className="mt-4 max-w-[28em] text-[16.5px] leading-[1.7] text-ink-2">
+              {t.revenueShare.planBodyBefore}
+              <strong className="font-semibold text-ink">{t.revenueShare.planBodyRate}</strong>
+              {t.revenueShare.planBodyAfter}
+            </p>
+            <ul className="mt-6 grid gap-3">
+              {t.revenueShare.items.map((item) => (
+                <li key={item} className="flex gap-2.5 text-[15.5px] leading-[1.7] text-ink-2">
+                  <span aria-hidden="true" className="text-brand">
+                    &mdash;
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-        </motion.div>
+
+          <div className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]">
+            <h3 className="text-[12.5px] font-semibold tracking-[0.12em] text-ink-3">
+              {t.revenueShare.example.title}
+            </h3>
+            <dl className="mt-5">
+              {t.revenueShare.example.rows.map((row, index) => {
+                /* 마지막 줄이 합계다. 바로 위 줄의 아래 선이 이미 구분선이므로
+                   합계에는 선을 더 긋지 않는다 — 그으면 헤어라인이 겹쳐 보인다. */
+                const total = index === t.revenueShare.example.rows.length - 1;
+                return (
+                  <div
+                    key={row.label}
+                    className={`flex items-baseline justify-between gap-4 ${
+                      total ? "pt-4" : "border-b border-line py-3.5"
+                    }`}
+                  >
+                    <dt className={`text-[14.5px] ${total ? "font-semibold text-ink" : "text-ink-2"}`}>
+                      {row.label}
+                    </dt>
+                    <dd
+                      className={`text-right tabular-nums ${
+                        total ? "text-[19px] font-bold tracking-[-0.02em]" : "text-[15.5px] font-semibold"
+                      }`}
+                    >
+                      {row.value}
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </div>
+        </div>
+
+        <div className="mt-9 flex flex-wrap">
+          <LocaleLink to="/contact" className={`${BUTTON} border border-line px-5 text-ink`}>
+            {t.revenueShare.cta}
+          </LocaleLink>
+        </div>
+      </Section>
+
+      {/* 04 자주 묻는 질문 — 섹션에 따로 타이틀이 없으므로 라벨 자체가 제목이다.
+          dl/dt/dd 는 계획 5에서 FAQPage 구조화 데이터를 붙일 때의 근거다. */}
+      <Section id="faq-h" tone="panel">
+        <SectionLabel index="04" as="h2" id="faq-h">
+          {t.faq.label}
+        </SectionLabel>
+
+        <dl className="mt-10 border-t-2 border-ink">
+          {t.faq.items.map((item) => (
+            <div key={item.q} className="border-b border-line py-[30px]">
+              <dt className="max-w-[30em] text-[19px] font-semibold leading-[1.5] tracking-[-0.02em]">
+                {item.q}
+              </dt>
+              <dd className="mt-3 max-w-[46em] text-[16px] leading-[1.75] text-ink-2">{item.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+
+      {/* 마감 CTA — 홈·솔루션과 같은 반전 블록 */}
+      <section aria-labelledby="cta-h" className="border-b border-line bg-invert text-white">
+        <div className={`${SHELL} py-[clamp(80px,9vw,132px)]`}>
+          <h2
+            id="cta-h"
+            className="max-w-[20em] text-[clamp(30px,4.4vw,52px)] font-bold leading-[1.18] tracking-[-0.035em]"
+          >
+            {t.cta.title}
+          </h2>
+          <p className="mt-6 max-w-[28em] text-[18px] leading-[1.65] text-invert-ink-2">
+            {t.cta.body}
+          </p>
+
+          <div className="mt-[38px] flex flex-wrap gap-2.5">
+            <a
+              {...productCta}
+              className="flex h-[52px] items-center rounded-[10px] bg-white px-6 text-[16px] font-semibold text-ink"
+            >
+              {common.cta.primary}
+            </a>
+            <LocaleLink
+              to="/contact"
+              className="flex h-[52px] items-center rounded-[10px] border border-invert-line px-[22px] text-[16px] font-semibold text-white"
+            >
+              {t.cta.secondary}
+            </LocaleLink>
+          </div>
+        </div>
       </section>
     </div>
   );
