@@ -1,5 +1,5 @@
 import { LocaleLink } from "@/app/components/LocaleLink";
-import { SHELL } from "./index";
+import { SHELL } from "./shell";
 import { useProductCta } from "./useProductCta";
 
 /**

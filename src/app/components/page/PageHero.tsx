@@ -1,4 +1,4 @@
-import { SHELL } from "./index";
+import { SHELL } from "./shell";
 
 /**
  * 내부 페이지의 히어로. `Section` 의 기본 패딩(BLOCK)과 위아래 간격이 달라

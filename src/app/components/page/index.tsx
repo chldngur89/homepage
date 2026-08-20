@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
+import { BLOCK, SHELL } from "./shell";
 
 /**
  * 페이지가 쓰는 공용 블록은 전부 이 한 경로(`@/app/components/page`)에서
  * 나간다 — 호출부가 파일 위치를 알 필요가 없다.
+ *
+ * `SHELL`/`BLOCK` 은 `./shell` 이 정의하고 여기서 재수출만 한다 — 배럴과
+ * 그 구성원 사이의 순환 임포트를 만들지 않기 위해서다.
  */
+export { SHELL, BLOCK } from "./shell";
 export { PageHero } from "./PageHero";
 export { ClosingCta } from "./ClosingCta";
 export { useProductCta } from "./useProductCta";
-
-export const SHELL = "mx-auto max-w-[1180px] px-[clamp(20px,4vw,40px)]";
-export const BLOCK = "py-[clamp(72px,8vw,112px)]";
 
 export function Section({
   id,
