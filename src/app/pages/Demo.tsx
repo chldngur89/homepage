@@ -90,7 +90,9 @@ export default function Demo() {
 
   return (
     <div className="bg-ground">
-      {/* 히어로 — 홈·솔루션·요금과 같이 Section 의 기본 패딩 밖이라 직접 짠다 */}
+      {/* 히어로 — 바깥 뼈대는 PageHero 와 같지만 본문 아래에 CTA 와 고지 문구가
+          더 붙는다. 그 두 조각을 넣으려고 PageHero 에 prop 을 늘리는 대신
+          여기 남겨 둔다. */}
       <section aria-labelledby="hero-h" className="border-b border-line">
         <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
           <div className="rise">

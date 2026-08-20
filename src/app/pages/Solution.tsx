@@ -1,9 +1,5 @@
 import { useCopy } from "@/app/i18n/useCopy";
-import { useLocale } from "@/app/i18n/LocaleContext";
-import { foreignHreflang } from "@/app/i18n/localePath";
-import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
-import { LocaleLink } from "@/app/components/LocaleLink";
-import { SHELL, Section, SectionLabel } from "@/app/components/page";
+import { ClosingCta, PageHero, Section, SectionLabel } from "@/app/components/page";
 
 /**
  * 비교 섹션의 두 열. 같은 마크업을 강조만 바꿔 두 번 쓰므로 한 곳에 둔다.
@@ -48,46 +44,18 @@ function CompareCard({
 }
 
 export default function Solution() {
-  const locale = useLocale();
   const copy = useCopy();
   const t = copy.solution;
   const common = copy.common;
 
-  /**
-   * 주 CTA 는 사이트의 나머지 페이지와 같이 제품 앱으로 간다. 외부 링크라
-   * LocaleLink 가 아니라 <a target="_blank"> 이며, 제품 UI 가 한국어뿐이라
-   * 영문 화면에서는 hreflang="ko" 를 달아 준다.
-   */
-  const productCta = {
-    href: APP_URLS.cmo,
-    target: "_blank",
-    rel: "noopener noreferrer",
-    hrefLang: foreignHreflang(APP_HAS_ENGLISH, locale),
-  } as const;
-
   return (
     <div className="bg-ground">
-      {/* 히어로 — 홈과 같이 Section 의 기본 패딩 밖이라 직접 짠다 */}
-      <section aria-labelledby="hero-h" className="border-b border-line">
-        <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
-          <div className="rise">
-            <p className="mb-[22px] text-[13px] font-semibold uppercase tracking-[0.1em] text-brand">
-              {t.hero.eyebrow}
-            </p>
-            <h1
-              id="hero-h"
-              className="max-w-[14em] text-[clamp(38px,5.2vw,60px)] font-bold leading-[1.14] tracking-[-0.035em]"
-            >
-              {t.hero.titleLine1}
-              <br />
-              {t.hero.titleLine2}
-            </h1>
-            <p className="mt-[26px] max-w-[34em] text-[18px] leading-[1.65] text-ink-2">
-              {t.hero.body}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={t.hero.eyebrow}
+        titleLine1={t.hero.titleLine1}
+        titleLine2={t.hero.titleLine2}
+        body={t.hero.body}
+      />
 
       {/* 01 ChatGPT 와의 차이 */}
       <Section id="diff-h">
@@ -175,32 +143,11 @@ export default function Solution() {
         </div>
       </Section>
 
-      {/* 마감 CTA — 홈과 같은 반전 블록 */}
-      <section aria-labelledby="cta-h" className="border-b border-line bg-invert text-white">
-        <div className={`${SHELL} py-[clamp(80px,9vw,132px)]`}>
-          <h2
-            id="cta-h"
-            className="max-w-[20em] text-[clamp(30px,4.4vw,52px)] font-bold leading-[1.18] tracking-[-0.035em]"
-          >
-            {t.cta.title}
-          </h2>
-
-          <div className="mt-[38px] flex flex-wrap gap-2.5">
-            <a
-              {...productCta}
-              className="flex h-[52px] items-center rounded-[10px] bg-white px-6 text-[16px] font-semibold text-ink"
-            >
-              {common.cta.primary}
-            </a>
-            <LocaleLink
-              to="/demo"
-              className="flex h-[52px] items-center rounded-[10px] border border-invert-line px-[22px] text-[16px] font-semibold text-white"
-            >
-              {common.cta.demo}
-            </LocaleLink>
-          </div>
-        </div>
-      </section>
+      <ClosingCta
+        title={t.cta.title}
+        primaryLabel={common.cta.primary}
+        secondaryLabel={common.cta.demo}
+      />
     </div>
   );
 }

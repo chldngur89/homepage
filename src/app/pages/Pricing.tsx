@@ -1,9 +1,6 @@
 import { useCopy } from "@/app/i18n/useCopy";
-import { useLocale } from "@/app/i18n/LocaleContext";
-import { foreignHreflang } from "@/app/i18n/localePath";
-import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
 import { LocaleLink } from "@/app/components/LocaleLink";
-import { SHELL, Section, SectionLabel } from "@/app/components/page";
+import { PageHero, SHELL, Section, SectionLabel, useProductCta } from "@/app/components/page";
 import type { PricingCopy } from "@/content/ko/pricing";
 import type { SameShape } from "@/content/widen";
 
@@ -30,46 +27,19 @@ const PLAN_CTA_TO_CONTACT: SameShape<PricingCopy["plans"]["items"], boolean> = [
 const BUTTON = "flex h-12 items-center justify-center rounded-[10px] text-[15.5px] font-semibold";
 
 export default function Pricing() {
-  const locale = useLocale();
   const copy = useCopy();
   const t = copy.pricing;
   const common = copy.common;
-
-  /**
-   * 주 CTA 는 사이트의 나머지 페이지와 같이 제품 앱으로 간다. 외부 링크라
-   * LocaleLink 가 아니라 <a target="_blank"> 이며, 제품 UI 가 한국어뿐이라
-   * 영문 화면에서는 hreflang="ko" 를 달아 준다.
-   */
-  const productCta = {
-    href: APP_URLS.cmo,
-    target: "_blank",
-    rel: "noopener noreferrer",
-    hrefLang: foreignHreflang(APP_HAS_ENGLISH, locale),
-  } as const;
+  const productCta = useProductCta();
 
   return (
     <div className="bg-ground">
-      {/* 히어로 — 홈·솔루션과 같이 Section 의 기본 패딩 밖이라 직접 짠다 */}
-      <section aria-labelledby="hero-h" className="border-b border-line">
-        <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
-          <div className="rise">
-            <p className="mb-[22px] text-[13px] font-semibold uppercase tracking-[0.1em] text-brand">
-              {t.hero.eyebrow}
-            </p>
-            <h1
-              id="hero-h"
-              className="max-w-[14em] text-[clamp(38px,5.2vw,60px)] font-bold leading-[1.14] tracking-[-0.035em]"
-            >
-              {t.hero.titleLine1}
-              <br />
-              {t.hero.titleLine2}
-            </h1>
-            <p className="mt-[26px] max-w-[34em] text-[18px] leading-[1.65] text-ink-2">
-              {t.hero.body}
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={t.hero.eyebrow}
+        titleLine1={t.hero.titleLine1}
+        titleLine2={t.hero.titleLine2}
+        body={t.hero.body}
+      />
 
       {/* 01 요금제 — 원래 이 섹션에는 제목이 없고 카드만 나열됐다. 홈 06·솔루션
           03 과 같이 라벨을 h2 로 승격시켜 섹션의 heading 으로 쓴다. */}

@@ -113,7 +113,9 @@ export default function Contact() {
 
   return (
     <div className="bg-ground">
-      {/* 히어로 — 홈·솔루션·요금·데모와 같이 Section 의 기본 패딩 밖이라 직접 짠다 */}
+      {/* 히어로 — 제목이 두 줄이 아니라 한 줄이고(PageHero 는 titleLine1/2 를
+          <br> 로 잇는다) 본문 아래 IR 안내 문단이 더 붙는다. 모양이 달라
+          PageHero 를 쓰지 않는다. */}
       <section aria-labelledby="hero-h" className="border-b border-line">
         <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
           <div className="rise">

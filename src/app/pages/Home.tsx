@@ -1,37 +1,21 @@
-import { Link } from "react-router";
 import { useCopy } from "@/app/i18n/useCopy";
-import { useLocale } from "@/app/i18n/LocaleContext";
-import { foreignHreflang, localePath, pathHreflang } from "@/app/i18n/localePath";
-import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
 import { ImageSlot } from "@/app/components/ImageSlot";
+import { LocaleLink } from "@/app/components/LocaleLink";
 import { ProposalCard } from "@/app/components/mockups/ProposalCard";
 import { ChatThread } from "@/app/components/mockups/ChatThread";
 import { ResultDashboard } from "@/app/components/mockups/ResultDashboard";
-import { SHELL, BLOCK, Section, SectionLabel, Lines } from "@/app/components/page";
+import { SHELL, Section, SectionLabel, Lines, useProductCta } from "@/app/components/page";
 
 export default function Home() {
-  const locale = useLocale();
   const copy = useCopy();
   const t = copy.home;
   const common = copy.common;
-  const to = (path: string) => localePath(path, locale);
-
-  /**
-   * 메인 CTA("우리팀과 같이 성장하기")는 제품 앱으로 간다 — 헤더와 나머지
-   * 여덟 페이지의 같은 라벨이 향하는 곳과 같다. 같은 문구가 페이지마다 다른
-   * 곳으로 가면 안 되고, 사이트에서 구매 의도가 가장 높은 요소가 제품에
-   * 닿지 않으면 더 안 된다.
-   */
-  const productCta = {
-    href: APP_URLS.cmo,
-    target: "_blank",
-    rel: "noopener noreferrer",
-    hrefLang: foreignHreflang(APP_HAS_ENGLISH, locale),
-  } as const;
+  const productCta = useProductCta();
 
   return (
     <div className="bg-ground">
-      {/* 히어로 */}
+      {/* 히어로 — 여기만 좌우 스플릿에 제품 목업이 들어가고 제목·본문의 폭도
+          다르다. 다른 페이지의 히어로는 PageHero 가 그린다. */}
       <section aria-labelledby="hero-h" className="border-b border-line">
         <div className={`${SHELL} pb-[clamp(64px,7vw,104px)] pt-[clamp(56px,7vw,96px)]`}>
           <div className="rise grid items-center gap-[clamp(40px,5vw,64px)] lg:grid-cols-[55fr_45fr]">
@@ -60,13 +44,12 @@ export default function Home() {
                 >
                   {common.cta.primary}
                 </a>
-                <Link
-                  to={to("/solution")}
-                  hrefLang={pathHreflang("/solution", locale)}
+                <LocaleLink
+                  to="/solution"
                   className="flex h-12 items-center rounded-[10px] border border-line px-5 text-[15.5px] font-semibold text-ink"
                 >
                   {common.cta.secondary}
-                </Link>
+                </LocaleLink>
               </div>
 
               <ul className="mt-[34px] flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6">
@@ -318,13 +301,12 @@ export default function Home() {
             >
               {common.cta.primary}
             </a>
-            <Link
-              to={to("/demo")}
-              hrefLang={pathHreflang("/demo", locale)}
+            <LocaleLink
+              to="/demo"
               className="flex h-[52px] items-center rounded-[10px] border border-invert-line px-[22px] text-[16px] font-semibold text-white"
             >
               {common.cta.demo}
-            </Link>
+            </LocaleLink>
           </div>
         </div>
       </section>
