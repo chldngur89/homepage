@@ -12,4 +12,5 @@ export { SHELL, BLOCK } from "./shell";
 export { Section, SectionLabel, Lines } from "./section";
 export { PageHero } from "./PageHero";
 export { ClosingCta } from "./ClosingCta";
+export { LegalDocument } from "./LegalDocument";
 export { useProductCta } from "./useProductCta";

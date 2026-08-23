@@ -18,6 +18,7 @@ import { demo as koDemo } from "./ko/demo";
 import { apps as koApps } from "./ko/apps";
 import { contact as koContact } from "./ko/contact";
 import { contact as enContact } from "./en/contact";
+import { legal as koLegal } from "./ko/legal";
 
 /**
  * 한국어 사전이 구조의 원본이고, 리프의 리터럴만 넓힌 것이 사전 타입이다.
@@ -44,6 +45,7 @@ export type Dictionary = {
   demo: DeepWiden<typeof koDemo>;
   apps: DeepWiden<typeof koApps>;
   contact: DeepWiden<typeof koContact>;
+  legal: DeepWiden<typeof koLegal>;
 };
 
 export const dictionaries = {
@@ -58,6 +60,7 @@ export const dictionaries = {
     demo: koDemo,
     apps: koApps,
     contact: koContact,
+    legal: koLegal,
   },
   en: {
     common: enCommon,
@@ -98,5 +101,19 @@ export const dictionaries = {
      */
     apps: koApps,
     contact: enContact,
+    /**
+     * `demo`·`apps` 와 같은 이유로 한국어 사전이다. 오타가 아니다.
+     *
+     * `/privacy` 와 `/terms` 도 `EN_ROUTES` 에 없어 영문 경로가 아예
+     * 만들어지지 않는다(`Layout.tsx` 의 `FOOTER_ONLY_PATHS` 가 이 두 경로를
+     * nav 에는 없지만 영문판도 없는 경로로 명시한다). `Dictionary` 가 두
+     * 로케일에 같은 키를 요구하므로 자리는 채우되, 빈 객체나 캐스팅 대신
+     * 한국어 사전을 그대로 넣어 타입 구멍을 만들지 않는다.
+     *
+     * 법무 문서는 특히 번역판을 두지 않는 것이 설계 결정이다 — 한국어본이
+     * 정본이며 번역 과정에서 법적 의미가 흔들리는 것을 피하기 위해서다
+     * (설계 문서 2절 비목표). 영문판을 만들 계획은 없다.
+     */
+    legal: koLegal,
   },
 } satisfies Record<Locale, Dictionary>;
