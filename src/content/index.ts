@@ -15,6 +15,7 @@ import { pricing as enPricing } from "./en/pricing";
 import { about as koAbout } from "./ko/about";
 import { about as enAbout } from "./en/about";
 import { demo as koDemo } from "./ko/demo";
+import { apps as koApps } from "./ko/apps";
 import { contact as koContact } from "./ko/contact";
 import { contact as enContact } from "./en/contact";
 
@@ -41,6 +42,7 @@ export type Dictionary = {
   pricing: DeepWiden<typeof koPricing>;
   about: DeepWiden<typeof koAbout>;
   demo: DeepWiden<typeof koDemo>;
+  apps: DeepWiden<typeof koApps>;
   contact: DeepWiden<typeof koContact>;
 };
 
@@ -54,6 +56,7 @@ export const dictionaries = {
     pricing: koPricing,
     about: koAbout,
     demo: koDemo,
+    apps: koApps,
     contact: koContact,
   },
   en: {
@@ -80,6 +83,20 @@ export const dictionaries = {
      * `EN_ROUTES` 에 `/demo` 를 넣고, 이 줄을 `enDemo` 로 바꾼다.
      */
     demo: koDemo,
+    /**
+     * `demo` 와 같은 이유로 한국어 사전이다. 오타가 아니다.
+     *
+     * `/apps` 도 `EN_ROUTES` 에 없어 `/en/apps` 라우트가 만들어지지 않고
+     * 프리렌더도 한국어 한 벌만 낸다. 그래서 이 값은 실제 화면에 뜨지
+     * 않지만, `Dictionary` 가 두 로케일에 같은 키를 요구하므로 자리를
+     * 채워야 한다 — 빈 객체나 캐스팅 대신 한국어 사전을 그대로 넣어 타입
+     * 구멍을 만들지 않는다.
+     *
+     * `/apps` 는 앱 목록 자체가 한국어 제품이라 영문판 계획이 없다. 만들게
+     * 되면 할 일은 `demo` 와 같다: `en/apps.ts` 를 추가하고, `EN_ROUTES` 에
+     * `/apps` 를 넣고, 이 줄을 `enApps` 로 바꾼다.
+     */
+    apps: koApps,
     contact: enContact,
   },
 } satisfies Record<Locale, Dictionary>;
