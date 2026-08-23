@@ -18,7 +18,7 @@ import { SHELL, Section, SectionLabel } from "@/app/components/page";
  * 배지가 붙는지를 바꿀 수 없게 한다(요금 페이지의 `PLAN_CTA_TO_CONTACT` 와
  * 같은 취지).
  */
-const CTO_APP_IDS: readonly string[] = ["mebody", "aircon-call"];
+export const CTO_APP_IDS: readonly string[] = ["mebody", "aircon-call"];
 
 /** CTO 활동 앱은 마지막에 모아 배치. 나머지는 `apps.json` 의 순서 그대로다. */
 const listOrder = (id: string) => CTO_APP_IDS.indexOf(id) + 1;
@@ -115,7 +115,7 @@ export default function Apps() {
                 )}
 
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="min-w-0 text-[19px] font-semibold tracking-[-0.02em]">
+                  <h3 className="min-w-0 text-[19px] font-semibold tracking-[-0.02em] break-words">
                     {isAirconCall ? t.airconCall.title : app.name}
                   </h3>
                   {CTO_APP_IDS.includes(app.id) && (
@@ -135,7 +135,7 @@ export default function Apps() {
                     href={app.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-12 items-center justify-center rounded-[10px] bg-invert px-5 text-[15.5px] font-semibold text-white"
+                    className="flex h-12 items-center justify-center rounded-[10px] border border-line px-5 text-[15.5px] font-semibold text-ink"
                   >
                     {t.list.cta}
                   </a>
