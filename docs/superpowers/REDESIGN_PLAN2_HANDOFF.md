@@ -30,15 +30,15 @@
 | `LocaleLink` | 내부 링크의 경로와 `hreflang` 을 자동 계산. `to`/`hrefLang` 은 타입 단계에서 덮어쓸 수 없음 |
 | `components/page/` | `SHELL` `BLOCK` `Section` `SectionLabel` `Lines` — 섹션 리듬 |
 | `SameShape<T,V>` | 배열을 사전 길이에 묶음. 요금제·FAQ 가 사용 |
-| `check-html.mjs` | 경로 9개 + **프리렌더된 전 문서 19개**의 heading 구조 검사 |
+| `check-html.mjs` | 경로 16개 + **프리렌더된 전 문서 19개**의 heading 구조 검사 |
 | `tokens.test.ts` | 표면 3 × 잉크 4 대비 + `theme.css` ↔ `tokens.ts` 동기화 |
 
-테스트 152개. 빌드: `typecheck → vitest → verify-assets → prerender → check-html`.
+테스트 175개. 빌드: `typecheck → vitest → verify-assets → prerender → check-html`.
 
 ## 계획 3이 쉬울 것
 
 - 전환한 페이지를 게이트에 추가 = `check-html.mjs` 의 `PAGES` 배열 한 줄.
-- heading·id·`aria-labelledby` 검사가 **미전환 6개 페이지에도 이미 걸려 있습니다.** 전환하다 개요를 깨면 빌드가 막습니다.
+- heading·id·`aria-labelledby` 검사가 **미전환 페이지에도 이미 걸려 있습니다**(계획 3 완료 시점: `/ir` 하나). 전환하다 개요를 깨면 빌드가 막습니다.
 - 사전 등록은 기계적이고, 영문 키 누락은 컴파일 에러입니다.
 - `tokens.test.ts` 동기화 검사 덕에 `IRCharts` 색을 `theme.css` 로 옮기면 대비 검사가 공짜로 붙습니다 — 단 `BRAND_TOKENS` 에도 같이 추가해야 합니다(현재 단방향).
 
@@ -48,7 +48,7 @@
 네 페이지가 같은 것을 손으로 복사했고, 각자 "왜 직접 짰는지" 주석까지 달았습니다.
 6개 페이지를 더 하면 복사본이 10개가 됩니다. **계획 3 시작 전에 승격하십시오.**
 
-**2. `productCta` 가 5곳에 두 가지 모양으로 복제돼 있습니다** (`Layout`, `Home`, `Solution`, `Pricing` 은 객체, `Demo` 는 함수).
+**2. `productCta` 가 5곳에 두 가지 모양으로 복제돼 있습니다** (`Layout`, `Home`, `Solution`, `Pricing` 은 객체, `Demo` 는 함수). 계획 3 완료 시점: `useProductCta` 훅(`src/app/components/page/useProductCta.ts`)으로 해소됨 — `ClosingCta` 가 내부에서 호출해 `Solution`·`Technology`·`About` 이 공유하고, `Home`·`Pricing` 도 같은 훅을 직접 부른다. `Layout` 의 객체 리터럴과 `Demo` 의 자체 함수만 남았다.
 
 **3. 내부 링크 해석 방식이 세 가지입니다.**
 `LocaleLink`(전환한 4개), `FooterLink`(Layout), 손으로 쓴 `<Link to={to(p)} hrefLang={...}>`(Layout, **Home**).
@@ -60,7 +60,7 @@
 `tagline` 은 `site.json` 에 `"창업자의 첫 번째 팀."`, `ko/common.ts` 에 `"창업자의 첫 번째 팀"` — 마침표가 다릅니다.
 **`Apps.tsx` 와 `IR.tsx` 를 건드리기 전에 정리하십시오.**
 
-**5. `IR.tsx` 가 가장 어렵습니다.** 777줄, recharts, 차트 색 7개가 하드코딩 헥스.
+**5. `IR.tsx` 가 가장 어렵습니다.** 당시 777줄(계획 3 완료 시점: 783줄, 이 계획은 `IR.tsx` 를 건드리지 않았다), recharts, 차트 색 7개가 하드코딩 헥스.
 `site.json` 을 읽는 마지막 페이지이기도 합니다.
 
 ## 알려진 후속 항목
@@ -69,7 +69,7 @@
 - `pathHreflang("#top", "en")` 이 `"ko"` 를 반환. 같은 페이지 앵커는 `LocaleLink` 대신 평범한 `<a>` 를 쓸 것
 - `src/content/ir.ts:442` 의 `emailSubject` 가 한국어. `/en/contact` 의 IR CTA 에서 도달 가능 — 계획 4 대상
 - `CONTACT_EMAIL` 이 `ko/contact.ts` 에 있으나 로케일 무관 사실. `ssg/seo.ts` 와 `IR.tsx` 가 import 함
-- `SectionLabel as="h2"` 가 8곳에서 heading 안에 번호를 넣음. `{index}` 를 `aria-hidden` 으로 감싸면 정리됨
+- `SectionLabel as="h2"` 가 heading 안에 번호를 넣음(당시 8곳; 계획 3 완료 시점: 14곳). `{index}` 를 `aria-hidden` 으로 감싸면 정리됨
 - `Contact.tsx` 의 메일 초안 문구는 사전으로 갔지만, JS 안의 한국어는 여전히 어떤 자동 검사도 못 봄
 
 ## 클라이언트 판단 대기

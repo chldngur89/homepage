@@ -8,39 +8,45 @@
 - 설계: [2026-08-15-homepage-redesign-design.md](specs/2026-08-15-homepage-redesign-design.md)
 - 계획: [2026-08-15-redesign-01-foundation-layout-home.md](plans/2026-08-15-redesign-01-foundation-layout-home.md)
 
-## ⚠️ 릴리스 게이트 — 계획 3·4 완료 전 배포 금지
+## ⚠️ 릴리스 게이트 — 계획 4 완료 전 배포 금지
 
 > 계획 2 완료(2026-08-20)로 갱신. `/en/solution`·`/en/pricing`·`/en/contact`
 > 가 영문 본문을 갖게 되어 남은 경로가 6개에서 **3개로 줄었습니다.**
 
-영문 3개 경로(`/en/technology`, `/en/about`, `/en/ir`)가 **영어라고
-선언하면서 한국어 본문을 냅니다.** 각각 `<html lang="en">`, 영문
-title·description, `robots: index, follow`, `hreflang="en"`, sitemap
-`<loc>` 를 갖고 있습니다.
+> 계획 3 완료(2026-08-24)로 갱신. `/en/technology`·`/en/about` 이 영문
+> 본문을 갖게 되어(`<main>` 기준 한글 0자) 남은 경로가 3개에서
+> **`/en/ir` 하나로 줄었습니다.**
+
+영문 1개 경로(`/en/ir`)가 **영어라고 선언하면서 한국어 본문을 냅니다.**
+`<html lang="en">`, 영문 title·description, `robots: index, follow`,
+`hreflang="en"`, sitemap `<loc>` 를 갖고 있습니다.
 
 크롤러에게 지키지 못할 약속을 하는 상태이고, `/en` 트리를 만든 이유인
 해외 투자자가 정확히 그 경로로 들어옵니다.
 
 **계획 2가 이 노출을 수동에서 능동으로 바꿨습니다.** 전에는 방문자가 URL 을
-직접 치거나 크롤러를 통해 들어와야 그 세 경로에 닿았습니다. 지금은
-`/en/contact` 가 영문 방문자를 **직접 몰아넣습니다** — 히어로의 "IR page"
-링크(`Contact.tsx:134`)와 IR 카드의 주 버튼(`:282`)이 `/en/ir` 로,
-`FAQ_LINKS[2]` 의 "What is the tech stack?" 이 `/en/technology` 로 갑니다.
-영문 문의 페이지에서 IR 자료를 찾는 투자자가 가장 밟기 쉬운 동선입니다.
+직접 치거나 크롤러를 통해 들어와야 닿았습니다. 지금도 `/en/contact` 가
+영문 방문자를 **직접 몰아넣습니다** — 히어로의 "IR page" 링크
+(`Contact.tsx:134`)와 IR 카드의 주 버튼(`:282`)이 `/en/ir` 로 갑니다.
+`FAQ_LINKS[2]` 의 "What is the tech stack?" 이 `/en/technology` 로 보내던
+동선은 계획 3에서 그 페이지가 영문 본문을 갖게 되며 해소됐습니다 — 남은
+것은 `/en/ir` 로 가는 두 링크뿐입니다. 영문 문의 페이지에서 IR 자료를
+찾는 투자자가 가장 밟기 쉬운 동선입니다.
 
 측정한 한글 분량(`dist/`, 계획 2 완료 시점):
 
-| 경로 | `<main>` 본문 | 문서 전체 |
-|---|---|---|
-| `/en/technology` | 258자 | 273자 |
-| `/en/about` | 358자 | 373자 |
-| `/en/ir` | 1,927자 | 1,948자 |
+| 경로 | `<main>` 본문 | 문서 전체 | 계획 3 완료 시점 상태 |
+|---|---|---|---|
+| `/en/technology` | 258자 | 273자 | 해소(`<main>` 한글 0자) |
+| `/en/about` | 358자 | 373자 | 해소(`<main>` 한글 0자) |
+| `/en/ir` | 1,927자 | 1,948자 | 그대로 — 계획 4 대상 |
 
-계획 3이 `/en/technology`·`/en/about` 을 채우면 게이트는 `/en/ir` 하나로
-줄고, 계획 4가 IR 영문판을 내면 풀립니다.
+계획 3이 `/en/technology`·`/en/about` 을 채워 게이트가 `/en/ir` 하나로
+줄었습니다. 계획 4가 IR 영문판을 내면 풀립니다.
 
-**지금 배포해야 한다면** `src/content/locales.ts` 의 `EN_ROUTES` 를 `["/"]` 로
-줄이십시오. 라우트·prerender·sitemap·hreflang 이 한 줄로 같이 따라옵니다.
+**지금 배포해야 한다면** `src/content/locales.ts` 의 `EN_ROUTES` 에서 `/ir`
+하나만 빼십시오. 라우트·prerender·sitemap·hreflang 이 한 줄로 같이
+따라옵니다.
 
 ## 계획 1이 끝낸 것
 
@@ -55,7 +61,7 @@ title·description, `robots: index, follow`, `hreflang="en"`, sitemap
 | 제품 화면 | 목업 3종을 React 컴포넌트로 — 로케일 따라 화면 속 글자도 바뀜 |
 | 화면 | 헤더·푸터 + 홈 본문 전환 완료 |
 
-검증: `npm run build` 가 typecheck → 테스트 99개 → 자산 → prerender → HTML 검증 순서로 전부 돕니다.
+검증: `npm run build` 가 typecheck → 테스트 175개 → 자산 → prerender → HTML 검증 순서로 전부 돕니다.
 
 ## 확정된 결정
 
@@ -80,12 +86,12 @@ title·description, `robots: index, follow`, `hreflang="en"`, sitemap
 | `/404` 는 항상 `lang="ko"`. `/en/404` 빌드 대상 없음 | `prerender.mjs` |
 | `isCompactSlot` 이 `ratio === "1 / 1"` 프록시. 큰 정사각 슬롯은 라벨 유실 | `ImageSlot.tsx` |
 | 영문 `Week of Aug 18` 이 한국어 `8월 3주차 결과` 의 '결과' 뉘앙스 유실 | `en/mockups.ts` |
-| `"/demo"` 리터럴이 3곳 중복 | `Layout.tsx` |
+| `"/demo"` 리터럴이 중복(당시 3곳; 계획 3 완료 시점: `Layout.tsx` 안에 2곳) | `Layout.tsx` |
 | `ResultDashboard` 지표 라벨이 375px 에서 단어 중간 잘림 (의도된 `truncate`) | `ResultDashboard.tsx` |
 | `WebSite` JSON-LD 의 `@id` 가 로케일 무관 동일. 그래프 병합 시 한 노드가 두 주장 | `ssg/seo.ts` |
 | sitemap 의 `xhtml:link` alternate 미구현 (설계 5.6). 계획 2·3 범위에 없음 — 배정 필요 | `prerender.mjs` |
 | `og:image` 제거 상태에서 `twitter:card` 는 `summary_large_image` 유지. 계획 3에서 짝 맞출 것 | `ssg/seo.ts` |
-| `site.json` 과 `ko/common.ts` 가 copyright·tagline 중복 보유. 4개 페이지가 아직 `site.json` 참조 | `src/content/` |
+| `site.json` 과 `ko/common.ts` 가 copyright·tagline 중복 보유. 당시 4개 페이지가 아직 `site.json` 참조; 계획 3 완료 시점: `IR.tsx` 하나만 남음(`Apps`·`Demo`·`Contact` 는 이관됨) | `src/content/` |
 
 ## 계획 2가 쉬울 것
 
@@ -97,6 +103,6 @@ title·description, `robots: index, follow`, `hreflang="en"`, sitemap
 ## 계획 2가 어려울 것
 
 - **교차 로케일 링크 표기를 매 페이지 반복해야 합니다.** 구조적 보장은 `FooterLink` 안에만 있고 나머지는 `foreignHreflang` 수동 호출입니다. **10개 페이지를 고치기 전에 `LocaleLink` 래퍼를 먼저 만드십시오.**
-- `check-html.mjs` 는 현재 4개 경로만 검사합니다. 페이지를 전환할 때마다 같이 넓히지 않으면 커버리지 비율이 계속 떨어집니다.
+- `check-html.mjs` 는 계획 2 시작 시점에 4개 경로만 검사했습니다(계획 3 완료 시점: 16개). 페이지를 전환할 때마다 같이 넓히지 않으면 커버리지 비율이 계속 떨어집니다.
 - `site.json` 흡수가 미완이라 전환 기간 내내 문구가 두 곳에 삽니다.
-- **`IR.tsx` 가 가장 어렵습니다** — 777줄, recharts, `IRCharts.tsx` 의 차트 색이 아직 하드코딩된 헥스값(`#38bdf8`, `#a78bfa`, `#fb7185`)이라 토큰 경로가 없습니다.
+- **`IR.tsx` 가 가장 어렵습니다** — 당시 777줄(계획 3 완료 시점: 783줄), recharts, `IRCharts.tsx` 의 차트 색이 아직 하드코딩된 헥스값(`#38bdf8`, `#a78bfa`, `#fb7185`)이라 토큰 경로가 없습니다.
