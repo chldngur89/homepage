@@ -4,7 +4,7 @@ import { createMemoryRouter, RouterProvider } from "react-router";
 import { LocaleProvider } from "@/app/i18n/LocaleContext";
 import { APP_URLS } from "@/app/config/apps";
 import type { Locale } from "@/content/locales";
-import { ClosingCta, PageHero, useProductCta } from "./index";
+import { ClosingCta, LegalDocument, PageHero, useProductCta } from "./index";
 
 /**
  * 두 가지 검사 방식을 쓴다.
@@ -220,5 +220,74 @@ describe("useProductCta", () => {
   it("영문 화면에서만 hreflang='ko' 를 붙인다 (제품 UI 가 한국어뿐이라서)", () => {
     expect(readProductCta("ko").hrefLang).toBeUndefined();
     expect(readProductCta("en").hrefLang).toBe("ko");
+  });
+});
+
+/**
+ * `LegalDocument` 는 `LocaleLink`(훅 소비자)를 쓰므로 `PageHero` 처럼 직접
+ * 호출할 수 없다 — `ClosingCta` 와 같은 방식(`renderInRouter` +
+ * `renderToStaticMarkup`)을 쓴다.
+ *
+ * 이 describe 는 사전 테스트(`legal.test.ts`)가 못 잡는 구멍을 잡는다.
+ * `legal.test.ts` 는 사전의 문자열만 고정할 뿐, `bullets` 배열이 실제
+ * `<ul>`/`<li>` 로 렌더되는지, 목록이 없는 조항이 목록을 만들지 않는지, 홈
+ * 링크가 실제로 "/" 를 가리키는 앵커인지는 전혀 보지 않는다 — 예를 들어
+ * `{section.body} {section.bullets.join(" ")}` 로 바꿔도 typecheck·전체
+ * 172개 테스트(사전 테스트 포함)·`check-html.mjs` 가 전부 통과하면서
+ * 개인정보 1번 조항의 목록 구조만 조용히 사라진다. 그 회귀를 여기서 잡는다.
+ */
+const LEGAL_DOC_WITH_BULLETS = {
+  title: "샘플 문서",
+  updated: "최종 업데이트: 테스트",
+  sections: [
+    {
+      heading: "1. 목록이 있는 조항",
+      body: "목록이 있는 조항의 본문.",
+      bullets: ["항목 A", "항목 B", "항목 C"],
+    },
+  ],
+} as const;
+
+const LEGAL_DOC_WITHOUT_BULLETS = {
+  title: "샘플 문서",
+  updated: "최종 업데이트: 테스트",
+  sections: [
+    {
+      heading: "1. 목록이 없는 조항",
+      body: "목록이 없는 조항의 본문.",
+      bullets: [],
+    },
+  ],
+} as const;
+
+function renderLegalDocument(doc: typeof LEGAL_DOC_WITH_BULLETS | typeof LEGAL_DOC_WITHOUT_BULLETS) {
+  return renderInRouter(<LegalDocument doc={doc} homeLink="← 홈으로" />, "ko");
+}
+
+describe("LegalDocument", () => {
+  it("bullets 가 있는 조항은 실제 <ul> 에 항목 수만큼 <li> 를 낸다", () => {
+    const html = renderLegalDocument(LEGAL_DOC_WITH_BULLETS);
+
+    expect(html.match(/<ul\b/g) ?? []).toHaveLength(1);
+    expect(html.match(/<li\b/g) ?? []).toHaveLength(3);
+    expect(html).toContain("항목 A");
+    expect(html).toContain("항목 B");
+    expect(html).toContain("항목 C");
+  });
+
+  it("bullets 가 없는 조항은 <ul> 을 아예 렌더하지 않는다", () => {
+    const html = renderLegalDocument(LEGAL_DOC_WITHOUT_BULLETS);
+
+    expect(html).not.toMatch(/<ul\b/);
+    expect(html).not.toMatch(/<li\b/);
+  });
+
+  it("맨 아래 홈 링크는 '/' 를 가리키는 앵커다", () => {
+    const html = renderLegalDocument(LEGAL_DOC_WITHOUT_BULLETS);
+    const anchors = html.match(/<a\b[^>]*>[^<]*<\/a>/g) ?? [];
+    const homeAnchor = anchors.find((a) => a.includes("← 홈으로"));
+
+    expect(homeAnchor).toBeDefined();
+    expect(homeAnchor).toMatch(/<a\b[^>]*href="\/"/);
   });
 });
