@@ -10,7 +10,7 @@ import {
   Target,
   Workflow,
 } from "lucide-react";
-import { type IrContent, type IrStatusTone } from "@/content/ko/ir";
+import { type IrStatusTone } from "@/content/ko/ir";
 import siteContent from "@/content/site.json";
 import { CONTACT_EMAIL } from "@/content/ko/contact";
 import { useCopy } from "@/app/i18n/useCopy";
@@ -142,16 +142,7 @@ function SectionIntro({
 }
 
 export default function IR() {
-  /**
-   * `useCopy().ir` 의 타입은 `DeepWiden<typeof koIr>` 다 — `IrStatusTone`,
-   * `IrChartSlice["segment"]` 같은 리터럴 유니언 필드를 `string` 으로 넓혀
-   * 버려서 `StatusPill`·`ExecutionGapChart` 로 그대로 못 넘긴다(DeepWiden 은
-   * 영문 사전이 다른 문자열을 채울 수 있게 하는 게 목적이라, 콘텐츠가
-   * 아니라 태그로 쓰이는 값까지 같이 넓힌다). 사전에서 읽어 온 값 자체는
-   * 원본 `ir` 그대로이므로(현재 en=ko), 타입만 원래 폭으로 되돌린다.
-   * 본문 JSX 는 그대로 두고 이 한 줄만 캐스팅한다.
-   */
-  const irContent = useCopy().ir as IrContent;
+  const irContent = useCopy().ir;
   const charts = useIrCharts();
   const ExecutionGapChart = charts?.ExecutionGapChart;
   const AdvantageRadarChart = charts?.AdvantageRadarChart;

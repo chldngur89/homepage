@@ -19,7 +19,7 @@ import { apps as koApps } from "./ko/apps";
 import { contact as koContact } from "./ko/contact";
 import { contact as enContact } from "./en/contact";
 import { legal as koLegal } from "./ko/legal";
-import { ir as koIr } from "./ko/ir";
+import { ir as koIr, type IrContent } from "./ko/ir";
 
 /**
  * 한국어 사전이 구조의 원본이고, 리프의 리터럴만 넓힌 것이 사전 타입이다.
@@ -47,7 +47,21 @@ export type Dictionary = {
   apps: DeepWiden<typeof koApps>;
   contact: DeepWiden<typeof koContact>;
   legal: DeepWiden<typeof koLegal>;
-  ir: DeepWiden<typeof koIr>;
+  /**
+   * 다른 멤버와 달리 `DeepWiden` 을 씌우지 않는다. `ko/ir.ts` 는 `as const`
+   * 가 아니라 `export const ir: IrContent = {...}` 로 타입을 명시적으로
+   * 선언한다 — 그 시점에 이미 모든 문자열이 리터럴이 아니라 `string` 으로
+   * 넓혀져 있다. `DeepWiden` 이 여기서 하는 일은 카피를 넓히는 게 아니라
+   * `IrStatusTone`(`"estimate"|"goal"|"planned"|"under_review"`) 과
+   * `IrChartSlice["segment"]`(`"manual"|"strategic"`),
+   * `IrFunnelLevel["stage"]`(`"TAM"|"SAM"|"SOM"`) 같은, 콘텐츠가 아니라
+   * `StatusPill`·차트가 색상·스타일을 고르는 데 쓰는 판별 태그를 부수는
+   * 것뿐이다. 이 셋이 넓혀지면 `IR.tsx` 의 `tone={signal.tone}` 같은 자리가
+   * 전부 타입 에러가 난다. 그래서 `ir` 은 `IrContent` 를 그대로 쓴다 —
+   * 다른 멤버와 다르게 보여도 오타가 아니다. 이 불일치를 "고치려고"
+   * `DeepWiden<typeof koIr>` 로 되돌리면 위 판별 태그가 다시 부서진다.
+   */
+  ir: IrContent;
 };
 
 export const dictionaries = {
