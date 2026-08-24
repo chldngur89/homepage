@@ -26,7 +26,7 @@ import type {
   IrChartSlice,
   IrRadarPoint,
   IrVisionPoint,
-} from "@/content/ir";
+} from "@/content/ko/ir";
 
 const executionChartConfig = {
   manual: {

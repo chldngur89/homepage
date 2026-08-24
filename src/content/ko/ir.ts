@@ -133,7 +133,7 @@ export type IrContent = {
   };
 };
 
-export const irContent: IrContent = {
+export const ir: IrContent = {
   hero: {
     badge: "Investor Overview",
     title: "전담 마케터 없는 팀이\n혼자 성장을 붙잡고 있습니다.",
@@ -444,3 +444,5 @@ export const irContent: IrContent = {
       "본 페이지의 지원사업, 일정, 목표 지표는 확정 공시가 아니라 예정, 검토, 목표, 내부 추정 기준의 투자자 공유용 요약입니다.",
   },
 };
+
+export type KoIr = typeof ir;
