@@ -158,8 +158,9 @@ npm run build
 
 빌드 마지막에 `scripts/check-html.mjs`가 프리렌더 산출물을 검사합니다.
 
-**전환한 9개 경로** — `/`, `/solution`, `/pricing`, `/demo`, `/contact`,
-`/en`, `/en/solution`, `/en/pricing`, `/en/contact`:
+**전환한 16개 경로** — `/`, `/solution`, `/pricing`, `/demo`, `/contact`,
+`/en`, `/en/solution`, `/en/pricing`, `/en/contact`, `/technology`, `/about`,
+`/apps`, `/privacy`, `/terms`, `/en/technology`, `/en/about`:
 
 - 초기 HTML 에 본문이 들어 있는지 (빈 SPA 셸이 아닌지) · 홈은 핵심 문구까지
 - 한국어·영어 페이지에 상대 언어가 섞이지 않았는지
@@ -169,7 +170,7 @@ npm run build
 경로 목록은 같은 파일의 `PAGES` 배열입니다. 페이지를 새 디자인으로 전환하면
 거기에 한 줄만 더하면 됩니다.
 
-**프리렌더된 모든 문서** — 위 9개를 포함한 18개 경로 + `404.html`. 아직
+**프리렌더된 모든 문서** — 위 16개를 포함한 18개 경로 + `404.html`. 아직
 전환하지 않은 페이지도 여기서 같이 걸립니다:
 
 - `aria-labelledby` 가 가리키는 `h1`~`h6` 이 문서에 정확히 하나 있는지

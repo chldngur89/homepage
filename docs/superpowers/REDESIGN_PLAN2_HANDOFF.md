@@ -8,17 +8,20 @@
 
 ## ⚠️ 릴리스 게이트 — 여전히 배포 금지
 
-`/en/technology`, `/en/about`, `/en/ir` 세 경로가 **영어라고 선언하면서 한국어 본문을 냅니다.**
+**갱신 (계획 3 완료 시점):** 원래 세 경로 중 `/en/technology` 와 `/en/about` 은
+계획 3에서 영문 본문이 채워져 해소됐습니다(`<main>` 기준 한글 0자, 계획 3
+태스크 6 실측). 남은 것은 `/en/ir` 하나입니다.
+
+`/en/ir` 이 **영어라고 선언하면서 한국어 본문을 냅니다.**
 `<html lang="en">` + 영문 title + `robots: index, follow` + sitemap 등재 상태입니다.
-본문 한글: 258 / 358 / 1927자 (`<main>` 기준).
+본문 한글: 1927자 (`<main>` 기준).
 
-**계획 2가 이걸 더 나쁘게 만들었습니다.** 예전에는 방문자가 우연히 들어가야 했는데,
-이제 `/en/contact` 가 **능동적으로 유입시킵니다** — 히어로와 IR 카드가 `/en/ir` 로,
-FAQ 3번이 `/en/technology` 로 보냅니다.
+`/en/contact` 의 능동 유입 동선 중 FAQ 3번이 `/en/technology` 로 보내던 것은
+해소됐습니다 — 히어로와 IR 카드가 `/en/ir` 로 보내는 두 동선만 남았습니다.
 
-**계획 3의 첫 번째 작업으로 이 세 개를 잡으십시오.** 마지막이 아니라 처음입니다.
-급히 배포해야 하면 `src/content/locales.ts` 의 `EN_ROUTES` 를 `["/", "/solution", "/pricing", "/contact"]`
-로 줄이면 라우트·prerender·sitemap·hreflang 이 한 줄로 함께 따라옵니다.
+**계획 4의 첫 번째 작업으로 이걸 잡으십시오.**
+급히 배포해야 하면 `src/content/locales.ts` 의 `EN_ROUTES` 에서 `/ir` 을
+빼면 라우트·prerender·sitemap·hreflang 이 한 줄로 함께 따라옵니다.
 
 ## 계획 2가 남긴 도구
 
