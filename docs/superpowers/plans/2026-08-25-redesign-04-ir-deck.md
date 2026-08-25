@@ -67,11 +67,9 @@ console.log("문자열",strings.length,"숫자",numbers.length);'
 git mv src/content/ir.ts src/content/ko/ir.ts
 ```
 
-`ko/ir.ts` 안에서 바꾸는 것은 **export 이름 하나뿐**이다 — `irContent` → `ir`. 다른 사전(`ko/about.ts` 의 `about` 등)과 이름 규칙을 맞춘다. 타입 `IrContent`·`IrStatusTone` 과 모든 값은 그대로 둔다. 파일 끝에 다음을 더한다:
+`ko/ir.ts` 안에서 바꾸는 것은 **export 이름 하나뿐**이다 — `irContent` → `ir`. 다른 사전(`ko/about.ts` 의 `about` 등)과 이름 규칙을 맞춘다. 타입 `IrContent`·`IrStatusTone` 과 모든 값은 그대로 둔다.
 
-```ts
-export type KoIr = typeof ir;
-```
+**`DeepWiden` 별칭을 만들지 않는다.** 이 파일은 `export const ir: IrContent` 로 인터페이스를 명시하므로 다른 사전들과 사정이 다르다 — 그쪽은 `as const` 라서 문자열이 리터럴 타입이 되고 영문판이 그것을 만족할 수 없어 `DeepWiden` 이 필요하지만, 여기는 주석이 이미 문자열을 `string` 으로 넓혀 놓았다. 필요한 타입은 `IrContent` 그 자체다.
 
 - [ ] **Step 3: 사전에 등록한다**
 
@@ -87,7 +85,9 @@ export type KoIr = typeof ir;
 ir: koIr,
 ```
 
-`Dictionary` 의 `ir` 멤버 타입은 `DeepWiden<typeof koIr>` 로 선언한다.
+`Dictionary` 의 `ir` 멤버 타입은 **`IrContent`** 로 선언한다 — 이 계획에서 `DeepWiden` 을 쓰지 않는 유일한 멤버다. 왜 예외인지 주석으로 남긴다. 남기지 않으면 다음 사람이 "일관성" 을 이유로 `DeepWiden` 을 씌우고, 그 순간 `tone`·`segment`·`stage` 판별자가 `string` 으로 뭉개져 번역자가 상태 배지를 바꿀 수 있게 된다.
+
+이 선언이 맞으면 `IR.tsx` 에 **캐스트가 필요 없다.** `as IrContent` 를 쓰게 됐다면 타입 선언이 틀린 것이니 캐스트를 지우고 선언을 고친다.
 
 - [ ] **Step 4: `IR.tsx` 가 사전을 통해 읽게 한다**
 
@@ -442,21 +442,22 @@ EOF
 - Modify: `src/content/index.ts`
 
 **Interfaces:**
-- Consumes: `DeepWiden<KoIr>` (`@/content/ko/ir`)
+- Consumes: `IrContent` (`@/content/ko/ir`)
 - Produces: `en.ir` — `/en/ir` 의 본문
 
 - [ ] **Step 1: 영문 사전을 쓴다**
 
-`src/content/en/ir.ts` 를 만든다. 형태는 다른 영문 사전(`en/about.ts`, `en/technology.ts`)과 같다:
+`src/content/en/ir.ts` 를 만든다. **다른 영문 사전과 달리 `DeepWiden` 을 쓰지 않는다** — `ko/ir.ts` 는 `as const` 가 아니라 `export const ir: IrContent` 로 인터페이스를 명시하므로 문자열이 이미 `string` 이다. `DeepWiden` 을 씌우면 얻는 것 없이 `IrStatusTone`·`segment`·`stage` 판별자만 `string` 으로 뭉개진다(태스크 1에서 실제로 겪고 되돌린 문제다).
 
 ```ts
-import type { DeepWiden } from "@/content/widen";
-import type { KoIr } from "@/content/ko/ir";
+import type { IrContent } from "@/content/ko/ir";
 
-export const ir: DeepWiden<KoIr> = { /* … */ };
+export const ir: IrContent = { /* … */ };
 ```
 
-**타입이 강제하는 것:** 키가 빠지면 컴파일 에러, 배열 원소 수가 다르면 컴파일 에러. 그러므로 구조는 틀릴 수 없다. 틀릴 수 있는 것은 내용이다.
+**타입이 강제하는 것:** 키 누락, 그리고 **판별자 값** — `tone` 에 `"estimate" | "goal" | "planned" | "under_review"` 이외의 값을 쓰면 컴파일이 깨진다. 번역자가 상태 배지를 바꿀 수 없다.
+
+**타입이 강제하지 *못하는* 것: 배열 길이.** `IrContent` 는 배열을 `IrFunnelLevel[]` 로 선언하므로 튜플이 아니고, 영문판이 TAM/SAM/SOM 세 줄 중 하나를 빠뜨려도 컴파일은 통과한다. 이것이 Step 2 의 수치 테스트가 필요한 이유다 — 원소가 빠지면 숫자 배열의 길이가 달라져 테스트가 잡는다.
 
 **지켜야 할 것:**
 - **숫자는 전부 한국어판과 같다.** 차트 데이터, TAM/SAM/SOM, 유닛 이코노믹스, 백분율. 통화 표기가 필요하면 원화 그대로 두고 괄호로 환산을 붙이지 않는다 — 환율은 계획이 정할 일이 아니다.
