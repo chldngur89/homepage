@@ -73,6 +73,11 @@ export type IrRoadmapItem = {
   tone: IrStatusTone;
 };
 
+export type IrShellNavItem = {
+  href: string;
+  label: string;
+};
+
 export type IrContent = {
   advantage: {
     chart: IrRadarPoint[];
@@ -118,6 +123,13 @@ export type IrContent = {
     note: string;
     title: string;
   };
+  shell: {
+    backToSite: string;
+    eyebrow: string;
+    homeLink: string;
+    nav: IrShellNavItem[];
+    requestIr: string;
+  };
   solution: {
     description: string;
     pillars: IrPillar[];
@@ -134,6 +146,19 @@ export type IrContent = {
 };
 
 export const ir: IrContent = {
+  shell: {
+    eyebrow: "Investor Overview",
+    backToSite: "사이트로",
+    requestIr: "IR 요청",
+    homeLink: "사이트 홈",
+    nav: [
+      { href: "#problem", label: "Problem" },
+      { href: "#market", label: "Market" },
+      { href: "#solution", label: "Solution" },
+      { href: "#economics", label: "Economics" },
+      { href: "#cta", label: "Contact" },
+    ],
+  },
   hero: {
     badge: "Investor Overview",
     title: "전담 마케터 없는 팀이\n혼자 성장을 붙잡고 있습니다.",

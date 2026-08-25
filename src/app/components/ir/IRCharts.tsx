@@ -82,8 +82,8 @@ const visionChartConfig = {
 function renderExecutionTooltip(slice: IrChartSlice) {
   return (
     <div className="flex w-full min-w-[12rem] items-center justify-between gap-6">
-      <span className="text-slate-200">{slice.label}</span>
-      <span className="font-mono text-sm font-semibold text-white">{slice.value}%</span>
+      <span className="text-ink-3">{slice.label}</span>
+      <span className="font-mono text-sm font-semibold text-ink">{slice.value}%</span>
     </div>
   );
 }
@@ -121,7 +121,7 @@ export function ExecutionGapChart({ data }: { data: IrChartSlice[] }) {
           ))}
         </Pie>
         <ChartLegend
-          content={<ChartLegendContent nameKey="segment" className="!pt-8 text-slate-300" />}
+          content={<ChartLegendContent nameKey="segment" className="!pt-8 text-ink-3" />}
         />
       </PieChart>
     </ChartContainer>
@@ -170,7 +170,7 @@ export function AdvantageRadarChart({ data }: { data: IrRadarPoint[] }) {
           isAnimationActive={false}
         />
         <ChartLegend
-          content={<ChartLegendContent className="!pt-8 text-slate-300" />}
+          content={<ChartLegendContent className="!pt-8 text-ink-3" />}
         />
       </RadarChart>
     </ChartContainer>
@@ -212,8 +212,8 @@ export function VisionScenarioChart({ data }: { data: IrVisionPoint[] }) {
             <ChartTooltipContent
               formatter={(value, name) => (
                 <div className="flex w-full min-w-[12rem] items-center justify-between gap-6">
-                  <span className="text-slate-200">{name}</span>
-                  <span className="font-mono text-sm font-semibold text-white">
+                  <span className="text-ink-3">{name}</span>
+                  <span className="font-mono text-sm font-semibold text-ink">
                     {name === "MRR"
                       ? `${value}백만원`
                       : `${Number(value).toLocaleString()}명`}
@@ -245,7 +245,7 @@ export function VisionScenarioChart({ data }: { data: IrVisionPoint[] }) {
           isAnimationActive={false}
         />
         <ChartLegend
-          content={<ChartLegendContent className="!pt-8 text-slate-300" />}
+          content={<ChartLegendContent className="!pt-8 text-ink-3" />}
         />
       </LineChart>
     </ChartContainer>

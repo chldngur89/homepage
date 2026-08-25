@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import { motion } from "motion/react";
 import {
   ArrowRight,
-  ChevronLeft,
   Mail,
   ShieldCheck,
   Sparkles,
@@ -11,32 +10,19 @@ import {
   Workflow,
 } from "lucide-react";
 import { type IrStatusTone } from "@/content/ko/ir";
-import siteContent from "@/content/site.json";
 import { CONTACT_EMAIL } from "@/content/ko/contact";
 import { useCopy } from "@/app/i18n/useCopy";
+import { IrShell } from "@/app/components/ir/IrShell";
 
-const siteData = siteContent as {
-  footer?: { copyright?: string };
-  siteName?: string;
-};
-
-const siteName = siteData.siteName ?? "WooriTeam";
 /**
- * 이 페이지는 아직 다크 디자인이고 계획 3의 대상이다. 여기서 바꾼 것은 이
- * 주소의 **출처** 하나뿐이다 — 계획 2 Task 6 이 `site.json` 의 `contactEmail`
- * 을 없앴으므로, 그대로 두면 이 줄이 조용히 폴백 리터럴로 떨어져 문의 페이지와
- * 갈라진다. 값은 동일하다.
+ * 본문(article)은 아직 다크 디자인이고 계획 4·5의 대상이다. 여기서 바꾼
+ * 것은 이 주소의 **출처** 하나뿐이다 — 계획 2 Task 6 이 `site.json` 의
+ * `contactEmail` 을 없앴으므로, 그대로 두면 이 줄이 조용히 폴백 리터럴로
+ * 떨어져 문의 페이지와 갈라진다. 값은 동일하다. `IrShell.tsx` 도 같은
+ * 상수를 독립적으로 들여온다 — 셸(헤더·푸터)과 본문이 각자 참조할 뿐,
+ * 값은 하나다.
  */
 const contactEmail = CONTACT_EMAIL;
-const copyright = siteData.footer?.copyright ?? "© 2026 WooriTeam. All rights reserved.";
-
-const deckNav = [
-  { href: "#problem", label: "Problem" },
-  { href: "#market", label: "Market" },
-  { href: "#solution", label: "Solution" },
-  { href: "#economics", label: "Economics" },
-  { href: "#cta", label: "Contact" },
-] as const;
 
 const heroWorkflowLayout = [
   "left-[5%] top-[8%] max-w-[12rem] text-left",
@@ -149,59 +135,8 @@ export default function IR() {
   const VisionScenarioChart = charts?.VisionScenarioChart;
 
   return (
-    <div className="bg-slate-950 text-slate-100">
-      <div
-        aria-hidden="true"
-        className="fixed inset-0 -z-10"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at top, rgba(34, 211, 238, 0.12), transparent 35%), radial-gradient(circle at 80% 10%, rgba(129, 140, 248, 0.16), transparent 28%), linear-gradient(180deg, #020617 0%, #020617 52%, #0f172a 100%)",
-        }}
-      />
-
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link to="/" className="flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-sm font-semibold text-cyan-200">
-              AI
-            </span>
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-slate-500">
-                {siteName}
-              </p>
-              <p className="text-sm font-medium text-white">Investor Overview</p>
-            </div>
-          </Link>
-
-          <nav className="hidden items-center gap-6 text-sm text-slate-400 lg:flex">
-            {deckNav.map((item) => (
-              <a key={item.href} href={item.href} className="transition-colors hover:text-white">
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Link
-              to="/"
-              className="hidden items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 transition-colors hover:border-cyan-400/30 hover:text-white sm:inline-flex"
-            >
-              <ChevronLeft className="h-4 w-4" />
-              사이트로
-            </Link>
-            <a
-              href="#cta"
-              className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-4 py-2 text-sm font-medium text-slate-950 transition-colors hover:bg-cyan-300"
-            >
-              IR 요청
-              <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <main id="ir-top" className="pt-20">
-        <article>
+    <IrShell>
+      <article>
           <section className="relative overflow-hidden border-b border-white/10">
             <div className="mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:pb-24 lg:pt-20">
               <motion.div
@@ -365,20 +300,28 @@ export default function IR() {
                             className="relative h-64 w-64 rounded-full"
                             style={{
                               background:
-                                "conic-gradient(#fb7185 0deg 324deg, #38bdf8 324deg 360deg)",
+                                "conic-gradient(var(--color-chart-2) 0deg 324deg, var(--color-chart-1) 324deg 360deg)",
                             }}
                           >
-                            <div className="absolute inset-[3.25rem] rounded-full bg-slate-950/95" />
+                            {/* 실제 ExecutionGapChart 와 같은 --color-chart-N 을 써서
+                                lazy import 가 끝났을 때 조각 색이 번쩍 바뀌지 않게 한다.
+                                가운데 구멍도 다크 기준 검정(bg-slate-950/95) 대신 지금의
+                                밝은 페이지 배경(bg-ground)에 맞췄다 — 계획 4 Task 3 보충 2. */}
+                            <div className="absolute inset-[3.25rem] rounded-full bg-ground" />
                           </div>
                         </div>
                       )}
 
+                      {/* 다크 기준 색(text-rose-200/80, text-white, text-slate-400)이
+                          흰 배경 위에서 거의 안 보였다 — 브랜드 토큰으로 옮김
+                          (계획 4 Task 3 보충 1). 큰 숫자는 text-ink, 강조가 필요한
+                          "Manual" 라벨은 text-brand, 부연 설명은 text-ink-3. */}
                       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                        <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-rose-200/80">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-brand">
                           Manual
                         </p>
-                        <p className="mt-3 text-5xl font-semibold text-white">90%</p>
-                        <p className="mt-3 max-w-[11rem] text-center text-sm leading-6 text-slate-400">
+                        <p className="mt-3 text-5xl font-semibold text-ink">90%</p>
+                        <p className="mt-3 max-w-[11rem] text-center text-sm leading-6 text-ink-3">
                           운영 시간이 수작업에 묶인 상태를 가정한 비교
                         </p>
                       </div>
@@ -761,22 +704,7 @@ export default function IR() {
               </Reveal>
             </div>
           </section>
-        </article>
-      </main>
-
-      <footer className="border-t border-white/10 py-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-          <p>{copyright}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link to="/" className="transition-colors hover:text-white">
-              사이트 홈
-            </Link>
-            <a href={`mailto:${contactEmail}`} className="transition-colors hover:text-white">
-              {contactEmail}
-            </a>
-          </div>
-        </div>
-      </footer>
-    </div>
+      </article>
+    </IrShell>
   );
 }
