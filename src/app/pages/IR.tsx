@@ -483,7 +483,10 @@ export default function IR() {
                       Relative Capability Map
                     </p>
                     {AdvantageRadarChart ? (
-                      <AdvantageRadarChart data={irContent.advantage.chart} />
+                      <AdvantageRadarChart
+                        data={irContent.advantage.chart}
+                        legend={irContent.advantage.chartLegend}
+                      />
                     ) : (
                       <div className="mt-8 grid gap-4 sm:grid-cols-2">
                         {irContent.advantage.chart.map((point) => (
@@ -582,7 +585,11 @@ export default function IR() {
                       {irContent.vision.description}
                     </p>
                     {VisionScenarioChart ? (
-                      <VisionScenarioChart data={irContent.vision.trajectory} />
+                      <VisionScenarioChart
+                        data={irContent.vision.trajectory}
+                        legend={irContent.vision.chartLegend}
+                        units={irContent.vision.trajectoryFallback}
+                      />
                     ) : (
                       <div className="mt-10 grid gap-4 sm:grid-cols-2">
                         {irContent.vision.trajectory.map((point) => (

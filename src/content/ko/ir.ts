@@ -82,7 +82,27 @@ export type IrAdvantageChartLegend = {
   wooriteam: string;
 };
 
-/** 라인 차트가 아직 로드되지 않았을 때 보여주는 대체 목록의 값 이름표·단위. */
+/**
+ * 라인 차트의 계열 이름표. 범례와 툴팁이 같이 쓴다.
+ *
+ * `IrVisionTrajectoryFallback` 과 나누어 두는 이유는 문구가 다르기 때문이다 —
+ * 범례는 `"유료 구독자 수"`(계열 이름), 대체 목록은 `"유료 구독자 "` + 값 +
+ * `"명"`(문장 조각)이다. 한쪽을 다른 쪽에 맞추면 화면 문구가 바뀐다.
+ */
+export type IrVisionChartLegend = {
+  mrr: string;
+  subscribers: string;
+};
+
+/**
+ * 라인 차트의 값 이름표와 단위.
+ *
+ * 이름이 말하는 대로 차트가 아직 로드되지 않았을 때의 대체 목록이 쓰고,
+ * **단위 두 개(`subscriberUnit`·`mrrUnit`)는 로드된 차트의 툴팁도 쓴다.**
+ * 예전에는 툴팁이 `백만원`·`명` 을 컴포넌트에 직접 박아 두고 있었다 —
+ * 차트가 동적 import 라 프리렌더 HTML 에 안 잡혀서, 영문 페이지에서만
+ * 조용히 새던 자리다.
+ */
 export type IrVisionTrajectoryFallback = {
   mrrLabel: string;
   mrrUnit: string;
@@ -161,6 +181,7 @@ export type IrContent = {
     title: string;
   };
   vision: {
+    chartLegend: IrVisionChartLegend;
     description: string;
     roadmap: IrRoadmapItem[];
     statuses: IrStatusItem[];
@@ -450,6 +471,10 @@ export const ir: IrContent = {
       { month: "M15", subscribers: 2500, mrr: 125 },
       { month: "M18", subscribers: 3000, mrr: 150 },
     ],
+    chartLegend: {
+      subscribers: "유료 구독자 수",
+      mrr: "MRR",
+    },
     trajectoryFallback: {
       subscriberLabel: "유료 구독자 ",
       subscriberUnit: "명",

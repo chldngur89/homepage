@@ -325,6 +325,13 @@ export const ir: IrContent = {
       { month: "M15", subscribers: 2500, mrr: 125 },
       { month: "M18", subscribers: 3000, mrr: 150 },
     ],
+    // 범례·툴팁의 계열 이름. 한국어 `"유료 구독자 수"` 의 `수` 는 계열
+    // 이름을 명사로 닫는 말이라 영어에는 대응어가 없다 — 복수형이 그 일을
+    // 한다.
+    chartLegend: {
+      subscribers: "Paid subscribers",
+      mrr: "MRR",
+    },
     /**
      * 차트가 로드되기 전 대체 목록은 `label + 값 + unit` 으로 한 줄을
      * 만든다. 한국어는 `"유료 구독자 " + 1,000 + "명"` 처럼 단위가 뒤에

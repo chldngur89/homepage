@@ -23,12 +23,25 @@ import {
   type ChartConfig,
 } from "@/app/components/ui/chart";
 import type {
+  IrAdvantageChartLegend,
   IrChartSlice,
   IrRadarPoint,
+  IrVisionChartLegend,
   IrVisionPoint,
+  IrVisionTrajectoryFallback,
 } from "@/content/ko/ir";
 
 /**
+ * **이름표는 사전에서 온다. 이 파일에 카피 문자열을 두지 않는다.**
+ *
+ * 예전에는 아래 세 `ChartConfig` 가 한국어 라벨을 직접 들고 있었다. 차트는
+ * `IR.tsx` 의 `useEffect` 안에서 동적 import 되므로 그 글자는 **프리렌더된
+ * HTML 에 없다** — `scripts/check-html.mjs` 도, `<main>` 한글 글자수 세기도
+ * 전부 통과하는데, 브라우저에서 차트가 뜨는 순간 영문 `/en/ir` 의 범례
+ * 세 줄이 한국어로 나타났다(계획 4 태스크 6 수정 1회차, 실측 27자).
+ * 정적 검사가 볼 수 없는 자리라 배선으로 막는다: 문구는 사전이 갖고
+ * 이 파일은 색과 배선만 맡는다.
+ *
  * 색 배정(계획 4 Task 2). 브랜드 토큰(src/styles/theme.css, tokens.ts)의
  * --color-chart-1~4 는 4개뿐이라 7개 시리즈가 차트별로 재사용한다 — 같은
  * 화면에 동시에 나오지 않는 시리즈끼리만 겹친다.
@@ -42,42 +55,35 @@ import type {
  * aiTool·designTool 보다 옅어 보이면 안 된다 — chart-4 를 가장 어둡게 잡아
  * 대비/불투명도 서열에서 wooriteam 이 항상 가장 진하도록 했다.
  */
-const executionChartConfig = {
-  manual: {
-    label: "혼자 붙잡는 실행",
-    color: "var(--color-chart-2)",
-  },
-  strategic: {
-    label: "전략·판단",
-    color: "var(--color-chart-1)",
-  },
-} satisfies ChartConfig;
+const SEGMENT_COLOR: Record<IrChartSlice["segment"], string> = {
+  manual: "var(--color-chart-2)",
+  strategic: "var(--color-chart-1)",
+};
 
-const advantageChartConfig = {
-  wooriteam: {
-    label: "WooriTeam",
-    color: "var(--color-chart-4)",
-  },
-  aiTool: {
-    label: "단일 AI 툴",
-    color: "var(--color-chart-3)",
-  },
-  designTool: {
-    label: "디자인 템플릿 툴",
-    color: "var(--color-chart-2)",
-  },
-} satisfies ChartConfig;
+/** 도넛의 이름표는 슬라이스 자체가 들고 있다(`IrChartSlice["label"]`). */
+function executionChartConfig(data: IrChartSlice[]): ChartConfig {
+  return Object.fromEntries(
+    data.map((slice) => [
+      slice.segment,
+      { label: slice.label, color: SEGMENT_COLOR[slice.segment] },
+    ]),
+  );
+}
 
-const visionChartConfig = {
-  subscribers: {
-    label: "유료 구독자 수",
-    color: "var(--color-chart-1)",
-  },
-  mrr: {
-    label: "MRR",
-    color: "var(--color-chart-4)",
-  },
-} satisfies ChartConfig;
+function advantageChartConfig(legend: IrAdvantageChartLegend): ChartConfig {
+  return {
+    wooriteam: { label: legend.wooriteam, color: "var(--color-chart-4)" },
+    aiTool: { label: legend.aiTool, color: "var(--color-chart-3)" },
+    designTool: { label: legend.designTool, color: "var(--color-chart-2)" },
+  };
+}
+
+function visionChartConfig(legend: IrVisionChartLegend): ChartConfig {
+  return {
+    subscribers: { label: legend.subscribers, color: "var(--color-chart-1)" },
+    mrr: { label: legend.mrr, color: "var(--color-chart-4)" },
+  };
+}
 
 /**
  * 이름표는 `text-ink-3`, 값은 `text-ink` — `chart.tsx` 의 기본
@@ -97,7 +103,7 @@ function renderExecutionTooltip(slice: IrChartSlice) {
 export function ExecutionGapChart({ data }: { data: IrChartSlice[] }) {
   return (
     <ChartContainer
-      config={executionChartConfig}
+      config={executionChartConfig(data)}
       className="mx-auto aspect-auto h-[22rem] max-w-[28rem]"
     >
       <PieChart>
@@ -134,10 +140,16 @@ export function ExecutionGapChart({ data }: { data: IrChartSlice[] }) {
   );
 }
 
-export function AdvantageRadarChart({ data }: { data: IrRadarPoint[] }) {
+export function AdvantageRadarChart({
+  data,
+  legend,
+}: {
+  data: IrRadarPoint[];
+  legend: IrAdvantageChartLegend;
+}) {
   return (
     <ChartContainer
-      config={advantageChartConfig}
+      config={advantageChartConfig(legend)}
       className="mt-8 aspect-auto h-[23rem] w-full"
     >
       <RadarChart data={data}>
@@ -183,10 +195,19 @@ export function AdvantageRadarChart({ data }: { data: IrRadarPoint[] }) {
   );
 }
 
-export function VisionScenarioChart({ data }: { data: IrVisionPoint[] }) {
+export function VisionScenarioChart({
+  data,
+  legend,
+  units,
+}: {
+  data: IrVisionPoint[];
+  legend: IrVisionChartLegend;
+  /** 대체 목록과 같은 단위를 쓴다 — 사전의 한 곳에서만 온다. */
+  units: Pick<IrVisionTrajectoryFallback, "mrrUnit" | "subscriberUnit">;
+}) {
   return (
     <ChartContainer
-      config={visionChartConfig}
+      config={visionChartConfig(legend)}
       className="mt-10 aspect-auto h-[24rem] w-full"
     >
       <LineChart data={data}>
@@ -216,16 +237,32 @@ export function VisionScenarioChart({ data }: { data: IrVisionPoint[] }) {
           cursor={false}
           content={
             <ChartTooltipContent
-              formatter={(value, name) => (
-                <div className="flex w-full min-w-[12rem] items-center justify-between gap-6">
-                  <span className="text-ink-3">{name}</span>
-                  <span className="font-mono text-sm font-semibold text-ink">
-                    {name === "MRR"
-                      ? `${value}백만원`
-                      : `${Number(value).toLocaleString()}명`}
-                  </span>
-                </div>
-              )}
+              /*
+                계열 판별을 `dataKey` 로 한다. 예전에는 `name === "MRR"` 로
+                **표시 문구**를 비교했는데, `ChartTooltipContent` 가 넘기는
+                `name` 은 config 의 label 이 아니라 recharts 의 payload 이름
+                (= dataKey `"mrr"`)이라 이 분기는 한 번도 참이 된 적이 없다.
+                그래서 `백만원` 은 죽은 문자열이었고 MRR 행이 구독자 단위
+                (`명`)를 달고 나왔다 — 실측: `M9 subscribers 1,000명 mrr 50명`.
+                이름표를 로케일에 따라 바꾸는 순간 이런 문구 비교는 조용히
+                깨지므로, 판별은 코드가 정하는 값(dataKey)으로 한다.
+              */
+              formatter={(value, _name, item) => {
+                const isMrr = item?.dataKey === "mrr";
+
+                return (
+                  <div className="flex w-full min-w-[12rem] items-center justify-between gap-6">
+                    <span className="text-ink-3">
+                      {isMrr ? legend.mrr : legend.subscribers}
+                    </span>
+                    <span className="font-mono text-sm font-semibold text-ink">
+                      {isMrr
+                        ? `${value}${units.mrrUnit}`
+                        : `${Number(value).toLocaleString()}${units.subscriberUnit}`}
+                    </span>
+                  </div>
+                );
+              }}
             />
           }
         />
