@@ -80,20 +80,16 @@ const visionChartConfig = {
 } satisfies ChartConfig;
 
 /**
- * 수정 1회차: 이 함수와 아래 `ChartLegendContent`의 `text-slate-200`/
- * `text-slate-300`/`text-white`는 한 번 `text-ink-3`/`text-ink`(밝은-배경
- * 토큰)로 옮겼다가 되돌렸다. 세 차트 모두 아직 다크인 섹션
- * (`data-ir-dark`, `IR.tsx`/`theme.css` 참고) 안에서 렌더되는데, 밝은-배경
- * 토큰은 그 다크 카드 위에서 대비가 무너진다(실측: 값 텍스트 1.07:1,
- * 범례 3.65:1 — 둘 다 원래 슬레이트 값이 주던 대비에 크게 못 미친다).
- * `problem` 섹션은 Task 4가, `advantage`/`economics` 섹션은 Task 5가
- * 각각 전환할 때 이 파일의 해당 부분을 다시 브랜드 토큰으로 바꿔야 한다.
+ * 이름표는 `text-ink-3`, 값은 `text-ink` — `chart.tsx` 의 기본
+ * `ChartTooltipContent` 가 쓰는 `text-muted-foreground`/`text-foreground`
+ * 조합과 같은 규칙이다(그 파일은 이미 밝은-배경 토큰이라 손대지 않는다).
+ * 세 차트 모두 이제 밝은 섹션에서 렌더된다.
  */
 function renderExecutionTooltip(slice: IrChartSlice) {
   return (
     <div className="flex w-full min-w-[12rem] items-center justify-between gap-6">
-      <span className="text-slate-200">{slice.label}</span>
-      <span className="font-mono text-sm font-semibold text-white">{slice.value}%</span>
+      <span className="text-ink-3">{slice.label}</span>
+      <span className="font-mono text-sm font-semibold text-ink">{slice.value}%</span>
     </div>
   );
 }
@@ -131,7 +127,7 @@ export function ExecutionGapChart({ data }: { data: IrChartSlice[] }) {
           ))}
         </Pie>
         <ChartLegend
-          content={<ChartLegendContent nameKey="segment" className="!pt-8 text-slate-300" />}
+          content={<ChartLegendContent nameKey="segment" className="!pt-8 text-ink-3" />}
         />
       </PieChart>
     </ChartContainer>
@@ -180,7 +176,7 @@ export function AdvantageRadarChart({ data }: { data: IrRadarPoint[] }) {
           isAnimationActive={false}
         />
         <ChartLegend
-          content={<ChartLegendContent className="!pt-8 text-slate-300" />}
+          content={<ChartLegendContent className="!pt-8 text-ink-3" />}
         />
       </RadarChart>
     </ChartContainer>
@@ -222,8 +218,8 @@ export function VisionScenarioChart({ data }: { data: IrVisionPoint[] }) {
             <ChartTooltipContent
               formatter={(value, name) => (
                 <div className="flex w-full min-w-[12rem] items-center justify-between gap-6">
-                  <span className="text-slate-200">{name}</span>
-                  <span className="font-mono text-sm font-semibold text-white">
+                  <span className="text-ink-3">{name}</span>
+                  <span className="font-mono text-sm font-semibold text-ink">
                     {name === "MRR"
                       ? `${value}백만원`
                       : `${Number(value).toLocaleString()}명`}
@@ -255,7 +251,7 @@ export function VisionScenarioChart({ data }: { data: IrVisionPoint[] }) {
           isAnimationActive={false}
         />
         <ChartLegend
-          content={<ChartLegendContent className="!pt-8 text-slate-300" />}
+          content={<ChartLegendContent className="!pt-8 text-ink-3" />}
         />
       </LineChart>
     </ChartContainer>

@@ -69,8 +69,25 @@ export type IrVisionPoint = {
 export type IrRoadmapItem = {
   body: string;
   phase: string;
+  /** 배지에 찍히는 상태 문구. `tone` 에서 파생하지 않고 항목마다 명시한다. */
+  statusLabel: string;
   title: string;
   tone: IrStatusTone;
+};
+
+/** 레이더 차트가 아직 로드되지 않았을 때 보여주는 대체 목록의 계열 이름표. */
+export type IrAdvantageChartLegend = {
+  aiTool: string;
+  designTool: string;
+  wooriteam: string;
+};
+
+/** 라인 차트가 아직 로드되지 않았을 때 보여주는 대체 목록의 값 이름표·단위. */
+export type IrVisionTrajectoryFallback = {
+  mrrLabel: string;
+  mrrUnit: string;
+  subscriberLabel: string;
+  subscriberUnit: string;
 };
 
 export type IrShellNavItem = {
@@ -81,6 +98,8 @@ export type IrShellNavItem = {
 export type IrContent = {
   advantage: {
     chart: IrRadarPoint[];
+    chartLegend: IrAdvantageChartLegend;
+    chartNote: string;
     description: string;
     points: IrComparisonPoint[];
     title: string;
@@ -147,6 +166,7 @@ export type IrContent = {
     statuses: IrStatusItem[];
     title: string;
     trajectory: IrVisionPoint[];
+    trajectoryFallback: IrVisionTrajectoryFallback;
   };
 };
 
@@ -370,6 +390,13 @@ export const ir: IrContent = {
         designTool: 10,
       },
     ],
+    chartLegend: {
+      wooriteam: "WooriTeam",
+      aiTool: "단일 AI 툴",
+      designTool: "디자인 템플릿 툴",
+    },
+    chartNote:
+      "기능 범주별 상대 비교를 돕기 위한 정성 점수입니다. 핵심은 생성 기능 자체보다 생성 이후 운영 공백을 어떻게 줄이는가에 있습니다.",
     points: [
       {
         title: "제안 이후 공백을 줄임",
@@ -423,23 +450,32 @@ export const ir: IrContent = {
       { month: "M15", subscribers: 2500, mrr: 125 },
       { month: "M18", subscribers: 3000, mrr: 150 },
     ],
+    trajectoryFallback: {
+      subscriberLabel: "유료 구독자 ",
+      subscriberUnit: "명",
+      mrrLabel: "MRR ",
+      mrrUnit: "백만원",
+    },
     roadmap: [
       {
         phase: "Phase 1",
         title: "같이 성장하기 실증",
         body: "제안 → 승인 → 실행 → 반복 성장 루프를 1~10인 초기 팀과 검증하는 단계",
+        statusLabel: "예정",
         tone: "planned",
       },
       {
         phase: "Phase 2",
         title: "성장 루프 고도화",
         body: "대표가 빠르게 이번 주를 정리할 수 있도록 핵심 루프를 다듬는 단계",
+        statusLabel: "예정",
         tone: "planned",
       },
       {
         phase: "Phase 3",
         title: "역할 확장·투자 검토",
         body: "CEO·CFO 역할 연동과 민간 투자·파트너십 가능성을 검토하는 단계",
+        statusLabel: "검토",
         tone: "under_review",
       },
     ],

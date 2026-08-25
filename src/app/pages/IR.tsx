@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Link } from "react-router";
 import {
   ArrowRight,
   Mail,
@@ -15,10 +14,8 @@ import { IrShell } from "@/app/components/ir/IrShell";
 import { LocaleLink } from "@/app/components/LocaleLink";
 
 /**
- * 본문(article) 7개 섹션 중 히어로·실행 격차·시장 셋은 Task 4 가 밝은
- * 디자인으로 전환했다. 나머지 넷(솔루션·경쟁우위·경제성·CTA)은 Task 5 의
- * 대상으로 아직 다크다 — `data-ir-dark`(theme.css 스캐폴딩)가 그 넷에만
- * 남아 있다. 여기서 바꾼 것은 이 주소의 **출처** 하나뿐이다 — 계획 2 Task 6 이 `site.json` 의
+ * 본문(article) 7개 섹션이 모두 밝은 디자인이다(Task 4·5). 여기서 바꾼
+ * 것은 이 주소의 **출처** 하나뿐이다 — 계획 2 Task 6 이 `site.json` 의
  * `contactEmail` 을 없앴으므로, 그대로 두면 이 줄이 조용히 폴백 리터럴로
  * 떨어져 문의 페이지와 갈라진다. 값은 동일하다. `IrShell.tsx` 도 같은
  * 상수를 독립적으로 들여온다 — 셸(헤더·푸터)과 본문이 각자 참조할 뿐,
@@ -38,11 +35,21 @@ const heroWorkflowLayout = [
   "md:right-[2%] md:bottom-[38%] max-w-[12.5rem] text-right",
 ] as const;
 
+/**
+ * 밝은 디자인에서는 원래(다크) 배지의 배색을 반전한다 — 옅은 색 배경 +
+ * 진한 잉크 글자. `--color-chart-1~4` 를 배경 틴트로 쓰는 이유는 그 네
+ * 색이 이미 흰 표면 위에서 서로 구별되도록 계산·테스트된 값이기
+ * 때문이다(`src/styles/tokens.test.ts` "차트 색"). 글자색으로 그 네 색을
+ * 그대로 쓰지 않는 이유는 `--color-chart-1` 이 흰 배경에서 3.75:1 로
+ * 비텍스트 기준(3:1)은 넘어도 글자 기준(4.5:1)은 못 미치기 때문 — 그래서
+ * 글자는 항상 `text-ink`, 색 구분은 배경 틴트가 맡는다. 테두리는 비텍스트라
+ * 3:1 기준만 넘으면 된다.
+ */
 const toneStyles: Record<IrStatusTone, string> = {
-  estimate: "border-amber-400/30 bg-amber-400/10 text-amber-200",
-  goal: "border-cyan-400/30 bg-cyan-400/10 text-cyan-200",
-  planned: "border-blue-400/30 bg-blue-400/10 text-blue-200",
-  under_review: "border-fuchsia-400/30 bg-fuchsia-400/10 text-fuchsia-200",
+  estimate: "border-chart-1/30 bg-chart-1/10 text-ink",
+  goal: "border-chart-2/30 bg-chart-2/10 text-ink",
+  planned: "border-chart-3/30 bg-chart-3/10 text-ink",
+  under_review: "border-chart-4/30 bg-chart-4/10 text-ink",
 };
 
 function StatusPill({
@@ -63,10 +70,8 @@ function StatusPill({
 
 /**
  * 사이트 전체의 진입 애니메이션은 `.rise` 하나다(theme.css) — `motion/react`
- * 의 스크롤 트리거 페이드 대신 CSS 애니메이션으로 옮긴다. `delay` 는 기존
- * 호출부(아직 전환 전인 섹션 포함)가 넘기는 값을 그대로 받아 `animation-delay`
- * 로 적용한다 — 컴포넌트 시그니처를 바꾸면 이 태스크가 손대지 않는 나머지
- * 섹션의 호출부까지 고쳐야 한다.
+ * 의 스크롤 트리거 페이드 대신 CSS 애니메이션으로 옮긴다. `delay` 는 모든
+ * 호출부가 넘기는 값을 그대로 받아 `animation-delay` 로 적용한다.
  */
 function Reveal({
   children,
@@ -403,7 +408,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="solution" data-ir-dark className="border-b border-white/10">
+          <section id="solution" className="border-b border-line">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <div className="grid gap-14 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
                 <Reveal>
@@ -415,24 +420,24 @@ export default function IR() {
                 </Reveal>
 
                 <Reveal delay={0.08}>
-                  <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] px-6 py-8 md:px-8">
-                    <div className="flex items-center gap-3 text-cyan-200">
+                  <div className="relative overflow-hidden rounded-[2rem] border border-line bg-surface px-6 py-8 md:px-8">
+                    <div className="flex items-center gap-3 text-brand">
                       <Workflow className="h-5 w-5" />
-                      <p className="text-xs font-medium uppercase tracking-[0.32em] text-cyan-200/80">
+                      <p className="text-xs font-medium uppercase tracking-[0.32em] text-brand">
                         Pipeline
                       </p>
                     </div>
                     <div className="mt-8 grid gap-5 md:grid-cols-5">
                       {irContent.solution.pipeline.map((step, index) => (
                         <article key={step.title} className="relative">
-                          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">
+                          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink-3">
                             Step 0{index + 1}
                           </p>
-                          <h3 className="mt-3 text-lg font-medium text-white">{step.title}</h3>
-                          <p className="mt-3 text-sm leading-7 text-slate-400">{step.body}</p>
+                          <h3 className="mt-3 text-lg font-medium text-ink">{step.title}</h3>
+                          <p className="mt-3 text-sm leading-7 text-ink-2">{step.body}</p>
                           {index < irContent.solution.pipeline.length - 1 ? (
-                            <div className="mt-4 hidden items-center gap-2 text-cyan-300/50 md:flex">
-                              <div className="h-px flex-1 bg-cyan-300/20" />
+                            <div className="mt-4 hidden items-center gap-2 text-ink-3 md:flex">
+                              <div className="h-px flex-1 bg-line" />
                               <ArrowRight className="h-4 w-4" />
                             </div>
                           ) : null}
@@ -443,25 +448,25 @@ export default function IR() {
                 </Reveal>
               </div>
 
-              <div className="mt-14 grid gap-8 border-t border-white/10 pt-10 md:grid-cols-3 md:gap-0">
+              <div className="mt-14 grid gap-8 border-t border-line pt-10 md:grid-cols-3 md:gap-0">
                 {irContent.solution.pillars.map((pillar, index) => (
                   <Reveal
                     key={pillar.title}
                     delay={index * 0.05}
-                    className={`${index > 0 ? "md:border-l md:border-white/10 md:pl-8" : "md:pr-8"}`}
+                    className={`${index > 0 ? "md:border-l md:border-line md:pl-8" : "md:pr-8"}`}
                   >
                     <article className="h-full">
-                      <div className="flex items-center gap-3 text-white">
+                      <div className="flex items-center gap-3 text-ink">
                         {index === 0 ? (
-                          <ShieldCheck className="h-5 w-5 text-cyan-300" />
+                          <ShieldCheck className="h-5 w-5 text-brand" />
                         ) : index === 1 ? (
-                          <Sparkles className="h-5 w-5 text-cyan-300" />
+                          <Sparkles className="h-5 w-5 text-brand" />
                         ) : (
-                          <Target className="h-5 w-5 text-cyan-300" />
+                          <Target className="h-5 w-5 text-brand" />
                         )}
                         <h3 className="text-xl font-medium">{pillar.title}</h3>
                       </div>
-                      <p className="mt-4 text-sm leading-7 text-slate-400">{pillar.body}</p>
+                      <p className="mt-4 text-sm leading-7 text-ink-2">{pillar.body}</p>
                     </article>
                   </Reveal>
                 ))}
@@ -469,12 +474,12 @@ export default function IR() {
             </div>
           </section>
 
-          <section data-ir-dark className="border-b border-white/10 bg-slate-900/35">
+          <section className="border-b border-line bg-panel">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)]">
                 <Reveal>
-                  <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] px-6 py-8 md:px-8">
-                    <p className="text-xs font-medium uppercase tracking-[0.32em] text-slate-500">
+                  <div className="relative overflow-hidden rounded-[2rem] border border-line bg-surface px-6 py-8 md:px-8">
+                    <p className="text-xs font-medium uppercase tracking-[0.32em] text-ink-3">
                       Relative Capability Map
                     </p>
                     {AdvantageRadarChart ? (
@@ -484,20 +489,20 @@ export default function IR() {
                         {irContent.advantage.chart.map((point) => (
                           <div
                             key={point.subject}
-                            className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-4"
+                            className="rounded-2xl border border-line bg-panel px-4 py-4"
                           >
-                            <p className="text-sm font-medium text-white">{point.subject}</p>
-                            <div className="mt-3 space-y-2 text-xs text-slate-400">
+                            <p className="text-sm font-medium text-ink">{point.subject}</p>
+                            <div className="mt-3 space-y-2 text-xs text-ink-2">
                               <div className="flex items-center justify-between">
-                                <span>WooriTeam</span>
+                                <span>{irContent.advantage.chartLegend.wooriteam}</span>
                                 <span>{point.wooriteam}</span>
                               </div>
                               <div className="flex items-center justify-between">
-                                <span>단일 AI 툴</span>
+                                <span>{irContent.advantage.chartLegend.aiTool}</span>
                                 <span>{point.aiTool}</span>
                               </div>
                               <div className="flex items-center justify-between">
-                                <span>디자인 템플릿 툴</span>
+                                <span>{irContent.advantage.chartLegend.designTool}</span>
                                 <span>{point.designTool}</span>
                               </div>
                             </div>
@@ -505,9 +510,8 @@ export default function IR() {
                         ))}
                       </div>
                     )}
-                    <p className="mt-6 text-sm leading-7 text-slate-500">
-                      기능 범주별 상대 비교를 돕기 위한 정성 점수입니다. 핵심은 생성
-                      기능 자체보다 생성 이후 운영 공백을 어떻게 줄이는가에 있습니다.
+                    <p className="mt-6 text-sm leading-7 text-ink-3">
+                      {irContent.advantage.chartNote}
                     </p>
                   </div>
                 </Reveal>
@@ -522,13 +526,13 @@ export default function IR() {
                     {irContent.advantage.points.map((point, index) => (
                       <article
                         key={point.title}
-                        className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] px-5 py-5"
+                        className="rounded-[1.5rem] border border-line bg-surface px-5 py-5"
                       >
-                        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink-3">
                           0{index + 1}
                         </p>
-                        <h3 className="mt-3 text-xl font-medium text-white">{point.title}</h3>
-                        <p className="mt-3 text-sm leading-7 text-slate-400">{point.body}</p>
+                        <h3 className="mt-3 text-xl font-medium text-ink">{point.title}</h3>
+                        <p className="mt-3 text-sm leading-7 text-ink-2">{point.body}</p>
                       </article>
                     ))}
                   </div>
@@ -537,7 +541,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="economics" data-ir-dark className="border-b border-white/10">
+          <section id="economics" className="border-b border-line">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <Reveal>
                 <SectionIntro
@@ -547,18 +551,18 @@ export default function IR() {
                 />
               </Reveal>
 
-              <div className="mt-14 overflow-hidden rounded-[2rem] border border-white/10">
+              <div className="mt-14 overflow-hidden rounded-[2rem] border border-line">
                 <div className="grid md:grid-cols-3">
                   {irContent.economics.metrics.map((metric, index) => (
                     <Reveal
                       key={metric.label}
                       delay={index * 0.05}
-                      className={`${index > 0 ? "border-t border-white/10 md:border-l md:border-t-0" : ""}`}
+                      className={`${index > 0 ? "border-t border-line md:border-l md:border-t-0" : ""}`}
                     >
-                      <article className="bg-white/[0.03] px-6 py-8 md:px-8">
+                      <article className="bg-surface px-6 py-8 md:px-8">
                         <StatusPill tone={metric.tone}>{metric.label}</StatusPill>
-                        <p className="mt-5 text-4xl font-semibold text-white">{metric.value}</p>
-                        <p className="mt-4 text-sm leading-7 text-slate-400">{metric.note}</p>
+                        <p className="mt-5 text-4xl font-semibold text-ink">{metric.value}</p>
+                        <p className="mt-4 text-sm leading-7 text-ink-2">{metric.note}</p>
                       </article>
                     </Reveal>
                   ))}
@@ -567,14 +571,14 @@ export default function IR() {
 
               <div className="mt-14 grid gap-14 lg:grid-cols-[minmax(0,1.16fr)_minmax(0,0.84fr)]">
                 <Reveal>
-                  <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] px-6 py-8 md:px-8">
-                    <p className="text-xs font-medium uppercase tracking-[0.32em] text-slate-500">
+                  <div className="relative overflow-hidden rounded-[2rem] border border-line bg-surface px-6 py-8 md:px-8">
+                    <p className="text-xs font-medium uppercase tracking-[0.32em] text-ink-3">
                       Scenario Trajectory
                     </p>
-                    <h3 className="mt-4 text-2xl font-semibold text-white">
+                    <h3 className="mt-4 text-2xl font-semibold text-ink">
                       {irContent.vision.title}
                     </h3>
-                    <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400">
+                    <p className="mt-4 max-w-2xl text-sm leading-7 text-ink-2">
                       {irContent.vision.description}
                     </p>
                     {VisionScenarioChart ? (
@@ -584,14 +588,18 @@ export default function IR() {
                         {irContent.vision.trajectory.map((point) => (
                           <div
                             key={point.month}
-                            className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-4"
+                            className="rounded-2xl border border-line bg-panel px-4 py-4"
                           >
-                            <p className="text-sm font-medium text-white">{point.month}</p>
-                            <p className="mt-3 text-xs text-slate-400">
-                              유료 구독자 {point.subscribers.toLocaleString()}명
+                            <p className="text-sm font-medium text-ink">{point.month}</p>
+                            <p className="mt-3 text-xs text-ink-2">
+                              {irContent.vision.trajectoryFallback.subscriberLabel}
+                              {point.subscribers.toLocaleString()}
+                              {irContent.vision.trajectoryFallback.subscriberUnit}
                             </p>
-                            <p className="mt-1 text-xs text-slate-400">
-                              MRR {point.mrr}백만원
+                            <p className="mt-1 text-xs text-ink-2">
+                              {irContent.vision.trajectoryFallback.mrrLabel}
+                              {point.mrr}
+                              {irContent.vision.trajectoryFallback.mrrUnit}
                             </p>
                           </div>
                         ))}
@@ -605,18 +613,16 @@ export default function IR() {
                     {irContent.vision.roadmap.map((item) => (
                       <article
                         key={item.phase}
-                        className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] px-5 py-5"
+                        className="rounded-[1.75rem] border border-line bg-surface px-5 py-5"
                       >
                         <div className="flex flex-wrap items-center justify-between gap-3">
-                          <p className="text-sm font-medium uppercase tracking-[0.22em] text-cyan-200/80">
+                          <p className="text-sm font-medium uppercase tracking-[0.22em] text-brand">
                             {item.phase}
                           </p>
-                          <StatusPill tone={item.tone}>
-                            {item.tone === "under_review" ? "검토" : "예정"}
-                          </StatusPill>
+                          <StatusPill tone={item.tone}>{item.statusLabel}</StatusPill>
                         </div>
-                        <h3 className="mt-4 text-xl font-medium text-white">{item.title}</h3>
-                        <p className="mt-3 text-sm leading-7 text-slate-400">{item.body}</p>
+                        <h3 className="mt-4 text-xl font-medium text-ink">{item.title}</h3>
+                        <p className="mt-3 text-sm leading-7 text-ink-2">{item.body}</p>
                       </article>
                     ))}
                   </div>
@@ -625,12 +631,12 @@ export default function IR() {
                     {irContent.vision.statuses.map((status) => (
                       <article
                         key={status.label}
-                        className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] px-5 py-4"
+                        className="rounded-[1.5rem] border border-line bg-surface px-5 py-4"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <h3 className="text-sm font-medium text-white">{status.label}</h3>
-                            <p className="mt-2 text-xs leading-6 text-slate-500">{status.note}</p>
+                            <h3 className="text-sm font-medium text-ink">{status.label}</h3>
+                            <p className="mt-2 text-xs leading-6 text-ink-3">{status.note}</p>
                           </div>
                           <StatusPill tone={status.tone}>{status.value}</StatusPill>
                         </div>
@@ -642,47 +648,41 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="cta" data-ir-dark>
+          <section id="cta">
             <div className="mx-auto max-w-4xl px-6 py-20 lg:py-24">
               <Reveal>
-                <div
-                  className="rounded-[2.25rem] border border-white/10 px-6 py-10 text-center md:px-10 md:py-14"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(180deg, rgba(34, 211, 238, 0.08), rgba(2, 6, 23, 0.2))",
-                  }}
-                >
-                  <div className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-200">
+                <div className="rounded-[2.25rem] border border-line bg-panel px-6 py-10 text-center md:px-10 md:py-14">
+                  <div className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full border border-brand/30 bg-brand/10 text-brand">
                     <Mail className="h-6 w-6" />
                   </div>
-                  <p className="mt-6 text-xs font-medium uppercase tracking-[0.32em] text-cyan-200/80">
+                  <p className="mt-6 text-xs font-medium uppercase tracking-[0.32em] text-brand">
                     Contact
                   </p>
-                  <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                  <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink md:text-4xl">
                     {irContent.cta.title}
                   </h2>
-                  <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-300">
+                  <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-ink-2">
                     {irContent.cta.description}
                   </p>
 
                   <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
                     <a
                       href={`mailto:${contactEmail}?subject=${encodeURIComponent(irContent.cta.emailSubject)}`}
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-200"
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-invert px-6 py-3 text-sm font-medium text-white"
                     >
                       {irContent.cta.primaryLabel}
                       <ArrowRight className="h-4 w-4" />
                     </a>
-                    <Link
+                    <LocaleLink
                       to="/contact"
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-cyan-400/30 hover:bg-white/5"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-ink"
                     >
                       {irContent.cta.secondaryLabel}
-                    </Link>
+                    </LocaleLink>
                   </div>
 
-                  <p className="mt-8 text-sm text-slate-500">{contactEmail}</p>
-                  <p className="mx-auto mt-6 max-w-3xl text-xs leading-6 text-slate-500">
+                  <p className="mt-8 text-sm text-ink-3">{contactEmail}</p>
+                  <p className="mx-auto mt-6 max-w-3xl text-xs leading-6 text-ink-3">
                     {irContent.cta.disclosure}
                   </p>
                 </div>
