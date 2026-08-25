@@ -137,7 +137,7 @@ export default function IR() {
   return (
     <IrShell>
       <article>
-          <section className="relative overflow-hidden border-b border-white/10">
+          <section data-ir-dark className="relative overflow-hidden border-b border-white/10">
             <div className="mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:pb-24 lg:pt-20">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -246,7 +246,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="problem" className="border-b border-white/10">
+          <section id="problem" data-ir-dark className="border-b border-white/10">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.94fr)]">
                 <Reveal>
@@ -300,28 +300,28 @@ export default function IR() {
                             className="relative h-64 w-64 rounded-full"
                             style={{
                               background:
-                                "conic-gradient(var(--color-chart-2) 0deg 324deg, var(--color-chart-1) 324deg 360deg)",
+                                "conic-gradient(#fb7185 0deg 324deg, #38bdf8 324deg 360deg)",
                             }}
                           >
-                            {/* 실제 ExecutionGapChart 와 같은 --color-chart-N 을 써서
-                                lazy import 가 끝났을 때 조각 색이 번쩍 바뀌지 않게 한다.
-                                가운데 구멍도 다크 기준 검정(bg-slate-950/95) 대신 지금의
-                                밝은 페이지 배경(bg-ground)에 맞췄다 — 계획 4 Task 3 보충 2. */}
-                            <div className="absolute inset-[3.25rem] rounded-full bg-ground" />
+                            <div className="absolute inset-[3.25rem] rounded-full bg-slate-950/95" />
                           </div>
                         </div>
                       )}
 
-                      {/* 다크 기준 색(text-rose-200/80, text-white, text-slate-400)이
-                          흰 배경 위에서 거의 안 보였다 — 브랜드 토큰으로 옮김
-                          (계획 4 Task 3 보충 1). 큰 숫자는 text-ink, 강조가 필요한
-                          "Manual" 라벨은 text-brand, 부연 설명은 text-ink-3. */}
+                      {/* 수정 1회차: 보충 1 이 이 텍스트를 브랜드 토큰(text-ink 등)으로
+                          옮겼었지만, 셸이 밝아져도 이 섹션(data-ir-dark, 아래
+                          theme.css 스캐폴딩 참고)은 아직 다크 배경이라 밝은-배경용
+                          토큰이 오히려 안 보이는 문제를 새로 만들었다(실측 대비
+                          1.07:1). 이 섹션이 실제로 밝아지는 건 Task 4 라서, 그때까지는
+                          다크 기준 원본 색(text-rose-200/80, text-white, text-slate-400)
+                          그대로 둔다 — Task 4 가 이 섹션을 전환할 때 다시 브랜드
+                          토큰으로 바꿔야 한다. */}
                       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                        <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-brand">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-rose-200/80">
                           Manual
                         </p>
-                        <p className="mt-3 text-5xl font-semibold text-ink">90%</p>
-                        <p className="mt-3 max-w-[11rem] text-center text-sm leading-6 text-ink-3">
+                        <p className="mt-3 text-5xl font-semibold text-white">90%</p>
+                        <p className="mt-3 max-w-[11rem] text-center text-sm leading-6 text-slate-400">
                           운영 시간이 수작업에 묶인 상태를 가정한 비교
                         </p>
                       </div>
@@ -338,7 +338,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="market" className="border-b border-white/10 bg-slate-900/30">
+          <section id="market" data-ir-dark className="border-b border-white/10 bg-slate-900/30">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <Reveal>
                 <SectionIntro
@@ -418,7 +418,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="solution" className="border-b border-white/10">
+          <section id="solution" data-ir-dark className="border-b border-white/10">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <div className="grid gap-14 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
                 <Reveal>
@@ -484,7 +484,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section className="border-b border-white/10 bg-slate-900/35">
+          <section data-ir-dark className="border-b border-white/10 bg-slate-900/35">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)]">
                 <Reveal>
@@ -552,7 +552,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="economics" className="border-b border-white/10">
+          <section id="economics" data-ir-dark className="border-b border-white/10">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <Reveal>
                 <SectionIntro
@@ -657,7 +657,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="cta">
+          <section id="cta" data-ir-dark>
             <div className="mx-auto max-w-4xl px-6 py-20 lg:py-24">
               <Reveal>
                 <div

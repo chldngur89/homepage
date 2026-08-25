@@ -128,6 +128,7 @@ export type IrContent = {
     eyebrow: string;
     homeLink: string;
     nav: IrShellNavItem[];
+    navLabel: string;
     requestIr: string;
   };
   solution: {
@@ -158,6 +159,7 @@ export const ir: IrContent = {
       { href: "#economics", label: "Economics" },
       { href: "#cta", label: "Contact" },
     ],
+    navLabel: "목차",
   },
   hero: {
     badge: "Investor Overview",

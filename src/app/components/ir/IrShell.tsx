@@ -40,25 +40,35 @@ export function IrShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-ground text-ink">
       <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-ground/[.92] backdrop-blur-[8px] backdrop-saturate-[1.2]">
         <div className={`${SHELL} flex h-[70px] items-center justify-between gap-6`}>
-          <LocaleLink to="/" aria-label={copy.common.a11y.home} className="flex items-baseline gap-2">
-            <span className="text-[19px] font-bold tracking-[-0.02em]">{brand.mark}</span>
-            {/* 라틴 워드마크가 비어 있는 로케일(영문)에서는 조각 자체를 그리지
-                않는다 — Layout.tsx:82-86 과 같은 규칙. 그리면 "우리팀 WOORITEAM"
-                처럼 이름이 두 번 찍힌다. */}
-            {brand.markLatin ? (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">
-                {brand.markLatin}
-              </span>
-            ) : null}
-          </LocaleLink>
           {/*
-            예전에는 이 옆에 원형 "AI" 배지(cyan 톤)와 "{siteName} / Investor
-            Overview" 두 줄 텍스트가 따로 있었다. 투자자가 보는 페이지가
-            사이트와 다른 이름표를 달고 있을 이유가 없어 공용 헤더와 같은
-            워드마크 락업 하나로 합쳤다 — 계획 4 Task 3 보충 4.
+            예전에는 원형 "AI" 배지(cyan 톤) 옆에 "{siteName}"(작은 라벨) /
+            "Investor Overview"(본문 줄) 두 줄 텍스트가 있었다. 원형 배지는
+            없앴다 — 투자자가 보는 페이지가 사이트와 다른 이름표를 달고
+            있을 이유가 없어, 공용 헤더와 같은 워드마크 락업(mark +
+            markLatin)을 첫 줄로 쓴다 — 계획 4 Task 3 보충 4. 다만
+            "Investor Overview"는 이 페이지가 무엇인지 알려주는 텍스트라
+            원래 있던 두 줄 구조 그대로 두 번째 줄에 남긴다(수정 1회차) —
+            지웠더니 셸만 보고는 이게 IR 페이지인지 알 수 없다는 지적을
+            받았다.
           */}
+          <LocaleLink to="/" aria-label={copy.common.a11y.home} className="flex flex-col gap-0.5">
+            <span className="flex items-baseline gap-2">
+              <span className="text-[19px] font-bold tracking-[-0.02em]">{brand.mark}</span>
+              {/* 라틴 워드마크가 비어 있는 로케일(영문)에서는 조각 자체를 그리지
+                  않는다 — Layout.tsx:82-86 과 같은 규칙. 그리면 "우리팀 WOORITEAM"
+                  처럼 이름이 두 번 찍힌다. */}
+              {brand.markLatin ? (
+                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-3">
+                  {brand.markLatin}
+                </span>
+              ) : null}
+            </span>
+            <span className="text-[13px] font-medium text-ink-2">{shell.eyebrow}</span>
+          </LocaleLink>
 
-          <nav aria-label={shell.eyebrow} className="hidden items-center gap-6 text-sm lg:flex">
+          {/* nav 는 섹션 목록이지 투자자 개요 자체가 아니라 shell.eyebrow 를
+              재사용하지 않는다 — 별도의 정확한 라벨(navLabel)을 쓴다. */}
+          <nav aria-label={shell.navLabel} className="hidden items-center gap-6 text-sm lg:flex">
             {shell.nav.map((item) => (
               // 같은 페이지 안의 섹션 앵커라 LocaleLink 로 바꾸지 않는다 —
               // 로케일 접두사가 붙으면 안 되는 자리다.
