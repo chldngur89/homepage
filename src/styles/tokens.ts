@@ -20,6 +20,11 @@ export const BRAND_TOKENS = {
   invertInk2: "#B9B9B3",
   // 반전 CTA 면 위의 헤어라인. 본문이 아니라 장식용 경계선이라 4.5:1 대비 대상이 아니다
   invertLine: "#3A3A38",
+  // IR 차트(IRCharts.tsx) 시리즈 색. surface 위 3:1, 서로 1.6:1 — tokens.test.ts "차트 색" 참고
+  chart1: "#AE793C",
+  chart2: "#954E41",
+  chart3: "#35445E",
+  chart4: "#13261C",
 } as const satisfies Record<string, string>;
 
 function channelToLinear(value: number) {

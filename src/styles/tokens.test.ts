@@ -49,6 +49,29 @@ describe("브랜드 토큰 대비", () => {
   });
 });
 
+describe("차트 색", () => {
+  const chartTokens = [
+    BRAND_TOKENS.chart1,
+    BRAND_TOKENS.chart2,
+    BRAND_TOKENS.chart3,
+    BRAND_TOKENS.chart4,
+  ];
+
+  it("네 색 모두 surface 위에서 3:1 이상이다", () => {
+    for (const color of chartTokens) {
+      expect(contrastRatio(color, BRAND_TOKENS.surface)).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it("네 색이 서로 구별된다 (모든 쌍 1.6:1 이상)", () => {
+    for (let i = 0; i < chartTokens.length; i += 1) {
+      for (let j = i + 1; j < chartTokens.length; j += 1) {
+        expect(contrastRatio(chartTokens[i], chartTokens[j])).toBeGreaterThanOrEqual(1.6);
+      }
+    }
+  });
+});
+
 /**
  * 값의 원본은 theme.css 이고 tokens.ts 는 사본이다. 두 파일이 어긋나면 위의
  * 대비 검사는 화면에 쓰이지도 않는 색을 통과시킨다 — 검사가 있는데 아무것도
