@@ -20,6 +20,7 @@ import { contact as koContact } from "./ko/contact";
 import { contact as enContact } from "./en/contact";
 import { legal as koLegal } from "./ko/legal";
 import { ir as koIr, type IrContent } from "./ko/ir";
+import { ir as enIr } from "./en/ir";
 
 /**
  * 한국어 사전이 구조의 원본이고, 리프의 리터럴만 넓힌 것이 사전 타입이다.
@@ -132,12 +133,6 @@ export const dictionaries = {
      * (설계 문서 2절 비목표). 영문판을 만들 계획은 없다.
      */
     legal: koLegal,
-    /**
-     * 태스크 6 까지의 임시 상태 — `/en/ir` 은 라우트가 있고 프리렌더되지만
-     * 아직 한국어 본문을 낸다. 이것이 저장소에 하나 남은 배포 게이트이며
-     * (`REDESIGN_PLAN1_HANDOFF.md`), 태스크 6 이 `en/ir.ts` 를 만들면
-     * 이 줄이 `en/ir` 임포트로 바뀌고 게이트가 닫힌다.
-     */
-    ir: koIr,
+    ir: enIr,
   },
 } satisfies Record<Locale, Dictionary>;

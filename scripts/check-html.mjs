@@ -36,13 +36,12 @@ function report() {
  * hasEnglish — `EN_ROUTES` 에 있어 hreflang 3줄(ko·en·x-default)이 나와야 하는가.
  *              `/demo` 처럼 영문판이 없는 경로는 hreflang 이 아예 없어야 한다.
  *
- * 일부러 빠진 것 — `/en/ir` 은 프리렌더되고 sitemap 에도 있지만 여기 없다.
- * 본문이 아직 한국어라(`<main>` 기준 1927자) 지금 넣으면 위 로케일 혼입
- * 검사가 즉시 실패한다. 눈감아 주는 게 아니라 추적 중인 결함이고, 배포
- * 게이트가 걸려 있다 — `docs/superpowers/REDESIGN_PLAN2_HANDOFF.md`.
- * `/en/technology` 와 `/en/about` 은 계획 3에서 영문 본문이 채워져
- * 아래로 옮겨졌다(`<main>` 기준 한글 0자). `/en/ir` 은 계획 4가 `/ir` 을
- * 전환할 때 같이 해소된다.
+ * `/en/technology`·`/en/about` 은 계획 3에서, `/en/ir` 은 계획 4 태스크 6
+ * 에서 영문 본문이 채워지며 차례로 이 목록에 들어왔다(셋 다 `<main>` 기준
+ * 한글 0자). 특히 `/en/ir` 은 저장소에 하나 남아 있던 배포 게이트였다 —
+ * 프리렌더되고 sitemap·hreflang 에도 있으면서 `lang="en"` 을 달고 한국어
+ * 본문을 내고 있었고, 이 목록에서 빠져 있어 검사가 그것을 보지 못했다.
+ * 이제 프리렌더되는 경로가 전부 여기 있다.
  */
 const PAGES = [
   { route: "/", locale: "ko", hasEnglish: true },
@@ -61,6 +60,8 @@ const PAGES = [
   { route: "/terms", locale: "ko", hasEnglish: false },
   { route: "/en/technology", locale: "en", hasEnglish: true },
   { route: "/en/about", locale: "en", hasEnglish: true },
+  { route: "/ir", locale: "ko", hasEnglish: true },
+  { route: "/en/ir", locale: "en", hasEnglish: true },
 ];
 
 /**
