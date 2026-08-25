@@ -1,6 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router";
-import { motion } from "motion/react";
 import {
   ArrowRight,
   Mail,
@@ -13,10 +12,13 @@ import { type IrStatusTone } from "@/content/ko/ir";
 import { CONTACT_EMAIL } from "@/content/ko/contact";
 import { useCopy } from "@/app/i18n/useCopy";
 import { IrShell } from "@/app/components/ir/IrShell";
+import { LocaleLink } from "@/app/components/LocaleLink";
 
 /**
- * 본문(article)은 아직 다크 디자인이고 계획 4·5의 대상이다. 여기서 바꾼
- * 것은 이 주소의 **출처** 하나뿐이다 — 계획 2 Task 6 이 `site.json` 의
+ * 본문(article) 7개 섹션 중 히어로·실행 격차·시장 셋은 Task 4 가 밝은
+ * 디자인으로 전환했다. 나머지 넷(솔루션·경쟁우위·경제성·CTA)은 Task 5 의
+ * 대상으로 아직 다크다 — `data-ir-dark`(theme.css 스캐폴딩)가 그 넷에만
+ * 남아 있다. 여기서 바꾼 것은 이 주소의 **출처** 하나뿐이다 — 계획 2 Task 6 이 `site.json` 의
  * `contactEmail` 을 없앴으므로, 그대로 두면 이 줄이 조용히 폴백 리터럴로
  * 떨어져 문의 페이지와 갈라진다. 값은 동일하다. `IrShell.tsx` 도 같은
  * 상수를 독립적으로 들여온다 — 셸(헤더·푸터)과 본문이 각자 참조할 뿐,
@@ -24,11 +26,16 @@ import { IrShell } from "@/app/components/ir/IrShell";
  */
 const contactEmail = CONTACT_EMAIL;
 
+/**
+ * 375px 에서 4개가 서로 겹친다(실측 — Task 4 보충 3). md 미만에서는
+ * absolute 를 아예 걸지 않고 2열 그리드로 흐름 배치하고, md 이상에서만
+ * 이 궤도 배치를 적용한다 — 그래서 위치 유틸리티에 전부 `md:` 를 붙였다.
+ */
 const heroWorkflowLayout = [
-  "left-[5%] top-[8%] max-w-[12rem] text-left",
-  "right-[1%] top-[18%] max-w-[12.5rem] text-right",
-  "left-[6%] bottom-[36%] max-w-[12.5rem] text-left",
-  "right-[2%] bottom-[38%] max-w-[12.5rem] text-right",
+  "md:left-[5%] md:top-[8%] max-w-[12rem] text-left",
+  "md:right-[1%] md:top-[18%] max-w-[12.5rem] text-right",
+  "md:left-[6%] md:bottom-[36%] max-w-[12.5rem] text-left",
+  "md:right-[2%] md:bottom-[38%] max-w-[12.5rem] text-right",
 ] as const;
 
 const toneStyles: Record<IrStatusTone, string> = {
@@ -54,6 +61,13 @@ function StatusPill({
   );
 }
 
+/**
+ * 사이트 전체의 진입 애니메이션은 `.rise` 하나다(theme.css) — `motion/react`
+ * 의 스크롤 트리거 페이드 대신 CSS 애니메이션으로 옮긴다. `delay` 는 기존
+ * 호출부(아직 전환 전인 섹션 포함)가 넘기는 값을 그대로 받아 `animation-delay`
+ * 로 적용한다 — 컴포넌트 시그니처를 바꾸면 이 태스크가 손대지 않는 나머지
+ * 섹션의 호출부까지 고쳐야 한다.
+ */
 function Reveal({
   children,
   className,
@@ -64,15 +78,12 @@ function Reveal({
   delay?: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.48, delay }}
-      className={className}
+    <div
+      className={`rise ${className ?? ""}`}
+      style={delay ? { animationDelay: `${delay}s` } : undefined}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -114,13 +125,13 @@ function SectionIntro({
 
   return (
     <div className={`${alignmentClass} ${widthClass}`}>
-      <p className="text-xs font-medium uppercase tracking-[0.32em] text-cyan-300/80">
+      <p className="text-xs font-medium uppercase tracking-[0.32em] text-brand">
         {eyebrow}
       </p>
-      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink md:text-4xl">
         {title}
       </h2>
-      <p className="mt-5 text-base leading-8 text-slate-300 md:text-lg">
+      <p className="mt-5 text-base leading-8 text-ink-2 md:text-lg">
         {description}
       </p>
     </div>
@@ -137,104 +148,103 @@ export default function IR() {
   return (
     <IrShell>
       <article>
-          <section data-ir-dark className="relative overflow-hidden border-b border-white/10">
-            <div className="mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:pb-24 lg:pt-20">
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.52 }}
-                className="relative z-10 max-w-3xl"
-              >
-                <span className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.32em] text-cyan-200">
+          <section className="relative overflow-hidden border-b border-line">
+            <div className="rise mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-14 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:pb-24 lg:pt-20">
+              <div className="relative z-10 max-w-3xl">
+                <span className="inline-flex rounded-full border border-line bg-panel px-4 py-1.5 text-xs font-medium uppercase tracking-[0.32em] text-ink-2">
                   {irContent.hero.badge}
                 </span>
-                <p className="mt-8 text-xs font-medium uppercase tracking-[0.38em] text-slate-500">
+                <p className="mt-8 text-xs font-medium uppercase tracking-[0.38em] text-ink-3">
                   First AI teammate for founders
                 </p>
-                <h1 className="mt-5 max-w-[13ch] whitespace-pre-line break-keep text-[2.35rem] font-semibold tracking-[-0.04em] text-white leading-[1.08] sm:text-[2.7rem] md:max-w-[14ch] md:text-[3.45rem] xl:text-[3.95rem] xl:leading-[1.04]">
+                <h1 className="mt-5 max-w-[13ch] whitespace-pre-line break-keep text-[2.35rem] font-semibold tracking-[-0.04em] text-ink leading-[1.08] sm:text-[2.7rem] md:max-w-[14ch] md:text-[3.45rem] xl:text-[3.95rem] xl:leading-[1.04]">
                   {irContent.hero.title}
                 </h1>
-                <p className="mt-8 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+                <p className="mt-8 max-w-2xl text-base leading-8 text-ink-2 md:text-lg">
                   {irContent.hero.description}
                 </p>
-                <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-500">
+                <p className="mt-5 max-w-2xl text-sm leading-7 text-ink-3">
                   {irContent.hero.note}
                 </p>
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                   <a
                     href={`mailto:${contactEmail}?subject=${encodeURIComponent(irContent.cta.emailSubject)}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-200"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-invert px-6 py-3 text-sm font-medium text-white"
                   >
                     {irContent.cta.primaryLabel}
                     <ArrowRight className="h-4 w-4" />
                   </a>
-                  <Link
+                  <LocaleLink
                     to="/contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-6 py-3 text-sm font-medium text-white transition-colors hover:border-cyan-400/30 hover:bg-white/5"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-ink"
                   >
                     {irContent.cta.secondaryLabel}
-                  </Link>
+                  </LocaleLink>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.52, delay: 0.12 }}
-                className="relative z-10"
-              >
-                <div className="relative mx-auto min-h-[40rem] max-w-[35rem]">
-                  <div
-                    className="absolute inset-0 rounded-[2.5rem]"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(circle at center, rgba(34, 211, 238, 0.14), transparent 58%), radial-gradient(circle at 65% 30%, rgba(129, 140, 248, 0.18), transparent 28%)",
-                    }}
-                  />
-                  <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/20" />
-                  <div className="absolute left-1/2 top-1/2 h-[21rem] w-[21rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
-                  <div className="absolute left-1/2 top-1/2 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
+              <div className="relative z-10">
+                {/*
+                  md 미만에서는 흐름 배치(캡션 → 2열 카드 그리드 → 시그널
+                  그리드), md 이상에서만 궤도(links absolute) 배치 — 보충 3.
+                  링과 중앙 텍스트 스택은 궤도가 있을 때만 의미가 있는
+                  장식이라 md 미만에서는 아예 숨긴다(카드 제목에 이미 같은
+                  단어가 있어 정보 손실은 없다). 캡션 문구만 모바일 전용
+                  줄로 한 번 더 보여준다.
+                */}
+                <div className="relative mx-auto max-w-[35rem] md:min-h-[40rem]">
+                  <div className="hidden md:block">
+                    <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-line" />
+                    <div className="absolute left-1/2 top-1/2 h-[21rem] w-[21rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-line" />
+                    <div className="absolute left-1/2 top-1/2 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-line" />
+                  </div>
 
-                  {irContent.hero.workflow.map((step, index) => (
-                    <div
-                      key={step.title}
-                      className={`absolute ${heroWorkflowLayout[index]} rounded-3xl border border-white/10 bg-white/[0.06] px-5 py-4 backdrop-blur-sm`}
-                    >
-                      <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-cyan-200/80">
-                        {step.title}
-                      </p>
-                      <p className="mt-3 text-sm leading-6 text-slate-200">{step.body}</p>
-                    </div>
-                  ))}
+                  <p className="text-center text-[11px] font-medium uppercase tracking-[0.38em] text-brand md:hidden">
+                    {irContent.hero.workflowCaption}
+                  </p>
 
-                  <div className="absolute inset-x-0 top-[16%] flex justify-center">
+                  <div className="mt-4 grid grid-cols-2 gap-3 md:mt-0 md:contents">
+                    {irContent.hero.workflow.map((step, index) => (
+                      <div
+                        key={step.title}
+                        className={`rounded-3xl border border-line bg-surface px-5 py-4 md:absolute ${heroWorkflowLayout[index]}`}
+                      >
+                        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-brand">
+                          {step.title}
+                        </p>
+                        <p className="mt-3 text-sm leading-6 text-ink-2">{step.body}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="hidden md:absolute md:inset-x-0 md:top-[16%] md:flex md:justify-center">
                     <div className="text-center">
-                      <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-cyan-200/70">
-                        같이 성장하기
+                      <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-brand">
+                        {irContent.hero.workflowCaption}
                       </p>
-                      <p className="mt-4 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
+                      <p className="mt-4 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
                         Propose
                       </p>
-                      <p className="mt-2 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
+                      <p className="mt-2 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
                         Approve
                       </p>
-                      <p className="mt-2 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
+                      <p className="mt-2 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
                         Execute
                       </p>
-                      <p className="mt-2 text-4xl font-semibold leading-none text-white md:text-[3.45rem]">
+                      <p className="mt-2 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
                         Grow
                       </p>
                     </div>
                   </div>
 
-                  <div className="absolute inset-x-0 bottom-0 grid gap-3 border-t border-white/10 px-4 pb-5 pt-6 sm:grid-cols-2">
+                  <div className="mt-6 grid gap-3 border-t border-line pt-6 sm:grid-cols-2 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:border-t md:px-4 md:pb-5 md:pt-6">
                     {irContent.hero.signals.map((signal) => (
-                      <div key={signal.label} className="rounded-2xl bg-white/[0.03] px-4 py-3">
+                      <div key={signal.label} className="rounded-2xl bg-surface px-4 py-3">
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="text-sm font-medium text-white">{signal.label}</p>
-                            <p className="mt-1 text-xs leading-5 text-slate-500">{signal.note}</p>
+                            <p className="text-sm font-medium text-ink">{signal.label}</p>
+                            <p className="mt-1 text-xs leading-5 text-ink-3">{signal.note}</p>
                           </div>
                           <StatusPill tone={signal.tone}>{signal.value}</StatusPill>
                         </div>
@@ -242,11 +252,11 @@ export default function IR() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </section>
 
-          <section id="problem" data-ir-dark className="border-b border-white/10">
+          <section id="problem" className="border-b border-line">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.94fr)]">
                 <Reveal>
@@ -256,7 +266,7 @@ export default function IR() {
                     description={irContent.executionGap.description}
                   />
 
-                  <div className="mt-10 space-y-6 text-base leading-8 text-slate-300">
+                  <div className="mt-10 space-y-6 text-base leading-8 text-ink-2">
                     {irContent.executionGap.paragraphs.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
@@ -266,29 +276,21 @@ export default function IR() {
                     {irContent.executionGap.points.map((point, index) => (
                       <article
                         key={point.title}
-                        className="border-l border-white/10 pl-5"
+                        className="border-l border-line pl-5"
                       >
-                        <p className="text-xs font-medium uppercase tracking-[0.28em] text-slate-500">
+                        <p className="text-xs font-medium uppercase tracking-[0.28em] text-ink-3">
                           0{index + 1}
                         </p>
-                        <h3 className="mt-2 text-lg font-medium text-white">{point.title}</h3>
-                        <p className="mt-2 text-sm leading-7 text-slate-400">{point.body}</p>
+                        <h3 className="mt-2 text-lg font-medium text-ink">{point.title}</h3>
+                        <p className="mt-2 text-sm leading-7 text-ink-2">{point.body}</p>
                       </article>
                     ))}
                   </div>
                 </Reveal>
 
                 <Reveal delay={0.08}>
-                  <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] px-6 py-8 md:px-8">
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-x-0 top-0 h-32"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle at top, rgba(251, 113, 133, 0.18), transparent 62%)",
-                      }}
-                    />
-                    <p className="relative text-xs font-medium uppercase tracking-[0.32em] text-slate-500">
+                  <div className="relative overflow-hidden rounded-[2rem] border border-line bg-surface px-6 py-8 md:px-8">
+                    <p className="relative text-xs font-medium uppercase tracking-[0.32em] text-ink-3">
                       Workload Imbalance
                     </p>
                     <div className="relative mt-6">
@@ -300,37 +302,27 @@ export default function IR() {
                             className="relative h-64 w-64 rounded-full"
                             style={{
                               background:
-                                "conic-gradient(#fb7185 0deg 324deg, #38bdf8 324deg 360deg)",
+                                "conic-gradient(var(--color-chart-2) 0deg 324deg, var(--color-chart-1) 324deg 360deg)",
                             }}
                           >
-                            <div className="absolute inset-[3.25rem] rounded-full bg-slate-950/95" />
+                            <div className="absolute inset-[3.25rem] rounded-full bg-surface" />
                           </div>
                         </div>
                       )}
 
-                      {/* 수정 1회차: 보충 1 이 이 텍스트를 브랜드 토큰(text-ink 등)으로
-                          옮겼었지만, 셸이 밝아져도 이 섹션(data-ir-dark, 아래
-                          theme.css 스캐폴딩 참고)은 아직 다크 배경이라 밝은-배경용
-                          토큰이 오히려 안 보이는 문제를 새로 만들었다(실측 대비
-                          1.07:1). 이 섹션이 실제로 밝아지는 건 Task 4 라서, 그때까지는
-                          다크 기준 원본 색(text-rose-200/80, text-white, text-slate-400)
-                          그대로 둔다 — Task 4 가 이 섹션을 전환할 때 다시 브랜드
-                          토큰으로 바꿔야 한다. */}
                       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                        <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-rose-200/80">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-ink-3">
                           Manual
                         </p>
-                        <p className="mt-3 text-5xl font-semibold text-white">90%</p>
-                        <p className="mt-3 max-w-[11rem] text-center text-sm leading-6 text-slate-400">
-                          운영 시간이 수작업에 묶인 상태를 가정한 비교
+                        <p className="mt-3 text-5xl font-semibold text-ink">90%</p>
+                        <p className="mt-3 max-w-[11rem] text-center text-sm leading-6 text-ink-2">
+                          {irContent.executionGap.chartCaption}
                         </p>
                       </div>
                     </div>
 
-                    <p className="relative mt-8 text-sm leading-7 text-slate-400">
-                      생성 툴만으로는 전략 시간이 늘어나지 않습니다. 핵심은 생성 이후의
-                      등록, 배포, 리포팅 과정을 자동화해 창업가의 시간을 다시 확보하는
-                      것입니다.
+                    <p className="relative mt-8 text-sm leading-7 text-ink-2">
+                      {irContent.executionGap.chartFootnote}
                     </p>
                   </div>
                 </Reveal>
@@ -338,7 +330,7 @@ export default function IR() {
             </div>
           </section>
 
-          <section id="market" data-ir-dark className="border-b border-white/10 bg-slate-900/30">
+          <section id="market" className="border-b border-line bg-panel">
             <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
               <Reveal>
                 <SectionIntro
@@ -354,61 +346,54 @@ export default function IR() {
                   <div className="flex flex-col items-center gap-3">
                     {irContent.market.funnel.map((level, index) => {
                       const width = [100, 82, 64][index];
-                      const gradientClass =
-                        level.stage === "TAM"
-                          ? "from-slate-900 via-indigo-500/20 to-cyan-300/20"
-                          : level.stage === "SAM"
-                            ? "from-slate-900 via-cyan-400/18 to-cyan-200/12"
-                            : "from-slate-900 via-fuchsia-500/18 to-fuchsia-300/14";
 
                       return (
                         <article
                           key={level.stage}
                           style={{ width: `${width}%` }}
-                          className={`relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-r ${gradientClass} px-6 py-7 sm:px-8`}
+                          className="relative overflow-hidden rounded-[1.75rem] border border-line bg-surface px-6 py-7 sm:px-8"
                         >
                           <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
                             <div>
-                              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+                              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-ink-3">
                                 {level.stage}
                               </p>
-                              <h3 className="mt-3 text-3xl font-semibold text-white">
+                              <h3 className="mt-3 text-3xl font-semibold text-ink">
                                 {level.value}
                               </h3>
                             </div>
                             <StatusPill tone={level.tone}>{level.note}</StatusPill>
                           </div>
-                          <p className="mt-6 max-w-xl text-sm leading-7 text-slate-300">
+                          <p className="mt-6 max-w-xl text-sm leading-7 text-ink-2">
                             {level.description}
                           </p>
                         </article>
                       );
                     })}
                   </div>
-                  <p className="mt-6 text-center text-sm leading-7 text-slate-500">
+                  <p className="mt-6 text-center text-sm leading-7 text-ink-3">
                     {irContent.market.note}
                   </p>
                 </Reveal>
 
                 <Reveal delay={0.08} className="flex h-full flex-col justify-between">
                   <div className="space-y-8">
-                    <div className="border-t border-white/10 pt-6">
-                      <p className="text-xs font-medium uppercase tracking-[0.32em] text-cyan-300/80">
+                    <div className="border-t border-line pt-6">
+                      <p className="text-xs font-medium uppercase tracking-[0.32em] text-brand">
                         Why This Segment
                       </p>
-                      <p className="mt-4 text-lg leading-8 text-slate-200">
-                        첫 번째 진입 시장은 마케팅 전담 인력이 없고, 업로드와 운영을 혼자
-                        처리해야 하는 초기 셀러입니다.
+                      <p className="mt-4 text-lg leading-8 text-ink-2">
+                        {irContent.market.segmentBody}
                       </p>
                     </div>
-                    <div className="border-t border-white/10 pt-6">
-                      <p className="text-xs font-medium uppercase tracking-[0.32em] text-cyan-300/80">
+                    <div className="border-t border-line pt-6">
+                      <p className="text-xs font-medium uppercase tracking-[0.32em] text-brand">
                         Lock-in
                       </p>
-                      <h3 className="mt-4 text-2xl font-semibold text-white">
+                      <h3 className="mt-4 text-2xl font-semibold text-ink">
                         {irContent.market.lockIn.title}
                       </h3>
-                      <p className="mt-4 text-base leading-8 text-slate-300">
+                      <p className="mt-4 text-base leading-8 text-ink-2">
                         {irContent.market.lockIn.body}
                       </p>
                     </div>

@@ -100,6 +100,8 @@ export type IrContent = {
   };
   executionGap: {
     chart: IrChartSlice[];
+    chartCaption: string;
+    chartFootnote: string;
     description: string;
     paragraphs: string[];
     points: IrPainPoint[];
@@ -112,6 +114,7 @@ export type IrContent = {
     signals: IrStatusItem[];
     title: string;
     workflow: IrWorkflowStep[];
+    workflowCaption: string;
   };
   market: {
     description: string;
@@ -121,6 +124,7 @@ export type IrContent = {
       title: string;
     };
     note: string;
+    segmentBody: string;
     title: string;
   };
   shell: {
@@ -186,6 +190,7 @@ export const ir: IrContent = {
         body: "결과를 다음 제안에 반영해 반복 성장합니다.",
       },
     ],
+    workflowCaption: "같이 성장하기",
     signals: [
       {
         label: "예비창업패키지",
@@ -247,6 +252,9 @@ export const ir: IrContent = {
         value: 15,
       },
     ],
+    chartCaption: "운영 시간이 수작업에 묶인 상태를 가정한 비교",
+    chartFootnote:
+      "생성 툴만으로는 전략 시간이 늘어나지 않습니다. 핵심은 생성 이후의 등록, 배포, 리포팅 과정을 자동화해 창업가의 시간을 다시 확보하는 것입니다.",
   },
   market: {
     title: "개인의 불편이 아니라, 초기 팀의 구조적 공백입니다.",
@@ -277,6 +285,8 @@ export const ir: IrContent = {
         tone: "planned",
       },
     ],
+    segmentBody:
+      "첫 번째 진입 시장은 마케팅 전담 인력이 없고, 업로드와 운영을 혼자 처리해야 하는 초기 셀러입니다.",
     lockIn: {
       title: "락인은 생성 횟수가 아니라 반복 성장 루프입니다.",
       body:
