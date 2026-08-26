@@ -10,18 +10,10 @@ import {
   stripLocale,
 } from "@/app/i18n/localePath";
 import { APP_HAS_ENGLISH, APP_URLS } from "@/app/config/apps";
+import { NAV_PATHS } from "@/app/config/navPaths";
 import type { Locale } from "@/content/locales";
 
-export const NAV_PATHS = [
-  ["solution", "/solution"],
-  ["technology", "/technology"],
-  ["pricing", "/pricing"],
-  ["demo", "/demo"],
-  ["apps", "/apps"],
-  ["about", "/about"],
-  ["ir", "/ir"],
-  ["contact", "/contact"],
-] as const;
+export { NAV_PATHS };
 
 /** LEGAL 푸터 그룹처럼 nav 에는 없지만 영문판이 없는 경로. */
 export const FOOTER_ONLY_PATHS = ["/privacy", "/terms"] as const;

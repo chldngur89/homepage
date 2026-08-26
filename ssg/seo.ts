@@ -1,7 +1,10 @@
 import { SITE_URL, absoluteUrl } from "./site";
+import { faqNode } from "./faq";
 import { hasEnglish, localePath, stripLocale } from "../src/app/i18n/localePath";
 import type { Locale } from "../src/content/locales";
 import { CONTACT_EMAIL } from "../src/content/ko/contact";
+import { dictionaries } from "../src/content";
+import { NAV_PATHS } from "../src/app/config/navPaths";
 
 type SeoConfig = {
   description: string;
@@ -182,6 +185,51 @@ export function htmlLangFor(pathname: string) {
   return HTML_LANG[stripLocale(normalizePath(pathname)).locale];
 }
 
+/**
+ * `홈 > 페이지` 2단 `BreadcrumbList`. 두 번째 항목의 이름은 헤더 nav 가
+ * 쓰는 문구 그대로다(`NAV_PATHS` 가 헤더와 공유하는 원본이므로, 헤더에
+ * 없는 이름이 빵부스러기에 나올 수 없다). 홈 항목의 이름은 헤더 로고
+ * 링크의 접근성 이름(`common.a11y.home`) — 화면(스크린리더 트리)에 실제로
+ * 있는 문구를 그대로 쓴다.
+ *
+ * 홈 자신(`/`)이거나 `NAV_PATHS` 에 없는 경로(`/privacy`, `/terms`, `/404`
+ * 등 헤더 nav 에 없는 페이지)에서는 undefined — nav 에 없는 이름을 지어
+ * 붙이지 않는다.
+ */
+function breadcrumbNode(pathname: string, locale: Locale): Record<string, unknown> | undefined {
+  const { path: basePath } = stripLocale(pathname);
+  if (basePath === "/") {
+    return undefined;
+  }
+
+  const navEntry = NAV_PATHS.find(([, path]) => path === basePath);
+  if (!navEntry) {
+    return undefined;
+  }
+
+  const [key] = navEntry;
+  const copy = dictionaries[locale].common;
+
+  return {
+    "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}${pathname}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: copy.a11y.home,
+        item: absoluteUrl(localePath("/", locale)),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: copy.nav[key],
+        item: absoluteUrl(pathname),
+      },
+    ],
+  };
+}
+
 function buildStructuredData(pathname: string, seo: SeoConfig, locale: Locale) {
   if (pathname === "/404") {
     return undefined;
@@ -230,6 +278,16 @@ function buildStructuredData(pathname: string, seo: SeoConfig, locale: Locale) {
         : {}),
     },
   ];
+
+  const faq = faqNode(pathname, locale);
+  if (faq) {
+    graph.push(faq);
+  }
+
+  const breadcrumb = breadcrumbNode(pathname, locale);
+  if (breadcrumb) {
+    graph.push(breadcrumb);
+  }
 
   return {
     "@context": "https://schema.org",

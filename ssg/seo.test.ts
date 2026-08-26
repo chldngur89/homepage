@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { htmlLangFor, renderSeoTags } from "./seo";
+import { getSeoForPath, htmlLangFor, renderSeoTags } from "./seo";
+import { dictionaries } from "../src/content";
+
+/** `@graph` 에서 특정 `@type` 을 가진 노드 하나를 찾는다. */
+function nodeOfType(graph: Record<string, unknown>[], type: string) {
+  return graph.find((node) => node["@type"] === type);
+}
 
 /** `<link rel="canonical" href="...">` 태그에서 href 만 뽑아낸다. */
 function canonicalHref(tags: string) {
@@ -99,5 +105,106 @@ describe("renderSeoTags", () => {
     expect(json).toBeDefined();
     expect(JSON.parse(json as string)).toBeTruthy();
     expect(json).not.toMatch(/[가-힣]/);
+  });
+});
+
+describe("구조화 데이터 @graph — FAQPage", () => {
+  it("/pricing 의 @graph 에 FAQPage 가 있고 문항 수가 사전과 같다(ko)", () => {
+    const graph = getSeoForPath("/pricing").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    const faq = nodeOfType(graph, "FAQPage") as
+      | { mainEntity: { name: string }[] }
+      | undefined;
+
+    expect(faq).toBeDefined();
+    expect(faq!.mainEntity).toHaveLength(dictionaries.ko.pricing.faq.items.length);
+  });
+
+  it("/en/pricing 의 @graph 에 FAQPage 가 있고 문항 수가 영어 사전과 같다", () => {
+    const graph = getSeoForPath("/en/pricing").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    const faq = nodeOfType(graph, "FAQPage") as
+      | { mainEntity: { name: string }[] }
+      | undefined;
+
+    expect(faq).toBeDefined();
+    expect(faq!.mainEntity).toHaveLength(dictionaries.en.pricing.faq.items.length);
+  });
+
+  it("/contact 의 @graph 에는 FAQPage 가 없다 — 화면에 답이 없는 질문 링크만 있기 때문이다", () => {
+    const graph = getSeoForPath("/contact").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    expect(nodeOfType(graph, "FAQPage")).toBeUndefined();
+  });
+
+  it("FAQ 가 없는 페이지(예: /about)의 @graph 에는 FAQPage 가 없다", () => {
+    const graph = getSeoForPath("/about").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    expect(nodeOfType(graph, "FAQPage")).toBeUndefined();
+  });
+});
+
+describe("구조화 데이터 @graph — BreadcrumbList", () => {
+  it("/pricing 의 두 번째 항목 이름이 헤더 nav 라벨(common.nav.pricing)과 같다(ko)", () => {
+    const graph = getSeoForPath("/pricing").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    const crumb = nodeOfType(graph, "BreadcrumbList") as
+      | { itemListElement: { name: string; item: string; position: number }[] }
+      | undefined;
+
+    expect(crumb).toBeDefined();
+    expect(crumb!.itemListElement).toHaveLength(2);
+    expect(crumb!.itemListElement[1].name).toBe(dictionaries.ko.common.nav.pricing);
+    expect(crumb!.itemListElement[1].item.endsWith("/pricing")).toBe(true);
+  });
+
+  it("/en/contact 의 두 번째 항목 이름이 영문 nav 라벨(common.nav.contact)과 같고 URL 에 /en 이 붙는다", () => {
+    const graph = getSeoForPath("/en/contact").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    const crumb = nodeOfType(graph, "BreadcrumbList") as
+      | { itemListElement: { name: string; item: string; position: number }[] }
+      | undefined;
+
+    expect(crumb).toBeDefined();
+    expect(crumb!.itemListElement[1].name).toBe(dictionaries.en.common.nav.contact);
+    expect(crumb!.itemListElement[1].item.endsWith("/en/contact")).toBe(true);
+    // 홈 항목도 로케일 접두사를 포함해야 한다.
+    expect(crumb!.itemListElement[0].item.endsWith("/en")).toBe(true);
+  });
+
+  it("홈(/, /en)에는 BreadcrumbList 가 없다 — 자기 자신뿐이라 의미가 없다", () => {
+    const koGraph = getSeoForPath("/").structuredData!["@graph"] as Record<string, unknown>[];
+    const enGraph = getSeoForPath("/en").structuredData!["@graph"] as Record<string, unknown>[];
+    expect(nodeOfType(koGraph, "BreadcrumbList")).toBeUndefined();
+    expect(nodeOfType(enGraph, "BreadcrumbList")).toBeUndefined();
+  });
+
+  it("헤더 nav 에 없는 경로(/privacy)에는 BreadcrumbList 가 없다 — nav 에 없는 이름을 지어 붙이지 않는다", () => {
+    const graph = getSeoForPath("/privacy").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    expect(nodeOfType(graph, "BreadcrumbList")).toBeUndefined();
+  });
+
+  it("@id 가 기존 Organization·WebSite·WebPage 노드와 겹치지 않는다", () => {
+    const graph = getSeoForPath("/pricing").structuredData!["@graph"] as Record<
+      string,
+      unknown
+    >[];
+    const ids = graph.map((node) => node["@id"]);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 });
