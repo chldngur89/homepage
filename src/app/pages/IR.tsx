@@ -44,12 +44,25 @@ const heroWorkflowLayout = [
  * 비텍스트 기준(3:1)은 넘어도 글자 기준(4.5:1)은 못 미치기 때문 — 그래서
  * 글자는 항상 `text-ink`, 색 구분은 배경 틴트가 맡는다. 테두리는 비텍스트라
  * 3:1 기준만 넘으면 된다.
+ *
+ * `--color-chart-4` 는 네 톤 중 가장 어둡고, `IRCharts.tsx` 가 그 진하기를
+ * "가장 두드러져야 하는 시리즈"(wooriteam·mrr)에 의도적으로 배정해 뒀다.
+ * 예전 배정(열거 순서 그대로 estimate→1, goal→2, planned→3, under_review→4)
+ * 은 그 서열을 뒤집었다 — 넷 중 **가장 불확실한** `under_review`("검토
+ * 중")가 가장 진한 색을 가져갔다. 채도가 낮을 때는 안 보이던 문제지만,
+ * 배경 틴트가 짙어지면 "이 배지가 가장 확실하다" 는 인상을 준다.
+ *
+ * 그래서 `planned`(이미 진행 중 — "예정"/"지원중")가 chart-4 를 갖도록
+ * 옮기고, `under_review` 는 가장 옅은 chart-1 로 내렸다. `estimate` 는 그
+ * 자리로 옮긴 chart-3 을 받는다(시장 추정은 데이터에 근거하지만 확정
+ * 수치는 아니다 — planned 보다는 약하고 미정인 under_review 보다는 강한
+ * 위치). `goal` 은 원래 자리(chart-2)를 유지한다.
  */
 const toneStyles: Record<IrStatusTone, string> = {
-  estimate: "border-chart-1/30 bg-chart-1/10 text-ink",
+  estimate: "border-chart-3/30 bg-chart-3/10 text-ink",
   goal: "border-chart-2/30 bg-chart-2/10 text-ink",
-  planned: "border-chart-3/30 bg-chart-3/10 text-ink",
-  under_review: "border-chart-4/30 bg-chart-4/10 text-ink",
+  planned: "border-chart-4/30 bg-chart-4/10 text-ink",
+  under_review: "border-chart-1/30 bg-chart-1/10 text-ink",
 };
 
 function StatusPill({

@@ -51,6 +51,17 @@ export const common = {
     copyright: "© 2026 WooriTeam. All rights reserved.",
   },
   langLabel: "EN",
+  /**
+   * `NotFound.tsx` 는 프리렌더된 문서(404.html)가 하나뿐이라 로케일을
+   * 빌드 시점에 정할 수 없다 — 실제 경로에서 브라우저가 판별한다. 문구
+   * 자체는 전환 이전 하드코딩 리터럴과 문자 단위로 같다(옮기기만 했다).
+   */
+  notFound: {
+    title: "페이지를 찾을 수 없습니다",
+    description: "요청하신 주소가 잘못되었거나 페이지가 이동·삭제되었을 수 있습니다.",
+    home: "홈으로",
+    back: "이전 페이지",
+  },
 } as const;
 
 export type CommonCopy = typeof common;

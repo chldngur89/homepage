@@ -49,4 +49,10 @@ export const common: DeepWiden<CommonCopy> = {
     copyright: "© 2026 WooriTeam. All rights reserved.",
   },
   langLabel: "KO",
+  notFound: {
+    title: "Page not found",
+    description: "The address may be incorrect, or the page may have moved or been removed.",
+    home: "Go home",
+    back: "Go back",
+  },
 };

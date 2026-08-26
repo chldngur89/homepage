@@ -40,14 +40,35 @@ const FIELD =
   "mt-2 w-full rounded-[10px] border border-line-2 bg-surface px-4 py-3 text-[15.5px] leading-[1.6] text-ink placeholder:text-ink-3";
 const FIELD_LABEL = "block text-[13px] font-semibold tracking-[0.04em] text-ink-2";
 
-/** 연락 수단 카드. 세 장이 같은 모양이라 한 곳에 둔다. */
-function ChannelCard({ href, title, value }: { href: string; title: string; value: string }) {
-  return (
-    <a href={href} className="rounded-[14px] border border-line-2 bg-surface p-[clamp(22px,3vw,28px)]">
+const CHANNEL_CARD =
+  "rounded-[14px] border border-line-2 bg-surface p-[clamp(22px,3vw,28px)]";
+
+/**
+ * 연락 수단 카드. 세 장이 같은 모양이라 한 곳에 둔다.
+ *
+ * `href` 가 없으면(오피스 카드 — 아직 실제 주소가 없다) `<a>` 가 아니라
+ * `<div>` 로 렌더한다. 정보는 그대로 보이돼 눌리는 것처럼 보이지 않게
+ * 하려는 것이다 — `href="#"` 는 눌러도 아무 일이 없는데 눌리는 것처럼
+ * 보여서 더 나쁘다. 실제 주소가 생기면 호출부에서 `href` 를 다시 채우면
+ * 된다(레이아웃 변경 없음).
+ */
+function ChannelCard({ href, title, value }: { href?: string; title: string; value: string }) {
+  const content = (
+    <>
       <h3 className="text-[12.5px] font-semibold tracking-[0.12em] text-ink-3">{title}</h3>
       <p className="mt-3 break-words text-[17px] font-semibold leading-[1.5] tracking-[-0.01em] text-ink">
         {value}
       </p>
+    </>
+  );
+
+  if (!href) {
+    return <div className={CHANNEL_CARD}>{content}</div>;
+  }
+
+  return (
+    <a href={href} className={CHANNEL_CARD}>
+      {content}
     </a>
   );
 }
@@ -160,7 +181,10 @@ export default function Contact() {
             title={t.channels.phoneTitle}
             value={t.channels.phoneValue}
           />
-          <ChannelCard href="#" title={t.channels.officeTitle} value={t.channels.officeValue} />
+          {/* 아직 사무실 실주소가 없다 — href 없이 두면 ChannelCard 가 <div> 로
+              렌더해 정보만 보여주고 눌리는 것처럼 보이지 않는다. 주소가
+              생기면 href={`https://...`} 를 채워 넣기만 하면 된다. */}
+          <ChannelCard title={t.channels.officeTitle} value={t.channels.officeValue} />
         </div>
 
         <p className="mt-6 max-w-[40em] text-[14.5px] leading-[1.7] text-ink-3">
@@ -324,15 +348,16 @@ export default function Contact() {
             <div className={CARD}>
               <h3 className={CARD_TITLE}>{t.social.title}</h3>
               <p className="mt-3 text-[15.5px] leading-[1.7] text-ink-2">{t.social.body}</p>
+              {/* 아직 실제 소셜 계정 주소가 없다 — href="#" 는 눌러도 아무
+                  일도 안 하면서 눌리는 것처럼 보인다. <span> 으로 두어 이름은
+                  보이돼 클릭 대상이 아님을 드러낸다. 계정이 생기면 이
+                  <span> 을 <a href="https://...">로 되돌리면 된다. */}
               <ul className="mt-5 grid grid-cols-2 gap-2.5">
                 {SOCIAL_NAMES.map((name) => (
                   <li key={name}>
-                    <a
-                      href="#"
-                      className="flex h-11 items-center justify-center rounded-[10px] border border-line-2 text-[14.5px] font-semibold text-ink-2"
-                    >
+                    <span className="flex h-11 items-center justify-center rounded-[10px] border border-line-2 text-[14.5px] font-semibold text-ink-2">
                       {name}
-                    </a>
+                    </span>
                   </li>
                 ))}
               </ul>
