@@ -6,22 +6,26 @@
 전환 경로 4개 페이지(`/solution`, `/pricing`, `/demo`, `/contact`)를 새 디자인으로 옮기고
 그중 3개에 영문판을 붙였습니다. 이 문서는 계획 3을 시작할 때 필요한 것만 담습니다.
 
-## ⚠️ 릴리스 게이트 — 여전히 배포 금지
+## ✅ 릴리스 게이트 — 해제됨
 
 **갱신 (계획 3 완료 시점):** 원래 세 경로 중 `/en/technology` 와 `/en/about` 은
 계획 3에서 영문 본문이 채워져 해소됐습니다(`<main>` 기준 한글 0자, 계획 3
 태스크 6 실측). 남은 것은 `/en/ir` 하나입니다.
 
-`/en/ir` 이 **영어라고 선언하면서 한국어 본문을 냅니다.**
-`<html lang="en">` + 영문 title + `robots: index, follow` + sitemap 등재 상태입니다.
-본문 한글: 1927자 (`<main>` 기준).
+**갱신 (계획 4 완료, 2026-08-26):** **게이트 해제 — 남은 경로 0개.**
+`/en/ir` 이 **영어라고 선언하면서 한국어 본문을 내던** 상태였습니다 —
+`<html lang="en">` + 영문 title + `robots: index, follow` + sitemap 등재
+상태에서 본문 한글 1927자(`<main>` 기준, 계획 2 완료 시점 실측)였습니다.
+`/en/contact` 의 히어로와 IR 카드가 그 경로로 방문자를 직접 몰아넣고
+있었습니다.
 
-`/en/contact` 의 능동 유입 동선 중 FAQ 3번이 `/en/technology` 로 보내던 것은
-해소됐습니다 — 히어로와 IR 카드가 `/en/ir` 로 보내는 두 동선만 남았습니다.
-
-**계획 4의 첫 번째 작업으로 이걸 잡으십시오.**
-급히 배포해야 하면 `src/content/locales.ts` 의 `EN_ROUTES` 에서 `/ir` 을
-빼면 라우트·prerender·sitemap·hreflang 이 한 줄로 함께 따라옵니다.
+계획 4 태스크 6이 `/en/ir` 에 영문 본문을 채워(`<main>` 기준 한글 0자)
+이 문제를 해소했고, 태스크 7이 `scripts/check-html.mjs` 의 `PAGES` 에
+`/ir`·`/en/ir` 두 줄을 더해 그 사실을 빌드가 직접 검증하게 만들었습니다 —
+그 전까지는 두 경로가 프리렌더는 되면서도 이 검사 목록엔 없어, 검사가
+있어도 정작 보지 못하는 상태였습니다. `dist/en/ir/index.html` 에 한국어
+문장을 일부러 심어 `check-html.mjs` 가 exit 1 로 잡는 것을 확인했습니다
+(task-7-report.md 참고).
 
 ## 계획 2가 남긴 도구
 
@@ -30,15 +34,15 @@
 | `LocaleLink` | 내부 링크의 경로와 `hreflang` 을 자동 계산. `to`/`hrefLang` 은 타입 단계에서 덮어쓸 수 없음 |
 | `components/page/` | `SHELL` `BLOCK` `Section` `SectionLabel` `Lines` — 섹션 리듬 |
 | `SameShape<T,V>` | 배열을 사전 길이에 묶음. 요금제·FAQ 가 사용 |
-| `check-html.mjs` | 경로 16개 + **프리렌더된 전 문서 19개**의 heading 구조 검사 |
+| `check-html.mjs` | 경로 16개(계획 4 완료 시점: 18개) + **프리렌더된 전 문서 19개**의 heading 구조 검사 |
 | `tokens.test.ts` | 표면 3 × 잉크 4 대비 + `theme.css` ↔ `tokens.ts` 동기화 |
 
-테스트 175개. 빌드: `typecheck → vitest → verify-assets → prerender → check-html`.
+테스트 175개(계획 4 완료 시점: 186개). 빌드: `typecheck → vitest → verify-assets → prerender → check-html`.
 
 ## 계획 3이 쉬울 것
 
 - 전환한 페이지를 게이트에 추가 = `check-html.mjs` 의 `PAGES` 배열 한 줄.
-- heading·id·`aria-labelledby` 검사가 **미전환 페이지에도 이미 걸려 있습니다**(계획 3 완료 시점: `/ir` 하나). 전환하다 개요를 깨면 빌드가 막습니다.
+- heading·id·`aria-labelledby` 검사가 **미전환 페이지에도 이미 걸려 있습니다**(계획 3 완료 시점: `/ir` 하나; 계획 4 완료 시점: 0개 — `/ir`·`404.html` 도 전환 완료). 전환하다 개요를 깨면 빌드가 막습니다.
 - 사전 등록은 기계적이고, 영문 키 누락은 컴파일 에러입니다.
 - `tokens.test.ts` 동기화 검사 덕에 `IRCharts` 색을 `theme.css` 로 옮기면 대비 검사가 공짜로 붙습니다 — 단 `BRAND_TOKENS` 에도 같이 추가해야 합니다(현재 단방향).
 
@@ -60,14 +64,14 @@
 `tagline` 은 `site.json` 에 `"창업자의 첫 번째 팀."`, `ko/common.ts` 에 `"창업자의 첫 번째 팀"` — 마침표가 다릅니다.
 **`Apps.tsx` 와 `IR.tsx` 를 건드리기 전에 정리하십시오.**
 
-**5. `IR.tsx` 가 가장 어렵습니다.** 당시 777줄(계획 3 완료 시점: 783줄, 이 계획은 `IR.tsx` 를 건드리지 않았다), recharts, 차트 색 7개가 하드코딩 헥스.
-`site.json` 을 읽는 마지막 페이지이기도 합니다.
+**5. `IR.tsx` 가 가장 어렵습니다.** 당시 777줄(계획 3 완료 시점: 783줄, 이 계획은 `IR.tsx` 를 건드리지 않았다; 계획 4 완료 시점: 711줄 — 본문 7개 섹션 전부 전환, 차트 렌더는 `IRCharts.tsx` 로 분리), recharts, 차트 색 7개가 하드코딩 헥스(계획 4 완료 시점: 브랜드 토큰 `--color-chart-1~4` 로 대체, 태스크 2).
+`site.json` 을 읽는 마지막 페이지이기도 합니다(계획 4 완료 시점: 그 import 지점이 `IR.tsx` 에서 `IrShell.tsx` 로 옮겨짐 — 여전히 저장소에서 유일한 소비처).
 
 ## 알려진 후속 항목
 
-- `IR.tsx:32` 에 `const contactEmail = CONTACT_EMAIL` 별칭이 남음 (`Contact.tsx` 에서는 제거됨)
+- `IR.tsx:32` 에 `const contactEmail = CONTACT_EMAIL` 별칭이 남음 (`Contact.tsx` 에서는 제거됨) — 계획 4 완료 시점: 줄 번호는 24로 밀렸고(본문 전환 중 위 임포트가 줄었다), 태스크 4가 그 이유를 주석으로 남겨 의도된 패턴이 됨. `IrShell.tsx` 도 같은 상수를 독립적으로 import 함
 - `pathHreflang("#top", "en")` 이 `"ko"` 를 반환. 같은 페이지 앵커는 `LocaleLink` 대신 평범한 `<a>` 를 쓸 것
-- `src/content/ir.ts:442` 의 `emailSubject` 가 한국어. `/en/contact` 의 IR CTA 에서 도달 가능 — 계획 4 대상
+- `src/content/ir.ts:442` 의 `emailSubject` 가 한국어. `/en/contact` 의 IR CTA 에서 도달 가능 — 계획 4 대상 — **해소.** `ir.ts` 는 계획 4에서 `ko/ir.ts`·`en/ir.ts` 로 갈라졌고, `en/ir.ts` 의 `emailSubject` 는 `"[WooriTeam] IR deck request"`로 별도 지정됨(한국어는 `"[WooriTeam] IR 자료 요청"`)
 - `CONTACT_EMAIL` 이 `ko/contact.ts` 에 있으나 로케일 무관 사실. `ssg/seo.ts` 와 `IR.tsx` 가 import 함
 - `SectionLabel as="h2"` 가 heading 안에 번호를 넣음(당시 8곳; 계획 3 완료 시점: 14곳). `{index}` 를 `aria-hidden` 으로 감싸면 정리됨
 - `Contact.tsx` 의 메일 초안 문구는 사전으로 갔지만, JS 안의 한국어는 여전히 어떤 자동 검사도 못 봄
