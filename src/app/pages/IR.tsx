@@ -149,6 +149,15 @@ export default function IR() {
   const ExecutionGapChart = charts?.ExecutionGapChart;
   const AdvantageRadarChart = charts?.AdvantageRadarChart;
   const VisionScenarioChart = charts?.VisionScenarioChart;
+  /**
+   * 도넛 중앙의 큰 수치는 차트가 실제로 그리는 데이터에서 읽는다 — 예전엔
+   * "90%" 를 하드코딩해 두어 `executionGap.chart` 의 실제 값(manual: 85)과
+   * 모순됐다(저장소 주인 확인, 85%가 맞는 값). 리터럴을 다시 박지 않고
+   * 데이터에서 끌어와야 다음에 데이터가 바뀔 때 같은 모순이 재발하지 않는다.
+   */
+  const manualShare = irContent.executionGap.chart.find(
+    (slice) => slice.segment === "manual",
+  )?.value;
 
   return (
     <IrShell>
@@ -319,7 +328,7 @@ export default function IR() {
                         <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-ink-3">
                           Manual
                         </p>
-                        <p className="mt-3 text-5xl font-semibold text-ink">90%</p>
+                        <p className="mt-3 text-5xl font-semibold text-ink">{manualShare}%</p>
                         <p className="mt-3 max-w-[11rem] text-center text-sm leading-6 text-ink-2">
                           {irContent.executionGap.chartCaption}
                         </p>
