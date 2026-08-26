@@ -32,7 +32,7 @@ const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
     "/pricing": {
       title: "요금제 | WooriTeam",
       description:
-        "WooriTeam과 같이 성장하기 위한 무료 체험, 프로, 팀 요금제와 자주 묻는 질문을 확인하세요.",
+        "WooriTeam과 같이 성장하기 위한 무료 체험, 프로, 슈퍼 요금제와 자주 묻는 질문을 확인하세요.",
     },
     "/demo": {
       title: "데모 | WooriTeam",
@@ -94,7 +94,7 @@ const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
     "/pricing": {
       title: "Pricing | WooriTeam",
       description:
-        "Free trial, Pro and Team plans for growing with WooriTeam, with answers to common questions.",
+        "Free trial, Pro and Super plans for growing with WooriTeam, with answers to common questions.",
     },
     "/about": {
       title: "About | WooriTeam",
