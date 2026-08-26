@@ -140,6 +140,58 @@ export function ExecutionGapChart({ data }: { data: IrChartSlice[] }) {
   );
 }
 
+/**
+ * 레이더 축 라벨. 기본 렌더러는 한 줄로만 그려서, 375px 화면에서 긴 라벨이
+ * 차트 상자(`overflow-hidden`)를 넘어가 잘린다 — 영문판에서 실제로
+ * "Approval and decisions" 가 오른쪽으로 46px, "Feeding the next week" 가
+ * 왼쪽으로 43px 넘쳤다. 상자가 스크롤되지 않으므로 그대로 잘린 글자가 된다.
+ *
+ * 한국어는 같은 자리에서 다 들어맞는다(라벨이 짧다). 그래서 번역이 바뀌면
+ * 언제든 재발할 수 있는 부류의 결함이고, 라벨 길이에 상관없이 성립하도록
+ * **폭 기준으로 줄을 접는다** — 특정 문구를 짧게 고쳐 넘기지 않는다.
+ *
+ * `MAX_CHARS` 는 12px 기준으로 차트 좌우 여백에 들어가는 대략치다. 낱말
+ * 경계에서만 접으므로 한 낱말이 그보다 길면 그 줄은 넘칠 수 있다 — 현재
+ * 두 로케일에 그런 낱말은 없다.
+ */
+function RadarTick({
+  payload,
+  x,
+  y,
+  textAnchor,
+}: {
+  payload?: { value?: string };
+  x?: number;
+  y?: number;
+  textAnchor?: string;
+}) {
+  const MAX_CHARS = 14;
+  const words = String(payload?.value ?? "").split(" ");
+  const lines: string[] = [];
+
+  for (const word of words) {
+    const last = lines[lines.length - 1];
+    if (last && `${last} ${word}`.length <= MAX_CHARS) {
+      lines[lines.length - 1] = `${last} ${word}`;
+    } else {
+      lines.push(word);
+    }
+  }
+
+  // 여러 줄이면 위로 올려 라벨 덩어리의 세로 중심을 원래 위치에 맞춘다.
+  const offset = -((lines.length - 1) * 13) / 2;
+
+  return (
+    <text x={x} y={y} textAnchor={textAnchor} fill="var(--color-ink-3)" fontSize={12}>
+      {lines.map((line, index) => (
+        <tspan key={line} x={x} dy={index === 0 ? offset : 13}>
+          {line}
+        </tspan>
+      ))}
+    </text>
+  );
+}
+
 export function AdvantageRadarChart({
   data,
   legend,
@@ -154,7 +206,7 @@ export function AdvantageRadarChart({
     >
       <RadarChart data={data}>
         <PolarGrid stroke="var(--color-line)" />
-        <PolarAngleAxis dataKey="subject" tick={{ fill: "var(--color-ink-3)", fontSize: 12 }} />
+        <PolarAngleAxis dataKey="subject" tick={<RadarTick />} />
         <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} axisLine={false} />
         <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
         {/* fillOpacity: 밝은 표면 위에서 세 겹이 다 보이도록 다크 기준값(0.24/0.12/0.08)보다

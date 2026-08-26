@@ -245,8 +245,8 @@ HTTPS 비밀번호 로그인은 GitHub에서 지원하지 않습니다. SSH 키 
 ## 배포 메모
 
 - `vercel.json`은 최소 설정입니다. prerender된 정적 HTML이 우선 서빙됩니다.
-- canonical / 구조화 데이터 기준 URL은 현재 `ssg/seo.ts`의 `SITE_URL` (`https://autocmo.com`)입니다.
-- 운영 도메인이 바뀌면 `SITE_URL`을 먼저 수정하세요.
+- canonical / 구조화 데이터 기준 URL은 `ssg/site.ts`의 `SITE_URL` 하나입니다. 현재 값은 배포 주소 `https://homepage-roan-kappa.vercel.app` 입니다.
+- 운영 도메인이 붙으면 `VITE_SITE_URL` 환경변수를 설정하고, `ssg/site.ts` 의 `FALLBACK_SITE_URL` 도 함께 옮기세요 — 환경변수가 빠진 빌드가 조용히 옛 주소를 내보내지 않도록.
 
 ## 추천 점검 순서
 

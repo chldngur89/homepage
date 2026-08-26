@@ -73,7 +73,8 @@ exit 1 로 잡는 것을 확인했습니다(task-7-report.md 참고).
 
 ## 확정된 결정
 
-- **도메인**: 미정. `VITE_SITE_URL` 환경변수 한 줄이면 canonical·hreflang·sitemap·OG·JSON-LD 가 함께 이동합니다. 기본값 `autocmo.com` 은 실제 배포처라 그대로 둡니다.
+- **도메인**: 커스텀 도메인은 미정이고, 현재 배포 주소는 `https://homepage-roan-kappa.vercel.app` 입니다.
+  > 계획 4 이후 정정: 기본값이 `autocmo.com` 이었는데 **그 주소는 이 사이트가 아니었습니다**. canonical 이 남의 주소를 가리키고 공유 카드가 없는 도메인에서 로드돼 미리보기가 깨지고 있었습니다. `ssg/site.ts` 의 `FALLBACK_SITE_URL` 을 실제 배포 주소로 바꿨습니다.
 - **주 CTA**: `APP_URLS.cmo`(실제 앱). 헤더·히어로·홈 마감 CTA 전부 여기로. `데모 보기` 만 `/demo`.
 - **영문 범위**: 7개 경로. `/demo`, `/apps`, `/privacy`, `/terms` 는 한국어만.
 - **사진**: 실물 도착 전까지 언어 없는 플레이스홀더. `public/img/<슬롯>.png` 에 덮어쓰고 `images.ts` 의 `sample` 을 `false` 로.

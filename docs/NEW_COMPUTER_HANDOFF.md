@@ -124,7 +124,7 @@ curl -s http://127.0.0.1:4173/pricing/ | rg "자주 묻는 질문|무료 체험 
 ### 우선순위 높음
 
 - 실제 운영 도메인이 맞는지 확인
-  현재 canonical 기준 URL은 `ssg/seo.ts`의 `https://autocmo.com`
+  현재 canonical 기준 URL은 `ssg/site.ts`의 `https://homepage-roan-kappa.vercel.app`
 - 배포 후 `view-source:`로 실제 운영 HTML 재확인
 - NotebookLM에 실제 URL을 다시 넣고 읽기 품질 확인
 - 문의 폼이 실제로 메일에 도착하는지 테스트
