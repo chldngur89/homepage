@@ -134,6 +134,23 @@ const HTML_LANG: Record<Locale, string> = { ko: "ko", en: "en" };
 const OG_LOCALE: Record<Locale, string> = { ko: "ko_KR", en: "en_US" };
 const IN_LANGUAGE: Record<Locale, string> = { ko: "ko-KR", en: "en-US" };
 
+/**
+ * 공유 카드 이미지의 경로. `public/` 아래에 있으므로 빌드가 그대로 복사한다.
+ * `scripts/verify-assets.mjs` 가 존재와 크기(1200×630)를 확인한다 — 파일이
+ * 사라지면 빌드가 멈춘다. 링크 미리보기는 산출 HTML 만 봐서는 깨진 걸 알 수
+ * 없고, 남이 우리 링크를 공유할 때 비로소 드러나기 때문이다.
+ */
+const OG_IMAGE: Record<Locale, string> = {
+  ko: "/og/default-ko.png",
+  en: "/og/default-en.png",
+};
+
+/** 카드가 못 뜨는 환경에서 대신 읽히는 글. 각 카드에 실제로 적힌 문구다. */
+const OG_IMAGE_ALT: Record<Locale, string> = {
+  ko: "우리팀 WOORITEAM — 창업자의 첫 번째 팀",
+  en: "WooriTeam — A founder's first team",
+};
+
 type ResolvedSeo = SeoConfig & {
   basePath: string;
   canonicalUrl?: string;
@@ -268,9 +285,27 @@ export function renderSeoTags(pathname: string) {
       : []),
     `<meta property="og:locale" content="${OG_LOCALE[seo.locale]}" />`,
     `<meta property="og:site_name" content="WooriTeam" />`,
+    /**
+     * 공유 카드 이미지. `twitter:card` 가 `summary_large_image` 를 선언하는데
+     * 이미지가 없으면 카카오톡·슬랙·메일이 **빈 카드**를 그린다 — 링크를 받은
+     * 사람이 가장 먼저 보는 화면이 그것이다.
+     *
+     * 절대 URL 이어야 한다. 크롤러는 상대 경로를 해석해 주지 않는다.
+     *
+     * 로케일별로 카드가 다르다 — 한국어 카드는 "창업자의 첫 번째 팀", 영문은
+     * "A founder's first team". 영문 링크에 한글 카드가 붙으면 안 된다.
+     *
+     * 원본 HTML 은 `assets/og/` 에 있다. 문구가 바뀌면 그 파일을 고쳐 다시
+     * 렌더한다(README 의 "공유 카드" 절 참고) — PNG 를 직접 손보지 않는다.
+     */
+    `<meta property="og:image" content="${absoluteUrl(OG_IMAGE[seo.locale])}" />`,
+    `<meta property="og:image:width" content="1200" />`,
+    `<meta property="og:image:height" content="630" />`,
+    `<meta property="og:image:alt" content="${escapeHtml(OG_IMAGE_ALT[seo.locale])}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(seo.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(seo.description)}" />`,
+    `<meta name="twitter:image" content="${absoluteUrl(OG_IMAGE[seo.locale])}" />`,
     ...(seo.structuredData
       ? [
           `<script type="application/ld+json">${JSON.stringify(

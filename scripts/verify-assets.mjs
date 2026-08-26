@@ -157,3 +157,53 @@ if (pendingSamples.length > 0) {
     console.warn(`  - public${src}`);
   }
 }
+
+/**
+ * 공유 카드(og:image)가 실제로 있고 규격이 맞는지.
+ *
+ * 이 검사가 필요한 이유는 산출 HTML 만으로는 깨진 걸 알 수 없기 때문이다.
+ * `check-html.mjs` 는 `<meta property="og:image">` 태그가 **있는지**만 볼 수
+ * 있고, 그 URL 이 가리키는 파일이 사라졌는지는 모른다. 링크 미리보기가
+ * 깨졌다는 사실은 남이 우리 링크를 공유한 뒤에야 드러난다.
+ *
+ * 크기까지 보는 이유: 1200×630 이 아니면 카카오톡·슬랙이 잘라내거나 작은
+ * 정사각 썸네일로 떨어뜨린다. 파일이 있다고 카드가 제대로 뜨는 게 아니다.
+ *
+ * PNG 헤더에서 폭·높이를 직접 읽는다(IHDR 청크: 16바이트 오프셋부터 4바이트씩
+ * 빅엔디언). 이미지 라이브러리를 새로 들이지 않으려는 것이다.
+ */
+const OG_IMAGES = ["/og/default-ko.png", "/og/default-en.png"];
+const OG_SIZE = { width: 1200, height: 630 };
+
+for (const src of OG_IMAGES) {
+  const file = path.join(projectRoot, "public", src.slice(1));
+  let buffer;
+  try {
+    buffer = await readFile(file);
+  } catch {
+    console.error(`[verify-assets] 공유 카드가 없다 — public${src}`);
+    console.error(
+      "  og:image 가 가리키는 파일이다. 없으면 링크 미리보기가 빈 카드로 뜬다.",
+    );
+    console.error("  원본은 assets/og/ 에 있다. README 의 '공유 카드' 절 참고.");
+    process.exit(1);
+  }
+
+  if (detectFormat(buffer) !== "png") {
+    console.error(`[verify-assets] 공유 카드가 PNG 가 아니다 — public${src}`);
+    process.exit(1);
+  }
+
+  const width = buffer.readUInt32BE(16);
+  const height = buffer.readUInt32BE(20);
+
+  if (width !== OG_SIZE.width || height !== OG_SIZE.height) {
+    console.error(
+      `[verify-assets] 공유 카드 규격이 다르다 — public${src} 는 ${width}×${height}, ${OG_SIZE.width}×${OG_SIZE.height} 이어야 한다`,
+    );
+    console.error("  규격이 어긋나면 카카오톡·슬랙이 잘라내거나 작게 떨어뜨린다.");
+    process.exit(1);
+  }
+}
+
+console.log(`[verify-assets] 공유 카드 ${OG_IMAGES.length}개 확인 (1200×630)`);

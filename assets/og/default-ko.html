@@ -1,0 +1,66 @@
+<meta charset="utf-8" />
+<style>
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #F7F7F4;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    width: 1200px; height: 630px;
+    padding: 78px 88px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+  }
+
+  /* 브랜드 강조선 — 사이트가 강조를 색이 아니라 선 두께로 주는 것과 같은 규칙 */
+  .rule { position: absolute; left: 0; top: 0; width: 100%; height: 8px; background: #4F6B5B; }
+
+  .lockup { display: flex; align-items: baseline; gap: 12px; }
+  .mark { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: #161616; }
+  .latin { font-size: 16px; font-weight: 600; letter-spacing: 0.14em; color: #6C6C66; }
+
+  h1 {
+    font-size: 96px; font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.04em; color: #161616;
+  }
+
+  /* 줄바꿈은 <br> 로 직접 정한다 — 폭에 맡기면 마지막 줄에 "다." 한 조각만
+     떨어지는 고아 줄이 생긴다. */
+  .body { margin-top: 30px; font-size: 27px; line-height: 1.55; color: #5E5E59; }
+  .body strong { color: #161616; font-weight: 600; }
+
+  .foot {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid #DEDED8; padding-top: 26px;
+  }
+  .tag { font-size: 20px; color: #6C6C66; letter-spacing: -0.01em; }
+  .flow { font-size: 19px; font-weight: 600; color: #4F6B5B; letter-spacing: 0.01em; }
+</style>
+
+<div class="card">
+  <div class="rule"></div>
+
+  <div class="lockup">
+    <span class="mark">우리팀</span>
+    <span class="latin">WOORITEAM</span>
+  </div>
+
+  <div>
+    <h1>창업자의<br />첫 번째 팀</h1>
+    <p class="body">
+      전담 마케터 없이 성장 업무를 직접 챙기고 있다면.<br />
+      회사의 상황을 이해하고 <strong>같이 해내는 첫 번째 팀원</strong>입니다.
+    </p>
+  </div>
+
+  <div class="foot">
+    <span class="tag">전담 마케터 없는 1~10인 초기 창업 팀을 위한</span>
+    <span class="flow">제안 → 승인 → 실행 → 반복 성장</span>
+  </div>
+</div>

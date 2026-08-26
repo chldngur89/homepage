@@ -150,6 +150,31 @@ cp .env.example .env
 
 ## 크롤러 / NotebookLM 검증
 
+### 공유 카드 (og:image)
+
+링크를 카카오톡·슬랙·메일에 붙였을 때 뜨는 미리보기 카드입니다. 로케일마다 다릅니다.
+
+| | |
+|---|---|
+| 원본 | `assets/og/default-ko.html`, `assets/og/default-en.html` |
+| 산출물 | `public/og/default-ko.png`, `public/og/default-en.png` (1200×630) |
+| 참조 | `ssg/seo.ts` 의 `OG_IMAGE` / `OG_IMAGE_ALT` |
+
+**PNG 를 직접 편집하지 않습니다.** 문구나 디자인이 바뀌면 HTML 을 고치고 다시 렌더합니다:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless --disable-gpu --hide-scrollbars --virtual-time-budget=4000 \
+  --window-size=1200,630 --screenshot=public/og/default-ko.png \
+  "file://$PWD/assets/og/default-ko.html"
+```
+
+`--virtual-time-budget` 은 Pretendard 웹폰트가 내려올 시간을 줍니다. 짧으면 시스템 폰트로 렌더됩니다.
+
+카드에 적힌 문구는 사이트의 실제 카피에서 가져온 것입니다(홈 히어로, 메타 설명). 카드만 따로 바꾸면 링크를 눌렀을 때 다른 말이 나오므로, 사이트 카피와 함께 고칩니다.
+
+`scripts/verify-assets.mjs` 가 두 파일의 존재와 1200×630 규격을 검사하며, 어긋나면 빌드가 멈춥니다 — 미리보기가 깨진 것은 남이 우리 링크를 공유한 뒤에야 드러나기 때문입니다.
+
 ### 자동 검증
 
 ```bash
