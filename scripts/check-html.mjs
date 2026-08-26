@@ -1,5 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
+import { EN_ROUTES } from "../src/content/locales.ts";
 
 const distDir = path.join(process.cwd(), "dist");
 const failures = [];
@@ -315,6 +316,64 @@ for (const filePath of sitemapPaths) {
     documents.includes(filePath),
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────────
+// 크롤러용 산출물 — llms.txt · robots.txt 의 AI 크롤러 허용 · sitemap 대체 언어
+// ─────────────────────────────────────────────────────────────────────────
+
+let llmsTxt = null;
+try {
+  llmsTxt = await readFile(path.join(distDir, "llms.txt"), "utf8");
+} catch {
+  failures.push("dist/llms.txt 가 없다");
+}
+if (llmsTxt !== null) {
+  // 셸만 나가는 회귀(빈 파일, 헤더만 있고 본문이 빠짐)를 잡는 하한이다.
+  // 실제 파일은 이보다 훨씬 길다 — "최소한 뭔가는 들어 있다"만 본다.
+  check("dist/llms.txt 내용이 너무 짧다 (최소 200자)", llmsTxt.trim().length >= 200);
+}
+
+let robotsTxt = null;
+try {
+  robotsTxt = await readFile(path.join(distDir, "robots.txt"), "utf8");
+} catch {
+  failures.push("dist/robots.txt 가 없다");
+}
+if (robotsTxt !== null) {
+  // scripts/prerender.mjs 의 AI_CRAWLERS 와 같은 목록. 값을 스크립트 사이에서
+  // 공유할 만한 소스가 없는 고정된 크롤러 이름들이라 여기서도 그대로 적는다.
+  const AI_CRAWLERS = [
+    "GPTBot",
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "ClaudeBot",
+    "Claude-User",
+    "PerplexityBot",
+    "Google-Extended",
+    "CCBot",
+  ];
+  for (const bot of AI_CRAWLERS) {
+    check(
+      `dist/robots.txt 에 ${bot} 허용 줄이 없다`,
+      new RegExp(`User-agent:\\s*${bot}\\s*\\n\\s*Allow:\\s*/`).test(robotsTxt),
+    );
+  }
+}
+
+check(
+  "sitemap 의 <urlset> 에 xhtml 네임스페이스가 없다",
+  /<urlset[^>]*xmlns:xhtml="http:\/\/www\.w3\.org\/1999\/xhtml"/.test(sitemap),
+);
+
+// xhtml:link 개수는 EN_ROUTES 에서 계산한다 — 하드코딩하면 경로가 늘어도
+// 검사가 따라가지 못한다. EN_ROUTES 의 경로 하나마다 sitemap 항목이 둘(ko
+// URL·en URL) 나오고, 그 각각에 ko·en·x-default 3줄씩 붙는다.
+const xhtmlLinkCount = (sitemap.match(/<xhtml:link\b/g) ?? []).length;
+const expectedXhtmlLinkCount = EN_ROUTES.length * 2 * 3;
+check(
+  `sitemap 의 xhtml:link 개수가 다르다 (실제 ${xhtmlLinkCount}, 기대 ${expectedXhtmlLinkCount} = EN_ROUTES ${EN_ROUTES.length}개 × ko/en 항목 2 × 대체 언어 3)`,
+  xhtmlLinkCount === expectedXhtmlLinkCount,
+);
 
 let labelledbyChecked = 0;
 

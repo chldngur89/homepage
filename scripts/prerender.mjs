@@ -48,13 +48,57 @@ async function writeFile(filePath, contents) {
   await fs.writeFile(filePath, contents, "utf8");
 }
 
-async function writeSitemap(routes, siteUrl) {
+/**
+ * AI 크롤러를 명시적으로 허용한다. `User-agent: *` / `Allow: /` 만으로도
+ * 기술적으로는 이미 허용이지만, 이름을 하나씩 적어 두는 이유는 나중에 누군가
+ * `Disallow` 를 넣을 때 이 크롤러들이 함께 막히지 않도록 의도를 남기려는
+ * 것이다 — 제품 특성상 LLM 답변에 노출되는 것이 유입 경로다.
+ */
+const AI_CRAWLERS = [
+  "GPTBot",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "Claude-User",
+  "PerplexityBot",
+  "Google-Extended",
+  "CCBot",
+];
+
+/**
+ * sitemap 의 `<url>` 항목에 붙일 `xhtml:link` 대체 언어 3줄(ko·en·x-default).
+ * `EN_ROUTES` 에 없는 경로(`/demo`, `/apps`, `/privacy`, `/terms` 등)는 영문판이
+ * 없으므로 빈 문자열을 돌려준다 — 없는 번역을 있다고 말하지 않는다.
+ *
+ * ko 항목과 en 항목 양쪽에 똑같이 3줄을 붙인다(자기 자신을 가리키는 줄
+ * 포함) — `ssg/seo.ts` 가 `<head>` 의 hreflang 을 만드는 방식과 같다.
+ */
+function alternateLinksFor(routePath, urlFor, { hasEnglish, localePath, stripLocale }) {
+  const { path: koPath } = stripLocale(routePath);
+  if (!hasEnglish(koPath)) return "";
+
+  const enPath = localePath(koPath, "en");
+  const alternates = [
+    { hreflang: "ko", href: urlFor(koPath) },
+    { hreflang: "en", href: urlFor(enPath) },
+    { hreflang: "x-default", href: urlFor(koPath) },
+  ];
+
+  return alternates
+    .map((alt) => `\n    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${alt.href}" />`)
+    .join("");
+}
+
+async function writeSitemap(routes, siteUrl, localeHelpers) {
+  const base = withTrailingSlash(siteUrl);
+  const urlFor = (pathname) => escapeXml(new URL(pathname, base).toString());
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${routes
   .map(
     (route) => `  <url>
-    <loc>${escapeXml(new URL(route, withTrailingSlash(siteUrl)).toString())}</loc>
+    <loc>${urlFor(route)}</loc>${alternateLinksFor(route, urlFor, localeHelpers)}
   </url>`,
   )
   .join("\n")}
@@ -65,13 +109,24 @@ ${routes
 }
 
 async function writeRobots(siteUrl) {
+  const aiCrawlerRules = AI_CRAWLERS.map((bot) => `User-agent: ${bot}\nAllow: /`).join("\n\n");
+
   const robots = `User-agent: *
 Allow: /
+
+# AI 크롤러를 명시적으로 허용한다 — 제품 특성상 LLM 답변에 노출되는 것이
+# 유입 경로다. 나중에 Disallow 를 추가할 때 아래 크롤러들이 함께 막히지
+# 않도록 의도를 남겨 둔다.
+${aiCrawlerRules}
 
 Sitemap: ${withTrailingSlash(siteUrl)}sitemap.xml
 `;
 
   await writeFile(path.join(distDir, "robots.txt"), robots);
+}
+
+async function writeLlmsTxt(contents) {
+  await writeFile(path.join(distDir, "llms.txt"), contents);
 }
 
 async function main() {
@@ -111,8 +166,13 @@ async function main() {
     await writeFile(toOutputPath(route), html);
   }
 
-  await writeSitemap(renderer.prerenderRoutes, renderer.SITE_URL);
+  await writeSitemap(renderer.prerenderRoutes, renderer.SITE_URL, {
+    hasEnglish: renderer.hasEnglish,
+    localePath: renderer.localePath,
+    stripLocale: renderer.stripLocale,
+  });
   await writeRobots(renderer.SITE_URL);
+  await writeLlmsTxt(renderer.buildLlmsTxt());
   await fs.rm(ssrDir, { recursive: true, force: true });
   console.log("[prerender] done");
 }
