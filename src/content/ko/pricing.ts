@@ -61,8 +61,8 @@ export const pricing = {
         badge: "가장 인기있는",
         name: "프로",
         tagline: "초기 창업 팀을 위한",
-        price: "₩99,000",
-        period: "월 / 무제한 사용",
+        price: "₩29,900",
+        period: "월 / 주 1회 자동화",
         features: [
           "같이 성장하기 주간 루프",
           "제안 · 승인 · 실행",
@@ -75,13 +75,13 @@ export const pricing = {
       },
       {
         badge: "",
-        name: "슈퍼 팀",
-        tagline: "팀/브랜드를 위한",
-        price: "₩199,000",
-        period: "월 / 팀 무제한",
+        name: "슈퍼",
+        tagline: "매일 돌리는 팀을 위한",
+        price: "₩299,900",
+        period: "월 / 매일 자동화",
         features: [
           "프로 플랜의 모든 기능",
-          "팀 멤버 협업",
+          "한 달 내내 매일 자동 실행",
           "브랜드 톤 가이드 반영",
           "역할 AI 확장 상담",
           "우선 온보딩 지원",
@@ -99,16 +99,20 @@ export const pricing = {
     packages: [
       {
         name: "기본 패키지",
-        price: "₩10,000",
+        price: "₩19,900",
         items: ["과제 제안 + 승인", "실행 흐름 포함"],
       },
       {
         name: "프리미엄 패키지",
-        price: "₩15,000",
-        items: ["기본 패키지 + 실행 지원", "반복 성장 1사이클"],
+        price: "연락 요청",
+        items: [
+          "마케팅 장인이 한 땀 한 땀 컨설팅",
+          "실행 가이드까지 포함",
+        ],
       },
     ],
     cta: "건별 구매 시작하기",
+    contactCta: "프리미엄 문의하기",
   },
 
   revenueShare: {

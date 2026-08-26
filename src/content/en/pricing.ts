@@ -41,8 +41,8 @@ export const pricing: DeepWiden<PricingCopy> = {
         badge: "Most popular",
         name: "Pro",
         tagline: "For early founding teams",
-        price: "₩99,000",
-        period: "Per month / unlimited use",
+        price: "₩29,900",
+        period: "Per month / one run a week",
         features: [
           "The weekly growth loop",
           "Propose · Approve · Execute",
@@ -55,13 +55,13 @@ export const pricing: DeepWiden<PricingCopy> = {
       },
       {
         badge: "",
-        name: "Super Team",
-        tagline: "For teams and brands",
-        price: "₩199,000",
-        period: "Per month / unlimited seats",
+        name: "Super",
+        tagline: "For teams running it daily",
+        price: "₩299,900",
+        period: "Per month / a run every day",
         features: [
           "Everything in Pro",
-          "Collaboration across the team",
+          "A run every day, all month",
           "Your brand tone guide, applied",
           "Consulting on added AI roles",
           "Priority onboarding",
@@ -79,16 +79,20 @@ export const pricing: DeepWiden<PricingCopy> = {
     packages: [
       {
         name: "Basic package",
-        price: "₩10,000",
+        price: "₩19,900",
         items: ["Proposal + approval", "Execution flow included"],
       },
       {
         name: "Premium package",
-        price: "₩15,000",
-        items: ["Basic package + execution support", "One repeat-growth cycle"],
+        price: "Talk to us",
+        items: [
+          "Hands-on consulting from a marketing craftsman",
+          "Execution guidance included",
+        ],
       },
     ],
     cta: "Start a per-use purchase",
+    contactCta: "Ask about Premium",
   },
 
   revenueShare: {

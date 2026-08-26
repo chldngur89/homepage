@@ -32,8 +32,16 @@ function rates(dictionary: unknown): string[] {
   return [...new Set(strings(dictionary).flatMap((s) => s.match(/\d+(?:\.\d+)?%/g) ?? []))].sort();
 }
 
-/** 전환 이전 Pricing.tsx 에 하드코딩돼 있던 금액 전부. */
-const AMOUNTS = ["₩0", "₩10,000", "₩10,000,000", "₩15,000", "₩199,000", "₩50,000", "₩99,000"];
+/**
+ * 사전에 등장하는 금액 전부.
+ *
+ * 2026-08-26 판매 조건 변경(저장소 주인 결정): 프로 ₩99,000 → ₩29,900(월/주 1회
+ * 자동화), 슈퍼 팀 ₩199,000 → 슈퍼 ₩299,900(월/매일 자동화), 건별 기본 패키지
+ * ₩10,000 → ₩19,900. 프리미엄 패키지는 금액을 떼고 "연락 요청" 이 됐으므로
+ * 여기서 ₩15,000 이 사라진다 — 목록이 7개에서 6개로 준 것은 그 때문이다.
+ * 남은 ₩10,000,000 과 ₩50,000 은 수익 쉐어 계산 예시의 값이라 그대로다.
+ */
+const AMOUNTS = ["₩0", "₩10,000,000", "₩19,900", "₩29,900", "₩299,900", "₩50,000"];
 
 /**
  * 요금제의 이름 ↔ 금액 ↔ 기능 목록의 **짝**. 집합만 비교하면 두 요금제의
@@ -54,7 +62,7 @@ const KO_PLANS = [
   },
   {
     name: "프로",
-    price: "₩99,000",
+    price: "₩29,900",
     features: [
       "같이 성장하기 주간 루프",
       "제안 · 승인 · 실행",
@@ -65,11 +73,11 @@ const KO_PLANS = [
     ],
   },
   {
-    name: "슈퍼 팀",
-    price: "₩199,000",
+    name: "슈퍼",
+    price: "₩299,900",
     features: [
       "프로 플랜의 모든 기능",
-      "팀 멤버 협업",
+      "한 달 내내 매일 자동 실행",
       "브랜드 톤 가이드 반영",
       "역할 AI 확장 상담",
       "우선 온보딩 지원",
@@ -81,18 +89,18 @@ const KO_PLANS = [
 /** 영문판은 이름만 번역하고 금액은 원본 그대로다. 짝은 한국어와 같아야 한다. */
 const EN_PLANS = [
   { name: "Free", price: "₩0" },
-  { name: "Pro", price: "₩99,000" },
-  { name: "Super Team", price: "₩199,000" },
+  { name: "Pro", price: "₩29,900" },
+  { name: "Super", price: "₩299,900" },
 ];
 
 const KO_PACKAGES = [
-  { name: "기본 패키지", price: "₩10,000" },
-  { name: "프리미엄 패키지", price: "₩15,000" },
+  { name: "기본 패키지", price: "₩19,900" },
+  { name: "프리미엄 패키지", price: "연락 요청" },
 ];
 
 const EN_PACKAGES = [
-  { name: "Basic package", price: "₩10,000" },
-  { name: "Premium package", price: "₩15,000" },
+  { name: "Basic package", price: "₩19,900" },
+  { name: "Premium package", price: "Talk to us" },
 ];
 
 const KO_EXAMPLE = [

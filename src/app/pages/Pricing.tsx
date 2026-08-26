@@ -152,10 +152,18 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-wrap">
+        {/* 두 패키지의 목적지가 다르다. 기본 패키지는 금액이 붙어 있어 제품 앱에서
+            바로 결제하지만, 프리미엄은 가격 대신 "연락 요청" 이라 문의 페이지로
+            가야 한다 — 버튼이 하나뿐이면 프리미엄을 고른 사람이 갈 곳이 없다.
+            요금제 카드의 `PLAN_CTA_TO_CONTACT` 와 같은 취지로, 목적지는 사전이
+            아니라 여기서 정한다. */}
+        <div className="mt-8 flex flex-wrap gap-3">
           <a {...productCta} className={`${BUTTON} border border-line px-5 text-ink`}>
             {t.perUse.cta}
           </a>
+          <LocaleLink to="/contact" className={`${BUTTON} bg-invert px-5 text-white`}>
+            {t.perUse.contactCta}
+          </LocaleLink>
         </div>
       </Section>
 
