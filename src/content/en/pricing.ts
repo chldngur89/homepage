@@ -75,7 +75,7 @@ export const pricing: DeepWiden<PricingCopy> = {
   perUse: {
     label: "PAY PER USE",
     title: "Pay per use",
-    body: "If a monthly plan is too much, pay only for what you use",
+    body: "Not ready to subscribe yet? Start with a single task",
     packages: [
       {
         name: "Basic package",
@@ -136,7 +136,7 @@ export const pricing: DeepWiden<PricingCopy> = {
       },
       {
         q: "Which payment methods are supported?",
-        a: "Credit cards (Visa, MasterCard, AMEX), debit cards, bank transfer, KakaoPay and Naver Pay. The Super Team plan can also be issued a tax invoice.",
+        a: "Credit cards (Visa, MasterCard, AMEX), debit cards, bank transfer, KakaoPay and Naver Pay. The Super plan can also be issued a tax invoice.",
       },
     ],
   },
