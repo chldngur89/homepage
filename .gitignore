@@ -42,3 +42,6 @@ test-results/
 
 # subagent-driven-development 작업 공간 (스크래치)
 .superpowers/
+
+# Claude Code 로컬 도구 설정 (.superpowers/ 와 같은 이유로 제외)
+.claude/
