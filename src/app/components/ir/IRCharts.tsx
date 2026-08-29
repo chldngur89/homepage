@@ -163,7 +163,12 @@ function RadarTick({
   payload?: { value?: string };
   x?: number;
   y?: number;
-  textAnchor?: string;
+  /**
+   * recharts 는 이 값을 `string` 으로 넘기지만 SVG `<text>` 의 `textAnchor` 는
+   * 좁은 유니언이다. `string` 으로 받아 그대로 넘기면 타입이 맞지 않는다 —
+   * 받는 쪽 타입을 그대로 빌려 쓴다.
+   */
+  textAnchor?: React.SVGProps<SVGTextElement>["textAnchor"];
 }) {
   const MAX_CHARS = 14;
   const words = String(payload?.value ?? "").split(" ");
