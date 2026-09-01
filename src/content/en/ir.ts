@@ -32,12 +32,10 @@ import type { IrContent } from "@/content/ko/ir";
  *    재귀 순회해 숫자를 뽑으므로 순서가 곧 `Object.values` 순서다.
  *    키를 재배열하면 카피가 옳아도 테스트가 깨진다.
  *
- * 한국 시장 고유의 정부 지원사업은 설명을 덧붙이지 않고 각 사업의 공식
- * 영문 명칭을 쓴다(`예비창업패키지` → Pre-Startup Package,
- * `청년창업사관학교` → Youth Startup Academy). 옆자리의 TIPS 가 이미
- * 해외 투자자에게 알려진 고유명사이므로, 셋을 같은 층위의 사업명으로
- * 두는 편이 "정부 지원금" 같은 일반명사로 뭉개는 것보다 실사에 쓰인다.
- * 대신 `note` 는 무슨 자금인지 영어로 풀어 쓴다.
+ * 정부 지원사업 이름은 일반명사로 뭉개지 않는다 — 해외 투자자가 실사에서
+ * 그 이름으로 찾을 수 있어야 한다. TIPS·LIPS 는 이미 라틴 문자 고유명사라
+ * 그대로 두고, 공식 영문 명칭을 확인하지 못한 사업은 로마자 표기를 쓰고
+ * 무엇인지는 `note` 로 푼다. 없는 영어 이름을 지어내지 않는다.
  */
 export const ir: IrContent = {
   shell: {
@@ -86,27 +84,17 @@ export const ir: IrContent = {
     workflowCaption: "Growing together",
     signals: [
       {
-        label: "Pre-Startup Package",
-        value: "Applied",
-        note: "Government funding for early validation, under review",
+        // 공식 영문 명칭을 확인하지 못해 로마자 표기를 쓴다. 없는 영어
+        // 이름을 지어내면 해외 투자자가 실사에서 찾지 못한다.
+        label: "Modu-ui Changeop",
+        value: "Applying",
+        note: "Korean national startup program, application in progress",
         tone: "planned",
       },
       {
-        label: "Youth Startup Academy",
-        value: "Applied",
-        note: "Government funding to scale operations, under review",
-        tone: "planned",
-      },
-      {
-        label: "TIPS",
-        value: "Under review",
-        note: "To be taken up once private investment is in place",
-        tone: "under_review",
-      },
-      {
-        label: "Private partners",
-        value: "Under review",
-        note: "Exploring product and channel partnerships",
+        label: "TIPS and LIPS",
+        value: "Aiming to apply",
+        note: "Planned for a later stage",
         tone: "under_review",
       },
     ],
@@ -370,27 +358,15 @@ export const ir: IrContent = {
     ],
     statuses: [
       {
-        label: "Pre-Startup Package",
-        value: "Applied",
-        note: "Early-stage funding, under review",
+        label: "Modu-ui Changeop",
+        value: "Applying",
+        note: "Korean national startup program, application in progress",
         tone: "planned",
       },
       {
-        label: "Youth Startup Academy",
-        value: "Applied",
-        note: "Funding to scale operations, under review",
-        tone: "planned",
-      },
-      {
-        label: "TIPS",
-        value: "Under review",
-        note: "Once private investment is in place",
-        tone: "under_review",
-      },
-      {
-        label: "Private investment and partnerships",
-        value: "Under review",
-        note: "Once the product is validated",
+        label: "TIPS and LIPS",
+        value: "Aiming to apply",
+        note: "Planned for a later stage",
         tone: "under_review",
       },
     ],

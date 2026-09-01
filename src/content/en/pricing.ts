@@ -132,7 +132,7 @@ export const pricing: DeepWiden<PricingCopy> = {
       },
       {
         q: "What is the refund policy?",
-        a: "If the service isn't right for you, a full refund is available within 14 days of your first payment. Credits already spent under per-use billing are excluded.",
+        a: "If the service isn't right for you, a full refund is available within 14 days of your first payment. Per-use purchases are excluded once work on them has started.",
       },
       {
         q: "Which payment methods are supported?",
