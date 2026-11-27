@@ -67,42 +67,8 @@ export default function About() {
           같은 이유로 라벨 자리로 옮겨 h2 로 승격시켰다. 세 단계는 솔루션의
           '한 사이클'·기술의 '성장 파이프라인'과 같은 순서 있는 목록이라 같은
           격자를 쓴다 — 같은 것이 페이지마다 다르게 보이면 안 된다. */}
-      {/* 03 팀 — 대표와 핵심 개발자. 문구는 IR 덱의 팀 구성과 대표 이력서에
-          있는 사실만 담는다(`about.team` 주석 참고). 카드 두 장은 미션·비전과
-          같은 격자를 쓴다. */}
-      <Section id="team-h">
-        <SectionLabel index="03" as="h2" id="team-h">
-          {t.team.label}
-        </SectionLabel>
-        <p className="mt-6 whitespace-pre-line text-[clamp(24px,3vw,34px)] font-semibold leading-[1.3] tracking-[-0.02em]">
-          {t.team.title}
-        </p>
-
-        <ul className="mt-10 grid gap-5 md:grid-cols-2">
-          {t.team.members.map((member) => (
-            <li
-              key={member.name}
-              className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]"
-            >
-              <h3 className="text-[23px] font-semibold tracking-[-0.02em]">{member.name}</h3>
-              <p className="mt-1.5 text-[14px] font-semibold text-brand">{member.role}</p>
-              <ul className="mt-5 space-y-2.5">
-                {member.lines.map((line) => (
-                  <li key={line} className="flex gap-2.5 text-[15px] leading-[1.6] text-ink-2">
-                    <span aria-hidden="true" className="text-ink-3">
-                      ·
-                    </span>
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
       <Section id="roadmap-h" tone="panel">
-        <SectionLabel index="04" as="h2" id="roadmap-h">
+        <SectionLabel index="03" as="h2" id="roadmap-h">
           {t.roadmap.label}
         </SectionLabel>
 
