@@ -18,7 +18,7 @@ export const about: DeepWiden<AboutCopy> = {
     eyebrow: "About",
     titleLine1: "Enterprise-grade operations,",
     titleLine2: "for the shop down the street.",
-    body: "WooriTeam is an AI operations team for small businesses, built by two engineers who spent years connecting enterprise CRM and ERP systems.",
+    body: "WooriTeam is an AI operations team subscription that prepares the repetitive promotion and sales work of small businesses and executes it once the owner approves.",
   },
   purpose: {
     label: "Mission and vision",

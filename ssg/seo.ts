@@ -47,7 +47,7 @@ const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
     "/about": {
       title: "회사소개 | WooriTeam",
       description:
-        "기업용 CRM·ERP 시스템을 연결해 온 두 개발자가 만든 소상공인 AI 운영팀, 우리팀의 미션과 로드맵을 소개합니다.",
+        "대기업의 업무 시스템을 동네 가게로. 소상공인을 위한 AI 운영팀, 우리팀의 미션과 로드맵을 소개합니다.",
     },
     "/contact": {
       title: "문의하기 | WooriTeam",
@@ -99,7 +99,7 @@ const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
     "/about": {
       title: "About | WooriTeam",
       description:
-        "WooriTeam is built by two engineers who spent years connecting enterprise CRM and ERP systems. Our mission and roadmap.",
+        "Enterprise-grade operations for the shop down the street. WooriTeam's mission and roadmap as an AI operations team for small businesses.",
     },
     "/contact": {
       title: "Contact | WooriTeam",
