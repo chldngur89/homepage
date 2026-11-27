@@ -173,7 +173,6 @@ export function Layout() {
                 <FooterLink path="/technology" locale={locale}>{copy.nav.technology}</FooterLink>
                 <FooterLink path="/pricing" locale={locale}>{copy.nav.pricing}</FooterLink>
                 <FooterLink path="/demo" locale={locale}>{copy.nav.demo}</FooterLink>
-                <FooterLink path="/apps" locale={locale}>{copy.nav.apps}</FooterLink>
               </FooterGroup>
               <FooterGroup title={copy.footer.groups.company}>
                 <FooterLink path="/about" locale={locale}>{copy.footer.links.about}</FooterLink>

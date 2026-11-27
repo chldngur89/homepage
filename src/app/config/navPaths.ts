@@ -12,7 +12,6 @@ export const NAV_PATHS = [
   ["technology", "/technology"],
   ["pricing", "/pricing"],
   ["demo", "/demo"],
-  ["apps", "/apps"],
   ["about", "/about"],
   ["ir", "/ir"],
   ["contact", "/contact"],
