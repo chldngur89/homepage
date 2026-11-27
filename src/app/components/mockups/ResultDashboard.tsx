@@ -34,19 +34,11 @@ export function ResultDashboard() {
         </div>
 
         <div className="mt-3 min-h-0 flex-1 space-y-2 overflow-hidden border-t border-line pt-3">
-          {dashboard.channels.map((channel) => (
-            <div key={channel.name} className="flex items-center gap-3">
-              <span className="w-24 shrink-0 truncate text-[11px] text-ink-2">
-                {channel.name}
-              </span>
-              <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-panel">
-                <span
-                  className="block h-full rounded-full bg-brand"
-                  style={{ width: `${channel.share}%` }}
-                />
-              </span>
-              <span className="w-9 shrink-0 text-right text-[11px] tabular-nums text-ink-3">
-                {channel.share}%
+          {dashboard.items.map((item) => (
+            <div key={item.title} className="flex items-center justify-between gap-3 border-b border-line-2 pb-2">
+              <span className="min-w-0 truncate text-[11px] text-ink-2">{item.title}</span>
+              <span className="shrink-0 rounded-md bg-panel px-2 py-1 text-[10px] font-medium text-ink-3">
+                {item.status}
               </span>
             </div>
           ))}

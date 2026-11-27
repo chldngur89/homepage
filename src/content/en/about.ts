@@ -15,54 +15,81 @@ import type { DeepWiden } from "../widen";
  */
 export const about: DeepWiden<AboutCopy> = {
   hero: {
-    eyebrow: "ABOUT",
-    titleLine1: "A first teammate",
-    titleLine2: "for early founding teams",
-    body: "WooriTeam is for founders of one-to-ten-person teams with no marketer on staff — so growth isn't something you carry on your own.",
+    eyebrow: "About",
+    titleLine1: "Enterprise-grade operations,",
+    titleLine2: "for the shop down the street.",
+    body: "WooriTeam is an AI operations team for small businesses, built by two engineers who spent years connecting enterprise CRM and ERP systems.",
   },
   purpose: {
-    label: "MISSION AND VISION",
+    label: "Mission and vision",
     items: [
       {
         title: "Mission",
-        body: "For teams that haven't hired a marketer yet, a first teammate who grows with you.",
+        body: "Give owners who can't hire staff an AI operations team for promotion and sales, so they can focus on what they do best.",
       },
       {
         title: "Vision",
-        body: "Beyond a chat tool — a team you can add to, one role at a time. You stay on direction, and your teammates take on propose, approve, execute, and repeat.",
+        body: "Bring the value of data and automation that large companies get from systems and specialists to local shops limited by people and capital.",
       },
     ],
   },
   why: {
-    label: "WHY WE BUILT IT",
-    lead: "Early founding teams write their copy with ChatGPT and make images across a handful of tools — and then still decide “so what do we do this week?” on their own.",
-    bodyBefore: "WooriTeam fills that gap by ",
-    bodyEmphasis: "growing together",
-    bodyAfter: ". It stays with you from this week's work through approval, execution, and the next round of growth.",
-    note: "Publishing straight to your channels and additional roles are still being built and connected, and we don't state them as fact.",
+    label: "Why we built it",
+    lead: "The owner thought a great kimchi stew would be enough. But on top of cooking, promotion, finding customers and customer service all fell on one person.",
+    bodyBefore: "Companies manage customers and sales in systems, with specialists splitting the work. Our founder spent close to a decade building those systems, and decided to turn that experience into ",
+    bodyEmphasis: "an AI operations team anyone can use",
+    bodyAfter: ". To avoid building from imagination, we went to the Goyang Flower Association, flower farms and local merchant associations in person.",
+    note: "We learned that not every small business needs AI for the same reason, and chose owners who have products to sell and want new customers as our first customers.",
+  },
+  team: {
+    label: "Team",
+    title: "Two engineers who connected complex enterprise work\nare building an AI team.",
+    members: [
+      {
+        name: "Woohyuk Choi",
+        role: "CEO · product, go-to-market and sales",
+        lines: [
+          "M.S. in Computer Engineering, Hongik University — AI for semantic mapping between heterogeneous systems",
+          "About 10 years building and integrating enterprise CRM and ERP systems (at Korea's longest-standing Salesforce partner)",
+          "Dev lead and PL for Samsung's B2Bi migration (TIBCO → MuleSoft); led an A2A/MCP AI agent PoC for Samsung MIS",
+          "One of 2 founding developers of in-house product Notiforce — now about ₩3.5B in annual revenue",
+          "Salesforce Agentforce hackathon award; 5 Salesforce certifications",
+          "2 patents filed on AI marketing content and ad image generation",
+        ],
+      },
+      {
+        name: "Chen Kai-Hsiang",
+        role: "Core engineer · backend and infrastructure",
+        lines: [
+          "M.S. in Computer Engineering",
+          "Former lead engineer at Gogoro (Taiwan)",
+          "Built APIs and core backend infrastructure at a global tech company",
+        ],
+      },
+    ],
   },
   roadmap: {
-    label: "ROADMAP (PLANNED)",
+    label: "Roadmap",
     steps: [
       {
-        step: "Phase 1 · Planned",
-        title: "Proving growing together",
-        body: "Validating the propose → approve → execute → repeat loop with early founding teams.",
+        step: "Stage 1 · In progress",
+        title: "Validation in Goyang",
+        body: "Interview flower, furniture and restaurant owners and validate promotion work with their real products.",
       },
       {
-        step: "Phase 2 · Planned",
-        title: "A sharper growth loop",
-        body: "Tuning it so founders can settle the week quickly.",
+        step: "Stage 2 · Planned",
+        title: "Paid conversion",
+        body: "Win paying customers on Starter (₩29,000/mo) and Core (₩299,000/mo) subscriptions.",
       },
       {
-        step: "Phase 3 · Planned",
-        title: "More roles",
-        body: "Adding the roles you need — CEO, CFO — the way you would add teammates.",
+        step: "Stage 3 · Planned",
+        title: "Advanced AI marketing ops",
+        body: "Expand into local analysis, search visibility, multi-channel ops, cost optimisation and a unified results dashboard.",
       },
     ],
   },
   cta: {
-    title: "Let's talk it through.",
-    secondary: "Contact or request IR",
+    title: "Let's talk",
+    secondary: "Contact & IR",
   },
 };

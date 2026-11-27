@@ -8,8 +8,8 @@ import type { SameShape } from "@/content/widen";
  * 요금제 카드 버튼의 목적지. 문구는 사전이, 목적지는 코드가 정한다 — 번역이
  * 링크를 옮길 수 없게 하려는 것이다.
  *
- * 앞의 둘은 사이트 공통 주 CTA 와 같은 제품 앱, 마지막 "슈퍼" 만 문의로
- * 간다 — 전환 이전과 같다.
+ * 앞의 둘(입문형·주력형)은 사이트 공통 주 CTA 와 같은 제품 앱, 마지막
+ * "확장형" 은 별도 견적이라 문의로 간다.
  *
  * 타입을 `boolean[]` 이나 `as const` 가 아니라 사전 배열에서 **파생**시킨
  * 것이 핵심이다. `[false, false, true] as const` 는 요금제와 길이가 묶여
@@ -117,135 +117,10 @@ export default function Pricing() {
         </div>
       </Section>
 
-      {/* 02 건별 과금 */}
-      <Section id="peruse-h" tone="panel">
-        <SectionLabel index="02">{t.perUse.label}</SectionLabel>
-        <h2
-          id="peruse-h"
-          className="max-w-[20em] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.28] tracking-[-0.03em]"
-        >
-          {t.perUse.title}
-        </h2>
-        <p className="mt-4 max-w-[34em] text-[16.5px] leading-[1.7] text-ink-2">{t.perUse.body}</p>
-
-        <div className="mt-11 grid gap-5 md:grid-cols-2">
-          {t.perUse.packages.map((pkg) => (
-            <div
-              key={pkg.name}
-              className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]"
-            >
-              <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-ink-2">{pkg.name}</h3>
-              <p className="mt-3 text-[clamp(26px,3vw,32px)] font-bold leading-[1.1] tracking-[-0.035em]">
-                {pkg.price}
-              </p>
-              <ul className="mt-5 grid gap-2.5">
-                {pkg.items.map((item) => (
-                  <li key={item} className="flex gap-2.5 text-[15px] leading-[1.7] text-ink-2">
-                    <span aria-hidden="true" className="text-ink-3">
-                      &mdash;
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* 두 패키지의 목적지가 다르다. 기본 패키지는 금액이 붙어 있어 제품 앱에서
-            바로 결제하지만, 프리미엄은 가격 대신 "연락 요청" 이라 문의 페이지로
-            가야 한다 — 버튼이 하나뿐이면 프리미엄을 고른 사람이 갈 곳이 없다.
-            요금제 카드의 `PLAN_CTA_TO_CONTACT` 와 같은 취지로, 목적지는 사전이
-            아니라 여기서 정한다. */}
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a {...productCta} className={`${BUTTON} border border-line px-5 text-ink`}>
-            {t.perUse.cta}
-          </a>
-          <LocaleLink to="/contact" className={`${BUTTON} bg-invert px-5 text-white`}>
-            {t.perUse.contactCta}
-          </LocaleLink>
-        </div>
-      </Section>
-
-      {/* 03 수익 쉐어 */}
-      <Section id="rev-h">
-        <SectionLabel index="03">{t.revenueShare.label}</SectionLabel>
-        <h2
-          id="rev-h"
-          className="max-w-[20em] text-[clamp(28px,3.6vw,38px)] font-semibold leading-[1.28] tracking-[-0.03em]"
-        >
-          {t.revenueShare.title}
-        </h2>
-        <p className="mt-4 max-w-[34em] text-[16.5px] leading-[1.7] text-ink-2">
-          {t.revenueShare.body}
-        </p>
-
-        <div className="mt-11 grid gap-[clamp(28px,4vw,56px)] md:grid-cols-2">
-          <div>
-            <h3 className="text-[19px] font-semibold tracking-[-0.02em]">
-              {t.revenueShare.planTitle}
-            </h3>
-            <p className="mt-4 max-w-[28em] text-[16.5px] leading-[1.7] text-ink-2">
-              {t.revenueShare.planBodyBefore}
-              <strong className="font-semibold text-ink">{t.revenueShare.planBodyRate}</strong>
-              {t.revenueShare.planBodyAfter}
-            </p>
-            <ul className="mt-6 grid gap-3">
-              {t.revenueShare.items.map((item) => (
-                <li key={item} className="flex gap-2.5 text-[15.5px] leading-[1.7] text-ink-2">
-                  <span aria-hidden="true" className="text-brand">
-                    &mdash;
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-[14px] border border-line-2 bg-surface p-[clamp(24px,3vw,34px)]">
-            <h3 className="text-[12.5px] font-semibold tracking-[0.12em] text-ink-3">
-              {t.revenueShare.example.title}
-            </h3>
-            <dl className="mt-5">
-              {t.revenueShare.example.rows.map((row, index) => {
-                /* 마지막 줄이 합계다. 바로 위 줄의 아래 선이 이미 구분선이므로
-                   합계에는 선을 더 긋지 않는다 — 그으면 헤어라인이 겹쳐 보인다. */
-                const total = index === t.revenueShare.example.rows.length - 1;
-                return (
-                  <div
-                    key={row.label}
-                    className={`flex items-baseline justify-between gap-4 ${
-                      total ? "pt-4" : "border-b border-line py-3.5"
-                    }`}
-                  >
-                    <dt className={`text-[14.5px] ${total ? "font-semibold text-ink" : "text-ink-2"}`}>
-                      {row.label}
-                    </dt>
-                    <dd
-                      className={`text-right tabular-nums ${
-                        total ? "text-[19px] font-bold tracking-[-0.02em]" : "text-[15.5px] font-semibold"
-                      }`}
-                    >
-                      {row.value}
-                    </dd>
-                  </div>
-                );
-              })}
-            </dl>
-          </div>
-        </div>
-
-        <div className="mt-9 flex flex-wrap">
-          <LocaleLink to="/contact" className={`${BUTTON} border border-line px-5 text-ink`}>
-            {t.revenueShare.cta}
-          </LocaleLink>
-        </div>
-      </Section>
-
-      {/* 04 자주 묻는 질문 — 섹션에 따로 타이틀이 없으므로 라벨 자체가 제목이다.
+      {/* 02 자주 묻는 질문 — 섹션에 따로 타이틀이 없으므로 라벨 자체가 제목이다.
           dl/dt/dd 는 계획 5에서 FAQPage 구조화 데이터를 붙일 때의 근거다. */}
       <Section id="faq-h" tone="panel">
-        <SectionLabel index="04" as="h2" id="faq-h">
+        <SectionLabel index="02" as="h2" id="faq-h">
           {t.faq.label}
         </SectionLabel>
 

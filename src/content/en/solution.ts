@@ -9,78 +9,57 @@ import type { DeepWiden } from "../widen";
  */
 export const solution: DeepWiden<SolutionCopy> = {
   hero: {
-    eyebrow: "SOLUTION",
-    titleLine1: "A way of working",
-    titleLine2: "that grows with you",
-    body: "For teams of one to ten with no marketer on staff — a first teammate who carries the propose → approve → execute → repeat loop.",
+    eyebrow: "Solution",
+    titleLine1: "An AI operations team",
+    titleLine2: "for small businesses",
+    body: "WooriTeam prepares the promotion and sales work owners used to carry alone, executes it once approved, and uses that history to prepare the next task better.",
   },
   difference: {
-    label: "HOW THIS DIFFERS FROM CHATGPT",
-    title: "Not a tool that hands you a draft — a teammate who sees it through approval, execution, and the next round.",
+    label: "How it differs from chat AI",
+    title: "No AI skills needed. Just review and approve.",
     tool: {
-      title: "A chat tool",
+      title: "Chat AI tool",
       items: [
-        "Ask, and a draft comes back",
-        "Running it is still on you",
-        "Every session starts from scratch",
+        "You have to decide what to ask first",
+        "You re-explain your store and products every time",
+        "Even with a draft, posting and tracking is back on you",
       ],
     },
     us: {
-      title: "WooriTeam",
+      title: "WooriTeam · AI operations team",
       items: [
-        "Proposes this week's work first",
-        "Takes it through to execution once approved",
-        "Carries the results into next week",
+        "Prepares today's promotion tasks from your store and product info",
+        "Carries through to channels and records results after approval",
+        "Remembers past approvals and edits for the next proposal",
       ],
     },
   },
   cycle: {
-    label: "ONE CYCLE",
-    title: "The growth loop, repeated every week.",
+    label: "Workflow",
+    title: "You make the key calls; WooriTeam handles the rest.",
     steps: [
-      {
-        step: "STEP 01",
-        title: "Propose",
-        body: "Reads your product and channels, then names the few things worth doing this week.",
-      },
-      {
-        step: "STEP 02",
-        title: "Approve",
-        body: "You read it and set the direction for the week.",
-      },
-      {
-        step: "STEP 03",
-        title: "Execute",
-        body: "What you approved moves into real execution.",
-      },
-      {
-        step: "STEP 04",
-        title: "Repeat",
-        body: "Results shape the next proposal, and the loop keeps going.",
-      },
+      { step: "STEP 01", title: "Store info", body: "Set your preferences and your store, product and menu details." },
+      { step: "STEP 02", title: "Task prep", body: "The AI prepares today's promotion plan and content." },
+      { step: "STEP 03", title: "Owner approval", body: "You approve, edit or hold." },
+      { step: "STEP 04", title: "Execution", body: "Runs on your channels and records results for the next proposal." },
     ],
   },
   scope: {
-    label: "TODAY, AND WHAT COMES NEXT",
+    label: "Status and roadmap",
     now: {
-      title: "What it handles today",
-      items: [
-        "Weekly growth proposals",
-        "Direction set by your approval",
-        "Follow-through to execution",
-        "Results folded into the next round",
-      ],
+      title: "In development · MVP",
+      items: ["Store and product registration", "Promotion plan and content prep", "Owner approval and edits", "Task history"],
     },
     next: {
-      title: "Coming next (in progress)",
+      title: "Planned",
       items: [
-        "Publishing straight to your channels",
-        "Competitor and market monitoring",
-        "CEO / CFO roles alongside",
+        "POI-based local analysis, AEO/GEO/SEO visibility",
+        "Multi-channel: Naver, Kakao, Karrot, Instagram; influencer picks",
+        "Budget-based channel comparison and a unified results dashboard",
       ],
     },
   },
   cta: {
-    title: "Start with your first teammate.",
+    title: "Hand today's promotion to WooriTeam",
   },
 };

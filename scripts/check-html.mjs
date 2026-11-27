@@ -207,12 +207,12 @@ const apps = JSON.parse(await readFile(path.join(process.cwd(), "src/content/app
 const productUrl = apps.apps.find((app) => app.id === "cmo").url;
 
 // 홈의 핵심 문구가 초기 HTML 에 들어 있는가 (크롤러 · NotebookLM 이 보는 내용)
-check("한국어 홈에 포지셔닝 문구 없음", ko.includes("첫 번째 팀"));
-check("한국어 홈에 성장 루프 없음", ko.includes("제안 → 승인 → 실행 → 반복 성장"));
-check("한국어 홈에 CTA 없음", ko.includes("우리팀과 같이 성장하기"));
-check("영어 홈에 포지셔닝 문구 없음", en.includes("first team"));
-check("영어 홈에 CTA 없음", en.includes("Grow with WooriTeam"));
-check("한국어 홈에 영문 CTA 혼입", !ko.includes("Grow with WooriTeam"));
+check("한국어 홈에 AI 운영팀 포지셔닝 문구 없음", ko.includes("나머지는 우리팀이 돕습니다"));
+check("한국어 홈에 홍보·판매 업무 범위 없음", ko.includes("홍보·판매 업무"));
+check("한국어 홈에 CTA 없음", ko.includes("우리팀 시작하기"));
+check("영어 홈에 AI 운영팀 포지셔닝 문구 없음", en.includes("WooriTeam handles the rest"));
+check("영어 홈에 CTA 없음", en.includes("Start with WooriTeam"));
+check("한국어 홈에 영문 CTA 혼입", !ko.includes("Start with WooriTeam"));
 
 // 주 CTA 가 제품에 닿는가.
 //
@@ -226,8 +226,8 @@ function ctaTargets(html, label) {
 }
 
 for (const [name, html, label] of [
-  ["한국어 홈", ko, "우리팀과 같이 성장하기"],
-  ["영어 홈", en, "Grow with WooriTeam"],
+  ["한국어 홈", ko, "우리팀 시작하기"],
+  ["영어 홈", en, "Start with WooriTeam"],
 ]) {
   const targets = ctaTargets(html, label);
   check(`${name}에 주 CTA 링크가 없음`, targets.length > 0);
@@ -246,8 +246,8 @@ check("영어 홈의 한국어 전용 링크에 hreflang 표시 없음", /<a [^>
 check("한국어 홈에 불필요한 hreflang 표시", !/<a [^>]*hreflang=/i.test(ko));
 
 // 목업 안 문구가 텍스트로 남는가 (GEO)
-check("한국어 홈에 목업 문구 없음", ko.includes("이번 주 할 일"));
-check("영어 홈에 목업 문구 없음", en.includes("this week"));
+check("한국어 홈에 사장님 대시보드 목업 문구 없음", ko.includes("사장님 대시보드"));
+check("영어 홈에 사장님 대시보드 목업 문구 없음", en.includes("owner dashboard"));
 
 // ─────────────────────────────────────────────────────────────────────────
 // heading 구조 — 프리렌더된 **모든** 문서

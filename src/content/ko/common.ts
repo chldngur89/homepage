@@ -11,10 +11,10 @@ export const common = {
     mark: "우리팀",
     /** 주 표기 옆에 작게 붙는 라틴 워드마크. 없으면 빈 문자열. */
     markLatin: "WOORITEAM",
-    tagline: "창업자의 첫 번째 팀",
+    tagline: "소상공인을 위한 AI 운영팀",
   },
   cta: {
-    primary: "우리팀과 같이 성장하기",
+    primary: "우리팀 시작하기",
     secondary: "어떻게 일하는지 보기",
     demo: "데모 보기",
   },

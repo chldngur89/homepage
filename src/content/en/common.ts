@@ -9,10 +9,10 @@ export const common: DeepWiden<CommonCopy> = {
     // 그대로 흉내 내면 "WooriTeam WOORITEAM" 이 되어 이름을 두 번 찍는다.
     // 빈 문자열이면 Layout 이 두 번째 조각을 그리지 않는다.
     markLatin: "",
-    tagline: "A founder's first team",
+    tagline: "An AI operations team for small businesses",
   },
   cta: {
-    primary: "Grow with WooriTeam",
+    primary: "Start with WooriTeam",
     secondary: "See how it works",
     demo: "See the demo",
   },

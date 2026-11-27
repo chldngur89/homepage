@@ -35,84 +35,57 @@ function rates(dictionary: unknown): string[] {
 /**
  * 사전에 등장하는 금액 전부.
  *
- * 2026-08-26 판매 조건 변경(저장소 주인 결정): 프로 ₩99,000 → ₩29,900(월/주 1회
- * 자동화), 슈퍼 팀 ₩199,000 → 슈퍼 ₩299,900(월/매일 자동화), 건별 기본 패키지
- * ₩10,000 → ₩19,900. 프리미엄 패키지는 금액을 떼고 "연락 요청" 이 됐으므로
- * 여기서 ₩15,000 이 사라진다 — 목록이 7개에서 6개로 준 것은 그 때문이다.
- * 남은 ₩10,000,000 과 ₩50,000 은 수익 쉐어 계산 예시의 값이라 그대로다.
+ * 2026-11-27 판매 조건 변경(저장소 주인 결정, 2026-11 IR 덱 13쪽 기준):
+ * 무료 ₩0/프로 ₩29,900/슈퍼 ₩299,900 → 입문형 ₩29,000/주력형 ₩299,000/
+ * 확장형 "별도 견적". 건별 과금(₩19,900)과 수익 쉐어(0.5%, 예시 ₩10,000,000·
+ * ₩50,000)는 페이지에서 빠졌으므로 목록에서도 사라진다.
  */
-const AMOUNTS = ["₩0", "₩10,000,000", "₩19,900", "₩29,900", "₩299,900", "₩50,000"];
+const AMOUNTS = ["₩29,000", "₩299,000"];
 
 /**
  * 요금제의 이름 ↔ 금액 ↔ 기능 목록의 **짝**. 집합만 비교하면 두 요금제의
- * 금액이 서로 바뀌어도(₩99,000 ↔ ₩199,000) 통과한다 — 두 플랜을 한꺼번에
- * 잘못 매긴 페이지가 초록으로 나오는 것이 이 짝 검사를 두는 이유다.
+ * 금액이 서로 바뀌어도 통과한다 — 그래서 짝을 따로 검사한다.
  */
 const KO_PLANS = [
   {
-    name: "무료",
-    price: "₩0",
+    name: "입문형",
+    price: "₩29,000",
     features: [
-      "같이 성장하기 1회 체험",
-      "주간 과제 제안 맛보기",
-      "승인으로 방향 결정",
-      "실행·반복 성장 체험",
-      "이메일 지원",
+      "사장님 대시보드와 알림",
+      "주 1회 홍보 업무 준비",
+      "매장·상품 정보 기반 콘텐츠",
+      "사장님 승인 후 실행",
+      "업무 이력 기록",
     ],
   },
   {
-    name: "프로",
-    price: "₩29,900",
+    name: "주력형",
+    price: "₩299,000",
     features: [
-      "같이 성장하기 주간 루프",
-      "제안 · 승인 · 실행",
-      "반복 성장으로 이어가기",
-      "카피·콘텐츠 지원",
-      "채널 게시 연결 (준비 중)",
-      "우선 이메일 지원",
-    ],
-  },
-  {
-    name: "슈퍼",
-    price: "₩299,900",
-    features: [
-      "프로 플랜의 모든 기능",
-      "한 달 내내 매일 자동 실행",
-      "브랜드 톤 가이드 반영",
-      "역할 AI 확장 상담",
+      "입문형의 모든 기능",
+      "매일 마케팅·판매 업무 준비",
+      "승인과 후속 관리",
+      "업무 이력으로 다음 제안 개선",
       "우선 온보딩 지원",
-      "전담 상담 채널",
+    ],
+  },
+  {
+    name: "확장형",
+    price: "별도 견적",
+    features: [
+      "주력형의 모든 기능",
+      "업종별 마케팅 전문가 매칭",
+      "가게 상황에 맞춘 운영 설계",
+      "별도 견적 및 계약",
     ],
   },
 ];
 
 /** 영문판은 이름만 번역하고 금액은 원본 그대로다. 짝은 한국어와 같아야 한다. */
 const EN_PLANS = [
-  { name: "Free", price: "₩0" },
-  { name: "Pro", price: "₩29,900" },
-  { name: "Super", price: "₩299,900" },
-];
-
-const KO_PACKAGES = [
-  { name: "기본 패키지", price: "₩19,900" },
-  { name: "프리미엄 패키지", price: "연락 요청" },
-];
-
-const EN_PACKAGES = [
-  { name: "Basic package", price: "₩19,900" },
-  { name: "Premium package", price: "Talk to us" },
-];
-
-const KO_EXAMPLE = [
-  { label: "월 판매액", value: "₩10,000,000" },
-  { label: "수수료율", value: "0.5%" },
-  { label: "수수료", value: "₩50,000" },
-];
-
-const EN_EXAMPLE = [
-  { label: "Monthly sales", value: "₩10,000,000" },
-  { label: "Fee rate", value: "0.5%" },
-  { label: "Fee", value: "₩50,000" },
+  { name: "Starter", price: "₩29,000" },
+  { name: "Core", price: "₩299,000" },
+  { name: "Expansion", price: "By quote" },
 ];
 
 describe("요금 사전의 판매 조건", () => {
@@ -124,11 +97,9 @@ describe("요금 사전의 판매 조건", () => {
     expect(amounts(en)).toEqual(AMOUNTS);
   });
 
-  it("수익 쉐어 요율이 두 로케일 모두 0.5% 하나뿐이다", () => {
-    expect(rates(ko)).toEqual(["0.5%"]);
-    expect(rates(en)).toEqual(["0.5%"]);
-    expect(ko.revenueShare.planBodyRate).toBe("0.5%");
-    expect(en.revenueShare.planBodyRate).toBe("0.5%");
+  it("두 로케일 모두 요율(%) 표기가 없다 — 수익 쉐어는 판매 조건에서 빠졌다", () => {
+    expect(rates(ko)).toEqual([]);
+    expect(rates(en)).toEqual([]);
   });
 
   it("요금제 세 개와 FAQ 네 개가 두 로케일에서 같다", () => {
@@ -150,20 +121,6 @@ describe("요금 사전의 판매 조건", () => {
     expect(en.plans.items.map((plan) => ({ name: plan.name, price: plan.price }))).toEqual(
       EN_PLANS,
     );
-  });
-
-  it("건별 과금 패키지의 이름과 금액이 짝을 이룬 채 원본과 같다", () => {
-    expect(ko.perUse.packages.map((pkg) => ({ name: pkg.name, price: pkg.price }))).toEqual(
-      KO_PACKAGES,
-    );
-    expect(en.perUse.packages.map((pkg) => ({ name: pkg.name, price: pkg.price }))).toEqual(
-      EN_PACKAGES,
-    );
-  });
-
-  it("수익 쉐어 계산 예시의 라벨과 값이 짝을 이룬 채 원본과 같다", () => {
-    expect(ko.revenueShare.example.rows.map((row) => ({ ...row }))).toEqual(KO_EXAMPLE);
-    expect(en.revenueShare.example.rows.map((row) => ({ ...row }))).toEqual(EN_EXAMPLE);
   });
 
   /**

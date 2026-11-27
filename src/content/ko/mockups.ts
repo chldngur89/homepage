@@ -1,25 +1,25 @@
 export const mockups = {
   proposal: {
-    appLabel: "우리팀 · 이번 주 제안",
-    weekLabel: "8월 3주차",
-    heading: "이번 주 할 일 4건",
-    approveHint: "승인까지 약 20분",
+    appLabel: "우리팀 · AI 운영팀",
+    weekLabel: "12월 1주차",
+    heading: "이번 주 홍보 업무 4건",
+    approveHint: "승인까지 약 10분",
     items: [
-      { title: "신상품 릴스 2편", meta: "인스타그램 · 콘텐츠", state: "제안" },
-      { title: "상세페이지 CTA 변경", meta: "스마트스토어 · 전환", state: "제안" },
-      { title: "지난주 광고 예산 재조정", meta: "광고 · 운영", state: "제안" },
-      { title: "재구매 안내 문자", meta: "CRM · 리텐션", state: "제안" },
+      { title: "연말 꽃다발 인스타그램 게시물", meta: "인스타그램 · 콘텐츠", state: "제안" },
+      { title: "네이버 플레이스 소식 업데이트", meta: "네이버 · 검색 노출", state: "제안" },
+      { title: "동네 홍보 글 올리기", meta: "당근 · 지역 홍보", state: "제안" },
+      { title: "단골 고객 재방문 안내", meta: "카카오톡 · 재방문", state: "제안" },
     ],
     approve: "전체 승인",
     review: "하나씩 보기",
   },
   chat: {
-    appLabel: "우리팀 · 마케팅 어시스턴트",
+    appLabel: "우리팀 · AI 운영팀",
     fields: [
-      { label: "상품", value: "수박" },
-      { label: "가격", value: "10,000원" },
-      { label: "브랜드", value: "차가움" },
-      { label: "컨셉", value: "시원함" },
+      { label: "매장", value: "고양 꽃집" },
+      { label: "상품", value: "연말 꽃다발" },
+      { label: "가격", value: "35,000원" },
+      { label: "분위기", value: "따뜻함" },
     ],
     // fromUser: 사용자 발화 여부. 문자열 리터럴 유니언("agent" | "user")이
     // 아니라 boolean 인 이유는 원래 DeepWiden 때문이었다 — 배열 분기가
@@ -35,33 +35,33 @@ export const mockups = {
     messages: [
       {
         fromUser: false,
-        text: "이번 주 제안입니다. 여름 성수기라 신선함을 앞세운 릴스가 반응이 좋습니다.",
+        text: "사장님, 이번 주 홍보 업무를 준비했어요. 연말 모임이 많은 시기라 선물용 꽃다발을 앞세우면 좋겠습니다.",
       },
       {
         fromUser: false,
-        text: "타겟: 여름철 가족 단위 소비자\n핵심 메시지: 시원한 여름, 차가운 수박\n채널: 인스타그램 릴스 2편",
+        text: "대상: 연말 선물을 고르는 동네 손님\n핵심 메시지: 마음을 전하는 연말 꽃다발\n채널: 인스타그램 게시물 1편 · 당근 동네 글 1편",
       },
-      { fromUser: true, text: "이 방향으로 진행해주세요." },
-      { fromUser: false, text: "영상 2편과 문구를 만들어 올리겠습니다." },
+      { fromUser: true, text: "좋아요, 이대로 올려주세요." },
+      { fromUser: false, text: "승인 감사합니다. 게시하고 결과를 기록해 둘게요." },
     ],
   },
   dashboard: {
-    appLabel: "우리팀 · 주간 리포트",
-    heading: "8월 3주차 결과",
+    appLabel: "우리팀 · 사장님 대시보드",
+    heading: "오늘의 가게",
     stats: [
-      { label: "이번 주 콘텐츠", value: "4", unit: "건", highlight: false },
-      { label: "광고 운영", value: "2", unit: "건", highlight: false },
-      { label: "신규 유입", value: "+14%", unit: "", highlight: true },
-      { label: "문의", value: "+3", unit: "", highlight: true },
+      { label: "승인 필요", value: "2", unit: "건", highlight: true },
+      { label: "오늘 예정", value: "3", unit: "건", highlight: false },
+      { label: "완료 업무", value: "4", unit: "건", highlight: false },
+      { label: "직접 확인 필요", value: "1", unit: "건", highlight: true },
     ],
-    channels: [
-      { name: "인스타그램", share: 46 },
-      { name: "스마트스토어", share: 31 },
-      { name: "검색", share: 23 },
+    items: [
+      { title: "연말 꽃다발 인스타그램 게시물", status: "사장님 승인 필요" },
+      { title: "네이버 플레이스 소식", status: "직접 게시 대기" },
+      { title: "단골 고객 재방문 안내", status: "발송 예정" },
     ],
-    nextLabel: "다음 주 추천",
-    next: "반응이 좋았던 상품 A를 중심으로 릴스 비중을 높여보세요.",
-    disclaimer: "* 화면에 표시된 숫자는 설명을 위한 예시입니다.",
+    nextLabel: "다음 할 일",
+    next: "승인해 주시면 채널별 문구를 확정해 게시하고 결과를 기록합니다.",
+    disclaimer: "* 화면은 대시보드 구성을 설명하기 위한 예시입니다.",
   },
 } as const;
 

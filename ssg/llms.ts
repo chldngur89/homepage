@@ -54,10 +54,7 @@ function pricingLines() {
   const plans = koPricing.plans.items.map(
     (plan) => `- ${plan.name} · ${plan.price} — ${plan.period}`,
   );
-  const perUse = koPricing.perUse.packages.map((pkg) => `- ${pkg.name} · ${pkg.price}`);
-  const revenueShare = `- ${koPricing.revenueShare.label} · ${koPricing.revenueShare.planBodyRate}`;
-
-  return [...plans, ...perUse, revenueShare].join("\n");
+  return plans.join("\n");
 }
 
 export function buildLlmsTxt(): string {

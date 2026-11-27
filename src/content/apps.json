@@ -2,10 +2,10 @@
   "apps": [
     {
       "id": "cmo",
-      "name": "같이 성장하기",
-      "shortName": "같이 성장하기",
+      "name": "우리팀 AI 운영팀",
+      "shortName": "우리팀 AI 운영팀",
       "url": "https://web-neon-nu-89.vercel.app/",
-      "description": "이번 주 성장 과제를 제안하고, 승인·실행·반복 성장까지 이어 주는 첫 번째 팀원."
+      "description": "매장·상품 정보로 홍보 업무를 준비하고, 사장님 승인 후 실행하며, 업무 이력을 쌓아 가는 소상공인용 AI 운영팀 (MVP)."
     },
     {
       "id": "ceo-rader",

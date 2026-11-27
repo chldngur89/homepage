@@ -182,7 +182,7 @@ export default function IR() {
                   {irContent.hero.badge}
                 </span>
                 <p className="mt-8 text-xs font-medium uppercase tracking-[0.38em] text-ink-3">
-                  First AI teammate for founders
+                  AI operations team for small businesses
                 </p>
                 <h1 className="mt-5 max-w-[13ch] whitespace-pre-line break-keep text-[2.35rem] font-semibold tracking-[-0.04em] text-ink leading-[1.08] sm:text-[2.7rem] md:max-w-[14ch] md:text-[3.45rem] xl:text-[3.95rem] xl:leading-[1.04]">
                   {irContent.hero.title}
@@ -250,18 +250,16 @@ export default function IR() {
                       <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-brand">
                         {irContent.hero.workflowCaption}
                       </p>
-                      <p className="mt-4 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
-                        Propose
-                      </p>
-                      <p className="mt-2 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
-                        Approve
-                      </p>
-                      <p className="mt-2 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
-                        Execute
-                      </p>
-                      <p className="mt-2 text-4xl font-semibold leading-none text-ink md:text-[3.45rem]">
-                        Grow
-                      </p>
+                      {/* 가운데 큰 글자는 워크플로 단계 이름을 그대로 쓴다 — 예전에는
+                          Propose/Approve/Execute/Grow 가 코드에 박혀 있어 사전과 어긋났다. */}
+                      {irContent.hero.workflow.map((step, index) => (
+                        <p
+                          key={step.title}
+                          className={`${index === 0 ? "mt-4" : "mt-2"} text-4xl font-semibold leading-none text-ink md:text-[3.2rem]`}
+                        >
+                          {step.title}
+                        </p>
+                      ))}
                     </div>
                   </div>
 

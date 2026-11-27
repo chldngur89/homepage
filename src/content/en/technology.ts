@@ -13,55 +13,40 @@ import type { DeepWiden } from "../widen";
  */
 export const technology: DeepWiden<TechnologyCopy> = {
   hero: {
-    eyebrow: "TECHNOLOGY",
-    titleLine1: "A growth pipeline",
-    titleLine2: "we run together",
-    body: "WooriTeam is built around the flow — from this week's work through to the next round of growth — rather than around piling on more models.",
+    eyebrow: "Technology",
+    titleLine1: "Understands the store,",
+    titleLine2: "carries the work forward",
+    body: "WooriTeam isn't a one-off generator. It's an AI operations structure that starts from your store data and runs through task prep, approval, execution and accumulated history.",
   },
   pipeline: {
-    label: "THE GROWTH PIPELINE",
+    label: "Five layers of the AI operations team",
     steps: [
-      {
-        phase: "01",
-        title: "Propose",
-        body: "Works from your product and channel context to lay out this week's growth tasks.",
-      },
-      {
-        phase: "02",
-        title: "Approve",
-        body: "You read it and set the direction for the week.",
-      },
-      {
-        phase: "03",
-        title: "Execute",
-        body: "What you approved moves into real execution.",
-      },
-      {
-        phase: "04",
-        title: "Repeat",
-        body: "Results shape the next proposal, and the loop keeps going.",
-      },
+      { phase: "01", title: "Store context", body: "Owner preferences, store, products, prices and conditions — structured as the basis for every task." },
+      { phase: "02", title: "Task prep", body: "Generates promotion plans and channel-specific content from product info, using our patent-pending methods." },
+      { phase: "03", title: "Approval-first execution", body: "Nothing runs without the owner's approval. Approve, edit and hold are tracked per task." },
+      { phase: "04", title: "Channel execution", body: "Combines official channel integrations with human checks, and records the results." },
+      { phase: "05", title: "Learning from history", body: "Approvals, edits and executions are stored as time-series data to improve the next proposal." },
     ],
   },
   principles: {
-    label: "DESIGN PRINCIPLES",
+    label: "Research and patents",
     items: [
       {
-        title: "One weekly loop",
-        body: "Propose → approve → execute → repeat, bound into a single cycle.",
+        title: "Patent pending ① Integrated marketing content",
+        body: "AI-based method for automatically generating integrated marketing content — one product brief becomes content for every channel.",
       },
       {
-        title: "Growth one role at a time",
-        body: "Start by growing together, then add the CEO and CFO roles when you need them.",
+        title: "Patent pending ② Ad images",
+        body: "AI-based method for automatically generating ad images using graphic template recommendation — ad visuals without a designer.",
       },
       {
-        title: "Integrations we don't oversell",
-        body: "Things like publishing straight to your channels are marked as in progress, not as shipped.",
+        title: "Interoperability research",
+        body: "Built on master's research in computer engineering on semantic mapping between heterogeneous systems — connecting scattered store data into one workflow.",
       },
     ],
   },
   cta: {
-    title: "Before the architecture, see what your first teammate does.",
+    title: "We prove the technology on owners' real work.",
     secondary: "See the solution",
   },
 };

@@ -39,12 +39,10 @@ import type { IrContent } from "@/content/ko/ir";
  */
 export const ir: IrContent = {
   shell: {
-    // 한국어 사전에서도 영어인 문자열이다. 그대로 둔다.
     eyebrow: "Investor Overview",
     backToSite: "Back to site",
     requestIr: "Request IR",
     homeLink: "Site home",
-    // 섹션 앵커 라벨 5개도 한국어 사전에서 이미 영어다. 그대로 둔다.
     nav: [
       { href: "#problem", label: "Problem" },
       { href: "#market", label: "Market" },
@@ -52,206 +50,137 @@ export const ir: IrContent = {
       { href: "#economics", label: "Economics" },
       { href: "#cta", label: "Contact" },
     ],
-    // nav 의 aria-label. "목차" 를 그대로 옮긴 "Table of contents" 보다
-    // 스크린리더가 읽는 자리에서는 "Sections" 이 짧고 정확하다.
-    navLabel: "Sections",
+    navLabel: "Contents",
   },
   hero: {
     badge: "Investor Overview",
-    title: "Teams with no marketer\nare carrying growth alone.",
+    title: "The owner decides,\nWooriTeam executes.",
     description:
-      "WooriTeam is the first team for founders of 1–10-person startups. You grow with us through propose → approve → execute → repeat.",
+      "WooriTeam is a subscription AI operations team that takes on the repetitive promotion and sales work of small business owners. It prepares work from store and product data, executes after the owner approves, and improves the next proposal from accumulated task history.",
     note:
-      "A summary written for investors. Grant programs, timelines, and metrics are marked as planned, under review, target, or internal estimate.",
+      "A summary for investors. Programs, timelines and metrics are labelled as in progress, planned, target or internal estimate.",
     workflow: [
-      {
-        title: "Propose",
-        body: "Lays out this week's growth tasks.",
-      },
-      {
-        title: "Approve",
-        body: "You read it and set the direction.",
-      },
-      {
-        title: "Execute",
-        body: "What you approved moves into real execution.",
-      },
-      {
-        title: "Grow",
-        body: "Results shape the next proposal, and the loop keeps going.",
-      },
+      { title: "Store info", body: "Set owner preferences and store and product details." },
+      { title: "Task prep", body: "The AI prepares today's promotion tasks." },
+      { title: "Owner approval", body: "The owner reviews and approves." },
+      { title: "Execution", body: "Runs on channels and records results." },
     ],
-    workflowCaption: "Growing together",
+    workflowCaption: "Task history improves the next proposal",
     signals: [
       {
-        // 공식 영문 명칭을 확인하지 못해 로마자 표기를 쓴다. 없는 영어
-        // 이름을 지어내면 해외 투자자가 실사에서 찾지 못한다.
-        label: "Modu-ui Changeop",
-        value: "Applying",
-        note: "Korean national startup program, application in progress",
+        label: "Startup for All, cohort 2",
+        value: "Round 1 finalist",
+        note: "Preparing for the Round 2 evaluation",
         tone: "planned",
       },
       {
-        label: "TIPS and LIPS",
-        value: "Aiming to apply",
-        note: "Planned for a later stage",
-        tone: "under_review",
+        label: "Patents",
+        value: "2 filed",
+        note: "AI marketing content and ad image generation",
+        tone: "planned",
+      },
+      {
+        label: "MVP",
+        value: "In development",
+        note: "Content prep, approval, task history",
+        tone: "planned",
       },
     ],
   },
   executionGap: {
-    title: "The core problem: the marketer gap",
+    title: "Problem: the owner runs the shop alone",
     description:
-      "Generative tools keep multiplying, but what to do this week — and how to keep it going — is still on the founder alone.",
+      "They're great at the craft, but promotion, finding customers and customer service are all on them. The more non-core work piles up, the harder it is to focus on the business.",
     paragraphs: [
-      "Before they hire a marketer, teams of 1–10 draft with ChatGPT and design tools. “So what do we do this week?” still comes back to the founder.",
-      "A chat tool hands back output and leaves the propose, approve, execute, repeat loop where it was. WooriTeam fills that loop with a first teammate.",
+      "Companies manage customers and sales in systems, with specialists splitting the work. A local shop owner sells, promotes and answers customers alone.",
+      "Chat AI gives a draft, but deciding what to post where and when — and remembering what was done last time — is still on the owner. WooriTeam fills that operations gap with an AI operations team.",
     ],
     points: [
-      {
-        title: "Decision overload",
-        body: "Drafts arrive; priorities and an execution queue do not.",
-      },
-      {
-        title: "The gap before hiring",
-        body: "A marketer on payroll is early, and an agency costs you in context you have to re-explain.",
-      },
-      {
-        title: "Execution stalls",
-        body: "After the draft, no one carries it forward.",
-      },
+      { title: "Promotion and marketing", body: "Managing social, delivery apps and reviews, rewriting the same post every day." },
+      { title: "Finding customers", body: "New customers are hard to find, and repeat visits live only in memory." },
+      { title: "Service and follow-up", body: "Orders, questions and bookings tie the owner down all day." },
     ],
     chart: [
-      {
-        segment: "manual",
-        label: "Work carried alone",
-        value: 85,
-      },
-      {
-        segment: "strategic",
-        label: "Strategy and decisions",
-        value: 15,
-      },
+      { segment: "manual", label: "Non-core operations", value: 85 },
+      { segment: "strategic", label: "Core work and decisions", value: 15 },
     ],
-    chartCaption: "Assumes operating time stays locked in manual work",
+    chartCaption: "Illustrative comparison assuming operating time is tied up in non-core work",
     chartFootnote:
-      "Generation tools on their own do not buy back strategy time. What matters is automating what comes after generation — uploading, publishing, reporting — so founders get those hours back.",
+      "Generation tools alone don't give owners time back. The point is handing over the full flow — prep, approval, execution and records.",
   },
   market: {
-    title: "Not a personal inconvenience — a structural gap in early teams.",
+    title: "Our first customers are in our own neighbourhood.",
     description:
-      "We start at the first bottleneck an early founding team hits when no one owns marketing.",
+      "Using local networks in Goyang, we meet flower, furniture and restaurant owners in person to validate, then expand to small businesses nationwide.",
     note:
-      "Market scope and target size are estimated ranges, based on public reports and our own definition of the target.",
+      "Market ranges are estimates based on public reports and our internal target definitions.",
     funnel: [
       {
         stage: "TAM",
-        // 원화 그대로 둔다. 달러 환산을 붙이지 않는 이유는 파일 상단 주석 2번.
         value: "KRW 55–80 trillion",
-        description: "Global market for marketing automation and AI content",
+        description: "Global marketing automation and AI content market",
         note: "Internal estimate",
         tone: "estimate",
       },
       {
         stage: "SAM",
-        value: "Teams with no marketer",
-        description:
-          "Small and early-stage teams worldwide that have no one dedicated to marketing",
-        note: "Estimated paid-conversion base",
+        value: "Korean small businesses",
+        description: "Korean small businesses doing promotion and sales without dedicated marketing staff",
+        note: "Estimated convertible segment",
         tone: "estimate",
       },
       {
         stage: "SOM",
-        value: "Korean teams of 1–10",
-        description: "Founders of early-stage Korean teams with no marketer",
-        note: "First target segment",
+        value: "3 trades in Goyang",
+        description: "Flower, furniture and restaurant owners in Goyang with products to sell and a need for new customers",
+        note: "Initial focus segment",
         tone: "planned",
       },
     ],
     segmentBody:
-      "Our entry market is early sellers with no marketing staff, handling their own uploads and day-to-day operations.",
+      "In the field, the best first customers weren't regulars-driven shops but owners with products to sell who want new customers — like flower growers moving from wholesale into direct sales.",
     lockIn: {
-      title: "Lock-in comes from the growth loop, not the number of generations.",
+      title: "Lock-in comes from accumulated task history, not generation count.",
       body:
-        "Once a dashboard is running propose, approve, execute, repeat, return visits and operating habits accumulate in a way one-off generation tools never build.",
+        "The more store data and approval, edit and execution history builds up, the sharper the next proposal. It becomes an operating habit that's harder to replace than a one-off generator.",
     },
   },
   solution: {
-    title: "A team, not a tool",
+    title: "WooriTeam, an AI operations team for small businesses",
     description:
-      "Not a tool that turns out text and images — a structure that carries growing together from propose → approve → execute → repeat.",
+      "Not a text or image generator, but an operations structure that starts from store data and runs through prep, approval, execution and accumulated history — backed by research and patents.",
     pipeline: [
-      {
-        title: "Context in",
-        body: "A short read on your product, your channels, and this week's goal.",
-      },
-      {
-        title: "Propose",
-        body: "Lays out what to do this week.",
-      },
-      {
-        title: "Approve",
-        body: "You read it and set the direction.",
-      },
-      {
-        title: "Execute",
-        body: "What you approved moves into real execution.",
-      },
-      {
-        title: "Repeat",
-        body: "Results shape the next proposal, and the loop keeps going.",
-      },
+      { title: "Store info", body: "Set owner preferences and store, product and menu details." },
+      { title: "Task prep", body: "Prepares promotion plans and content from product info." },
+      { title: "Owner approval", body: "The owner approves work that reflects the store." },
+      { title: "Execution", body: "Runs on promotion channels and records results." },
+      { title: "Learning", body: "Approval, edit and execution history feeds the next proposal." },
     ],
     pillars: [
       {
-        title: "A weekly loop by design",
-        body: "You stay on direction; your teammate takes on propose, approve, execute, and repeat.",
+        title: "2 patents filed",
+        body: "AI-based automatic generation of integrated marketing content; AI-based automatic ad image generation using graphic template recommendation.",
       },
       {
-        title: "Growth one role at a time",
-        body: "Start with growing together, then add the CEO and CFO roles as they are needed.",
+        title: "Enterprise systems experience",
+        body: "About 10 years of enterprise CRM/ERP integration and automation, plus master's research on interoperability, applied to small business work.",
       },
       {
-        title: "Integrations we don't oversell",
-        body: "Things like publishing straight to your channels are marked as in progress, keeping what works today separate from the roadmap.",
+        title: "An honest roadmap",
+        body: "Features in development (content prep, approval, history) are labelled separately from planned ones (local analysis, AEO/GEO, multi-channel, unified results).",
       },
     ],
   },
   advantage: {
-    title: "Existing tools stop at the draft. WooriTeam carries it through the next round of growth.",
+    title: "Existing tools stop at drafts. WooriTeam runs the operations.",
     description:
-      "The investment case is not more features — it is filling the execution gap chat tools leave behind, with a team.",
+      "The investment case isn't more generation features — it's handing the operations flow owners used to carry alone to a team.",
     chart: [
-      {
-        subject: "Weekly proposals",
-        wooriteam: 90,
-        aiTool: 35,
-        designTool: 15,
-      },
-      {
-        subject: "Approval and decisions",
-        wooriteam: 85,
-        aiTool: 85,
-        designTool: 70,
-      },
-      {
-        subject: "Follow-through",
-        wooriteam: 90,
-        aiTool: 25,
-        designTool: 15,
-      },
-      {
-        subject: "Fit for early teams",
-        wooriteam: 90,
-        aiTool: 55,
-        designTool: 40,
-      },
-      {
-        subject: "Feeding the next week",
-        wooriteam: 88,
-        aiTool: 25,
-        designTool: 10,
-      },
+      { subject: "Proposes work first", wooriteam: 90, aiTool: 35, designTool: 15 },
+      { subject: "Approval and decisions", wooriteam: 85, aiTool: 85, designTool: 70 },
+      { subject: "Execution and records", wooriteam: 90, aiTool: 25, designTool: 15 },
+      { subject: "Ease for owners", wooriteam: 90, aiTool: 45, designTool: 40 },
+      { subject: "History-based improvement", wooriteam: 88, aiTool: 25, designTool: 10 },
     ],
     chartLegend: {
       wooriteam: "WooriTeam",
@@ -259,51 +188,27 @@ export const ir: IrContent = {
       designTool: "Design template tool",
     },
     chartNote:
-      "Qualitative scores, meant for relative comparison across capability areas. What matters is not generation itself but how much of the operating gap after generation is closed.",
+      "Qualitative scores to help compare by capability. The point is less the generation itself than how much of the post-generation operations gap is closed.",
     points: [
-      {
-        title: "Closes the gap after the proposal",
-        body: "You no longer take delivery of the output and then work out the priorities on your own.",
-      },
-      {
-        title: "Approve, execute, repeat",
-        body: "It does not stop at the proposal; it carries through approval, execution, and the next round of growth.",
-      },
-      {
-        title: "A team anyone can understand",
-        body: "A first teammate, rather than a chain of tools, lowers the barrier to getting started.",
-      },
+      { title: "No prompts needed", body: "Owners don't have to figure out what to ask — WooriTeam prepares the work first." },
+      { title: "Approve, execute, record", body: "It doesn't stop at a draft; it carries through to approval, execution and results." },
+      { title: "A team, no AI skills required", body: "The 'AI operations team' concept lowers the barrier compared with a complex tool chain." },
     ],
   },
   economics: {
-    title: "Trading execution hours for a growth loop",
+    title: "A subscription that starts small and grows with you",
     description:
-      "The largest cost is not inference spend — it is the founder's own decision and execution time. WooriTeam is built to move those hours into a propose, approve, execute, repeat flow.",
+      "Try it lightly, hand over daily work, bring in experts when needed. We acquire customers through merchant associations → hands-on AI sessions → individual work assessments → use and validation.",
     metrics: [
-      {
-        label: "Target: time saved",
-        value: "Scenario",
-        note: "An internal target scenario for cutting weekly planning and draft cycles (not a proven result)",
-        tone: "goal",
-      },
-      {
-        label: "Operating motion",
-        value: "Repeat",
-        note: "An operating structure built around propose, approve, execute, repeat",
-        tone: "planned",
-      },
-      {
-        label: "First role",
-        value: "Grow together",
-        note: "Starting with growing together, then adding roles once it is proven",
-        tone: "planned",
-      },
+      { label: "Starter", value: "₩29,000/mo", note: "Dashboard and alerts, promotion support 1x a week", tone: "planned" },
+      { label: "Core", value: "₩299,000/mo", note: "Daily marketing and sales prep, approval and follow-up", tone: "planned" },
+      { label: "Expansion", value: "By quote", note: "Expert matching · planned", tone: "under_review" },
     ],
   },
   vision: {
-    title: "An 18-month operating scenario",
+    title: "18-month operating scenario",
     description:
-      "An internal target scenario that assumes validation with early Korean teams, then expansion into further roles.",
+      "An internal target scenario assuming expansion from Goyang validation to small businesses nationwide.",
     trajectory: [
       { month: "M1", subscribers: 50, mrr: 2.5 },
       { month: "M3", subscribers: 200, mrr: 10 },
@@ -313,20 +218,10 @@ export const ir: IrContent = {
       { month: "M15", subscribers: 2500, mrr: 125 },
       { month: "M18", subscribers: 3000, mrr: 150 },
     ],
-    // 범례·툴팁의 계열 이름. 한국어 `"유료 구독자 수"` 의 `수` 는 계열
-    // 이름을 명사로 닫는 말이라 영어에는 대응어가 없다 — 복수형이 그 일을
-    // 한다.
     chartLegend: {
       subscribers: "Paid subscribers",
       mrr: "MRR",
     },
-    /**
-     * 차트가 로드되기 전 대체 목록은 `label + 값 + unit` 으로 한 줄을
-     * 만든다. 한국어는 `"유료 구독자 " + 1,000 + "명"` 처럼 단위가 뒤에
-     * 붙지만 영어는 붙일 단위어가 없다 — `subscriberUnit` 이 빈 문자열인
-     * 것은 누락이 아니라 "Paid subscribers 1,000" 이 완성된 줄이기
-     * 때문이다. MRR 은 원화를 유지해 `"MRR " + 2.5 + "M KRW"` 가 된다.
-     */
     trajectoryFallback: {
       subscriberLabel: "Paid subscribers ",
       subscriberUnit: "",
@@ -336,49 +231,49 @@ export const ir: IrContent = {
     roadmap: [
       {
         phase: "Phase 1",
-        title: "Proving growing together",
-        body: "Validating the propose → approve → execute → repeat loop with early teams of 1–10",
-        statusLabel: "Planned",
+        title: "Interviews and field validation",
+        body: "Meet owners through the Goyang Flower Association and merchant groups, and validate promotion work with real products",
+        statusLabel: "In progress",
         tone: "planned",
       },
       {
         phase: "Phase 2",
-        title: "A sharper growth loop",
-        body: "Tuning the core loop so founders can settle the week quickly",
+        title: "Paid conversion",
+        body: "Win paying customers on Starter and Core, tracking task completion and repeat hand-off as key metrics",
         statusLabel: "Planned",
         tone: "planned",
       },
       {
         phase: "Phase 3",
-        title: "More roles, investment under review",
-        body: "Weighing CEO and CFO roles alongside private investment and partnerships",
+        title: "Advanced AI marketing ops",
+        body: "Expand into local analysis, AEO/GEO, multi-channel ops, ad spend comparison and unified results, and explore investment and partnerships",
         statusLabel: "Under review",
         tone: "under_review",
       },
     ],
     statuses: [
       {
-        label: "Modu-ui Changeop",
-        value: "Applying",
-        note: "Korean national startup program, application in progress",
+        label: "Startup for All, cohort 2",
+        value: "Round 1 finalist",
+        note: "Preparing for the Round 2 evaluation",
         tone: "planned",
       },
       {
         label: "TIPS and LIPS",
-        value: "Aiming to apply",
+        value: "Hoping to apply",
         note: "Planned for a later stage",
         tone: "under_review",
       },
     ],
   },
   cta: {
-    title: "We're open to IR requests and meetings.",
+    title: "We welcome IR material and meeting requests.",
     description:
-      "For investment, partnership, or press enquiries, reach us by email or through the contact page, and we'll come back with what we can share.",
-    primaryLabel: "Request the IR deck",
-    secondaryLabel: "Contact or request a meeting",
-    emailSubject: "[WooriTeam] IR deck request",
+      "For investment, partnership or media inquiries, email us or use the contact page and we'll reply with what we can share.",
+    primaryLabel: "Request IR material",
+    secondaryLabel: "Contact / book a meeting",
+    emailSubject: "[WooriTeam] IR material request",
     disclosure:
-      "The grant programs, timelines, and target metrics on this page are not confirmed disclosures. They are an investor summary, marked as planned, under review, target, or internal estimate.",
+      "Programs, timelines and target metrics on this page are not confirmed disclosures; they are an investor summary labelled as in progress, planned, target or internal estimate.",
   },
 };

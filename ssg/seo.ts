@@ -15,39 +15,39 @@ type SeoConfig = {
 const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
   ko: {
     "/": {
-      title: "WooriTeam – 창업자의 첫 번째 팀 | 우리팀과 같이 성장하기",
+      title: "WooriTeam – 소상공인을 위한 AI 운영팀 | 우리팀",
       description:
-        "전담 마케터 없는 1~10인 초기 창업 대표를 위한 WooriTeam. 제안 → 승인 → 실행 → 반복 성장으로 우리팀과 같이 성장합니다.",
+        "소상공인의 반복적인 홍보·판매 업무를 맡아 주는 AI 운영팀 구독 서비스, 우리팀. 사장님은 중요한 결정만, 나머지는 우리팀이 돕습니다.",
     },
     "/solution": {
       title: "솔루션 | WooriTeam",
       description:
-        "같이 성장하기가 제안 → 승인 → 실행 → 반복 성장으로 일하는 방식과 ChatGPT와의 차이를 확인하세요.",
+        "정보 등록 → 업무 준비 → 사장님 승인 → 실행 관리로 일하는 우리팀 AI 운영팀의 방식과 대화형 AI와의 차이를 확인하세요.",
     },
     "/technology": {
       title: "기술 | WooriTeam",
       description:
-        "제안부터 반복 성장까지 이어지는 WooriTeam의 성장 파이프라인을 소개합니다.",
+        "매장 컨텍스트부터 업무 이력 학습까지 이어지는 우리팀의 AI 운영 구조와 특허 출원 기술을 소개합니다.",
     },
     "/pricing": {
       title: "요금제 | WooriTeam",
       description:
-        "WooriTeam과 같이 성장하기 위한 무료 체험, 프로, 슈퍼 요금제와 자주 묻는 질문을 확인하세요.",
+        "입문형 월 29,000원, 주력형 월 299,000원, 확장형 별도 견적. 우리팀 AI 운영팀 요금제와 자주 묻는 질문을 확인하세요.",
     },
     "/demo": {
       title: "데모 | WooriTeam",
       description:
-        "제안 → 승인 → 실행 → 반복 성장 한 사이클이 어떻게 도는지 데모로 확인하세요.",
+        "업무 준비 → 사장님 승인 → 실행 관리 한 사이클이 어떻게 도는지 데모로 확인하세요.",
     },
     "/apps": {
       title: "앱 | WooriTeam",
       description:
-        "같이 성장하기를 시작으로 CEO Rader, CFO Tool 등 WooriTeam 구성을 확인하세요.",
+        "우리팀 AI 운영팀과 CEO Rader, CFO Tool 등 WooriTeam이 만든 제품을 확인하세요.",
     },
     "/about": {
       title: "회사소개 | WooriTeam",
       description:
-        "초기 창업팀에 첫 번째 팀원을 제공하는 WooriTeam의 미션과 방향을 소개합니다.",
+        "기업용 CRM·ERP 시스템을 연결해 온 두 개발자가 만든 소상공인 AI 운영팀, 우리팀의 미션과 팀을 소개합니다.",
     },
     "/contact": {
       title: "문의하기 | WooriTeam",
@@ -57,7 +57,7 @@ const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
     "/ir": {
       title: "Investor Overview | WooriTeam",
       description:
-        "투자자 공유용 IR 요약. 초기 창업팀의 마케터 공백과 WooriTeam의 성장 루프, 목표 시나리오를 확인하세요.",
+        "투자자 공유용 IR 요약. 소상공인의 운영 공백, 우리팀 AI 운영팀의 업무 흐름과 구독 모델, 고양시 고객 검증 계획을 확인하세요.",
     },
     "/privacy": {
       title: "개인정보처리방침 | WooriTeam",
@@ -77,29 +77,29 @@ const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
   },
   en: {
     "/": {
-      title: "WooriTeam – A founder's first team",
+      title: "WooriTeam – An AI operations team for small businesses",
       description:
-        "For founders running growth without a marketer. WooriTeam proposes the week, gets your approval, executes, and folds results into the next cycle.",
+        "A subscription AI operations team that takes on the repetitive promotion and sales work of small business owners. You make the key decisions; WooriTeam handles the rest.",
     },
     "/solution": {
       title: "Solution | WooriTeam",
       description:
-        "How WooriTeam works through propose, approve, execute and repeat — and how that differs from a chat AI tool.",
+        "How WooriTeam works — store info, task prep, owner approval, execution — and how that differs from a chat AI tool.",
     },
     "/technology": {
       title: "Technology | WooriTeam",
       description:
-        "The growth pipeline behind WooriTeam, from weekly proposals through execution and feedback.",
+        "The AI operations structure behind WooriTeam, from store context to learning from task history, and our patent-pending technology.",
     },
     "/pricing": {
       title: "Pricing | WooriTeam",
       description:
-        "Free trial, Pro and Super plans for growing with WooriTeam, with answers to common questions.",
+        "Starter ₩29,000/mo, Core ₩299,000/mo, Expansion by quote. WooriTeam plans and common questions.",
     },
     "/about": {
       title: "About | WooriTeam",
       description:
-        "WooriTeam gives early-stage teams their first teammate for growth. Our mission and direction.",
+        "WooriTeam is built by two engineers who spent years connecting enterprise CRM and ERP systems. Our mission and team.",
     },
     "/contact": {
       title: "Contact | WooriTeam",
@@ -109,7 +109,7 @@ const SEO_BY_LOCALE: Record<Locale, Record<string, SeoConfig>> = {
     "/ir": {
       title: "Investor Overview | WooriTeam",
       description:
-        "Investor summary: the marketer gap in early-stage teams, WooriTeam's growth loop, and target scenarios.",
+        "Investor summary: the operations gap small business owners face, WooriTeam's workflow and subscription model, and our local validation plan.",
     },
   },
 };
@@ -118,18 +118,18 @@ const KEYWORDS_BY_LOCALE: Record<Locale, string[]> = {
   ko: [
     "WooriTeam",
     "우리팀",
-    "같이 성장하기",
-    "창업자의 첫 번째 팀",
-    "초기 창업 마케팅",
-    "스타트업 마케팅",
-    "1인 창업",
+    "AI 운영팀",
+    "소상공인 마케팅",
+    "소상공인 AI",
+    "가게 홍보 자동화",
+    "화훼 마케팅",
   ],
   en: [
     "WooriTeam",
-    "founder's first team",
-    "startup marketing",
-    "early stage growth",
-    "AI marketing teammate",
+    "AI operations team",
+    "small business marketing",
+    "small business AI",
+    "local store promotion",
   ],
 };
 
@@ -150,8 +150,8 @@ const OG_IMAGE: Record<Locale, string> = {
 
 /** 카드가 못 뜨는 환경에서 대신 읽히는 글. 각 카드에 실제로 적힌 문구다. */
 const OG_IMAGE_ALT: Record<Locale, string> = {
-  ko: "우리팀 WOORITEAM — 창업자의 첫 번째 팀",
-  en: "WooriTeam — A founder's first team",
+  ko: "우리팀 WOORITEAM — 사장님은 중요한 결정만, 나머지는 우리팀이.",
+  en: "WooriTeam — You make the key calls. WooriTeam does the rest.",
 };
 
 type ResolvedSeo = SeoConfig & {
@@ -270,9 +270,9 @@ function buildStructuredData(pathname: string, seo: SeoConfig, locale: Locale) {
             operatingSystem: "Web",
             offers: {
               "@type": "Offer",
-              price: "0",
+              price: "29000",
               priceCurrency: "KRW",
-              description: "우리팀과 같이 성장하기",
+              description: "입문형 · 월 구독",
             },
           }
         : {}),
@@ -350,8 +350,8 @@ export function renderSeoTags(pathname: string) {
      *
      * 절대 URL 이어야 한다. 크롤러는 상대 경로를 해석해 주지 않는다.
      *
-     * 로케일별로 카드가 다르다 — 한국어 카드는 "창업자의 첫 번째 팀", 영문은
-     * "A founder's first team". 영문 링크에 한글 카드가 붙으면 안 된다.
+     * 로케일별로 카드가 다르다 — 한국어 카드는 "사장님은 중요한 결정만…", 영문은
+     * "You make the key calls…". 영문 링크에 한글 카드가 붙으면 안 된다.
      *
      * 원본 HTML 은 `assets/og/` 에 있다. 문구가 바뀌면 그 파일을 고쳐 다시
      * 렌더한다(README 의 "공유 카드" 절 참고) — PNG 를 직접 손보지 않는다.
